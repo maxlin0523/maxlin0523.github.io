@@ -215,28 +215,30 @@
                 post-container">
 
                 <h1><span id="介紹">介紹</span></h1>
-<p>一般分為 <code>Controller</code>、<code>Service</code>、<code>Repository</code> 三層（Layer）。各層之間依賴介面，符合 SOLID－DIP，只需要針對各層介面提供的方法去使用並達到 <code>相依性注入</code>，而每層間參數物件傳遞也需要進行隔離，如此一來就能達到 <code>關注點分離</code>，大家一起分工各層時也不會互相影響。</p>
+<p>一般分為 <code>Controller</code>、<code>Service</code>、<code>Repository</code> 三層。各層之間依賴介面，符合 SOLID－DIP，只需要針對各層介面提供的方法去使用並達到 <code>相依性注入</code>，而每層間參數物件傳遞也需進行隔離，如此一來也達到 <code>關注點分離</code>，大家一起分工各層時也不會互相影響。</p>
 <h1><span id="定義">定義</span></h1>
 <ul>
-<li><strong>Controller（展示層）</strong></li>
+<li>
+<p><strong>Controller（展示層）</strong><br>
+：主要負責處理來自於用戶端的 <code>請求與回應 I/O</code>。接收 http 請求後呼叫 <code>商業邏輯層</code> 進行後續處理，之後回應結果到用戶端。</p>
+</li>
+<li>
+<p><strong>Service（商業邏輯層）</strong><br>
+：主要負責處理 <code>商業邏輯</code> 運算。商業邏輯處理完後呼叫 <code>資料存取層</code> 進行後續處理，再回應結果到展示層。</p>
+</li>
+<li>
+<p><strong>Repository（資料存取層）</strong><br>
+：主要負責資料存取。專門處理 <code>資料存取</code> 的邏輯，例如：使用 Dapper 的 Sql 語法拼裝、取得資料庫連線、串接 API 服務．．．等，存取後再回應結果到 <code>商業邏輯層</code>。</p>
+</li>
+<li>
+<p><strong>Common（共用層）</strong><br>
+：各層都會參考。將各層都共用的物件或是擴充方法都存放於此。</p>
+</li>
 </ul>
-<p>主要負責處理來自於用戶端的 <code>請求 I/O</code>。接收 http 請求後並呼叫商業邏輯層進行後續處理，之後回應結果到用戶端。</p>
-<ul>
-<li><strong>Service（商業邏輯層）</strong></li>
-</ul>
-<p>主要負責處理 <code>商業邏輯</code> 運算。商業邏輯處理完後呼叫資料存取層進行後續處理，再回應結果到展示層。</p>
-<ul>
-<li><strong>Repository（資料存取層）</strong></li>
-</ul>
-<p>主要負責資料存取。專門處理 <code>資料存取</code> 的邏輯，例如：使用 Dapper 時的SQL語法拼裝、取得資料庫連線、串接 API 服務．．．等，存取後再回應結果到商業邏輯層。</p>
-<ul>
-<li><strong>Common（共用層）</strong></li>
-</ul>
-<p>各層都會參考。將各層都需要用到的物件方法存放於此。</p>
 <h1><span id="專案架構圖">專案架構圖</span></h1>
 <p><img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F80c04083-a5be-4f2f-877e-56b616066946%2FUntitled.png?table=block&amp;id=caaa0ab9-e2aa-4ebf-9b50-749f0a40e2a1&amp;spaceId=59d38cce-92ff-4673-85e7-4a3082371d03&amp;width=4270&amp;userId=6c123588-4407-4a28-9aae-2bb53ad5b808&amp;cache=v2" alt></p>
 <h1><span id="dto-enity-補充">Dto、Enity 補充</span></h1>
-<p>你可能還會疑惑 Dto、Enity 的部分，其實就是我對每層間參數物件的命名，若想叫 Apple、Banana 也可以，重要是它在分層架構的職責是什麼？職責是為了達到各層之間 <code>參數物件隔離</code> 的動作，例如：我刪除了 Dto 的一個屬性，之後轉換到 Enity 也不會影響到屬性數量，因為兩者已經做了隔離的動作，若這邊不進行隔離，參數一條龍傳下去時，我可能在上層參數刪除一個屬性，那麼就會一路影響到 <code>Repository</code> 之後串接到資料庫，若資料表欄位沒同步處理就會造成例外產生；若你的同事正在修改 <code>Repository</code> ，你改了 <code>Controller</code> 的參數屬性，若沒進行參數隔離，那麼你的同事就會被影響。</p>
+<p>你可能會疑惑 Dto、Enity 的部分，其實就是我對每層間參數物件的命名，若想叫 Apple、Banana 也可以，重要是它在分層架構的職責是什麼？職責是為了達到各層之間 <code>參數物件隔離</code> 的動作，例如：我刪除了 Dto 的一個屬性，之後轉換到 Enity 也不會影響到屬性數量，因為兩者已經做了隔離的動作，若這邊不進行隔離，參數一條龍傳下去時，我可能在上層參數刪除一個屬性，那麼就會一路影響到 <code>Repository</code> 之後串接到資料庫，若資料表欄位沒同步處理就會造成例外產生；若你的同事正在修改 <code>Repository</code> ，你改了 <code>Controller</code> 的參數屬性，若沒進行參數隔離，那麼你的同事就會被影響。</p>
 <p>總之，請想像每層都是獨立的空間，當任一層有改動時，都不會影響到其他任何一層，詳細可以參考後續的實作範例。</p>
 <h1><span id="總結">總結</span></h1>
 <p>以前做完此架構專案時，會疑惑為何要分如此多層，直到複雜度慢慢變多時才漸漸理解好處，寫起來會特別有安全感。<br>
