@@ -219,20 +219,16 @@
 <h1><span id="定義">定義</span></h1>
 <ul>
 <li>
-<p><strong>Controller（展示層）</strong><br>
-：主要負責處理來自於用戶端的 <code>請求與回應 I/O</code>。接收 http 請求後呼叫 <code>商業邏輯層</code> 進行後續處理，之後回應結果到用戶端。</p>
+<p><strong>Controller（展示層）</strong>：主要負責處理來自於用戶端的 <code>請求與回應 I/O</code>。接收 http 請求後呼叫 <code>商業邏輯層</code> 進行後續處理，之後回應結果到用戶端。</p>
 </li>
 <li>
-<p><strong>Service（商業邏輯層）</strong><br>
-：主要負責處理 <code>商業邏輯</code> 運算。商業邏輯處理完後呼叫 <code>資料存取層</code> 進行後續處理，再回應結果到展示層。</p>
+<p><strong>Service（商業邏輯層）</strong>：主要負責處理 <code>商業邏輯</code> 運算。商業邏輯處理完後呼叫 <code>資料存取層</code> 進行後續處理，再回應結果到展示層。</p>
 </li>
 <li>
-<p><strong>Repository（資料存取層）</strong><br>
-：主要負責資料存取。專門處理 <code>資料存取</code> 的邏輯，例如：使用 Dapper 的 Sql 語法拼裝、取得資料庫連線、串接 API 服務．．．等，存取後再回應結果到 <code>商業邏輯層</code>。</p>
+<p><strong>Repository（資料存取層）</strong>：主要負責資料存取。專門處理 <code>資料存取</code> 的邏輯，例如：使用 Dapper 的 Sql 語法拼裝、取得資料庫連線、串接 API 服務．．．等，存取後再回應結果到 <code>商業邏輯層</code>。</p>
 </li>
 <li>
-<p><strong>Common（共用層）</strong><br>
-：各層都會參考。將各層都共用的物件或是擴充方法都存放於此。</p>
+<p><strong>Common（共用層）</strong>：各層都會參考。將各層都共用的物件或是擴充方法都存放於此。</p>
 </li>
 </ul>
 <h1><span id="專案架構圖">專案架構圖</span></h1>
