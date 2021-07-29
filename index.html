@@ -20,6 +20,9 @@
 
     <link rel="canonical" href="https://maxlin0523.github.io/">
 
+    <!-- 不蒜子 觀看人次計數 -->
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
@@ -93,8 +96,6 @@
                         <span class="subheading">邁向全端的後端工程師</span>
                     </div>
                 
-
-
                 </div>
             </div>
         </div>
@@ -256,12 +257,13 @@
             
         </h3>
         <div class="post-content-preview">
-            介紹
+            
+介紹
 一般分為 Controller、Service、Repository 三層。各層之間依賴介面，符合 SOLID－DIP，只需要針對各層介面提供的方法去使用並達到 相依性注入，而每層間參數物件傳遞也需進行隔離，如此一來也達到 關注點分離，大家一起分工各層時也不會互相影響。
 定義
 
 
-Controller（展示層）：主要負責處理來自於用戶端的 請求與回應 I/O。接收 http 請求後呼叫......
+Controller（展示層）：主要負責處理來自於用戶端的 請求與回應 I/O。接收 http 請求後呼......
         </div>
     </a>
     
@@ -450,6 +452,10 @@ Controller（展示層）：主要負責處理來自於用戶端的 請求與回
                         frameborder="0" scrolling="0" width="91px" height="20px"
                         src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true" >
                     </iframe>
+                    <br>
+                    <span id="busuanzi_container_site_pv">
+                        <i class="fa fa-eye"></i> : <span id="busuanzi_value_site_pv"></span>
+                    </span>
                 </p>
             </div>
         </div>
