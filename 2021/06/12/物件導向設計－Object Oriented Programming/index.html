@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Blog正式開幕 - Max&#39;s Blog | 邁向全端之路
+          物件導向設計－Object Oriented Programming - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
-    <link rel="canonical" href="https://maxlin0523.github.io/2021/07/25/Blog正式開幕/">
+    <link rel="canonical" href="https://maxlin0523.github.io/2021/06/12/物件導向設計－Object Oriented Programming/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -93,14 +93,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#散亂札記" title="散亂札記">散亂札記</a>
+                              <a class="tag" href="/tags/#C#本事" title="C#本事">C#本事</a>
                             
                         </div>
-                        <h1>Blog正式開幕</h1>
+                        <h1>物件導向設計－Object Oriented Programming</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
-                            2021-07-25（
+                            2021-06-12（
                             <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views）
                         </span>
                     </div>
@@ -216,16 +216,54 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>經過幾番波折終於開幕了～</p>
-<p>原本在 Medium 發展了一小段時間（<a href="https://max-lin.medium.com/" target="_blank" rel="noopener">底加</a>），至於為什麼會轉來這邊呢，原因是當初寫了也快 10 篇文，想說是時候要來整理文章分類功能了，結果發現竟然是需要花錢才能解鎖阿！<br>
-讓我一怒之下<br>
-．</p>
-<p>．</p>
-<p>．</p>
-<p>也沒辦法幹嘛，只好自己架囉，好處就是部落格功能可以隨喜好自製，壞處當然就是麻煩要寫 code，但也是個好機會能讓我接觸到前端。</p>
-<p>而架設過程從框架 Hexo 與 Hugo 抉擇到各式網站主題，讓我這個有選擇障礙的人吃足了苦頭，整整花了有一整天的時間考慮，最終選定了 Hexo 來作為部落格框架，原因是 Hexo 使用族群多數是華人，當然就有比較多中文資料可以參考，需要自製化某些功能就不需要再去國外網站翻來翻去，對我這個前端菜鳥加上破英文實在是非常友善，再說，Hexo 也是咱們台灣人<a href="https://zespia.tw/blog/2012/10/11/hexo-debut/" target="_blank" rel="noopener">開發</a>出來的，當然要支持一下！</p>
-<p>總之</p>
-<p>最後順利架設好了，那寫部落格的動機主要就是記錄學過的知識技術，因為軟體工程的水實在太深啦，有時候自己做過的東西太久沒用到就會忘記，又或是自認為已經會的東西要講解給其他人又講不出個所以然，不知道自己到底是真懂還假懂，最簡單暴力的方法，就是直接寫一篇文章，從頭到尾依序有脈絡的描述，藉此在大腦裡重新整理過一遍再表達出來，只要能完整表達出來，就代表是真懂了😂</p>
+                <h1><span id="類別class與物件object">類別(Class)與物件(Object)</span></h1>
+<h3><span id="類別">類別</span></h3>
+<p>類別就像一個抽象空間，你可以把想像到的成員都定義在類別裡面，包含屬性、方法．．．等，可以想像一個「車」的類別，而在想像的空間裡你想怎麼變化都行。</p>
+<p>例如：定義車有 20 個輪子還是車可以有飛的動作，任何的抽象想法都可以藉由類別去定義，由你自行發揮。<br>
+Ex：<br>
+<img src="https://i.imgur.com/1Fy5mvH.png" alt></p>
+<h6><span id="關於類別成員的定義">關於類別成員的定義</span></h6>
+<h6><span id="屬性類別原生的產物-就像人類的四肢跟五官屬於原生的而四肢-五官就是人類的屬性">屬性：類別原生的產物。就像人類的四肢跟五官屬於原生的，而四肢、五官就是人類的屬性。</span></h6>
+<h6><span id="方法類別的行為動作-就像人類有著會跑會跳的行為而跑-跳就是人類的方法">方法：類別的行為動作。就像人類有著會跑會跳的行為，而跑、跳就是人類的方法。</span></h6>
+<h3><span id="物件">物件</span></h3>
+<p>物件就是把抽象變成現實就等於把類別實體化為物件，而物件就是實體存在的東西，有了實體就可以加以運用其內部的成員。</p>
+<p>例如：假設「<strong>金正恩</strong>」的類別裡有個方法叫「<strong>發射核彈</strong>」，那你如果想發射看看核彈就必須先成為真正的金正恩才可以發射，也就是你必須實體化金正恩這個類別，當你實體化之後才能使用這個類別定義的成員。<br>
+Ex：<br>
+<img src="https://i.imgur.com/j8NgJUq.png" alt></p>
+<p><img src="https://i.imgur.com/yIamWx0.png" alt></p>
+<h1><span id="三大特性">三大特性</span></h1>
+<h3><span id="封裝encapsulation">封裝（Encapsulation）</span></h3>
+<p>把一個物件成員裝在一個空間裡面，概念就好比方法，把程式要執行的邏輯裝在一個函式裡面，就代表著使用的人只需要呼叫這個方法取得結果，而不用去了解方法內部寫的邏輯，例如：我們要開燈時只需按下開關，電燈就能亮了，而不用去理解背後線路是如何去設計實現的，也就是把背後線路原理封裝在開關上，而我們只需要去呼叫開關，即可實現開關燈功能，也就是說，只要封裝內的功能符合期待的結果即可，呼叫端只負責用。</p>
+<p>Ex：<br>
+<img src="https://i.imgur.com/vdWeVuE.png" alt></p>
+<p><img src="https://i.imgur.com/LBY634y.png" alt></p>
+<h3><span id="繼承inheritance">繼承（Inheritance）</span></h3>
+<p>像是類別繼承類別，被繼承方俗稱 <code>父類別</code>，繼承方俗稱 <code>子類別</code>，當子類繼承父類時，子類會擁有父類內的所有成員，而子類當然也可以被其他類別繼承，如此延續下去形成一個繼承練，主要是用於擴展與減少重複性程式碼，但盡量不要超過三層，過長的繼承鏈，反而會造成程式碼強耦合且不易維護，意思就是在父類別改了一個邏輯而牽扯到的部份可能很廣（甚至影響孫類、曾孫類．．．等等），要小心服用！</p>
+<p>Ex：<br>
+<img src="https://i.imgur.com/Wfkqiwo.png" alt></p>
+<p><img src="https://i.imgur.com/7mdqC4K.png" alt></p>
+<h3><span id="多型polymorphism">多型（Polymorphism）</span></h3>
+<p>顧名思義可以解釋為同樣的東西可以有多種型態，也就是通過繼承讓子類衍伸出跟父類不同的型態，白話點就是子類繼承父類，父類有的成員子類當然都有，而父類跟子類其實是同樣的東西，而子類又可以自己定義新的成員變化成跟父類不同的型態，也就是多型的概念，還有其他幾種常見的呈現方式：</p>
+<ul>
+<li>當子類繼承父類後，子類可把從父類繼承過來的方法重新定義但方法名稱保持不變，這樣的行為稱為 <code>覆寫－Override</code> 。</li>
+</ul>
+<ul>
+<li>同樣的方法名稱可以藉由不同的參數型別或是參數個數來達到不同的實作，換言之，只要參數的資料型態或數目不同那就可以允許有同個方法名稱的存在，這樣的行為稱為 <code>多載－Overload</code> 。<br>
+總之，一句話了解多型的使用方式 「<code>同一件事因為要面對不同情況所以需要衍生出不同的做法</code>」。</li>
+</ul>
+<p>Ex：</p>
+<h6><span id="覆寫">覆寫</span></h6>
+<p><img src="https://i.imgur.com/BCmlDca.png" alt></p>
+<h6><span id="多載">多載</span></h6>
+<p><img src="https://i.imgur.com/b3Cnp9T.png" alt></p>
+<h1><span id="總結">總結</span></h1>
+<p>由此可見，使用物件導向設計對程式碼有著良好的擴展及靈活性還可以減少程式碼的重用，也對我們在開發上帶來莫大的便利。</p>
+<blockquote>
+<p>安德魯的部落格：「OOP 的核心就是善用封裝、繼承、多型的機制，讓程式碼能夠盡可能的模擬現實世界怎麼處理事情的，讓你的系統運作盡量貼近實際的世界。」</p>
+</blockquote>
+<p>讓我覺得非常貼切，在這邊分享給大家。</p>
+<h1><span id="心得">心得</span></h1>
+<p>隨著寫程式也寫了一年多，覺得 OOP 就是個理所當然的東西，雖然時刻都在接觸，但被問到物件導向是什麼？卻也講不出個所以然，藉此文整理知識順便讓自己更加了解什麼是 OOP！</p>
 
                 
 
@@ -234,12 +272,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2021/06/12/物件導向設計－Object Oriented Programming/" data-toggle="tooltip" data-placement="top" title="物件導向設計－Object Oriented Programming">&larr; 上篇 </a>
+                            <a href="/2021/05/30/相依性注入－DI-IoC範例/" data-toggle="tooltip" data-placement="top" title="相依性注入－DI/IoC範例">&larr; 上篇 </a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2021/07/30/Hexo加入網站、文章訪問數統計/" data-toggle="tooltip" data-placement="top" title="Hexo加入網站、文章訪問數統計"> 下篇 &rarr;</a>
+                            <a href="/2021/07/25/Blog正式開幕/" data-toggle="tooltip" data-placement="top" title="Blog正式開幕"> 下篇 &rarr;</a>
                         </li>
                     
                 </ul>
@@ -265,7 +303,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="nav">none</ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">類別(Class)與物件(Object)</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.1.</span> <span class="toc-nav-text">類別</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.1.0.0.1.</span> <span class="toc-nav-text">關於類別成員的定義</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.1.0.0.2.</span> <span class="toc-nav-text">屬性：類別原生的產物。就像人類的四肢跟五官屬於原生的，而四肢、五官就是人類的屬性。</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.1.0.0.3.</span> <span class="toc-nav-text">方法：類別的行為動作。就像人類有著會跑會跳的行為，而跑、跳就是人類的方法。</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.2.</span> <span class="toc-nav-text">物件</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">三大特性</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.1.</span> <span class="toc-nav-text">封裝（Encapsulation）</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.2.</span> <span class="toc-nav-text">繼承（Inheritance）</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.3.</span> <span class="toc-nav-text">多型（Polymorphism）</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.3.0.0.1.</span> <span class="toc-nav-text">覆寫</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.3.0.0.2.</span> <span class="toc-nav-text">多載</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">總結</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">心得</span></a></li></ol>
         
         </div>
       </aside>
@@ -286,7 +324,7 @@
                     <h5><a href="/tags/">分類標籤</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#散亂札記" title="散亂札記">散亂札記</a>
+                          <a class="tag" href="/tags/#C#本事" title="C#本事">C#本事</a>
                         
                     </div>
                 </section>

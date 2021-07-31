@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Max&#39;s Blog | 邁向全端之路
+          相依性注入－DI/IoC範例 - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
-    <link rel="canonical" href="https://maxlin0523.github.io/tags/Hexo/">
+    <link rel="canonical" href="https://maxlin0523.github.io/2021/05/30/相依性注入－DI-IoC範例/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -72,8 +72,8 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('/undefined')
-            /*page*/
+            background-image: url('/img/Architecture.jpeg')
+            /*post*/
         
     }
     
@@ -90,10 +90,19 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 
-                    <div class="site-heading">
-                        <h1>Max&#39;s Blog</h1>
-                        <!--<hr class="small">-->
-                        <span class="subheading">邁向全端的後端工程師</span>
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#C#本事" title="C#本事">C#本事</a>
+                            
+                        </div>
+                        <h1>相依性注入－DI/IoC範例</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Max Lin on
+                            2021-05-30（
+                            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views）
+                        </span>
                     </div>
                 
                 </div>
@@ -194,269 +203,194 @@
 
 
     <!-- Main Content -->
-    <!-- Main Content -->
-<div class="container">
-    <div class="row">
-        
+    <!-- Modify by Yu-Hsuan Yen -->
 
-<!-- USE SIDEBAR -->
-    <!-- Post Container -->
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
             <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-            
-                
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <!-- 归档列表 -->
-            
-            
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
 
-             <!-- 归档列表 -->
+                <h1><span id="前言">前言</span></h1>
+<p>接續上篇（相依性注入－DI/IoC），這篇介紹實作的部分，關於 DI/IoC 再稍微帶過：也就是把兩個物件有相互依賴部分的控制權轉移到容器（稱為 IoC 容器），這樣的轉移行為叫做 <code>Inversion of Controll</code> ，之後在 IoC 容器裡註冊要執行依賴部分的邏輯供兩個物件來使用，這樣的註冊行為叫做 <code>Dependency Injection</code> ，日後若這兩個物件需要用到註冊的依賴物件時，則由 IoC 容器 <code>主動</code> 提供使用。</p>
+<h1><span id="實作使用-console-application">實作(使用 Console Application)</span></h1>
+<p>若現在要對世界各地籃球聯賽的戰績儲存在 Excel 裡，範例以 Nba 為例，但世界各地籃球聯賽可能有上百個，就請自行想像情境。</p>
+<p>首先實作一些需要用到的物件：</p>
+<h6><span id="nba類別">Nba類別</span></h6>
+<p><img src="https://i.imgur.com/LxvtvoW.png" alt></p>
+<h6><span id="excel類別">Excel類別</span></h6>
+<p><img src="https://i.imgur.com/uMPFXg5.png" alt></p>
+<h6><span id="在-programcs-測試輸出">在 Program.cs 測試輸出</span></h6>
+<p><img src="https://i.imgur.com/TE8a0ZU.png" alt></p>
+<p>可以看到 Nba 類需要依賴 Excel 類提供的實作，也就是這兩個類別是相互依賴的關係，如果今天需求需要換成儲存在資料庫呢？<br>
+很簡單啊！實作一個資料庫類別在 Nba 類別替換實作就好了！</p>
+<h6><span id="如圖">如圖</span></h6>
+<p><img src="https://i.imgur.com/v9n0hEd.png" alt><br>
+<img src="https://i.imgur.com/9TOr21X.png" alt></p>
+<h6><span id="執行後結果">執行後結果</span></h6>
+<p><img src="https://i.imgur.com/cSs3vwr.png" alt></p>
+<p>理所當然為：NBA is saving in the database.<br>
+但幾勒！但情境是世界各地的籃球聯賽欸！會有上百個類別要改<br>
+不就會改到中風？</p>
+<p>我已經中風了🤬！<br>
+這時就是使用相依性注入的時機！<br>
+不知道各位有沒有發現，Excel 類別和 Database 類別都在做 DoSave 的行為，這時候請把它們萃取出介面，待會依賴注入時會用到。</p>
+<p>如下:</p>
+<h6><span id="萃取介面">萃取介面</span></h6>
+<p><img src="https://i.imgur.com/ZPWTQJi.png" alt></p>
+<h6><span id="繼承">繼承</span></h6>
+<p><img src="https://i.imgur.com/9JLlCk8.png" alt><br>
+<img src="https://i.imgur.com/ieqHDWc.png" alt></p>
+<p>將 Nba 類別的建構式改為外部宣告傳入<br>
+<img src="https://i.imgur.com/JGMrIMH.png" alt></p>
+<p>這時可以來建立 IoC 容器了<br>
+請先載好以下 Nuget 套件：</p>
+<ul>
+<li>Unity</li>
+<li>Unity.Container</li>
+</ul>
+<h6><span id="在-programcs-實作diioc-的動作">在 Program.cs 實作DI/IoC 的動作</span></h6>
+<p><img src="https://i.imgur.com/IZn81ii.png" alt></p>
+<p>Done.</p>
+<h1><span id="總結">總結</span></h1>
+<p>如此一來，ISave 就會由注入所對應的類別取代，日後替換也相當容易，但相依性注入的功能還不只如此，若是只想要幾個籃球聯賽用 Excel 其他都用 Database 呢？那就要用 RegisterTypeFactory。</p>
+<p>想表達的是<br>
+相依性注入的變化以及應用情境非常多，像範例的情境為建構式注入，當然還有方法注入、屬性注入、分層架構的分層隔離也要用到、還有各式擴充套件的注入．．．等，不是幾篇文就能完全理解的，這邊只是<br>
+提供一個入門的小小範例供大家參考。</p>
+<p>範例原始碼： <a href="https://github.com/maxlin0523/DependencyInjectionSample" target="_blank" rel="noopener">https://github.com/maxlin0523/DependencyInjectionSample</a></p>
 
-            
-            <div class="one-tag-list">
-                <span class="fa fa-calendar-times-o listing-seperator" id="2021">
-                    <span class="tag-text">2021</span>
-                </span>
-                <ul>
                 
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <li >
-                    07-30
-                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                    <a href="/2021/07/30/Hexo加入網站、文章訪問數統計/" style="color: #0085a1">
-                        <span>
-                            Hexo加入網站、文章訪問數統計
-                        </span>
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </li>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <li >
-                    07-25
-                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                    <a href="/2021/07/25/Blog正式開幕/" style="color: #0085a1">
-                        <span>
-                            Blog正式開幕
-                        </span>
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </li>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <li >
-                    06-12
-                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                    <a href="/2021/06/12/物件導向設計－Object Oriented Programming/" style="color: #0085a1">
-                        <span>
-                            物件導向設計－Object Oriented Programming
-                        </span>
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </li>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <li >
-                    05-30
-                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                    <a href="/2021/05/30/相依性注入－DI-IoC範例/" style="color: #0085a1">
-                        <span>
-                            相依性注入－DI/IoC範例
-                        </span>
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </li>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <li >
-                    05-22
-                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                    <a href="/2021/05/22/相依性注入－DI-IoC/" style="color: #0085a1">
-                        <span>
-                            相依性注入－DI/IoC
-                        </span>
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </li>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <li >
-                    05-16
-                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                    <a href="/2021/05/16/分層架構－Layered Architecture/" style="color: #0085a1">
-                        <span>
-                            分層架構－Layered Architecture
-                        </span>
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </li>
-                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2021/05/22/相依性注入－DI-IoC/" data-toggle="tooltip" data-placement="top" title="相依性注入－DI/IoC">&larr; 上篇 </a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2021/06/12/物件導向設計－Object Oriented Programming/" data-toggle="tooltip" data-placement="top" title="物件導向設計－Object Oriented Programming"> 下篇 &rarr;</a>
+                        </li>
+                    
                 </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
             </div>
             
+            <!-- Tabe of Content -->
+            <!-- Table of Contents 
 
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">實作(使用 Console Application)</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.1.</span> <span class="toc-nav-text">Nba類別</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.2.</span> <span class="toc-nav-text">Excel類別</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.3.</span> <span class="toc-nav-text">在 Program.cs 測試輸出</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.4.</span> <span class="toc-nav-text">如圖</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.5.</span> <span class="toc-nav-text">執行後結果</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.6.</span> <span class="toc-nav-text">萃取介面</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.7.</span> <span class="toc-nav-text">繼承</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.8.</span> <span class="toc-nav-text">在 Program.cs 實作DI/IoC 的動作</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">總結</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+ -->
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
 
+                
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">分類標籤</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#C#本事" title="C#本事">C#本事</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>好部落</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://blog.johnwu.cc/" target="_blank">John Wu&#39;s Blog</a></li>
+                    
+                        <li><a href="https://columns.chicken-house.net/categories/" target="_blank">安德魯的部落格</a></li>
+                    
+                        <li><a href="https://isdaniel.github.io/" target="_blank">石頭的coding之路</a></li>
+                    
+                        <li><a href="https://www.cnblogs.com/springsnow/" target="_blank">工作在浏览器上人-YangBobin</a></li>
+                    
+                </ul>
+                
+            </div>
         </div>
     </div>
-</div>
+</article>
 
-                <!-- 如果开启评论功能 -->
-                
-            </div>
 
-          <!-- Sidebar Container -->
-<div class="
-    col-lg-3 col-lg-offset-0
-    col-md-3 col-md-offset-0
-    col-sm-12
-    col-xs-12
-    sidebar-container
-">
-    
-        <!-- Featured Tags -->
 
-<section>
-    <!-- no hr -->
-    <h5><a href="/tags/">分類標籤</a></h5>
-    <div class="tags">
-        
-            
-        
-            
-        
-            
-        
-            
-            <a href="/tags/#C#本事" title="C#本事" rel="3">C#本事</a>
-            
-        
-    </div>
-</section>
 
-        <hr>
-    
-        <!-- Short About -->
-<section class="visible-md visible-lg">
-    <h5><a href="/about/">關於我</a></h5>
-    <div class="short-about">
 
-        
-            <img id = "avatar_pic" src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fe989c118-0e35-46d0-8180-3b81e1951d93%2F94E6B1BC-695F-450D-93D8-8880E424A8F4.jpeg?table=block&id=2f192d56-e330-44bc-97b1-0857518471cc&spaceId=59d38cce-92ff-4673-85e7-4a3082371d03&width=4270&userId=6c123588-4407-4a28-9aae-2bb53ad5b808&cache=v2" />
-        
 
-        
-            <p>Hi, I&#39;m Max, also a backend engineer.</p>
-        
 
-        <!-- SNS Link -->
-        <ul class="list-inline">
-            
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
 
-            
-                <li>
-                    <a target="_blank"  href="https://github.com/maxlin0523">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-            
-                      
-            
-                <li>
-                    <a target="_blank"  href="https://max-lin.medium.com/">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-medium fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-            
-        </ul>
-    </div>
-</section>
-        <hr>
-    
-        
-  <h5>近期貼文</h3>
-  <div class="widget">
-    <ul>
-      
-        <li>
-          <a href="/2021/07/30/Hexo加入網站、文章訪問數統計/">Hexo加入網站、文章訪問數統計</a>
-        </li>
-      
-        <li>
-          <a href="/2021/07/25/Blog正式開幕/">Blog正式開幕</a>
-        </li>
-      
-        <li>
-          <a href="/2021/06/12/物件導向設計－Object Oriented Programming/">物件導向設計－Object Oriented Programming</a>
-        </li>
-      
-        <li>
-          <a href="/2021/05/30/相依性注入－DI-IoC範例/">相依性注入－DI/IoC範例</a>
-        </li>
-      
-        <li>
-          <a href="/2021/05/22/相依性注入－DI-IoC/">相依性注入－DI/IoC</a>
-        </li>
-      
-    </ul>
-  </div>
-
-        <hr>
-    
-        <!-- Friends Blog -->
-
-<h5>好部落</h5>
-<ul class="list-inline">
-
-    
-        <li><a href="https://blog.johnwu.cc/" target="_blank">John Wu&#39;s Blog</a></li><br>
-    
-        <li><a href="https://columns.chicken-house.net/categories/" target="_blank">安德魯的部落格</a></li><br>
-    
-        <li><a href="https://isdaniel.github.io/" target="_blank">石頭的coding之路</a></li><br>
-    
-        <li><a href="https://www.cnblogs.com/springsnow/" target="_blank">工作在浏览器上人-YangBobin</a></li><br>
-    
-</ul>
-
-        <hr>
-    
-</div>
-
-        
-    </div>
-</div>
 
 
     <!-- Footer -->
