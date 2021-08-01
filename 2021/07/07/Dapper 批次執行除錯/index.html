@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Blog 正式開幕 - Max&#39;s Blog | 邁向全端之路
+          Dapper 批次執行除錯 - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
-    <link rel="canonical" href="https://maxlin0523.github.io/2021/07/25/Blog正式開幕/">
+    <link rel="canonical" href="https://maxlin0523.github.io/2021/07/07/Dapper 批次執行除錯/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -93,14 +93,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#散亂札記" title="散亂札記">散亂札記</a>
+                              <a class="tag" href="/tags/#日常除錯" title="日常除錯">日常除錯</a>
                             
                         </div>
-                        <h1>Blog 正式開幕</h1>
+                        <h1>Dapper 批次執行除錯</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
-                            2021-07-25（
+                            2021-07-07（
                             <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views）
                         </span>
                     </div>
@@ -216,16 +216,14 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>經過幾番波折終於開幕了～</p>
-<p>原本在 Medium 發展了一小段時間（<a href="https://max-lin.medium.com/" target="_blank" rel="noopener">底加</a>），至於為什麼會轉來這邊呢，原因是當初寫了也快 10 篇文，想說是時候要來整理文章分類功能了，結果發現竟然是需要花錢才能解鎖阿！<br>
-讓我一怒之下<br>
-．</p>
-<p>．</p>
-<p>．</p>
-<p>也沒辦法幹嘛，只好自己架囉，好處就是部落格功能可以隨喜好自製，壞處當然就是麻煩要寫 code，但也是個好機會能讓我接觸到前端。</p>
-<p>而架設過程從框架 Hexo 與 Hugo 抉擇到各式網站主題，讓我這個有選擇障礙的人吃足了苦頭，整整花了有一整天的時間考慮，最終選定了 Hexo 來作為部落格框架，原因是 Hexo 使用族群多數是華人，當然就有比較多中文資料可以參考，需要自製化某些功能就不需要再去國外網站翻來翻去，對我這個前端菜鳥加上破英文實在是非常友善，再說，Hexo 也是咱們台灣人<a href="https://zespia.tw/blog/2012/10/11/hexo-debut/" target="_blank" rel="noopener">開發</a>出來的，當然要支持一下！</p>
-<p>總之</p>
-<p>最後順利架設好了，那寫部落格的動機主要就是記錄學過的知識技術，因為軟體工程的水實在太深啦，有時候自己做過的東西太久沒用到就會忘記，又或是自認為已經會的東西要講解給其他人又講不出個所以然，不知道自己到底是真懂還假懂，最簡單暴力的方法，就是直接寫一篇文章，從頭到尾依序有脈絡的描述，藉此在大腦裡重新整理過一遍再表達出來，只要能完整表達出來，就代表是真懂了😂</p>
+                <h1><span id="問題描述">問題描述</span></h1>
+<p>來源是份爬蟲的 Json 物件，而此資料會 post 到 API 服務最終存入 DB，資料型態為 List 且物件屬性有 30 幾個，今天在測試時， post 有 800 多筆，但 API 回傳的儲存筆數卻總是 0 。</p>
+<p>經過一段時間勘查，問題出在使用 Dapper 新增整包 List 進 DB 的過程出現例外，但 Exception Filter 似乎沒把 <code>Sql Exception</code> 包進去，所以回傳了預設值。</p>
+<p>於是乎！我在 Insert 方法包了一層 <code>Try Catch</code> 後，確實有抓到「字串或二進位資料會被截斷」的 <code>Sql Exception</code> 訊息，那既然已經知道例外是長度超出限制而產生，問題又來了，哪一筆的哪一個欄位發生的？總不可能 800 多筆每筆 30 幾個欄位逐一去對照吧！又或是把 Table 欄位長度限制都開到 <code>MAX</code> 後當作沒發生。</p>
+<h1><span id="處理方式">處理方式</span></h1>
+<p>可以把範圍限縮在找出有問題的那筆，於是我把 Dapper 執行的 Sql Command 字串改為前後包上 Try Catch 且成功新增回傳 <code>success</code> ，例外則回傳 <code>ErrorMessage</code>。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">	<span class="keyword">BEGIN</span> TRY</span><br><span class="line">		<span class="comment">/* ***********************************************************************</span></span><br><span class="line"><span class="comment">		**               原本的Sql Command                                      **</span></span><br><span class="line"><span class="comment">		*************************************************************************/</span></span><br><span class="line">		<span class="keyword">SELECT</span> <span class="string">'success'</span></span><br><span class="line">	<span class="keyword">END</span> TRY</span><br><span class="line">	<span class="keyword">BEGIN</span> CATCH</span><br><span class="line">		<span class="keyword">SELECT</span> ERROR_MESSAGE()</span><br><span class="line">	<span class="keyword">END</span> CATCH</span><br><span class="line"><span class="keyword">END</span></span><br></pre></td></tr></table></figure>
+<p>再把原本的 Insert 方法內改寫成 <code>foreach</code> 逐筆執行並回傳 <code>string</code>，這樣一來，List 內每筆的執行狀況都能清楚知道是否成功，接下來新增一個爬蟲物件的 List，把不是回傳 <code>success</code> 字串的物件加入並設中斷點查看，即可找出有問題的資料，接續找到長度超出範圍的欄位。</p>
 
                 
 
@@ -234,12 +232,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2021/07/11/裝飾者模式－Decorator Pattern/" data-toggle="tooltip" data-placement="top" title="裝飾者模式－Decorator Pattern">&larr; 上篇 </a>
+                            <a href="/2021/07/03/組合模式－Composite Pattern/" data-toggle="tooltip" data-placement="top" title="組合模式－Composite Pattern">&larr; 上篇 </a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2021/07/30/Hexo加入網站、文章訪問數統計/" data-toggle="tooltip" data-placement="top" title="Hexo 加入網站、文章訪問數統計"> 下篇 &rarr;</a>
+                            <a href="/2021/07/11/裝飾者模式－Decorator Pattern/" data-toggle="tooltip" data-placement="top" title="裝飾者模式－Decorator Pattern"> 下篇 &rarr;</a>
                         </li>
                     
                 </ul>
@@ -265,7 +263,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="nav">none</ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">問題描述</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">處理方式</span></a></li></ol>
         
         </div>
       </aside>
@@ -286,7 +284,7 @@
                     <h5><a href="/tags/">標籤雲</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#散亂札記" title="散亂札記">散亂札記</a>
+                          <a class="tag" href="/tags/#日常除錯" title="日常除錯">日常除錯</a>
                         
                     </div>
                 </section>

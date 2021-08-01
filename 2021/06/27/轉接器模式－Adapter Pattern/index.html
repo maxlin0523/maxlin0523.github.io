@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Blog 正式開幕 - Max&#39;s Blog | 邁向全端之路
+          轉接器模式－Adapter Pattern - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
-    <link rel="canonical" href="https://maxlin0523.github.io/2021/07/25/Blog正式開幕/">
+    <link rel="canonical" href="https://maxlin0523.github.io/2021/06/27/轉接器模式－Adapter Pattern/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -93,14 +93,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#散亂札記" title="散亂札記">散亂札記</a>
+                              <a class="tag" href="/tags/#設計模式" title="設計模式">設計模式</a>
                             
                         </div>
-                        <h1>Blog 正式開幕</h1>
+                        <h1>轉接器模式－Adapter Pattern</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
-                            2021-07-25（
+                            2021-06-27（
                             <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views）
                         </span>
                     </div>
@@ -216,16 +216,78 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>經過幾番波折終於開幕了～</p>
-<p>原本在 Medium 發展了一小段時間（<a href="https://max-lin.medium.com/" target="_blank" rel="noopener">底加</a>），至於為什麼會轉來這邊呢，原因是當初寫了也快 10 篇文，想說是時候要來整理文章分類功能了，結果發現竟然是需要花錢才能解鎖阿！<br>
-讓我一怒之下<br>
-．</p>
-<p>．</p>
-<p>．</p>
-<p>也沒辦法幹嘛，只好自己架囉，好處就是部落格功能可以隨喜好自製，壞處當然就是麻煩要寫 code，但也是個好機會能讓我接觸到前端。</p>
-<p>而架設過程從框架 Hexo 與 Hugo 抉擇到各式網站主題，讓我這個有選擇障礙的人吃足了苦頭，整整花了有一整天的時間考慮，最終選定了 Hexo 來作為部落格框架，原因是 Hexo 使用族群多數是華人，當然就有比較多中文資料可以參考，需要自製化某些功能就不需要再去國外網站翻來翻去，對我這個前端菜鳥加上破英文實在是非常友善，再說，Hexo 也是咱們台灣人<a href="https://zespia.tw/blog/2012/10/11/hexo-debut/" target="_blank" rel="noopener">開發</a>出來的，當然要支持一下！</p>
-<p>總之</p>
-<p>最後順利架設好了，那寫部落格的動機主要就是記錄學過的知識技術，因為軟體工程的水實在太深啦，有時候自己做過的東西太久沒用到就會忘記，又或是自認為已經會的東西要講解給其他人又講不出個所以然，不知道自己到底是真懂還假懂，最簡單暴力的方法，就是直接寫一篇文章，從頭到尾依序有脈絡的描述，藉此在大腦裡重新整理過一遍再表達出來，只要能完整表達出來，就代表是真懂了😂</p>
+                <h1><span id="介紹">介紹</span></h1>
+<p>中譯為轉接器模式，是一種結構型的設計模式( Design Pattern )，而實際上就是一個轉接器概念，將兩個彼此不相容的類別藉由一個轉接器類別轉換使彼此達到相容，進而一起完成任務。</p>
+<h1><span id="現實情境">現實情境</span></h1>
+<p>假設你有一台 PC 主機用了 <code>DVI</code> 連接螢幕，但某天螢幕壞了無法運作，幸運的是朋友最近要換螢幕所以決定把舊螢幕送你，不幸的是那個螢幕是 <code>HDMI</code> 接口，而你的主機也只能相容 <code>DVI</code> 接口<br>
+單兵如何處置？<br>
+.<br>
+.<br>
+.<br>
+可能會有以下幾種解決方式：</p>
+<ol>
+<li>將主機元件替換成 <code>HDMI</code> 接口的設備</li>
+<li>換一個相容 <code>DVI</code> 的新螢幕</li>
+<li>使用 <code>HDMI to DVI</code> 的轉接器</li>
+</ol>
+<p>該如何選擇？</p>
+<h1><span id="把現實情境套用到軟體設計">把現實情境套用到軟體設計</span></h1>
+<p>其實主機跟螢幕就是兩個不相容的類別，有發現什麼嗎？</p>
+<p>方法 1：需改動到現有主機類別內部的設計<br>
+方法 2：打掉重練，等於重新設計了一個符合 <code>DVI</code> 接口的螢幕類別<br>
+上述方法很明顯都違反了 <code>SOLID－OCP</code>！</p>
+<p><code>OCP</code> 定義：對擴充開放對修改封閉，意思是我們應該在不修改既有程式的情況下去擴充新的功能。<br>
+看起來就只剩方法 3 了。<br>
+沒錯！它就是今天的主角 <strong>轉接器模式( Adapter Pattern )</strong></p>
+<h1><span id="把軟體設計情境套用到實作">把軟體設計情境套用到實作</span></h1>
+<p>首先，開啟 <code>Console Application</code> 專案<br>
+建立主機類別 <code>MyHost</code> 以及螢幕類別 <code>MyScreen</code></p>
+<h6><span id="myhost只相容-dvi-接口並帶入建構式參數設有open方法">MyHost：只相容 DVI 接口並帶入建構式參數，設有Open方法</span></h6>
+<p><img src="https://i.imgur.com/ONY7iqB.png" alt></p>
+<h6><span id="myscreen螢幕為-dvi-規格設有connect方法">MyScreen：螢幕為 DVI 規格，設有Connect方法</span></h6>
+<p><img src="https://i.imgur.com/DTD2QAj.png" alt></p>
+<h6><span id="idiv">IDIV</span></h6>
+<p><img src="https://i.imgur.com/bQ6VE8B.png" alt></p>
+<h6><span id="輸出">輸出</span></h6>
+<p><img src="https://i.imgur.com/2cPUxt3.png" alt></p>
+<p>電腦螢幕都是正常運作狀態。</p>
+<p>但在某天，螢幕壞了無法運作！</p>
+<h6><span id="myscreen-connect-實作改為">MyScreen Connect 實作改為</span></h6>
+<p><img src="https://i.imgur.com/dasOhr5.png" alt></p>
+<h6><span id="輸出">輸出</span></h6>
+<p><img src="https://i.imgur.com/IMJUpkc.png" alt></p>
+<p>但經過求助後<br>
+朋友剛好有汰換掉的 <code>HDMI</code> 螢幕可以給我！</p>
+<h6><span id="增加-newscreen-並且為-hdmi-規格設有方法-connect">增加 NewScreen 並且為 HDMI 規格，設有方法 Connect</span></h6>
+<p><img src="https://i.imgur.com/bLApUD8.png" alt></p>
+<h6><span id="ihdmi">IHDMI</span></h6>
+<p><img src="https://i.imgur.com/iwDdeT7.png" alt></p>
+<h6><span id="輸出">輸出</span></h6>
+<p><img src="https://i.imgur.com/fNxgtsA.png" alt></p>
+<p>編譯失敗，原因為 <code>MyHost</code> 只能注入 <code>IDIV</code> 型別。</p>
+<p>這邊可能會疑惑：既然 <code>DVI</code> 跟 <code>HDMI</code> 同屬螢幕又有連接 <code>Connect</code> 的行為，為何不抽出 <code>IScreen</code> 介面再注入對應的 <code>Screen</code> 類別使用呢？</p>
+<p>這的確也是一種解決方式。</p>
+<p>但現實工作遇到的情況會這麼容易嗎？若來源是自己不可控的第三方套件，或其他不可抗因素導致無法重構既有的架構，那麼較適合的方式就是使用 <code>Adapter Pattern</code>。</p>
+<p>所以</p>
+<h6><span id="建立-adapter-類別">建立 Adapter 類別</span></h6>
+<p><img src="https://i.imgur.com/6KigYOE.png" alt></p>
+<p><code>Adapter</code>類別說明：</p>
+<ul>
+<li>
+<p><code>紅底線</code>：代表要轉換的物件 – Target。目標是要相容主機的 <code>DVI</code> 螢幕接口，所以要變成 <code>DVI</code> 的形狀，繼承IDIV。</p>
+</li>
+<li>
+<p><code>綠底線</code>：代表被轉換的物件 – Adaptee。需求是要將 <code>HDMI</code> 的接口相容 <code>DVI</code>，所以把 <code>IHDMI</code> 設為建構式參數，而在後續實作 <code>Connect</code> 方法的內部邏輯呼叫 <code>IHDMI Connect</code> ，藉此達到轉接功能。</p>
+</li>
+</ul>
+<h6><span id="輸出">輸出</span></h6>
+<p><img src="https://i.imgur.com/Uk8Iimw.png" alt></p>
+<h3><span id="這樣就實現轉接功能囉">這樣就實現轉接功能囉！</span></h3>
+<h6><span id="範例成員">範例成員</span></h6>
+<p><img src="https://i.imgur.com/hlcbTFM.png" alt></p>
+<h1><span id="總結">總結</span></h1>
+<p>如此一來，我們只需建立 <code>Adapter</code> 類別即可完成轉接器功能，並不會更動到原有設計，也印證了前面說的 <code>OCP</code> 原則。</p>
+<p>範例原始碼：<a href="https://github.com/maxlin0523/AdapterPatternSample" target="_blank" rel="noopener">https://github.com/maxlin0523/AdapterPatternSample</a></p>
 
                 
 
@@ -234,12 +296,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2021/07/11/裝飾者模式－Decorator Pattern/" data-toggle="tooltip" data-placement="top" title="裝飾者模式－Decorator Pattern">&larr; 上篇 </a>
+                            <a href="/2021/06/21/反射－Reflection/" data-toggle="tooltip" data-placement="top" title="反射－Reflection">&larr; 上篇 </a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2021/07/30/Hexo加入網站、文章訪問數統計/" data-toggle="tooltip" data-placement="top" title="Hexo 加入網站、文章訪問數統計"> 下篇 &rarr;</a>
+                            <a href="/2021/07/03/組合模式－Composite Pattern/" data-toggle="tooltip" data-placement="top" title="組合模式－Composite Pattern"> 下篇 &rarr;</a>
                         </li>
                     
                 </ul>
@@ -265,7 +327,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="nav">none</ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">介紹</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">現實情境</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">把現實情境套用到軟體設計</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">把軟體設計情境套用到實作</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.0.0.0.0.1.</span> <span class="toc-nav-text">MyHost：只相容 DVI 接口並帶入建構式參數，設有Open方法</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.0.0.0.0.2.</span> <span class="toc-nav-text">MyScreen：螢幕為 DVI 規格，設有Connect方法</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.0.0.0.0.3.</span> <span class="toc-nav-text">IDIV</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.0.0.0.0.4.</span> <span class="toc-nav-text">輸出</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.0.0.0.0.5.</span> <span class="toc-nav-text">MyScreen Connect 實作改為</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.0.0.0.0.6.</span> <span class="toc-nav-text">輸出</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.0.0.0.0.7.</span> <span class="toc-nav-text">增加 NewScreen 並且為 HDMI 規格，設有方法 Connect</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.0.0.0.0.8.</span> <span class="toc-nav-text">IHDMI</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.0.0.0.0.9.</span> <span class="toc-nav-text">輸出</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.0.0.0.0.10.</span> <span class="toc-nav-text">建立 Adapter 類別</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.0.0.0.0.11.</span> <span class="toc-nav-text">輸出</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.0.1.</span> <span class="toc-nav-text">這樣就實現轉接功能囉！</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.0.1.0.0.1.</span> <span class="toc-nav-text">範例成員</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">總結</span></a></li></ol>
         
         </div>
       </aside>
@@ -286,7 +348,7 @@
                     <h5><a href="/tags/">標籤雲</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#散亂札記" title="散亂札記">散亂札記</a>
+                          <a class="tag" href="/tags/#設計模式" title="設計模式">設計模式</a>
                         
                     </div>
                 </section>

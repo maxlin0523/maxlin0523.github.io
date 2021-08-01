@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Blog 正式開幕 - Max&#39;s Blog | 邁向全端之路
+          組合模式－Composite Pattern - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
-    <link rel="canonical" href="https://maxlin0523.github.io/2021/07/25/Blog正式開幕/">
+    <link rel="canonical" href="https://maxlin0523.github.io/2021/07/03/組合模式－Composite Pattern/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -93,14 +93,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#散亂札記" title="散亂札記">散亂札記</a>
+                              <a class="tag" href="/tags/#設計模式" title="設計模式">設計模式</a>
                             
                         </div>
-                        <h1>Blog 正式開幕</h1>
+                        <h1>組合模式－Composite Pattern</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
-                            2021-07-25（
+                            2021-07-03（
                             <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views）
                         </span>
                     </div>
@@ -216,16 +216,47 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>經過幾番波折終於開幕了～</p>
-<p>原本在 Medium 發展了一小段時間（<a href="https://max-lin.medium.com/" target="_blank" rel="noopener">底加</a>），至於為什麼會轉來這邊呢，原因是當初寫了也快 10 篇文，想說是時候要來整理文章分類功能了，結果發現竟然是需要花錢才能解鎖阿！<br>
-讓我一怒之下<br>
-．</p>
-<p>．</p>
-<p>．</p>
-<p>也沒辦法幹嘛，只好自己架囉，好處就是部落格功能可以隨喜好自製，壞處當然就是麻煩要寫 code，但也是個好機會能讓我接觸到前端。</p>
-<p>而架設過程從框架 Hexo 與 Hugo 抉擇到各式網站主題，讓我這個有選擇障礙的人吃足了苦頭，整整花了有一整天的時間考慮，最終選定了 Hexo 來作為部落格框架，原因是 Hexo 使用族群多數是華人，當然就有比較多中文資料可以參考，需要自製化某些功能就不需要再去國外網站翻來翻去，對我這個前端菜鳥加上破英文實在是非常友善，再說，Hexo 也是咱們台灣人<a href="https://zespia.tw/blog/2012/10/11/hexo-debut/" target="_blank" rel="noopener">開發</a>出來的，當然要支持一下！</p>
-<p>總之</p>
-<p>最後順利架設好了，那寫部落格的動機主要就是記錄學過的知識技術，因為軟體工程的水實在太深啦，有時候自己做過的東西太久沒用到就會忘記，又或是自認為已經會的東西要講解給其他人又講不出個所以然，不知道自己到底是真懂還假懂，最簡單暴力的方法，就是直接寫一篇文章，從頭到尾依序有脈絡的描述，藉此在大腦裡重新整理過一遍再表達出來，只要能完整表達出來，就代表是真懂了😂</p>
+                <h1><span id="介紹">介紹</span></h1>
+<p>中譯 <code>組合模式</code>，又稱部分整體模式，是一種結構型的設計模式（Design Pattern），主要以樹狀結構 <code>Tree</code> 的方式呈現物件之間的關係。</p>
+<p>何謂樹狀結構？</p>
+<p>是一種模擬現實生活中樹枝和樹葉的資料結構，例如：文件資料夾、公司組織圖、賽程表、權限．．．等具有階層關係的資料結構，最底層物件稱為「<strong>樹葉－Leaf</strong>」，而有任何一個子層的物件都稱為「<strong>樹枝－Composite</strong>」。</p>
+<p>組合模式概念也類似鏈結串列 <code>LinkedList</code> ，每個 <code>ListNode</code> 都存有自己的值和下層 <code>ListNode</code> 的資料，且層層遞歸，所以使用場景會是一個具有階層關係的群體組織，而實作上則有分 <code>安全型</code>、<code>透明型</code> 兩種模式，兩者差別文末會再簡單說明，這篇將用透明型組合模式進行實作。</p>
+<h1><span id="實作透明型">實作（透明型）</span></h1>
+<h6><span id="定義部門組織圖">定義部門組織圖</span></h6>
+<p><img src="https://i.imgur.com/UTjFVy0.png" alt></p>
+<p>開啟 <code>Console Application</code> 專案</p>
+<h6><span id="定義員工類別的基底類-baseemployee">定義員工類別的基底類 BaseEmployee</span></h6>
+<p><img src="https://i.imgur.com/O2iM7Sw.png" alt></p>
+<h6><span id="定義職位-position-列舉">定義職位 Position 列舉</span></h6>
+<p><img src="https://i.imgur.com/m2mVE0I.png" alt></p>
+<h6><span id="定義底層員工類樹葉層-不可實作-add-amp-remove-繼承-baseemployee">定義底層員工類：樹葉層 ( 不可實作 Add &amp; Remove )，繼承 BaseEmployee</span></h6>
+<p><img src="https://i.imgur.com/RN6mjvE.png" alt></p>
+<h6><span id="定義非底層員工類樹枝層-可實作-add-amp-remove-繼承-baseemployee-且多了存放子層的-list">定義非底層員工類：樹枝層 ( 可實作 Add &amp; Remove )，繼承 BaseEmployee ，且多了存放子層的 List</span></h6>
+<p><img src="https://i.imgur.com/mo29Omh.png" alt></p>
+<h6><span id="在-programcs-依層級建立各個員工">在 Program.cs 依層級建立各個員工</span></h6>
+<p><img src="https://i.imgur.com/Oo0Y0Vm.png" alt></p>
+<h6><span id="串聯出圖片上的部門組織並將結果轉為-json-格式">串聯出圖片上的部門組織，並將結果轉為 Json 格式</span></h6>
+<p><img src="https://i.imgur.com/RvdrvKf.png" alt></p>
+<h6><span id="查看結果-這什麼鬼">查看結果 （這什麼鬼？）</span></h6>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;“Subordinates”:[&#123;“Subordinates”:[&#123;“<span class="keyword">Name</span>”:”Beck”,”<span class="keyword">Position</span>”:”FrontendRD”&#125;],”</span><br><span class="line"><span class="keyword">Name</span>”:”Albert”,”<span class="keyword">Position</span>”:”HeadFrontend”&#125;,&#123;“Subordinates”:[&#123;“Subordinates”:</span><br><span class="line">[&#123;“<span class="keyword">Name</span>”:”Minerh”,”<span class="keyword">Position</span>”:”Intern”&#125;],”<span class="keyword">Name</span>”:”Duke”,”<span class="keyword">Position</span>”:”</span><br><span class="line">BackendRD”&#125;,&#123;“Subordinates”:[&#123;“<span class="keyword">Name</span>”:”Minerh”,”<span class="keyword">Position</span>”:”Intern”&#125;],”<span class="keyword">Name</span>”:”</span><br><span class="line">Frank”,”<span class="keyword">Position</span>”:”BackendRD”&#125;],”<span class="keyword">Name</span>”:”<span class="built_in">Max</span>”,”<span class="keyword">Position</span>”:”HeadBackend”&#125;,</span><br><span class="line">&#123;“Subordinates”:[&#123;“<span class="keyword">Name</span>”:”Richard”,”<span class="keyword">Position</span>”:”DBA”&#125;,&#123;“<span class="keyword">Name</span>”:”Daniel”,”</span><br><span class="line"><span class="keyword">Position</span>”:”DBA”&#125;],”<span class="keyword">Name</span>”:”Alan”,”<span class="keyword">Position</span>”:”HeadDatabase”&#125;],”<span class="keyword">Name</span>”:”Teddy”,”</span><br><span class="line"><span class="keyword">Position</span>”:”ProductManager”&#125;</span><br></pre></td></tr></table></figure>
+<h6><span id="以-json-viewer-notepad擴件-查看結果">以 Json Viewer (Notepad++擴件) 查看結果</span></h6>
+<p><img src="https://i.imgur.com/MhiEQl6.png" alt></p>
+<h3><span id="由此可看出樹狀結構是由最頂層物件-teddy-涵蓋並層層包覆">由此可看出樹狀結構是由最頂層物件 ( Teddy ) 涵蓋，並層層包覆。</span></h3>
+<p>範例原始碼： <a href="https://github.com/maxlin0523/CompositePatternSample" target="_blank" rel="noopener">https://github.com/maxlin0523/CompositePatternSample</a></p>
+<h1><span id="透明型-vs-安全型">透明型 V.S. 安全型</span></h1>
+<ul>
+<li>
+<p>透明型 ( Uniformity )：<br>
+如範例所示，可以看出每層物件都源於相同抽象類 <code>BaseEmployee</code>，優點是結構較透明、單純，所有物件都保持一致，在使用上可以相同對待每個物件，缺點是：位於樹葉層的部分其實是不需要 <code>Add &amp; Remove</code> 方法，因為樹枝和樹葉本質上是不同東西，礙於繼承一致的抽象類所以採用例外拋出的處理方式，違反 <code>SOLID－ISP</code>，使用上較為不安全，可能會出錯。</p>
+</li>
+<li>
+<p>安全型 ( Safety )：<br>
+基本上跟透明型相反，彌補了缺點但也損失其優點的部分，安全型則會區分成樹枝樹葉兩種元件，樹枝層給予實作 <code>Add &amp; Remove</code> 方法，樹葉層則不允許，所以不能由相同抽象類產生，需稍微加工，結構相對不夠透明，但使用上較為安全，符合 <code>SOLID－ISP</code>。</p>
+</li>
+</ul>
+<h1><span id="參考">參考</span></h1>
+<p><a href="https://www.gushiciku.cn/pl/pPh1/zh-tw" target="_blank" rel="noopener">設計模式系列之組合模式(Composite Pattern) — — 樹形結構的處理</a><br>
+<a href="https://www.runoob.com/design-pattern/composite-pattern.html" target="_blank" rel="noopener">菜鳥教程-组合模式</a></p>
 
                 
 
@@ -234,12 +265,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2021/07/11/裝飾者模式－Decorator Pattern/" data-toggle="tooltip" data-placement="top" title="裝飾者模式－Decorator Pattern">&larr; 上篇 </a>
+                            <a href="/2021/06/27/轉接器模式－Adapter Pattern/" data-toggle="tooltip" data-placement="top" title="轉接器模式－Adapter Pattern">&larr; 上篇 </a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2021/07/30/Hexo加入網站、文章訪問數統計/" data-toggle="tooltip" data-placement="top" title="Hexo 加入網站、文章訪問數統計"> 下篇 &rarr;</a>
+                            <a href="/2021/07/07/Dapper 批次執行除錯/" data-toggle="tooltip" data-placement="top" title="Dapper 批次執行除錯"> 下篇 &rarr;</a>
                         </li>
                     
                 </ul>
@@ -265,7 +296,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="nav">none</ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">介紹</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">實作（透明型）</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.1.</span> <span class="toc-nav-text">定義部門組織圖</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.2.</span> <span class="toc-nav-text">定義員工類別的基底類 BaseEmployee</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.3.</span> <span class="toc-nav-text">定義職位 Position 列舉</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.4.</span> <span class="toc-nav-text">定義底層員工類：樹葉層 ( 不可實作 Add &amp; Remove )，繼承 BaseEmployee</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.5.</span> <span class="toc-nav-text">定義非底層員工類：樹枝層 ( 可實作 Add &amp; Remove )，繼承 BaseEmployee ，且多了存放子層的 List</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.6.</span> <span class="toc-nav-text">在 Program.cs 依層級建立各個員工</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.7.</span> <span class="toc-nav-text">串聯出圖片上的部門組織，並將結果轉為 Json 格式</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.8.</span> <span class="toc-nav-text">查看結果 （這什麼鬼？）</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.9.</span> <span class="toc-nav-text">以 Json Viewer (Notepad++擴件) 查看結果</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.1.</span> <span class="toc-nav-text">由此可看出樹狀結構是由最頂層物件 ( Teddy ) 涵蓋，並層層包覆。</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">透明型 V.S. 安全型</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">參考</span></a></li></ol>
         
         </div>
       </aside>
@@ -286,7 +317,7 @@
                     <h5><a href="/tags/">標籤雲</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#散亂札記" title="散亂札記">散亂札記</a>
+                          <a class="tag" href="/tags/#設計模式" title="設計模式">設計模式</a>
                         
                     </div>
                 </section>
