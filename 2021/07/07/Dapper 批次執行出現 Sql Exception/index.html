@@ -17,12 +17,16 @@
           Dapper 批次執行出現 Sql Exception - Max&#39;s Blog | 邁向全端之路
         
     </title>
-
+<link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css">
     <link rel="canonical" href="https://maxlin0523.github.io/2021/07/07/Dapper 批次執行出現 Sql Exception/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
+    <!-- 代碼優化配置 -->
+    <link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css">
+
+    <link rel="stylesheet" href="/css/sons-of-obsidian.css" media="screen" type="text/css">
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
@@ -222,7 +226,18 @@
 <p>於是乎！我在 Insert 方法包了一層 Try Catch 後，確實有抓到「<strong>字串或二進位資料會被截斷</strong>」的 <code>Sql Exception</code> 訊息，那既然知道例外是長度超出限制而產生，問題又來了，哪一筆的哪一個欄位發生的？總不可能 800 多筆每筆 30 幾個欄位逐一去對照吧！又或是把 Table 欄位長度限制都開到 MAX 後當作沒發生。</p>
 <h1><span id="處理方式">處理方式</span></h1>
 <p>可以把範圍限縮在找出有問題的那筆，於是我把 Dapper 執行的 Sql Command 字串改為前後包上 Try Catch 且成功新增回傳 <code>success</code> ，例外則回傳 <code>ErrorMessage</code>。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">	<span class="keyword">BEGIN</span> TRY</span><br><span class="line">		<span class="comment">/* ***********************************************************************</span></span><br><span class="line"><span class="comment">		**               原本的Sql Command                                      **</span></span><br><span class="line"><span class="comment">		*************************************************************************/</span></span><br><span class="line">		<span class="keyword">SELECT</span> <span class="string">'success'</span></span><br><span class="line">	<span class="keyword">END</span> TRY</span><br><span class="line">	<span class="keyword">BEGIN</span> CATCH</span><br><span class="line">		<span class="keyword">SELECT</span> ERROR_MESSAGE()</span><br><span class="line">	<span class="keyword">END</span> CATCH</span><br><span class="line"><span class="keyword">END</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-sql=">BEGIN
+	BEGIN TRY
+		/* ***********************************************************************
+		**               原本的Sql Command                                      **
+		*************************************************************************/
+		SELECT 'success'
+	END TRY
+	BEGIN CATCH
+		SELECT ERROR_MESSAGE()
+	END CATCH
+END
+</code></pre>
 <p>再把原本的 Insert 方法內改寫成 <code>foreach</code> 逐筆執行並回傳 <code>string</code>，這樣一來，List 內每筆的執行狀況都能清楚知道是否成功，接下來新增一個爬蟲物件的 List，把不是回傳 <code>success</code> 字串的物件加入並設中斷點查看，即可找出有問題的資料，接續找到長度超出範圍的欄位。</p>
 
                 
@@ -357,6 +372,14 @@
     <!-- Footer -->
     <!-- Footer -->
 <footer>
+    <script src="/js/prettify.js"></script>
+    <script type="text/javascript">
+         $(window).load(function(){
+         $('pre').addClass('prettyprint linenums');
+         $('code').addClass('prettyprint');
+         prettyPrint();
+         })
+    </script>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -402,11 +425,46 @@
                     <br>
                     <span id="busuanzi_container_site_pv">
                         <i class="fa fa-eye"></i> : <span id="busuanzi_value_site_pv"></span>
-                    </span>
+                    </span><br><span id="sitetime"></span>
                 </p>
             </div>
         </div>
     </div>
+    <script language=javascript>
+        function siteTime() {
+            window.setTimeout("siteTime()", 1000);
+            var seconds = 1000;
+            var minutes = seconds * 60;
+            var hours = minutes * 60;
+            var days = hours * 24;
+            var years = days * 365;
+            var today = new Date();
+            var todayYear = today.getFullYear();
+            var todayMonth = today.getMonth() + 1;
+            var todayDate = today.getDate();
+            var todayHour = today.getHours();
+            var todayMinute = today.getMinutes();
+            var todaySecond = today.getSeconds();
+            /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+            year - 作为date对象的年份，为4位年份值
+            month - 0-11之间的整数，做为date对象的月份
+            day - 1-31之间的整数，做为date对象的天数
+            hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+            minutes - 0-59之间的整数，做为date对象的分钟数
+            seconds - 0-59之间的整数，做为date对象的秒数
+            microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+            var t1 = Date.UTC(2021, 07, 25, 00, 02, 42);
+            var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+            var diff = t2 - t1;
+            var diffYears = Math.floor(diff / years);
+            var diffDays = Math.floor((diff / days) - diffYears * 365);
+            var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+            var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+            var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+            document.getElementById("sitetime").innerHTML = "Max's Blog 已運行：" +　/* diffYears　+　" 年 "　+ */　diffDays + " 天 " + diffHours + " 時 " + diffMinutes + " 分 " + diffSeconds + " 秒";
+        }
+        siteTime();
+    </script>
 </footer>
 
 <!-- jQuery -->
@@ -507,7 +565,6 @@
 <!-- Image to hack wechat -->
 <img src="https://maxlin0523.github.io/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
-
 </body>
 
 </html>

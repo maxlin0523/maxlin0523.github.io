@@ -17,12 +17,16 @@
           Hexo 加入網站、文章訪問數統計 - Max&#39;s Blog | 邁向全端之路
         
     </title>
-
+<link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css">
     <link rel="canonical" href="https://maxlin0523.github.io/2021/07/30/Hexo加入網站、文章訪問數統計/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
+    <!-- 代碼優化配置 -->
+    <link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css">
+
+    <link rel="stylesheet" href="/css/sons-of-obsidian.css" media="screen" type="text/css">
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
@@ -219,18 +223,22 @@
                 <p>本篇採用 <code>不蒜子計數器</code> 。</p>
 <h3><span id="第一步引用腳本">第一步：引用腳本</span></h3>
 <p>將網站標籤 <code>&lt;Head&gt;</code> 引入：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script <span class="keyword">async</span> src=<span class="string">"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"</span>&gt;&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-javascript=">&lt;script async src=&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;&gt;&lt;/script&gt;
+</code></pre>
 <h3><span id="第二步網站觀看數">第二步：網站觀看數</span></h3>
 <p>將想要顯示網站計數的片段（footer.ejs）貼上：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">總訪問量: &lt;span id="busuanzi_value_site_pv"&gt;&lt;/span&gt;次</span><br></pre></td></tr></table></figure>
+<pre><code class="language-javascript=">總訪問量: &lt;span id=&quot;busuanzi_value_site_pv&quot;&gt;&lt;/span&gt;次
+</code></pre>
 <p>或</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">總訪客數: &lt;span id="busuanzi_value_site_uv"&gt;&lt;/span&gt;次</span><br></pre></td></tr></table></figure>
+<pre><code class="language-javascript=">總訪客數: &lt;span id=&quot;busuanzi_value_site_uv&quot;&gt;&lt;/span&gt;次
+</code></pre>
 <p>算法<br>
 pv： 單用戶點擊 n 篇文章，觀看數增加 n 次<br>
 uv： 單用戶點擊 n 篇文章，觀看數增加 1 次</p>
 <h3><span id="第三步文章觀看數">第三步：文章觀看數</span></h3>
 <p>將想要顯示文章計數的片段（header.ejs）貼上：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">文章觀看數: &lt;span id="busuanzi_value_page_pv"&gt;&lt;/span&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-javascript=">文章觀看數: &lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
+</code></pre>
 <p>done.</p>
 <p>當然，後續也可添加一些 CSS 裝飾</p>
 <h3><span id="範本">範本</span></h3>
@@ -377,6 +385,14 @@ uv： 單用戶點擊 n 篇文章，觀看數增加 1 次</p>
     <!-- Footer -->
     <!-- Footer -->
 <footer>
+    <script src="/js/prettify.js"></script>
+    <script type="text/javascript">
+         $(window).load(function(){
+         $('pre').addClass('prettyprint linenums');
+         $('code').addClass('prettyprint');
+         prettyPrint();
+         })
+    </script>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -422,11 +438,46 @@ uv： 單用戶點擊 n 篇文章，觀看數增加 1 次</p>
                     <br>
                     <span id="busuanzi_container_site_pv">
                         <i class="fa fa-eye"></i> : <span id="busuanzi_value_site_pv"></span>
-                    </span>
+                    </span><br><span id="sitetime"></span>
                 </p>
             </div>
         </div>
     </div>
+    <script language=javascript>
+        function siteTime() {
+            window.setTimeout("siteTime()", 1000);
+            var seconds = 1000;
+            var minutes = seconds * 60;
+            var hours = minutes * 60;
+            var days = hours * 24;
+            var years = days * 365;
+            var today = new Date();
+            var todayYear = today.getFullYear();
+            var todayMonth = today.getMonth() + 1;
+            var todayDate = today.getDate();
+            var todayHour = today.getHours();
+            var todayMinute = today.getMinutes();
+            var todaySecond = today.getSeconds();
+            /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+            year - 作为date对象的年份，为4位年份值
+            month - 0-11之间的整数，做为date对象的月份
+            day - 1-31之间的整数，做为date对象的天数
+            hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+            minutes - 0-59之间的整数，做为date对象的分钟数
+            seconds - 0-59之间的整数，做为date对象的秒数
+            microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+            var t1 = Date.UTC(2021, 07, 25, 00, 02, 42);
+            var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+            var diff = t2 - t1;
+            var diffYears = Math.floor(diff / years);
+            var diffDays = Math.floor((diff / days) - diffYears * 365);
+            var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+            var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+            var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+            document.getElementById("sitetime").innerHTML = "Max's Blog 已運行：" +　/* diffYears　+　" 年 "　+ */　diffDays + " 天 " + diffHours + " 時 " + diffMinutes + " 分 " + diffSeconds + " 秒";
+        }
+        siteTime();
+    </script>
 </footer>
 
 <!-- jQuery -->
@@ -527,7 +578,6 @@ uv： 單用戶點擊 n 篇文章，觀看數增加 1 次</p>
 <!-- Image to hack wechat -->
 <img src="https://maxlin0523.github.io/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
-
 </body>
 
 </html>
