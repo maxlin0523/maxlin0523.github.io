@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Hexo 加入網站、文章訪問數統計 - Max&#39;s Blog | 邁向全端之路
+          C# 實值型別 &amp; 參考型別 - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
-    <link rel="canonical" href="https://maxlin0523.github.io/2021/07/30/Hexo加入網站、文章訪問數統計/">
+    <link rel="canonical" href="https://maxlin0523.github.io/2021/08/03/value-reference/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -93,14 +93,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Hexo" title="Hexo">Hexo</a>
+                              <a class="tag" href="/tags/#C# 本事" title="C# 本事">C# 本事</a>
                             
                         </div>
-                        <h1>Hexo 加入網站、文章訪問數統計</h1>
+                        <h1>C# 實值型別 &amp; 參考型別</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
-                            2021-07-30（
+                            2021-08-03（
                             <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views）
                         </span>
                     </div>
@@ -216,34 +216,23 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>本篇採用 <code>不蒜子計數器</code> 。</p>
-<h3><span id="第一步引用腳本">第一步：引用腳本</span></h3>
-<p>將網站標籤 <code>&lt;Head&gt;</code> 引入：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script <span class="keyword">async</span> src=<span class="string">"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"</span>&gt;&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
-<h3><span id="第二步網站觀看數">第二步：網站觀看數</span></h3>
-<p>將想要顯示網站計數的片段（footer.ejs）貼上：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">總訪問量: &lt;span id="busuanzi_value_site_pv"&gt;&lt;/span&gt;次</span><br></pre></td></tr></table></figure>
-<p>或</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">總訪客數: &lt;span id="busuanzi_value_site_uv"&gt;&lt;/span&gt;次</span><br></pre></td></tr></table></figure>
-<p>算法<br>
-pv： 單用戶點擊 n 篇文章，觀看數增加 n 次<br>
-uv： 單用戶點擊 n 篇文章，觀看數增加 1 次</p>
-<h3><span id="第三步文章觀看數">第三步：文章觀看數</span></h3>
-<p>將想要顯示文章計數的片段（header.ejs）貼上：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">文章觀看數: &lt;span id="busuanzi_value_page_pv"&gt;&lt;/span&gt;</span><br></pre></td></tr></table></figure>
-<p>done.</p>
-<p>當然，後續也可添加一些 CSS 裝飾</p>
-<h3><span id="範本">範本</span></h3>
-<p>我的網頁</p>
-<h6><span id="tags-文章觀看數">tags: 文章觀看數</span></h6>
-<p><img src="https://i.imgur.com/17kN728.jpg" alt></p>
-<h6><span id="tags-網站觀看數pv">tags: 網站觀看數（pv）</span></h6>
-<p><img src="https://i.imgur.com/dkOnxR8.jpg" alt></p>
-<h3><span id="原理">原理</span></h3>
-<p>將域名生成唯一碼後傳入第三方服務計數，每次點擊就計數一次，只要域名不變，訪問數就會一直累計。</p>
-<p>※ 要注意的是在本地端開啟時，網站訪問量數字會很大，因為大家本地端都是由 <code>http://localhost:4000/</code> 開啟，所以生成的唯一碼都相同，此情況在部屬後會恢復正常。</p>
-<h3><span id="參考">參考</span></h3>
-<p><a href="https://blog.csdn.net/weixin_46247581/article/details/105848853" target="_blank" rel="noopener">不蒜子计数器的使用</a></p>
+                <h1><span id="前言">前言</span></h1>
+<p>在 C# 世界裡，資料型態分為 <strong>實值型別（Value Type）</strong> 與 <strong>參考型別（Reference Type）</strong>，例如像 <code>int</code>、<code>char</code>、<code>byte</code> …等屬於實值型別，<code>class</code>、<code>object</code>、<code>string</code> 、<code>List</code> …等屬於參考型別，辨別方法為參考類型需使用 <code>new</code> 關鍵字實體化，但請記得 <code>string</code> 也屬於參考型別（詳細請<a href="https://medium.com/ninas-note/c-%E5%AF%A6%E8%B3%AA%E5%9E%8B%E5%88%A5-value-type-vs%E5%8F%83%E8%80%83%E5%9E%8B%E5%88%A5-reference-type-64ba5cf8bf8b" target="_blank" rel="noopener">參閱</a>），而兩者主要的差異在於存儲的方式：</p>
+<h4><span id="實值型別">實值型別：</span></h4>
+<p>變數和值都會存放於 <code>堆疊（Stack）</code> 記憶體，當變數指派一個實值型別的值 <code>var a = 123</code>，則會在 <code>Stack</code> 新增一塊區域儲存，若 <code>var b = a</code>，則會在複製一份 <code>a</code> 的值指派給 <code>b</code>，彼此間互相獨立。</p>
+<p>如下：<br>
+<img src="https://i.imgur.com/H1HJAsu.png" alt></p>
+<h4><span id="參考型別">參考型別：</span></h4>
+<p>變數會存放於 <code>堆疊（Stack）</code> 記憶體，而值會存放於 <code>堆積（Heap）</code> 記憶體中的某個位址，當變數指派一個參考型別的值，變數則會指向該 <code>Heap</code> 記憶體位址， <code>var a = new List&lt;int&gt;() { 1,2,3 }</code>　當中 <code>a</code> 會指向該 <code>List</code> 的記憶體位址進而得到物件，而當 <code>var b = a</code>，則會在 <code>Stack</code> 新增一塊空間給 <code>b</code> 而值則指向和 <code>a</code> 相同的記憶體位址，彼此共用物件，當任一方改動，則會影響到另一方。</p>
+<p>如下：<br>
+<img src="https://i.imgur.com/7xlC01B.png" alt></p>
+<h1><span id="實作">實作</span></h1>
+<h6><span id="實值型別">實值型別：</span></h6>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">void Main()</span><br><span class="line">&#123;</span><br><span class="line">	// 實值型別</span><br><span class="line">	var a = 123;</span><br><span class="line">	var b = a;</span><br><span class="line"></span><br><span class="line">	b -= 100;</span><br><span class="line"></span><br><span class="line">	Console.WriteLine(&quot;a = &quot; + a);</span><br><span class="line">	Console.WriteLine(&quot;b = &quot; + b);</span><br><span class="line">    </span><br><span class="line">	// Output</span><br><span class="line">	// a = 123</span><br><span class="line">	// b = 23</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>a</code>、<code>b</code> 彼此間互相獨立，互不影響。</p>
+<h6><span id="參考型別">參考型別：</span></h6>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">void Main()</span><br><span class="line">&#123;</span><br><span class="line">	// 參考類型</span><br><span class="line">	var a = new List&lt;int&gt;() &#123; 1,2,3 &#125;;</span><br><span class="line">	var b = a;</span><br><span class="line"></span><br><span class="line">	b.Add(4);</span><br><span class="line">	b.Add(5);</span><br><span class="line">	b.Add(6);</span><br><span class="line">	a.Remove(6);</span><br><span class="line"></span><br><span class="line">	Console.WriteLine(&quot;a = &quot; + string.Join(&quot;,&quot;, a));</span><br><span class="line">	Console.WriteLine(&quot;b = &quot; + string.Join(&quot;,&quot;, b));</span><br><span class="line">    </span><br><span class="line">	// Output</span><br><span class="line">	// a = 1,2,3,4,5</span><br><span class="line">	// b = 1,2,3,4,5</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>a</code>、<code>b</code> 彼此共用物件，當任一方改動，都會影響到另一方。</p>
 
                 
 
@@ -252,12 +241,12 @@ uv： 單用戶點擊 n 篇文章，觀看數增加 1 次</p>
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2021/07/25/Blog正式開幕/" data-toggle="tooltip" data-placement="top" title="Blog 正式開幕">&larr; 上篇 </a>
+                            <a href="/2021/07/30/Hexo加入網站、文章訪問數統計/" data-toggle="tooltip" data-placement="top" title="Hexo 加入網站、文章訪問數統計">&larr; 上篇 </a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2021/08/03/value-reference/" data-toggle="tooltip" data-placement="top" title="C# 實值型別 & 參考型別"> 下篇 &rarr;</a>
+                            <a href="/2021/08/03/boxing-Unboxing/" data-toggle="tooltip" data-placement="top" title="C# Boxing & Unboxing"> 下篇 &rarr;</a>
                         </li>
                     
                 </ul>
@@ -283,7 +272,7 @@ uv： 單用戶點擊 n 篇文章，觀看數增加 1 次</p>
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">第一步：引用腳本</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">第二步：網站觀看數</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">第三步：文章觀看數</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">範本</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.0.0.1.</span> <span class="toc-nav-text">tags: 文章觀看數</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.0.0.2.</span> <span class="toc-nav-text">tags: 網站觀看數（pv）</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">原理</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">參考</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.0.1.</span> <span class="toc-nav-text">實值型別：</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.0.2.</span> <span class="toc-nav-text">參考型別：</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">實作</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.1.</span> <span class="toc-nav-text">實值型別：</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.2.</span> <span class="toc-nav-text">參考型別：</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol>
         
         </div>
       </aside>
@@ -304,7 +293,7 @@ uv： 單用戶點擊 n 篇文章，觀看數增加 1 次</p>
                     <h5><a href="/tags/">標籤雲</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Hexo" title="Hexo">Hexo</a>
+                          <a class="tag" href="/tags/#C# 本事" title="C# 本事">C# 本事</a>
                         
                     </div>
                 </section>

@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Hexo 加入網站、文章訪問數統計 - Max&#39;s Blog | 邁向全端之路
+          C# Boxing &amp; Unboxing - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
-    <link rel="canonical" href="https://maxlin0523.github.io/2021/07/30/Hexo加入網站、文章訪問數統計/">
+    <link rel="canonical" href="https://maxlin0523.github.io/2021/08/03/boxing-Unboxing/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -93,14 +93,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Hexo" title="Hexo">Hexo</a>
+                              <a class="tag" href="/tags/#C# 本事" title="C# 本事">C# 本事</a>
                             
                         </div>
-                        <h1>Hexo 加入網站、文章訪問數統計</h1>
+                        <h1>C# Boxing &amp; Unboxing</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
-                            2021-07-30（
+                            2021-08-03（
                             <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views）
                         </span>
                     </div>
@@ -216,34 +216,29 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>本篇採用 <code>不蒜子計數器</code> 。</p>
-<h3><span id="第一步引用腳本">第一步：引用腳本</span></h3>
-<p>將網站標籤 <code>&lt;Head&gt;</code> 引入：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script <span class="keyword">async</span> src=<span class="string">"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"</span>&gt;&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
-<h3><span id="第二步網站觀看數">第二步：網站觀看數</span></h3>
-<p>將想要顯示網站計數的片段（footer.ejs）貼上：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">總訪問量: &lt;span id="busuanzi_value_site_pv"&gt;&lt;/span&gt;次</span><br></pre></td></tr></table></figure>
-<p>或</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">總訪客數: &lt;span id="busuanzi_value_site_uv"&gt;&lt;/span&gt;次</span><br></pre></td></tr></table></figure>
-<p>算法<br>
-pv： 單用戶點擊 n 篇文章，觀看數增加 n 次<br>
-uv： 單用戶點擊 n 篇文章，觀看數增加 1 次</p>
-<h3><span id="第三步文章觀看數">第三步：文章觀看數</span></h3>
-<p>將想要顯示文章計數的片段（header.ejs）貼上：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">文章觀看數: &lt;span id="busuanzi_value_page_pv"&gt;&lt;/span&gt;</span><br></pre></td></tr></table></figure>
-<p>done.</p>
-<p>當然，後續也可添加一些 CSS 裝飾</p>
-<h3><span id="範本">範本</span></h3>
-<p>我的網頁</p>
-<h6><span id="tags-文章觀看數">tags: 文章觀看數</span></h6>
-<p><img src="https://i.imgur.com/17kN728.jpg" alt></p>
-<h6><span id="tags-網站觀看數pv">tags: 網站觀看數（pv）</span></h6>
-<p><img src="https://i.imgur.com/dkOnxR8.jpg" alt></p>
-<h3><span id="原理">原理</span></h3>
-<p>將域名生成唯一碼後傳入第三方服務計數，每次點擊就計數一次，只要域名不變，訪問數就會一直累計。</p>
-<p>※ 要注意的是在本地端開啟時，網站訪問量數字會很大，因為大家本地端都是由 <code>http://localhost:4000/</code> 開啟，所以生成的唯一碼都相同，此情況在部屬後會恢復正常。</p>
-<h3><span id="參考">參考</span></h3>
-<p><a href="https://blog.csdn.net/weixin_46247581/article/details/105848853" target="_blank" rel="noopener">不蒜子计数器的使用</a></p>
+                <h1><span id="前言">前言</span></h1>
+<p>你是否曾疑惑：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var num = 3345678;</span><br><span class="line">var result = $&quot;我的電話: &#123;num&#125;&quot;;</span><br></pre></td></tr></table></figure>
+<p>為何這一段程式碼可以把 <code>int</code> 型別直接插進字串呢？</p>
+<p>事實上</p>
+<p>可以把 <code>$</code> 字串插值看成 <code>String.Format</code> 的語法糖，而在這種情況 <code>String.Format</code> 底層其實做了 Boxing 的動作，使 <code>int</code> 轉為 <code>string</code> 後再插入字串裡，這樣做其實無形中產生了一些效能成本。</p>
+<h1><span id="什麼是-boxing-amp-unboxing">什麼是 Boxing &amp; Unboxing</span></h1>
+<p>談 <strong>Boxing &amp; Unboxing</strong> 前，要先了解 <strong>實值型別</strong> 與 <strong>參考型別</strong> 的存儲方式。<br>
+可以參考我的另一篇 – <a href="/2021/08/03/value-reference/">C# 實值型別 &amp; 參考型別</a></p>
+<h3><span id="boxing-amp-unboxing">Boxing &amp; Unboxing：</span></h3>
+<p><code>Boxing</code> 是指 <code>實值型別</code> 轉為 <code>參考型別</code> 中間的轉換過程，反之為 <code>Unboxing</code>，也就是 <code>參考型別</code> 轉為 <code>實值型別</code> 的轉換過程。</p>
+<p>※ 若兩者都為 <code>實值型別</code> 或 <code>參考型別</code>，就不會發生此情況。</p>
+<p>說明如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int i = 123;</span><br><span class="line">object o = i; // boxing</span><br><span class="line">int j = (int)o // unboxing</span><br></pre></td></tr></table></figure>
+<p>而在這轉換過程中，實值型別的值是存儲在 <code>Stack</code> 記憶體裡，但經轉換成參考型別的 <code>object</code> ，會將值轉存在 <code>heap</code> 記憶體，反之亦然，這樣一來一往無形中就會產生效能損耗。</p>
+<h3><span id="stringformat">String.Format：</span></h3>
+<p>再回頭看 <code>String.Format</code> 這個函式，其中一個多載為：<br>
+<code>public static string Format (string format, params object?[] args)</code><br>
+可以看到傳入參數是 <code>object</code> 型別，也就代表不管傳入參數的資料型態為何，最終都將被強轉成 <code>object</code>， 所以，當傳入 <code>實值型別</code> 參數時，就會發生 <code>Boxing</code>。</p>
+<p>測試如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">void Main()</span><br><span class="line">&#123;</span><br><span class="line">	// arrange</span><br><span class="line">	var sw = new Stopwatch();</span><br><span class="line">	var count = 10000000;	</span><br><span class="line">	</span><br><span class="line">	// 裝箱測試</span><br><span class="line">	sw.Start();	</span><br><span class="line">	for (int i = 0; i &lt; count; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		var result = String.Format(&quot;&#123;0&#125;&#123;1&#125;&#123;2&#125;&quot;, i, i, i);		</span><br><span class="line">	&#125;	</span><br><span class="line">	sw.Stop();</span><br><span class="line">	</span><br><span class="line">	Console.WriteLine($&quot;Boxing Test: &#123;sw.ElapsedMilliseconds&#125; ms&quot;);</span><br><span class="line">		</span><br><span class="line">	// 不裝箱測試</span><br><span class="line">	sw.Restart();</span><br><span class="line">	for (int i = 0; i &lt; count; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		var result = String.Format(&quot;&#123;0&#125;&#123;1&#125;&#123;2&#125;&quot;, i.ToString(), i.ToString(), i.ToString());</span><br><span class="line">	&#125;</span><br><span class="line">	sw.Stop();</span><br><span class="line">	</span><br><span class="line">	Console.WriteLine($&quot;No Boxing Test: &#123;sw.ElapsedMilliseconds&#125; ms&quot;);</span><br><span class="line">    </span><br><span class="line">    // Output</span><br><span class="line">    // Boxing Test: 4919 ms</span><br><span class="line">    // No Boxing Test: 4673 ms</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1><span id="參考">參考</span></h1>
+<p><a href="https://dotblogs.com.tw/joysdw12/2013/08/06/asp-net-boxing-unboxing" target="_blank" rel="noopener">[ASP<span>.</span>NET] Boxing(裝箱) 與 UnBoxing(拆箱) 測試</a></p>
 
                 
 
@@ -252,13 +247,9 @@ uv： 單用戶點擊 n 篇文章，觀看數增加 1 次</p>
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2021/07/25/Blog正式開幕/" data-toggle="tooltip" data-placement="top" title="Blog 正式開幕">&larr; 上篇 </a>
+                            <a href="/2021/08/03/value-reference/" data-toggle="tooltip" data-placement="top" title="C# 實值型別 & 參考型別">&larr; 上篇 </a>
                         </li>
                     
-                    
-                        <li class="next">
-                            <a href="/2021/08/03/value-reference/" data-toggle="tooltip" data-placement="top" title="C# 實值型別 & 參考型別"> 下篇 &rarr;</a>
-                        </li>
                     
                 </ul>
 
@@ -283,7 +274,7 @@ uv： 單用戶點擊 n 篇文章，觀看數增加 1 次</p>
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">第一步：引用腳本</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">第二步：網站觀看數</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">第三步：文章觀看數</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">範本</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.0.0.1.</span> <span class="toc-nav-text">tags: 文章觀看數</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.0.0.2.</span> <span class="toc-nav-text">tags: 網站觀看數（pv）</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">原理</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">參考</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">什麼是 Boxing &amp; Unboxing</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.1.</span> <span class="toc-nav-text">Boxing &amp; Unboxing：</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.2.</span> <span class="toc-nav-text">String.Format：</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">參考</span></a></li></ol>
         
         </div>
       </aside>
@@ -304,7 +295,7 @@ uv： 單用戶點擊 n 篇文章，觀看數增加 1 次</p>
                     <h5><a href="/tags/">標籤雲</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Hexo" title="Hexo">Hexo</a>
+                          <a class="tag" href="/tags/#C# 本事" title="C# 本事">C# 本事</a>
                         
                     </div>
                 </section>
