@@ -17,18 +17,25 @@
           Dapper 批次執行出現 Sql Exception - Max&#39;s Blog | 邁向全端之路
         
     </title>
-<link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css">
+
     <link rel="canonical" href="https://maxlin0523.github.io/2021/07/07/Dapper 批次執行出現 Sql Exception/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
     <!-- 代碼優化配置 -->
-    <link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css">
+    <!--<link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css">
 
-    <link rel="stylesheet" href="/css/sons-of-obsidian.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="/css/sons-of-obsidian.css" media="screen" type="text/css">-->
+
+    <link rel="stylesheet" href="/css/prettify.css">
+
+    <link rel="stylesheet" href="/css/atelier-forest-light.css">
+    
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <script src="/js/jquery.js"></script>
 
     <!-- Custom CSS --> 
     <link rel="stylesheet" href="/css/beantech.min.css">
@@ -157,14 +164,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -218,8 +225,8 @@
             <div class="
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
-                post-container">
-
+                ">
+                <!-- class: post-container拔除 -->
                 <h1><span id="問題描述">問題描述</span></h1>
 <p>來源是份爬蟲的 Json 物件，而此資料會 post 到 API 服務最終存入 DB，資料型態為 List 且物件屬性有 30 幾個，今天在測試時， post 有 800 多筆，但 API 回傳的儲存筆數卻總是 0 。</p>
 <p>經過一段時間勘查，問題出在使用 Dapper 新增整包 List 進 DB 的過程出現例外，但 Exception Filter 似乎沒把 <code>Sql Exception</code> 包進去，所以回傳了預設值。</p>
@@ -372,13 +379,13 @@ END
     <!-- Footer -->
     <!-- Footer -->
 <footer>
-    <script src="/js/prettify.js"></script>
-    <script type="text/javascript">
-         $(window).load(function(){
-         $('pre').addClass('prettyprint linenums');
-         $('code').addClass('prettyprint');
-         prettyPrint();
-         })
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+     $(document).ready(function(){
+     $('pre').addClass('prettyprint linenums');
+     $('code').addClass('prettyprint');
+     prettyPrint();
+     })
     </script>
     <div class="container">
         <div class="row">

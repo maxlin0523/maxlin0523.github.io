@@ -17,18 +17,25 @@
           Blog 正式開幕 - Max&#39;s Blog | 邁向全端之路
         
     </title>
-<link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css">
+
     <link rel="canonical" href="https://maxlin0523.github.io/2021/07/25/Blog正式開幕/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
     <!-- 代碼優化配置 -->
-    <link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css">
+    <!--<link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css">
 
-    <link rel="stylesheet" href="/css/sons-of-obsidian.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="/css/sons-of-obsidian.css" media="screen" type="text/css">-->
+
+    <link rel="stylesheet" href="/css/prettify.css">
+
+    <link rel="stylesheet" href="/css/atelier-forest-light.css">
+    
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <script src="/js/jquery.js"></script>
 
     <!-- Custom CSS --> 
     <link rel="stylesheet" href="/css/beantech.min.css">
@@ -157,14 +164,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -218,8 +225,8 @@
             <div class="
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
-                post-container">
-
+                ">
+                <!-- class: post-container拔除 -->
                 <p>經過幾番波折終於開幕了～</p>
 <p>原本在 Medium 發展了一小段時間（<a href="https://max-lin.medium.com/" target="_blank" rel="noopener">底加</a>），至於為什麼會轉來這邊呢，原因是當初寫了也快 10 篇文，想說是時候要來整理文章分類功能了，結果發現竟然是需要花錢才能解鎖阿！<br>
 讓我一怒之下<br>
@@ -363,13 +370,13 @@
     <!-- Footer -->
     <!-- Footer -->
 <footer>
-    <script src="/js/prettify.js"></script>
-    <script type="text/javascript">
-         $(window).load(function(){
-         $('pre').addClass('prettyprint linenums');
-         $('code').addClass('prettyprint');
-         prettyPrint();
-         })
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+     $(document).ready(function(){
+     $('pre').addClass('prettyprint linenums');
+     $('code').addClass('prettyprint');
+     prettyPrint();
+     })
     </script>
     <div class="container">
         <div class="row">

@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>https://maxlin0523.github.io/2021/07/30/Hexo%E5%8A%A0%E5%85%A5%E7%B6%B2%E7%AB%99%E3%80%81%E6%96%87%E7%AB%A0%E8%A8%AA%E5%95%8F%E6%95%B8%E7%B5%B1%E8%A8%88/</loc>
+        <lastmod>2021-08-03T15:54:02.100Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://maxlin0523.github.io/2021/08/03/boxing-Unboxing/</loc>
         <lastmod>2021-08-03T13:41:58.623Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -97,14 +105,6 @@
     <url>
         <loc>https://maxlin0523.github.io/2021/07/25/Blog%E6%AD%A3%E5%BC%8F%E9%96%8B%E5%B9%95/</loc>
         <lastmod>2021-08-01T04:57:56.388Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://maxlin0523.github.io/2021/07/30/Hexo%E5%8A%A0%E5%85%A5%E7%B6%B2%E7%AB%99%E3%80%81%E6%96%87%E7%AB%A0%E8%A8%AA%E5%95%8F%E6%95%B8%E7%B5%B1%E8%A8%88/</loc>
-        <lastmod>2021-08-01T03:43:21.953Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

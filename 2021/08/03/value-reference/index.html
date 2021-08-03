@@ -17,18 +17,25 @@
           C# 實值型別 &amp; 參考型別 - Max&#39;s Blog | 邁向全端之路
         
     </title>
-<link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css">
+
     <link rel="canonical" href="https://maxlin0523.github.io/2021/08/03/value-reference/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
     <!-- 代碼優化配置 -->
-    <link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css">
+    <!--<link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css">
 
-    <link rel="stylesheet" href="/css/sons-of-obsidian.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="/css/sons-of-obsidian.css" media="screen" type="text/css">-->
+
+    <link rel="stylesheet" href="/css/prettify.css">
+
+    <link rel="stylesheet" href="/css/atelier-forest-light.css">
+    
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <script src="/js/jquery.js"></script>
 
     <!-- Custom CSS --> 
     <link rel="stylesheet" href="/css/beantech.min.css">
@@ -157,14 +164,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -218,8 +225,8 @@
             <div class="
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
-                post-container">
-
+                ">
+                <!-- class: post-container拔除 -->
                 <h1><span id="前言">前言</span></h1>
 <p>在 C# 世界裡，資料型態分為 <strong>實值型別（Value Type）</strong> 與 <strong>參考型別（Reference Type）</strong>，例如像 <code>int</code>、<code>char</code>、<code>byte</code> …等屬於實值型別，<code>class</code>、<code>object</code>、<code>string</code> 、<code>List</code> …等屬於參考型別，辨別方法為參考類型需使用 <code>new</code> 關鍵字實體化，但請記得 <code>string</code> 也屬於參考型別（詳細請<a href="https://medium.com/ninas-note/c-%E5%AF%A6%E8%B3%AA%E5%9E%8B%E5%88%A5-value-type-vs%E5%8F%83%E8%80%83%E5%9E%8B%E5%88%A5-reference-type-64ba5cf8bf8b" target="_blank" rel="noopener">參閱</a>），而兩者主要的差異在於存儲方式。</p>
 <h4><span id="實值型別">實值型別：</span></h4>
@@ -403,13 +410,13 @@
     <!-- Footer -->
     <!-- Footer -->
 <footer>
-    <script src="/js/prettify.js"></script>
-    <script type="text/javascript">
-         $(window).load(function(){
-         $('pre').addClass('prettyprint linenums');
-         $('code').addClass('prettyprint');
-         prettyPrint();
-         })
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+     $(document).ready(function(){
+     $('pre').addClass('prettyprint linenums');
+     $('code').addClass('prettyprint');
+     prettyPrint();
+     })
     </script>
     <div class="container">
         <div class="row">

@@ -17,18 +17,25 @@
           物件導向設計－Object Oriented Programming - Max&#39;s Blog | 邁向全端之路
         
     </title>
-<link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css">
+
     <link rel="canonical" href="https://maxlin0523.github.io/2021/06/12/物件導向設計－Object Oriented Programming/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
     <!-- 代碼優化配置 -->
-    <link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css">
+    <!--<link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css">
 
-    <link rel="stylesheet" href="/css/sons-of-obsidian.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="/css/sons-of-obsidian.css" media="screen" type="text/css">-->
+
+    <link rel="stylesheet" href="/css/prettify.css">
+
+    <link rel="stylesheet" href="/css/atelier-forest-light.css">
+    
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <script src="/js/jquery.js"></script>
 
     <!-- Custom CSS --> 
     <link rel="stylesheet" href="/css/beantech.min.css">
@@ -159,14 +166,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -220,8 +227,8 @@
             <div class="
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
-                post-container">
-
+                ">
+                <!-- class: post-container拔除 -->
                 <h1><span id="類別class與物件object">類別(Class)與物件(Object)</span></h1>
 <h3><span id="類別">類別</span></h3>
 <p>類別就像一個抽象空間，你可以把想像到的成員都定義在類別裡面，包含屬性、方法．．．等，可以想像一個「車」的類別，而在想像的空間裡你想怎麼變化都行。</p>
@@ -405,13 +412,13 @@ Ex：<br>
     <!-- Footer -->
     <!-- Footer -->
 <footer>
-    <script src="/js/prettify.js"></script>
-    <script type="text/javascript">
-         $(window).load(function(){
-         $('pre').addClass('prettyprint linenums');
-         $('code').addClass('prettyprint');
-         prettyPrint();
-         })
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+     $(document).ready(function(){
+     $('pre').addClass('prettyprint linenums');
+     $('code').addClass('prettyprint');
+     prettyPrint();
+     })
     </script>
     <div class="container">
         <div class="row">

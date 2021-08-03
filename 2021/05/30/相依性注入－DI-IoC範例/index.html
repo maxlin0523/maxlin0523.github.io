@@ -17,18 +17,25 @@
           相依性注入－DI/IoC 範例 - Max&#39;s Blog | 邁向全端之路
         
     </title>
-<link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css">
+
     <link rel="canonical" href="https://maxlin0523.github.io/2021/05/30/相依性注入－DI-IoC範例/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
     <!-- 代碼優化配置 -->
-    <link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css">
+    <!--<link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css">
 
-    <link rel="stylesheet" href="/css/sons-of-obsidian.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="/css/sons-of-obsidian.css" media="screen" type="text/css">-->
+
+    <link rel="stylesheet" href="/css/prettify.css">
+
+    <link rel="stylesheet" href="/css/atelier-forest-light.css">
+    
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <script src="/js/jquery.js"></script>
 
     <!-- Custom CSS --> 
     <link rel="stylesheet" href="/css/beantech.min.css">
@@ -159,14 +166,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -220,8 +227,8 @@
             <div class="
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
-                post-container">
-
+                ">
+                <!-- class: post-container拔除 -->
                 <h1><span id="前言">前言</span></h1>
 <p>接續上篇（相依性注入－DI/IoC），這篇介紹實作的部分，關於 DI/IoC 再稍微帶過：也就是把兩個物件有相互依賴部分的控制權轉移到容器（稱為 IoC 容器），這樣的轉移行為叫做 <code>Inversion of Controll</code> ，之後在 IoC 容器裡註冊要執行依賴部分的邏輯供兩個物件來使用，這樣的註冊行為叫做 <code>Dependency Injection</code> ，日後若這兩個物件需要用到註冊的依賴物件時，則由 IoC 容器 <code>主動</code> 提供使用。</p>
 <h1><span id="實作使用-console-application">實作(使用 Console Application)</span></h1>
@@ -404,13 +411,13 @@
     <!-- Footer -->
     <!-- Footer -->
 <footer>
-    <script src="/js/prettify.js"></script>
-    <script type="text/javascript">
-         $(window).load(function(){
-         $('pre').addClass('prettyprint linenums');
-         $('code').addClass('prettyprint');
-         prettyPrint();
-         })
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+     $(document).ready(function(){
+     $('pre').addClass('prettyprint linenums');
+     $('code').addClass('prettyprint');
+     prettyPrint();
+     })
     </script>
     <div class="container">
         <div class="row">
