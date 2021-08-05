@@ -157,6 +157,13 @@
 
                         
                         <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
                             <a href="/about/">About</a>
                         </li>
                         
@@ -165,13 +172,6 @@
                         
                         <li>
                             <a href="/archive/">Archives</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -237,7 +237,7 @@
 <p>變數會存放於 <code>堆疊（Stack）</code> 記憶體，而值會存放於 <code>堆積（Heap）</code> 記憶體中的某個位址，當變數指派一個參考型別的值，變數則會指向該 <code>Heap</code> 記憶體位址， <code>var a = new List&lt;int&gt;() { 1,2,3 }</code>　當中 <code>a</code> 會指向該 <code>List</code> 的記憶體位址進而得到物件，而當 <code>var b = a</code>，則會在 <code>Stack</code> 新增一塊空間給 <code>b</code> 而值則指向和 <code>a</code> 相同的記憶體位址，彼此共用物件，當任一方改動，則會影響到另一方。</p>
 <p>如下：<br>
 <img src="https://i.imgur.com/7xlC01B.png" alt></p>
-<h1><span id="實作">實作</span></h1>
+<h1><span id="驗證">驗證</span></h1>
 <h6><span id="實值型別">實值型別：</span></h6>
 <pre><code class="language-C#=">void Main()
 {
@@ -259,7 +259,7 @@
 <h6><span id="參考型別">參考型別：</span></h6>
 <pre><code class="language-C#=">void Main()
 {
-	// 參考類型
+	// 參考型別
 	var a = new List&lt;int&gt;() { 1,2,3 };
 	var b = a;
 
@@ -316,7 +316,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.0.1.</span> <span class="toc-nav-text">實值型別：</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.0.2.</span> <span class="toc-nav-text">參考型別：</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">實作</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.1.</span> <span class="toc-nav-text">實值型別：</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.2.</span> <span class="toc-nav-text">參考型別：</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.0.1.</span> <span class="toc-nav-text">實值型別：</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.0.2.</span> <span class="toc-nav-text">參考型別：</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">驗證</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.1.</span> <span class="toc-nav-text">實值型別：</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.2.</span> <span class="toc-nav-text">參考型別：</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol>
         
         </div>
       </aside>
@@ -383,7 +383,7 @@
     }
 </script>
 <!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
-<script>
+<!--<script>
     async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
         anchors.options = {
           visible: 'hover',
@@ -392,7 +392,7 @@
         };
         anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
     })
-</script>
+</script>-->
 <style>
     /* place left on bigger screen */
     @media all and (min-width: 800px) {
