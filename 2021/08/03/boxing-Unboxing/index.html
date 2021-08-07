@@ -50,10 +50,10 @@
 
     <link rel="stylesheet" href="/css/toc.css">
 
-    <!-- Custom Fonts -->
-    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
-    <!-- Hux change font-awesome CDN to qiniu -->
-    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/96542121e6.js" crossorigin="anonymous"></script>
+
 </head>
 
 
@@ -145,14 +145,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -224,10 +224,10 @@ var result = $&quot;我的電話: {num}&quot;;
 <p>※ 若兩者都為 <code>實值型別</code> 或 <code>參考型別</code>，就不會發生此情況。</p>
 <p>說明如下：</p>
 <pre><code class="language-C#">int i = 123;
-object o = i; // boxing( 實質 =&gt; 參考 )
-int j = (int)o // unboxing( 參考 =&gt; 實質 )
+object o = i; // boxing ( 實質 =&gt; 參考 )
+int j = (int)o // unboxing ( 參考 =&gt; 實質 )
 </code></pre>
-<p>在轉換過程，實值型別的值是存在 <code>Stack</code> 記憶體裡，但經轉換成參考型別的 <code>object</code> ，會將值<strong>轉存</strong>在 <code>heap</code> 記憶體，反之亦然，這樣一來一往無形中就會產生效能損耗。</p>
+<p>在轉換過程中，實值型別的值原本存於 <code>Stack</code> 記憶體裡，但經轉換成參考型別 <code>object</code> ，會將值轉存於 <code>heap</code> 記憶體，反之亦然，這樣一來一往無形中就會產生效能損耗。</p>
 <h3><span id="stringformat">String.Format</span></h3>
 <p>再回頭看 <code>String.Format</code> 這個函式，其中一個多載為：<br>
 <code>public static string Format (string format, params object?[] args)</code><br>
@@ -426,7 +426,7 @@ int j = (int)o // unboxing( 參考 =&gt; 實質 )
                         <a target="_blank"  href="https://max-lin.medium.com/">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-medium fa-stack-1x fa-inverse"></i>
+                                <i class="fab fa-medium-m fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -434,12 +434,15 @@ int j = (int)o // unboxing( 參考 =&gt; 實質 )
 
                 </ul>
                 <p class="copyright text-muted">
+                    Powered by Hexo - Theme by <a href="http://beantech.org">BeanTech</a> |
+                    <iframe
+                    style="margin-left: 2px; margin-bottom:-5px;"
+                    frameborder="0" scrolling="0" width="91px" height="20px"
+                    src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true" >
+                    </iframe> <br>
                     <span id="busuanzi_container_site_pv">
-                        <i class="fa fa-eye"></i> : <span id="busuanzi_value_site_pv"></span>
-                    </span>
-
-                    <br>
-                    
+                        <i class="fas fa-eye"></i> : <span id="busuanzi_value_site_pv"></span>
+                    </span><br>                    
                     <span id="sitetime"></span>
                     <br>
                     Copyright &copy; Max Lin 2021
