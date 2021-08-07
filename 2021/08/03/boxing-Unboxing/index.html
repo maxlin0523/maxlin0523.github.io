@@ -23,19 +23,18 @@
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-    <!-- 代碼優化配置 -->
-    <!--<link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css">
-
-    <link rel="stylesheet" href="/css/sons-of-obsidian.css" media="screen" type="text/css">-->
-
+    <!-- google pretty print -->
     <link rel="stylesheet" href="/css/prettify.css">
 
-    <link rel="stylesheet" href="/css/atelier-forest-light.css">
+    <!-- 程式碼樣式 -->
+    <<!-- <link rel="stylesheet" href="/css/atelier-forest-light.css"> -->
+    <link rel="stylesheet" href="/css/atelier-dune-light.min.css">
     
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
-    <script src="/js/jquery.js"></script>
+    <!-- Jquery -->
+    <script src="/js/jquery.min.js"></script>
 
     <!-- Custom CSS --> 
     <link rel="stylesheet" href="/css/beantech.min.css">
@@ -55,24 +54,6 @@
     <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
     <!-- Hux change font-awesome CDN to qiniu -->
     <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-
-    <!-- Hux Delete, sad but pending in China
-    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
-    css'>
-    -->
-
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- ga & ba script hoook -->
-    <script></script>
 </head>
 
 
@@ -164,14 +145,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -234,7 +215,7 @@ var result = $&quot;我的電話: {num}&quot;;
 </code></pre>
 <p>為何這一段程式碼可以把 <code>int</code> 型別直接插進字串呢？</p>
 <p>事實上</p>
-<p>可以把 <code>$</code> 字串插值看成 <code>String.Format</code> 的語法糖，而在這種情況 <code>String.Format</code> 底層其實做了 Boxing 的動作，使 <code>int</code> 轉為 <code>string</code> 後再插入字串裡，這樣做其實無形中產生了一些效能成本。</p>
+<p>可以把 <code>$&quot;&quot;</code> 看成 <code>String.Format</code> 的語法糖，在這種情況 <code>String.Format</code> 底層其實做了 Boxing 的動作，使 <code>int</code> 最終會轉為 <code>string</code> 後再填入字串裡，這樣做其實無形中產生了一些效能成本。</p>
 <h1><span id="什麼是-boxing-amp-unboxing">什麼是 Boxing &amp; Unboxing</span></h1>
 <p>談 <strong>Boxing &amp; Unboxing</strong> 前，要先了解 <strong>實值型別</strong> 與 <strong>參考型別</strong> 的存儲方式。<br>
 可以參考我的另一篇 – <a href="/2021/08/03/value-reference/">C# 實值型別 &amp; 參考型別</a></p>
@@ -243,11 +224,11 @@ var result = $&quot;我的電話: {num}&quot;;
 <p>※ 若兩者都為 <code>實值型別</code> 或 <code>參考型別</code>，就不會發生此情況。</p>
 <p>說明如下：</p>
 <pre><code class="language-C#">int i = 123;
-object o = i; // boxing
-int j = (int)o // unboxing
+object o = i; // boxing( 實質 =&gt; 參考 )
+int j = (int)o // unboxing( 參考 =&gt; 實質 )
 </code></pre>
-<p>而在這轉換過程中，實值型別的值是存儲在 <code>Stack</code> 記憶體裡，但經轉換成參考型別的 <code>object</code> ，會將值轉存在 <code>heap</code> 記憶體，反之亦然，這樣一來一往無形中就會產生效能損耗。</p>
-<h3><span id="stringformat">String.Format：</span></h3>
+<p>在轉換過程，實值型別的值是存在 <code>Stack</code> 記憶體裡，但經轉換成參考型別的 <code>object</code> ，會將值<strong>轉存</strong>在 <code>heap</code> 記憶體，反之亦然，這樣一來一往無形中就會產生效能損耗。</p>
+<h3><span id="stringformat">String.Format</span></h3>
 <p>再回頭看 <code>String.Format</code> 這個函式，其中一個多載為：<br>
 <code>public static string Format (string format, params object?[] args)</code><br>
 可以看到傳入參數是 <code>object</code> 型別，也就代表不管傳入參數的資料型態為何，最終都將被強轉成 <code>object</code>， 所以，當傳入 <code>實值型別</code> 參數時，就會發生 <code>Boxing</code>。</p>
@@ -284,7 +265,8 @@ int j = (int)o // unboxing
 }
 </code></pre>
 <h1><span id="參考">參考</span></h1>
-<p><a href="https://dotblogs.com.tw/joysdw12/2013/08/06/asp-net-boxing-unboxing" target="_blank" rel="noopener">[ASP<span>.</span>NET] Boxing(裝箱) 與 UnBoxing(拆箱) 測試</a></p>
+<p><a href="https://dotblogs.com.tw/joysdw12/2013/08/06/asp-net-boxing-unboxing" target="_blank" rel="noopener">[ASP<span>.</span>NET] Boxing(裝箱) 與 UnBoxing(拆箱) 測試</a><br>
+<a href="https://isdaniel.github.io/stringformat-compare/" target="_blank" rel="noopener">那些年String.Format中的Boxing和UnBoxing</a></p>
 
                 
 
@@ -320,7 +302,7 @@ int j = (int)o // unboxing
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">什麼是 Boxing &amp; Unboxing</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.1.</span> <span class="toc-nav-text">Boxing &amp; Unboxing：</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.2.</span> <span class="toc-nav-text">String.Format：</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">參考</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">什麼是 Boxing &amp; Unboxing</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.1.</span> <span class="toc-nav-text">Boxing &amp; Unboxing：</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.2.</span> <span class="toc-nav-text">String.Format</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">參考</span></a></li></ol>
         
         </div>
       </aside>
@@ -452,8 +434,17 @@ int j = (int)o // unboxing
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; Max Lin 2021 
+                    <span id="busuanzi_container_site_pv">
+                        <i class="fa fa-eye"></i> : <span id="busuanzi_value_site_pv"></span>
+                    </span>
+
                     <br>
+                    
+                    <span id="sitetime"></span>
+                    <br>
+                    Copyright &copy; Max Lin 2021
+                    <br>
+                    <!-- 主題聲明
                     Theme by <a href="http://huangxuan.me">Hux</a> 
                     <span style="display: inline-block; margin: 0 5px;">
                         <i class="fa fa-heart"></i>
@@ -463,11 +454,8 @@ int j = (int)o // unboxing
                         style="margin-left: 2px; margin-bottom:-5px;"
                         frameborder="0" scrolling="0" width="91px" height="20px"
                         src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true" >
-                    </iframe>
-                    <br>
-                    <span id="busuanzi_container_site_pv">
-                        <i class="fa fa-eye"></i> : <span id="busuanzi_value_site_pv"></span>
-                    </span><br><span id="sitetime"></span>
+                    </iframe> 
+                    -->                    
                 </p>
             </div>
         </div>
@@ -509,9 +497,6 @@ int j = (int)o // unboxing
     </script>
 </footer>
 
-<!-- jQuery -->
-<script src="/js/jquery.min.js"></script>
-
 <!-- Bootstrap Core JavaScript -->
 <script src="/js/bootstrap.min.js"></script>
 
@@ -530,25 +515,6 @@ int j = (int)o // unboxing
       s.parentNode.insertBefore(o, s);
     }
 </script>
-
-<!-- 
-     Because of the native support for backtick-style fenced code blocks 
-     right within the Markdown is landed in Github Pages, 
-     From V1.6, There is no need for Highlight.js, 
-     so Huxblog drops it officially.
-
-     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
-     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
--->
-<!--
-    <script>
-        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
-            hljs.initHighlightingOnLoad();
-        })
-    </script>
-    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
--->
-
 
 <!-- jquery.tagcloud.js -->
 <script>

@@ -23,19 +23,18 @@
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-    <!-- 代碼優化配置 -->
-    <!--<link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css">
-
-    <link rel="stylesheet" href="/css/sons-of-obsidian.css" media="screen" type="text/css">-->
-
+    <!-- google pretty print -->
     <link rel="stylesheet" href="/css/prettify.css">
 
-    <link rel="stylesheet" href="/css/atelier-forest-light.css">
+    <!-- 程式碼樣式 -->
+    <<!-- <link rel="stylesheet" href="/css/atelier-forest-light.css"> -->
+    <link rel="stylesheet" href="/css/atelier-dune-light.min.css">
     
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
-    <script src="/js/jquery.js"></script>
+    <!-- Jquery -->
+    <script src="/js/jquery.min.js"></script>
 
     <!-- Custom CSS --> 
     <link rel="stylesheet" href="/css/beantech.min.css">
@@ -55,24 +54,6 @@
     <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
     <!-- Hux change font-awesome CDN to qiniu -->
     <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-
-    <!-- Hux Delete, sad but pending in China
-    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
-    css'>
-    -->
-
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- ga & ba script hoook -->
-    <script></script>
 </head>
 
 
@@ -166,14 +147,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -231,16 +212,15 @@
                 <!-- class: post-container拔除 -->
                 <h1><span id="類別class與物件object">類別(Class)與物件(Object)</span></h1>
 <h3><span id="類別">類別</span></h3>
-<p>類別就像一個抽象空間，你可以把想像到的成員都定義在類別裡面，包含屬性、方法．．．等，可以想像一個「車」的類別，而在想像的空間裡你想怎麼變化都行。</p>
-<p>例如：定義車有 20 個輪子還是車可以有飛的動作，任何的抽象想法都可以藉由類別去定義，由你自行發揮。<br>
+<p>類別就像一個抽象空間，你可以把想像到的成員都定義在類別裡面，包含屬性、方法．．．等，可以想像一個「<strong>車</strong>」的類別，而在想像的空間裡你想怎麼變化都行。例如：定義車有 20 個輪子還是車可以有飛的動作，任何的抽象想法都可以藉由類別去定義，由你自行發揮。<br>
 Ex：<br>
 <img src="https://i.imgur.com/1Fy5mvH.png" alt></p>
-<h6><span id="關於類別成員的定義">關於類別成員的定義</span></h6>
-<h6><span id="屬性類別原生的產物-就像人類的四肢跟五官屬於原生的而四肢-五官就是人類的屬性">屬性：類別原生的產物。就像人類的四肢跟五官屬於原生的，而四肢、五官就是人類的屬性。</span></h6>
-<h6><span id="方法類別的行為動作-就像人類有著會跑會跳的行為而跑-跳就是人類的方法">方法：類別的行為動作。就像人類有著會跑會跳的行為，而跑、跳就是人類的方法。</span></h6>
+<h5><span id="關於類別成員的定義">關於類別成員的定義</span></h5>
+<h5><span id="屬性類別原生的產物-就像人類的四肢跟五官屬於原生的而四肢-五官就是人類的屬性">屬性：類別原生的產物。就像人類的四肢跟五官屬於原生的，而四肢、五官就是人類的屬性。</span></h5>
+<h5><span id="方法類別的行為動作-就像人類有著會跑會跳的行為而跑-跳就是人類的方法">方法：類別的行為動作。就像人類有著會跑會跳的行為，而跑、跳就是人類的方法。</span></h5>
 <h3><span id="物件">物件</span></h3>
 <p>物件就是把抽象變成現實就等於把類別實體化為物件，而物件就是實體存在的東西，有了實體就可以加以運用其內部的成員。</p>
-<p>例如：假設「<strong>金正恩</strong>」的類別裡有個方法叫「<strong>發射核彈</strong>」，那你如果想發射看看核彈就必須先成為真正的金正恩才可以發射，也就是你必須實體化金正恩這個類別，當你實體化之後才能使用這個類別定義的成員。<br>
+<p>例如：「<strong>金正恩</strong>」的類別裡有個方法叫「<strong>發射核彈</strong>」，那你如果想發射看看核彈就必須先成為真正的金正恩才可以發射，也就是你必須實體化金正恩這個類別，當你實體化之後才能使用這個類別定義的成員。<br>
 Ex：<br>
 <img src="https://i.imgur.com/j8NgJUq.png" alt></p>
 <p><img src="https://i.imgur.com/yIamWx0.png" alt></p>
@@ -248,6 +228,7 @@ Ex：<br>
 <h3><span id="封裝encapsulation">封裝（Encapsulation）</span></h3>
 <p>把一個物件成員裝在一個空間裡面，概念就好比方法，把程式要執行的邏輯裝在一個函式裡面，就代表著使用的人只需要呼叫這個方法取得結果，而不用去了解方法內部寫的邏輯，例如：我們要開燈時只需按下開關，電燈就能亮了，而不用去理解背後線路是如何去設計實現的，也就是把背後線路原理封裝在開關上，而我們只需要去呼叫開關，即可實現開關燈功能，也就是說，只要封裝內的功能符合期待的結果即可，呼叫端只負責用。</p>
 <p>Ex：<br>
+把燈泡變亮的原理封裝在 Open 方法<br>
 <img src="https://i.imgur.com/vdWeVuE.png" alt></p>
 <p><img src="https://i.imgur.com/LBY634y.png" alt></p>
 <h3><span id="繼承inheritance">繼承（Inheritance）</span></h3>
@@ -316,7 +297,7 @@ Ex：<br>
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">類別(Class)與物件(Object)</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.1.</span> <span class="toc-nav-text">類別</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.1.0.0.1.</span> <span class="toc-nav-text">關於類別成員的定義</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.1.0.0.2.</span> <span class="toc-nav-text">屬性：類別原生的產物。就像人類的四肢跟五官屬於原生的，而四肢、五官就是人類的屬性。</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.1.0.0.3.</span> <span class="toc-nav-text">方法：類別的行為動作。就像人類有著會跑會跳的行為，而跑、跳就是人類的方法。</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.2.</span> <span class="toc-nav-text">物件</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">三大特性</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.1.</span> <span class="toc-nav-text">封裝（Encapsulation）</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.2.</span> <span class="toc-nav-text">繼承（Inheritance）</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.3.</span> <span class="toc-nav-text">多型（Polymorphism）</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.3.0.0.1.</span> <span class="toc-nav-text">覆寫</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.3.0.0.2.</span> <span class="toc-nav-text">多載</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">總結</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">心得</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">類別(Class)與物件(Object)</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.1.</span> <span class="toc-nav-text">類別</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.1.0.1.</span> <span class="toc-nav-text">關於類別成員的定義</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.1.0.2.</span> <span class="toc-nav-text">屬性：類別原生的產物。就像人類的四肢跟五官屬於原生的，而四肢、五官就是人類的屬性。</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.1.0.3.</span> <span class="toc-nav-text">方法：類別的行為動作。就像人類有著會跑會跳的行為，而跑、跳就是人類的方法。</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.2.</span> <span class="toc-nav-text">物件</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">三大特性</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.1.</span> <span class="toc-nav-text">封裝（Encapsulation）</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.2.</span> <span class="toc-nav-text">繼承（Inheritance）</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.3.</span> <span class="toc-nav-text">多型（Polymorphism）</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.3.0.0.1.</span> <span class="toc-nav-text">覆寫</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.3.0.0.2.</span> <span class="toc-nav-text">多載</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">總結</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">心得</span></a></li></ol>
         
         </div>
       </aside>
@@ -450,8 +431,17 @@ Ex：<br>
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; Max Lin 2021 
+                    <span id="busuanzi_container_site_pv">
+                        <i class="fa fa-eye"></i> : <span id="busuanzi_value_site_pv"></span>
+                    </span>
+
                     <br>
+                    
+                    <span id="sitetime"></span>
+                    <br>
+                    Copyright &copy; Max Lin 2021
+                    <br>
+                    <!-- 主題聲明
                     Theme by <a href="http://huangxuan.me">Hux</a> 
                     <span style="display: inline-block; margin: 0 5px;">
                         <i class="fa fa-heart"></i>
@@ -461,11 +451,8 @@ Ex：<br>
                         style="margin-left: 2px; margin-bottom:-5px;"
                         frameborder="0" scrolling="0" width="91px" height="20px"
                         src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true" >
-                    </iframe>
-                    <br>
-                    <span id="busuanzi_container_site_pv">
-                        <i class="fa fa-eye"></i> : <span id="busuanzi_value_site_pv"></span>
-                    </span><br><span id="sitetime"></span>
+                    </iframe> 
+                    -->                    
                 </p>
             </div>
         </div>
@@ -507,9 +494,6 @@ Ex：<br>
     </script>
 </footer>
 
-<!-- jQuery -->
-<script src="/js/jquery.min.js"></script>
-
 <!-- Bootstrap Core JavaScript -->
 <script src="/js/bootstrap.min.js"></script>
 
@@ -528,25 +512,6 @@ Ex：<br>
       s.parentNode.insertBefore(o, s);
     }
 </script>
-
-<!-- 
-     Because of the native support for backtick-style fenced code blocks 
-     right within the Markdown is landed in Github Pages, 
-     From V1.6, There is no need for Highlight.js, 
-     so Huxblog drops it officially.
-
-     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
-     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
--->
-<!--
-    <script>
-        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
-            hljs.initHighlightingOnLoad();
-        })
-    </script>
-    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
--->
-
 
 <!-- jquery.tagcloud.js -->
 <script>

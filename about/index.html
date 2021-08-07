@@ -23,19 +23,18 @@
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-    <!-- 代碼優化配置 -->
-    <!--<link rel="stylesheet" href="/css/prettify.css" media="screen" type="text/css">
-
-    <link rel="stylesheet" href="/css/sons-of-obsidian.css" media="screen" type="text/css">-->
-
+    <!-- google pretty print -->
     <link rel="stylesheet" href="/css/prettify.css">
 
-    <link rel="stylesheet" href="/css/atelier-forest-light.css">
+    <!-- 程式碼樣式 -->
+    <<!-- <link rel="stylesheet" href="/css/atelier-forest-light.css"> -->
+    <link rel="stylesheet" href="/css/atelier-dune-light.min.css">
     
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
-    <script src="/js/jquery.js"></script>
+    <!-- Jquery -->
+    <script src="/js/jquery.min.js"></script>
 
     <!-- Custom CSS --> 
     <link rel="stylesheet" href="/css/beantech.min.css">
@@ -55,24 +54,6 @@
     <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
     <!-- Hux change font-awesome CDN to qiniu -->
     <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-
-    <!-- Hux Delete, sad but pending in China
-    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
-    css'>
-    -->
-
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- ga & ba script hoook -->
-    <script></script>
 </head>
 
 
@@ -155,14 +136,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -373,9 +354,9 @@
             
         
             
-        
-            
             <a href="/tags/#DI Framework" title="DI Framework" rel="2">DI Framework</a>
+            
+        
             
         
     </div>
@@ -431,8 +412,17 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; Max Lin 2021 
+                    <span id="busuanzi_container_site_pv">
+                        <i class="fa fa-eye"></i> : <span id="busuanzi_value_site_pv"></span>
+                    </span>
+
                     <br>
+                    
+                    <span id="sitetime"></span>
+                    <br>
+                    Copyright &copy; Max Lin 2021
+                    <br>
+                    <!-- 主題聲明
                     Theme by <a href="http://huangxuan.me">Hux</a> 
                     <span style="display: inline-block; margin: 0 5px;">
                         <i class="fa fa-heart"></i>
@@ -442,11 +432,8 @@
                         style="margin-left: 2px; margin-bottom:-5px;"
                         frameborder="0" scrolling="0" width="91px" height="20px"
                         src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true" >
-                    </iframe>
-                    <br>
-                    <span id="busuanzi_container_site_pv">
-                        <i class="fa fa-eye"></i> : <span id="busuanzi_value_site_pv"></span>
-                    </span><br><span id="sitetime"></span>
+                    </iframe> 
+                    -->                    
                 </p>
             </div>
         </div>
@@ -488,9 +475,6 @@
     </script>
 </footer>
 
-<!-- jQuery -->
-<script src="/js/jquery.min.js"></script>
-
 <!-- Bootstrap Core JavaScript -->
 <script src="/js/bootstrap.min.js"></script>
 
@@ -509,25 +493,6 @@
       s.parentNode.insertBefore(o, s);
     }
 </script>
-
-<!-- 
-     Because of the native support for backtick-style fenced code blocks 
-     right within the Markdown is landed in Github Pages, 
-     From V1.6, There is no need for Highlight.js, 
-     so Huxblog drops it officially.
-
-     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
-     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
--->
-<!--
-    <script>
-        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
-            hljs.initHighlightingOnLoad();
-        })
-    </script>
-    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
--->
-
 
 <!-- jquery.tagcloud.js -->
 <script>
