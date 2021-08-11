@@ -211,13 +211,13 @@
                 ">
                 <!-- class: post-container拔除 -->
                 <h1><span id="介紹">介紹</span></h1>
-<p>CoreProfiler 是一個基於 .NET Core 框架開發的效能監控工具，而使用方式非常簡單，把專案裡需要監控的範圍用 <code>using</code> 陳述式包起來就可以了，而當 <code>using</code> 範圍結束就會自動幫我們紀錄耗時，大概使用方式就這樣！簡單易用好懂！</p>
+<p><code>CoreProfiler</code> 是一個基於 <code>.NET Core</code> 框架開發的效能監控工具，而使用方式非常簡單，把專案裡需要監控的範圍用 <code>using</code> 陳述式包起來就可以了，而當 <code>using</code> 範圍結束就會自動幫我們紀錄耗時，大概使用方式就這樣！簡單易用好懂！</p>
 <h1><span id="實作-net-core-webapi">實作( .NET Core WebApi )</span></h1>
 <br>
 <h3><span id="環境建置">環境建置</span></h3>
 <ul>
 <li>
-<p>安裝 CoreProfiler、CoreProfiler<span>.</span>Web 套件</p>
+<p>安裝 <code>CoreProfiler</code>、<code>CoreProfiler.Web</code> 套件</p>
 </li>
 <li>
 <p>建立 <code>coreprofile.json</code>，輸出目錄：<strong>永遠複製</strong><br>
@@ -244,7 +244,7 @@
 }
 </code></pre>
 <ul>
-<li>在 Startup.Configure 添加 <code>app.UseCoreProfiler(true);</code><br>
+<li>在 <code>Startup.Configure</code> 添加 <code>app.UseCoreProfiler(true);</code><br>
 <br></li>
 </ul>
 <h3><span id="基礎用法">基礎用法</span></h3>
@@ -287,7 +287,7 @@ public IEnumerable&lt;WeatherForecast&gt; Get()
 <p>done.<br>
 <br></p>
 <h3><span id="actionfilter">ActionFilter</span></h3>
-<p>我們都知道 <code>using</code> 陳述式中的參數必須是 <code>IDisposable</code> 型別，當 <code>using</code> 範圍結束後會自動 Dispose，那如果可以不用 <code>using</code> 就必須加上 Dispose 方法，才會釋放記憶體。</p>
+<p>我們都知道 <code>using</code> 陳述式中的參數必須是 <code>IDisposable</code> 型別，當 <code>using</code> 範圍結束後會自動 Dispose，若不用 <code>using</code> 的話，就要在 <code>IDisposable</code> 型別參數使用完後加上 Dispose 方法，才會釋放掉記憶體。</p>
 <p>所以，我們可以用 ActionFilter 的方式在 API 生命週期的開始時監控，結束時在手動寫下 Dispose 紀錄耗時，如下：</p>
 <pre><code class="language-C#=">public class CoreProfilingAttribute : ActionFilterAttribute
 {
@@ -343,7 +343,7 @@ public IEnumerable&lt;WeatherForecast&gt; Get()
         : new DbProfiler(ProfilingSession.Current.Profiler)
 );
 </code></pre>
-<p>例子用剛預設的 API 改寫：</p>
+<p>例子用剛的 API 改寫：</p>
 <pre><code class="language-C#=">[HttpGet]
 [CoreProfiling]
 public async Task&lt;IEnumerable&lt;int&gt;&gt; Get()
