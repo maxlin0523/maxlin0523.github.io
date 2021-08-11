@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          C# Boxing &amp; Unboxing - Max&#39;s Blog | 邁向全端之路
+          .NET Core 之效能監控 CoreProfiler - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
-    <link rel="canonical" href="https://maxlin0523.github.io/2021/08/03/boxing-Unboxing/">
+    <link rel="canonical" href="https://maxlin0523.github.io/2021/08/11/coreprofiler/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -85,14 +85,16 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#C# 本事" title="C# 本事">C# 本事</a>
+                              <a class="tag" href="/tags/#Nuget 套件" title="Nuget 套件">Nuget 套件</a>
+                            
+                              <a class="tag" href="/tags/#效能監控" title="效能監控">效能監控</a>
                             
                         </div>
-                        <h1>C# Boxing &amp; Unboxing</h1>
+                        <h1>.NET Core 之效能監控 CoreProfiler</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
-                            2021-08-03（
+                            2021-08-11（
                             <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views）
                         </span>
                     </div>
@@ -208,65 +210,179 @@
                 col-md-10 col-md-offset-1
                 ">
                 <!-- class: post-container拔除 -->
-                <h1><span id="前言">前言</span></h1>
-<p>你是否曾疑惑：</p>
-<pre><code class="language-C#=">var num = 3345678;
-var result = $&quot;我的電話: {num}&quot;;
-</code></pre>
-<p>為何這一段程式碼可以把 <code>int</code> 型別直接插進字串呢？</p>
-<p>事實上</p>
-<p>可以把 <code>$&quot;&quot;</code> 看成 <code>String.Format</code> 的語法糖，在這種情況 <code>String.Format</code> 底層其實做了 Boxing 的動作，使 <code>int</code> 最終會轉為 <code>string</code> 後再填入字串裡，這樣做其實無形中產生了一些效能成本。</p>
-<h1><span id="什麼是-boxing-amp-unboxing">什麼是 Boxing &amp; Unboxing</span></h1>
-<p>談 <strong>Boxing &amp; Unboxing</strong> 前，要先了解 <strong>實值型別</strong> 與 <strong>參考型別</strong> 的存儲方式。<br>
-可以參考我的另一篇 – <a href="/2021/08/03/value-reference/">C# 實值型別 &amp; 參考型別</a></p>
-<h3><span id="boxing-amp-unboxing">Boxing &amp; Unboxing：</span></h3>
-<p><code>Boxing</code> 是指 <code>實值型別</code> 轉為 <code>參考型別</code> 中間的轉換過程，反之為 <code>Unboxing</code>，也就是 <code>參考型別</code> 轉為 <code>實值型別</code> 的轉換過程。</p>
-<p>※ 若兩者都為 <code>實值型別</code> 或 <code>參考型別</code>，就不會發生此情況。</p>
-<p>說明如下：</p>
-<pre><code class="language-C#">int i = 123;
-object o = i; // boxing ( 實質 =&gt; 參考 )
-int j = (int)o // unboxing ( 參考 =&gt; 實質 )
-</code></pre>
-<p>在轉換過程中，實值型別的值原本存於 <code>Stack</code> 記憶體裡，但經轉換成參考型別 <code>object</code> ，會將值轉存於 <code>heap</code> 記憶體，反之亦然，這樣一來一往無形中就會產生效能損耗。</p>
-<h3><span id="stringformat">String.Format</span></h3>
-<p>再回頭看 <code>String.Format</code> 這個函式，其中一個多載為：<br>
-<code>public static string Format (string format, params object?[] args)</code><br>
-可以看到傳入參數是 <code>object</code> 型別，也就代表不管傳入參數的資料型態為何，最終都將被強轉成 <code>object</code>， 所以，當傳入 <code>實值型別</code> 參數時，就會發生 <code>Boxing</code>。</p>
-<p>測試如下：</p>
-<pre><code class="language-C#">void Main()
-{
-	// arrange
-	var sw = new Stopwatch();
-	var count = 10000000;	
-	
-	// 裝箱測試
-	sw.Start();	
-	for (int i = 0; i &lt; count; i++)
-	{
-		var result = String.Format(&quot;{0}{1}{2}&quot;, i, i, i);		
-	}	
-	sw.Stop();
-	
-	Console.WriteLine($&quot;Boxing Test: {sw.ElapsedMilliseconds} ms&quot;);
-		
-	// 不裝箱測試
-	sw.Restart();
-	for (int i = 0; i &lt; count; i++)
-	{
-		var result = String.Format(&quot;{0}{1}{2}&quot;, i.ToString(), i.ToString(), i.ToString());
-	}
-	sw.Stop();
-	
-	Console.WriteLine($&quot;No Boxing Test: {sw.ElapsedMilliseconds} ms&quot;);
-    
-    // Output
-    // Boxing Test: 4919 ms
-    // No Boxing Test: 4673 ms
+                <h1><span id="介紹">介紹</span></h1>
+<p>CoreProfiler 是一個基於 .NET Core 框架開發的效能監控工具，而使用方式非常簡單，把專案裡需要監控的範圍用 <code>using</code> 陳述式包起來就可以了，而當 <code>using</code> 範圍結束就會自動幫我們紀錄耗時，大概使用方式就這樣！簡單易用好懂！</p>
+<h1><span id="實作-net-core-webapi">實作( .NET Core WebApi )</span></h1>
+<br>
+<h3><span id="環境建置">環境建置</span></h3>
+<ul>
+<li>
+<p>安裝 CoreProfiler、CoreProfiler<span>.</span>Web 套件</p>
+</li>
+<li>
+<p>建立 <code>coreprofile.json</code>，輸出目錄：<strong>永遠複製</strong><br>
+<img src="https://i.imgur.com/oR8JsmO.png" alt></p>
+</li>
+</ul>
+<ul>
+<li>把設定配置加入至 <code>coreprofile.json</code></li>
+</ul>
+<pre><code class="language-json=">{
+  &quot;circularBufferSize&quot;: 200,
+  &quot;filters&quot;: [
+    {
+      &quot;key&quot;: &quot;/coreprofiler&quot;,
+      &quot;value&quot;: &quot;/coreprofiler&quot;,
+      &quot;type&quot;: &quot;CoreProfiler.ProfilingFilters.NameContainsProfilingFilter, CoreProfiler&quot;
+    },
+    {
+      &quot;key&quot;: &quot;static files&quot;,
+      &quot;value&quot;: &quot;ico,jpg,js,css,svg,json,ttf,woff,woff2,eot&quot;,
+      &quot;type&quot;: &quot;CoreProfiler.ProfilingFilters.FileExtensionProfilingFilter, CoreProfiler&quot;
+    }
+  ]
 }
 </code></pre>
+<ul>
+<li>在 Startup.Configure 添加 <code>app.UseCoreProfiler(true);</code><br>
+<br></li>
+</ul>
+<h3><span id="基礎用法">基礎用法</span></h3>
+<ul>
+<li>在預設的 <code>WeatherForecastController.Get()</code> 方法裡加入監控，另外在設定延遲5秒方便觀察</li>
+</ul>
+<pre><code class="language-C#=">[HttpGet]
+public IEnumerable&lt;WeatherForecast&gt; Get()
+{
+            //　監控名稱
+            var stepName = $&quot;測試監控&quot;;
+            using (ProfilingSession.Current.Step(stepName))
+            {
+                var rng = new Random();
+                // 延遲5秒鐘
+                Thread.Sleep(5000);
+                return Enumerable.Range(1, 5).Select(index =&gt; new WeatherForecast
+                {
+                    Date = DateTime.Now.AddDays(index),
+                    TemperatureC = rng.Next(-20, 55),
+                    Summary = Summaries[rng.Next(Summaries.Length)]
+                })
+                .ToArray();
+            }
+}
+</code></pre>
+<ul>
+<li>
+<p>專案跑起來後，先打入要監控的 API =&gt; WeatherForecastController.Get()</p>
+</li>
+<li>
+<p>將域名後加入<code>/coreprofiler/view</code> 進入監控頁面 ，Ex： <code>https://&lt;域名&gt;/coreprofiler/view</code></p>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/dWSXjvR.png" alt></p>
+<ul>
+<li>點選此次 Request API 的詳細內容</li>
+</ul>
+<p><img src="https://i.imgur.com/Cqws7ky.png" alt></p>
+<p>done.<br>
+<br></p>
+<h3><span id="actionfilter">ActionFilter</span></h3>
+<p>我們都知道 <code>using</code> 陳述式中的參數必須是 <code>IDisposable</code> 型別，當 <code>using</code> 範圍結束後會自動 Dispose，那如果可以不用 <code>using</code> 就必須加上 Dispose 方法，才會釋放記憶體。</p>
+<p>所以，我們可以用 ActionFilter 的方式在 API 生命週期的開始時監控，結束時在手動寫下 Dispose 紀錄耗時，如下：</p>
+<pre><code class="language-C#=">public class CoreProfilingAttribute : ActionFilterAttribute
+{
+    /// &lt;summary&gt;
+    /// ProfilingName.
+    /// &lt;/summary&gt;
+    public string ProfilingName { get; set; }
+
+    /// &lt;summary&gt;
+    /// ProfilingStep.
+    /// &lt;/summary&gt;
+    public IDisposable ProfilingStep { get; set; }
+
+    /// &lt;summary&gt;
+    /// 執行前
+    /// &lt;/summary&gt;
+    public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            base.OnActionExecuting(context);
+
+            if (string.IsNullOrEmpty(this.ProfilingName))
+            {
+                this.ProfilingName = context.ActionDescriptor.DisplayName;
+            }
+
+            // 開始監控
+            this.ProfilingStep = ProfilingSession.Current.Step(this.ProfilingName);
+        }
+
+    /// &lt;summary&gt;
+    /// 執行後
+    /// &lt;/summary&gt;
+    public override void OnActionExecuted(ActionExecutedContext context)
+    {
+        base.OnActionExecuted(context);
+        
+        // 監控結束 Dispose
+        this.ProfilingStep?.Dispose();
+    }
+}
+</code></pre>
+<p>掛載要監控的 API</p>
+<p><img src="https://i.imgur.com/EjqNFeO.png" alt></p>
+<p>done.<br>
+<br></p>
+<h3><span id="idbconnection-監控">IDbConnection 監控</span></h3>
+<p>剛介紹了 API 的生命週期監控，若還想額外監控 API 在 Db Conection 的耗時呢？如下：</p>
+<pre><code class="language-C#=">var connection = new ProfiledDbConnection
+(
+    new SqlConnection(this.ConnectionString),
+    () =&gt; ProfilingSession.Current == null
+        ? null
+        : new DbProfiler(ProfilingSession.Current.Profiler)
+);
+</code></pre>
+<p>例子用剛預設的 API 改寫：</p>
+<pre><code class="language-C#=">[HttpGet]
+[CoreProfiling]
+public async Task&lt;IEnumerable&lt;int&gt;&gt; Get()
+{
+    // delay 500 ms
+    Thread.Sleep(500);
+    
+    using (var conn = GetConnection())
+    {
+        var sql = @&quot;SELECT Id FROM dbo.Sample&quot;;
+        
+        // Dapper
+        var result = await conn.QueryAsync&lt;int&gt;(sql);
+        return result;
+    }
+}
+
+private IDbConnection GetConnection()
+{
+    var connectionString = @&quot;&lt;Your ConnectionString&gt;&quot;;
+
+    var connection = new ProfiledDbConnection
+    (
+        new SqlConnection(connectionString),
+        () =&gt; ProfilingSession.Current == null
+            ? null
+            : new DbProfiler(ProfilingSession.Current.Profiler)
+    );
+
+    return connection;
+}
+</code></pre>
+<p>查看監控頁面<br>
+<img src="https://i.imgur.com/tTyMfYs.png" alt></p>
+<p>done.<br>
+<br></p>
 <h1><span id="參考">參考</span></h1>
-<p><a href="https://dotblogs.com.tw/joysdw12/2013/08/06/asp-net-boxing-unboxing" target="_blank" rel="noopener">[ASP<span>.</span>NET] Boxing(裝箱) 與 UnBoxing(拆箱) 測試</a><br>
-<a href="https://isdaniel.github.io/stringformat-compare/" target="_blank" rel="noopener">那些年String.Format中的Boxing和UnBoxing</a></p>
+<p><a href="https://github.com/teddymacn/CoreProfiler" target="_blank" rel="noopener">套件 SourceCode</a><br>
+<a href="https://dotblogs.com.tw/ricochen/2018/04/02/023518?fbclid=IwAR3FCRqZqDoqw-yDTMgU_2mJEMD1031JJlnQfjIWrXKKkukB3diIMIQ2eOU" target="_blank" rel="noopener">monitor performance of webapi via CoreProfiler</a></p>
 
                 
 
@@ -275,13 +391,9 @@ int j = (int)o // unboxing ( 參考 =&gt; 實質 )
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2021/08/03/value-reference/" data-toggle="tooltip" data-placement="top" title="C# 實值型別 & 參考型別">&larr; 上篇 </a>
+                            <a href="/2021/08/03/boxing-Unboxing/" data-toggle="tooltip" data-placement="top" title="C# Boxing & Unboxing">&larr; 上篇 </a>
                         </li>
                     
-                    
-                        <li class="next">
-                            <a href="/2021/08/11/coreprofiler/" data-toggle="tooltip" data-placement="top" title=".NET Core 之效能監控 CoreProfiler"> 下篇 &rarr;</a>
-                        </li>
                     
                 </ul>
 
@@ -306,7 +418,7 @@ int j = (int)o // unboxing ( 參考 =&gt; 實質 )
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">什麼是 Boxing &amp; Unboxing</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.1.</span> <span class="toc-nav-text">Boxing &amp; Unboxing：</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.2.</span> <span class="toc-nav-text">String.Format</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">參考</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">介紹</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">實作( .NET Core WebApi )</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.1.</span> <span class="toc-nav-text">環境建置</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.2.</span> <span class="toc-nav-text">基礎用法</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.3.</span> <span class="toc-nav-text">ActionFilter</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.4.</span> <span class="toc-nav-text">IDbConnection 監控</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">參考</span></a></li></ol>
         
         </div>
       </aside>
@@ -327,7 +439,9 @@ int j = (int)o // unboxing ( 參考 =&gt; 實質 )
                     <h5><a href="/tags/">標籤雲</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#C# 本事" title="C# 本事">C# 本事</a>
+                          <a class="tag" href="/tags/#Nuget 套件" title="Nuget 套件">Nuget 套件</a>
+                        
+                          <a class="tag" href="/tags/#效能監控" title="效能監控">效能監控</a>
                         
                     </div>
                 </section>
