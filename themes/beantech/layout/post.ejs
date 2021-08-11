@@ -12,22 +12,22 @@ layout: layout
             <div class="
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
-                post-container">
-
+                ">
+                <!-- class: post-container拔除 -->
                 <%- page.content %>
                 
 
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
-                    <% if (page.prev){ %>
+                    <% if (page.next){ %>
                         <li class="previous">
-                            <a href="<%- config.root %><%- page.prev.path %>" data-toggle="tooltip" data-placement="top" title="<%- page.prev.title %>">&larr; Previous Post</a>
+                            <a href="<%- config.root %><%- page.next.path %>" data-toggle="tooltip" data-placement="top" title="<%- page.next.title %>">&larr; 上篇 </a>
                         </li>
                     <% } %>
-                    <% if (page.next){ %>
+                    <% if (page.prev){ %>
                         <li class="next">
-                            <a href="<%- config.root %><%- page.next.path %>" data-toggle="tooltip" data-placement="top" title="<%- page.next.title %>">Next Post &rarr;</a>
+                            <a href="<%- config.root %><%- page.prev.path %>" data-toggle="tooltip" data-placement="top" title="<%- page.prev.title %>"> 下篇 &rarr;</a>
                         </li>
                     <% } %>
                 </ul>
@@ -86,11 +86,12 @@ layout: layout
                 col-md-10 col-md-offset-1
                 sidebar-container">
 
+                
                 <!-- Featured Tags -->
                 <% if(config['featured-tags']) { %>
                 <section>
                     <!-- no hr -->
-                    <h5><a href="<%= config.root %>tags/">FEATURED TAGS</a></h5>
+                    <h5><a href="<%= config.root %>tags/">標籤雲</a></h5>
                     <div class="tags">
                        <% page.tags.forEach(function(tag){ %>
                           <a class="tag" href="<%= config.root %>tags/#<%= tag.name %>" title="<%= tag.name %>"><%= tag.name %></a>
@@ -102,7 +103,7 @@ layout: layout
                 <!-- Friends Blog -->
                 <% if(config.friends) { %>
                 <hr>
-                <h5>FRIENDS</h5>
+                <h5>好部落</h5>
                 <ul class="list-inline">
 
                     <% config.friends.forEach(function(friend){ %>
@@ -166,7 +167,7 @@ layout: layout
     }
 </script>
 <!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
-<script>
+<!--<script>
     async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
         anchors.options = {
           visible: 'hover',
@@ -175,7 +176,7 @@ layout: layout
         };
         anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
     })
-</script>
+</script>-->
 <style>
     /* place left on bigger screen */
     @media all and (min-width: 800px) {

@@ -3,10 +3,10 @@
 <style type="text/css">
     header.intro-header{
         <% if (is_home()) { %>
-            background-image: url('<%= config.root + config["header-img"] %>') 
+            background-image: url('<%- config["header-img"] %>') 
             /*config*/
         <%} else if (is_post()){%>
-            background-image: url('<%= page["header-img"] %>')
+            background-image: url('/img/Architecture.jpeg')
             /*post*/
         <%} else {%>
             background-image: url('<%= config.root + page["header-img"] %>')
@@ -37,7 +37,8 @@
                         <h2 class="subheading"><%= page.subtitle || "" %></h2>
                         <span class="meta">
                             Posted by <%- page.author || config.author %> on
-                            <%= page.date.format(config.date_format) %>
+                            <%= page.date.format(config.date_format) %>（
+                            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views）
                         </span>
                     </div>
                 <% } else { %>
@@ -47,8 +48,6 @@
                         <span class="subheading"><%= page.description || config.subtitle || "" %></span>
                     </div>
                 <% } %>
-
-
                 </div>
             </div>
         </div>

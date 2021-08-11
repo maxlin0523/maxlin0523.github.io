@@ -1,5 +1,13 @@
 <!-- Footer -->
 <footer>
+<script src="<%- config.root %>js/prettify.js"></script>
+<script type="text/javascript">
+     $(document).ready(function(){
+     $('pre').addClass('prettyprint linenums');
+     $('code').addClass('prettyprint');
+     prettyPrint();
+     })
+    </script>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -10,48 +18,6 @@
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                <% } %>
-                <% if (config.twitter_username) { %>
-                    <li>
-                        <a target="_blank" href="https://twitter.com/<%= config.twitter_username %>">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                <% } %>
-                <% if (config.zhihu_username) { %>
-                    <li>
-                        <a target="_blank" href="https://www.zhihu.com/people/<%= config.zhihu_username %>">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa  fa-stack-1x fa-inverse">知</i>
-                            </span>
-                        </a>
-                    </li>
-                <% } %>
-
-                <% if (config.weibo_username) { %>
-                    <li>
-                        <a target="_blank" href="http://weibo.com/<%= config.weibo_username %>">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                <% } %>
-
-                <% if (config.facebook_username) { %>
-                    <li>
-                        <a target="_blank" href="https://www.facebook.com/<%= config.facebook_username %>">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -68,12 +34,12 @@
                     </li>
                 <% } %>
 
-                <% if (config.linkedin_username) { %>
+                <% if (config.medium_username) { %>
                     <li>
-                        <a target="_blank"  href="https://www.linkedin.com/in/<%= config.linkedin_username %>">
+                        <a target="_blank"  href="https://<%= config.medium_username %>.medium.com/">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                <i class="fab fa-medium-m fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -81,26 +47,52 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; <%= config.author %> <%= new Date().getFullYear() %> 
-                    <br>
-                    Theme by <a href="http://huangxuan.me">Hux</a> 
-                    <span style="display: inline-block; margin: 0 5px;">
-                        <i class="fa fa-heart"></i>
-                    </span> 
-                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
-                    <iframe
-                        style="margin-left: 2px; margin-bottom:-5px;"
-                        frameborder="0" scrolling="0" width="91px" height="20px"
-                        src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true" >
-                    </iframe>
+                    <span id="busuanzi_container_site_pv">
+                        <i class="fas fa-eye"></i> : <span id="busuanzi_value_site_uv"></span>
+                    </span>                 
+                    <br><span id="sitetime"></span>
+                    <br>Copyright &copy; <%= config.author %> <%= new Date().getFullYear() %> 
+                    <br>Powered by Hexo - Theme by BeanTech          
                 </p>
             </div>
         </div>
     </div>
+    <script language=javascript>
+        function siteTime() {
+            window.setTimeout("siteTime()", 1000);
+            var seconds = 1000;
+            var minutes = seconds * 60;
+            var hours = minutes * 60;
+            var days = hours * 24;
+            var years = days * 365;
+            var today = new Date();
+            var todayYear = today.getFullYear();
+            var todayMonth = today.getMonth() + 1;
+            var todayDate = today.getDate();
+            var todayHour = today.getHours();
+            var todayMinute = today.getMinutes();
+            var todaySecond = today.getSeconds();
+            /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+            year - 作为date对象的年份，为4位年份值
+            month - 0-11之间的整数，做为date对象的月份
+            day - 1-31之间的整数，做为date对象的天数
+            hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+            minutes - 0-59之间的整数，做为date对象的分钟数
+            seconds - 0-59之间的整数，做为date对象的秒数
+            microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+            var t1 = Date.UTC(2021, 07, 25, 00, 02, 42);
+            var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+            var diff = t2 - t1;
+            var diffYears = Math.floor(diff / years);
+            var diffDays = Math.floor((diff / days) - diffYears * 365);
+            var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+            var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+            var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+            document.getElementById("sitetime").innerHTML = "Max's Blog 已運行：" +　/* diffYears　+　" 年 "　+ */　diffDays + " 天 " + diffHours + " 時 " + diffMinutes + " 分 " + diffSeconds + " 秒";
+        }
+        siteTime();
+    </script>
 </footer>
-
-<!-- jQuery -->
-<%- js('js/jquery.min.js') %>
 
 <!-- Bootstrap Core JavaScript -->
 <%- js('js/bootstrap.min.js') %>
@@ -120,25 +112,6 @@
       s.parentNode.insertBefore(o, s);
     }
 </script>
-
-<!-- 
-     Because of the native support for backtick-style fenced code blocks 
-     right within the Markdown is landed in Github Pages, 
-     From V1.6, There is no need for Highlight.js, 
-     so Huxblog drops it officially.
-
-     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
-     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
--->
-<!--
-    <script>
-        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
-            hljs.initHighlightingOnLoad();
-        })
-    </script>
-    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
--->
-
 
 <!-- jquery.tagcloud.js -->
 <script>

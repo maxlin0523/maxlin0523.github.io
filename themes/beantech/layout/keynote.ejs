@@ -126,6 +126,14 @@ layout: layout
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
                 sidebar-container">
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="<%= config.root %>tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        <%- list_tags({style: '', class: '', show_count: false, separator: ''}) %>
+                    </div>
+                </section>
+
 
                 <!-- Featured Tags -->
                 <% if(config['featured-tags']) { %>
