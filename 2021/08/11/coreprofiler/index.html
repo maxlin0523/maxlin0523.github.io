@@ -147,14 +147,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -220,12 +220,12 @@
 <p>安裝 <code>CoreProfiler</code>、<code>CoreProfiler.Web</code> 套件</p>
 </li>
 <li>
-<p>建立 <code>coreprofile.json</code>，輸出目錄：<strong>永遠複製</strong><br>
+<p>建立 <code>coreprofiler.json</code>，輸出目錄：<strong>永遠複製</strong><br>
 <img src="https://i.imgur.com/oR8JsmO.png" alt></p>
 </li>
 </ul>
 <ul>
-<li>把設定配置加入至 <code>coreprofile.json</code></li>
+<li>把設定配置加入至 <code>coreprofiler.json</code></li>
 </ul>
 <pre><code class="language-json=">{
   &quot;circularBufferSize&quot;: 200,
@@ -273,7 +273,7 @@ public IEnumerable&lt;WeatherForecast&gt; Get()
 </code></pre>
 <ul>
 <li>
-<p>專案跑起來後，先打入要監控的 API =&gt; WeatherForecastController.Get()</p>
+<p>專案跑起來後，先打入要監控的 API：<code>httpGet</code> =&gt; <code>https://&lt;域名&gt;/WeatherForecast</code></p>
 </li>
 <li>
 <p>將域名後加入<code>/coreprofiler/view</code> 進入監控頁面 ，Ex： <code>https://&lt;域名&gt;/coreprofiler/view</code></p>
