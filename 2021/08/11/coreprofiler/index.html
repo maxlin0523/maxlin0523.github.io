@@ -147,14 +147,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -255,7 +255,7 @@
 public IEnumerable&lt;WeatherForecast&gt; Get()
 {
             //　監控名稱
-            var stepName = $&quot;測試監控&quot;;
+            var stepName = $&quot;監控名稱&quot;;
             using (ProfilingSession.Current.Step(stepName))
             {
                 var rng = new Random();
@@ -278,10 +278,13 @@ public IEnumerable&lt;WeatherForecast&gt; Get()
 <li>
 <p>將域名後加入<code>/coreprofiler/view</code> 進入監控頁面 ，Ex： <code>https://&lt;域名&gt;/coreprofiler/view</code></p>
 </li>
+<li>
+<p>點選此次 Request API 的詳細內容</p>
+</li>
 </ul>
 <p><img src="https://i.imgur.com/dWSXjvR.png" alt></p>
 <ul>
-<li>點選此次 Request API 的詳細內容</li>
+<li>查看</li>
 </ul>
 <p><img src="https://i.imgur.com/Cqws7ky.png" alt></p>
 <p>done.<br>
@@ -329,12 +332,13 @@ public IEnumerable&lt;WeatherForecast&gt; Get()
     }
 }
 </code></pre>
-<p>掛載要監控的 API</p>
+<p>掛載到 Function 上</p>
 <p><img src="https://i.imgur.com/EjqNFeO.png" alt></p>
 <p>done.<br>
 <br></p>
 <h3><span id="idbconnection-監控">IDbConnection 監控</span></h3>
-<p>剛介紹了 API 的生命週期監控，若還想額外監控 API 在 Db Conection 的耗時呢？如下：</p>
+<p>剛介紹了 API 的生命週期監控，若還想額外監控 API 在 Db Connection 的耗時呢？如下：</p>
+<p>IDbConnection 改為</p>
 <pre><code class="language-C#=">var connection = new ProfiledDbConnection
 (
     new SqlConnection(this.ConnectionString),
@@ -343,7 +347,7 @@ public IEnumerable&lt;WeatherForecast&gt; Get()
         : new DbProfiler(ProfilingSession.Current.Profiler)
 );
 </code></pre>
-<p>例子用剛的 API 改寫：</p>
+<p>用剛的 API 改寫</p>
 <pre><code class="language-C#=">[HttpGet]
 [CoreProfiling]
 public async Task&lt;IEnumerable&lt;int&gt;&gt; Get()
