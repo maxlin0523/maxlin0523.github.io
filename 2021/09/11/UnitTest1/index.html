@@ -139,6 +139,13 @@
 
                         
                         <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
                             <a href="/about/">About</a>
                         </li>
                         
@@ -147,13 +154,6 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -235,9 +235,9 @@
 <img src="https://i.imgur.com/uRB1nPa.jpg" alt></p>
 <p>預設框架為 MSTest 2，這邊按<code>確定</code><br>
 <img src="https://i.imgur.com/ereUtMP.png" alt></p>
-<p>接下來就可以看到測試類別的內容，而測試主要都是用 Assert 這個類庫提供的方法進行驗證，請先閱讀（<a href="https://docs.microsoft.com/zh-tw/previous-versions/visualstudio/visual-studio-2010/ms245302(v=vs.100)?redirectedfrom=MSDN" target="_blank" rel="noopener">連結</a>），之後右鍵方法點選<code>執行測試</code>查看結果<br>
+<p>接下來就可以看到測試類別的內容，而測試主要都是用 Assert 這個類庫提供的方法進行驗證，請先閱讀（<a href="https://docs.microsoft.com/zh-tw/previous-versions/visualstudio/visual-studio-2010/ms245302(v=vs.100)?redirectedfrom=MSDN" target="_blank" rel="noopener">連結</a>），之後右鍵方法點選 <code>執行測試</code> 查看結果<br>
 <img src="https://i.imgur.com/nNNAfTt.jpg" alt></p>
-<p>執行測試後會失敗，因為預設為　Assert.Fail，可以從測試總管 Test Explore 檢視測試訊息<br>
+<p>執行測試後會失敗，因為預設為 Assert.Fail，可以從測試總管 Test Explore 檢視測試訊息<br>
 <img src="https://i.imgur.com/T8dzRr6.jpg" alt></p>
 <p>細節很多沒法一一描述，大家在自行摸索一下</p>
 <h3><span id="如何撰寫單元測試">如何撰寫單元測試？</span></h3>
@@ -296,8 +296,8 @@ public void Greet_當參數name符合格式_應回傳nice_to_meet_you訊息()
     Assert.AreEqual(expected, actual);
 }
 </code></pre>
-<p>這樣就完成 <code>Greet</code> 功能的測試了！</p>
-<p>下篇將提到常見的三種測試情境、單元測試特性以及單元測試帶給產品的好處</p>
+<p>這樣就完成 <code>Greet</code> 功能的測試了，之後點選上方 <code>測試</code> -&gt; <code>執行所有測試</code> 就可查看結果</p>
+<h3><span id="下篇將提到常見的三種測試情境-單元測試特性以及單元測試帶給產品的好處">下篇將提到常見的三種測試情境、單元測試特性以及單元測試帶給產品的好處</span></h3>
 
                 
 
@@ -333,7 +333,7 @@ public void Greet_當參數name符合格式_應回傳nice_to_meet_you訊息()
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">什麼是單元測試？</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">建立單元測試專案</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">如何撰寫單元測試？</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">什麼是單元測試？</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">建立單元測試專案</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">如何撰寫單元測試？</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">下篇將提到常見的三種測試情境、單元測試特性以及單元測試帶給產品的好處</span></a></li></ol>
         
         </div>
       </aside>
