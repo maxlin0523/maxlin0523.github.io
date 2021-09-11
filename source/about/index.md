@@ -9,7 +9,7 @@ comments: true
 # 關於我
 ![](https://i.imgur.com/gVufS4m.jpg)
 我是 **Max**
-喜歡設計程式、玩遊戲、耍廢、慢跑游泳，曾經當過 Part-Time 泳池救生員、英雄聯盟業餘電競選手，目前則是位後端工程師，主要使用語言為 C#.Net 、 MS SQL，也會一點 JavaScript，目前正朝著 Full--Stack 邁進。
+喜歡設計程式、玩遊戲、耍廢、慢跑游泳，曾當過 part-time 救生員、英雄聯盟業餘電競選手，目前則是位後端工程師，主要使用語言為 C#.NET、MS SQL，目前正朝著 Full--Stack 邁進。
 
 而 Blog 主要是記錄分享學過的技術知識以及一些日常工作心得，預防老了忘東忘西。
 

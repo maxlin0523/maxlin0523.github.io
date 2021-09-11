@@ -31,9 +31,19 @@ header-img: https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com
 signature: true #show signature
 signature-img: 
 
+# RSS Hub
+feed:
+    type: atom
+    path: atom.xml
+    limit: 20
+    hub:
+    content:
+    content_limit:
+    content_limit_delim: ' '
+
+RSS: true
 
 # 自訂連結
-# RSS: false
 github_username: maxlin0523
 medium_username: max-lin
 
@@ -89,14 +99,14 @@ friends: [
         title: "John Wu's Blog",
         href: "https://blog.johnwu.cc/"
     },{
+        title: "Jed's blog",
+        href: "https://jed1978.github.io/"
+    },{
         title: "安德魯的部落格",
         href: "https://columns.chicken-house.net/categories/"
     },{
         title: "石頭的coding之路",
         href: "https://isdaniel.github.io/"
-    },{
-        title: "工作在浏览器上人-YangBobin",
-        href: "https://www.cnblogs.com/springsnow/"
     }
 ]
 

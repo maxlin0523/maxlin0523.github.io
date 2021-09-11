@@ -14,7 +14,7 @@
                 <ul class="list-inline text-center">
                 <% if (config.RSS) { %>
                     <li>
-                        <a href="<%= config.root + 'feed.xml' %>">
+                        <a href="<%= config.root + 'atom.xml' %>">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
@@ -51,8 +51,7 @@
                         <i class="fas fa-eye"></i> : <span id="busuanzi_value_site_uv"></span>
                     </span>                 
                     <br><span id="sitetime"></span>
-                    <br>Copyright &copy; <%= config.author %> <%= new Date().getFullYear() %> 
-                    <br>Powered by Hexo - Theme by BeanTech          
+                    <br>Copyright &copy; <%= config.author %> <%= new Date().getFullYear() %><br>Powered by Hexo - Theme by BeanTech   
                 </p>
             </div>
         </div>

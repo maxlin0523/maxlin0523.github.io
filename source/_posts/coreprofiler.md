@@ -54,7 +54,7 @@ tags:
 public IEnumerable<WeatherForecast> Get()
 {
             //　監控名稱
-            var stepName = $"測試監控";
+            var stepName = $"監控名稱";
             using (ProfilingSession.Current.Step(stepName))
             {
                 var rng = new Random();
@@ -74,9 +74,11 @@ public IEnumerable<WeatherForecast> Get()
 
 * 將域名後加入`/coreprofiler/view` 進入監控頁面 ，Ex： `https://<域名>/coreprofiler/view`
 
+* 點選此次 Request API 的詳細內容
+
 ![](https://i.imgur.com/dWSXjvR.png)
 
-* 點選此次 Request API 的詳細內容
+* 查看
 
 ![](https://i.imgur.com/Cqws7ky.png)
 
@@ -129,7 +131,7 @@ public class CoreProfilingAttribute : ActionFilterAttribute
 }
 ```
 
-掛載要監控的 API
+掛載到 Function 上
 
 ![](https://i.imgur.com/EjqNFeO.png)
 
@@ -138,6 +140,8 @@ done.
 
 ### IDbConnection 監控
 剛介紹了 API 的生命週期監控，若還想額外監控 API 在 Db Connection 的耗時呢？如下：
+
+IDbConnection 改為
 ```C#=
 var connection = new ProfiledDbConnection
 (
@@ -147,7 +151,8 @@ var connection = new ProfiledDbConnection
         : new DbProfiler(ProfilingSession.Current.Profiler)
 );
 ```
-例子用剛的 API 改寫：
+
+用剛的 API 改寫
 ```C#=
 [HttpGet]
 [CoreProfiling]
