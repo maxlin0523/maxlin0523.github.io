@@ -1,0 +1,9 @@
+<% if(config.videos) { %>
+    <h5>好視頻</h5>
+    <ul class="list-inline">
+    
+        <% config.videos.forEach(function(video){ %>
+            <li><a href="<%= video.href %>" target="_blank"><%= video.title %></a></li><br>
+        <% }); %>
+    </ul>
+<% }%>

@@ -43,6 +43,18 @@ layout: layout
                     <% }); %>
                 </ul>
                 <% }%>
+
+                 <!-- Friends Blog -->
+                 <% if(config.videos) { %>
+                    <hr>
+                    <h5>好視頻</h5>
+                    <ul class="list-inline">
+    
+                        <% config.videos.forEach(function(video){ %>
+                            <li><a href="<%= video.href %>"><%= video.title %></a></li>
+                        <% }); %>
+                    </ul>
+                    <% }%>               
             </div>
         <%} else { %>
 

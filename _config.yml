@@ -78,6 +78,7 @@ widgets:
 - short-about
 - recent-posts
 - friends-blog
+- videos-blog
 - featured-tags
 # - archive
 # - category
@@ -93,20 +94,34 @@ featured-tags: true                     # whether or not using Feature-Tags
 featured-condition-size: 1              # A tag will be featured if the size of it is more than this condition value
 
 
-## Friends
+## 好部落
 friends: [
     {
+        title: "阮一峰的网络日志",
+        href: "https://www.ruanyifeng.com/blog/"
+    },{
         title: "John Wu's Blog",
         href: "https://blog.johnwu.cc/"
     },{
         title: "Jed's blog",
         href: "https://jed1978.github.io/"
     },{
+        title: "Blackie's Failed Notes",
+        href: "https://blackie1019.gitlab.io/"
+    },{
         title: "安德魯的部落格",
         href: "https://columns.chicken-house.net/categories/"
     },{
         title: "石頭的coding之路",
         href: "https://isdaniel.github.io/"
+    }
+]
+
+## 好視頻
+videos: [
+    {
+        title: "Anduin Xue (.NET)",
+        href: "https://www.youtube.com/channel/UCe1nKo3WGGzyTgDqmTdZzlA/featured"
     }
 ]
 

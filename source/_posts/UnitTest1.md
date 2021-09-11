@@ -1,5 +1,5 @@
 ---
-title: 單元測試 part 1
+title: 單元測試 Part 1
 catalog: true
 date: 2021-09-11 22:02:36
 subtitle:
@@ -23,7 +23,7 @@ public class Test
 ```
 我們可以將 `Greet` 方法可以分成三種情境，分別是
 1. 當參數 name 為 Null 時，應回傳 who are you?
-2. 當參數 name 為 Empty 時，應回傳 who are you?
+2. 當參數 name 為空值字串時，應回傳 who are you?
 3. 當參數 name 符合格式時，應回傳 Hi {name}, nice to meet you.
 
 知道了每個測試情境後就可開始建立單元測試專案
@@ -38,10 +38,10 @@ public class Test
 接下來就可以看到測試類別的內容，而測試主要都是用 Assert 這個類庫提供的方法進行驗證，請先閱讀（[連結](https://docs.microsoft.com/zh-tw/previous-versions/visualstudio/visual-studio-2010/ms245302(v=vs.100)?redirectedfrom=MSDN)），之後右鍵方法點選 `執行測試` 查看結果
 ![](https://i.imgur.com/nNNAfTt.jpg)
 
-執行測試後會失敗，因為預設為 Assert.Fail，可以從測試總管 Test Explore 檢視測試訊息
+執行測試後會失敗，因為預設為 Assert.Fail，可以從測試總管 Test Explorer 檢視測試訊息
 ![](https://i.imgur.com/T8dzRr6.jpg)
 
-細節很多沒法一一描述，大家在自行摸索一下
+細節很多沒法全部描述，大家在自行摸索一下
 
 ### 如何撰寫單元測試？
 撰寫方式遵循 `3A原則` 分別是 Arrange、Act、Assert 而定義如下：
@@ -106,4 +106,4 @@ public void Greet_當參數name符合格式_應回傳nice_to_meet_you訊息()
 
 這樣就完成 `Greet` 功能的測試了，之後點選上方 `測試` -> `執行所有測試` 就可查看結果
 
-### 下篇將提到常見的三種測試情境、單元測試特性以及單元測試帶給產品的好處
+下篇將提到 三種對測試目標的測試方式、單元測試特性以及測試帶給產品的好處
