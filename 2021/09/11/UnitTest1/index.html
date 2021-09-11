@@ -14,7 +14,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          單元測試 part 1 - Max&#39;s Blog | 邁向全端之路
+          單元測試 Part 1 - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
@@ -89,7 +89,7 @@
                               <a class="tag" href="/tags/#UnitTest" title="UnitTest">UnitTest</a>
                             
                         </div>
-                        <h1>單元測試 part 1</h1>
+                        <h1>單元測試 Part 1</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
@@ -146,14 +146,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -226,7 +226,7 @@
 <p>我們可以將 <code>Greet</code> 方法可以分成三種情境，分別是</p>
 <ol>
 <li>當參數 name 為 Null 時，應回傳 who are you?</li>
-<li>當參數 name 為 Empty 時，應回傳 who are you?</li>
+<li>當參數 name 為空值字串時，應回傳 who are you?</li>
 <li>當參數 name 符合格式時，應回傳 Hi {name}, nice to meet you.</li>
 </ol>
 <p>知道了每個測試情境後就可開始建立單元測試專案</p>
@@ -237,9 +237,9 @@
 <img src="https://i.imgur.com/ereUtMP.png" alt></p>
 <p>接下來就可以看到測試類別的內容，而測試主要都是用 Assert 這個類庫提供的方法進行驗證，請先閱讀（<a href="https://docs.microsoft.com/zh-tw/previous-versions/visualstudio/visual-studio-2010/ms245302(v=vs.100)?redirectedfrom=MSDN" target="_blank" rel="noopener">連結</a>），之後右鍵方法點選 <code>執行測試</code> 查看結果<br>
 <img src="https://i.imgur.com/nNNAfTt.jpg" alt></p>
-<p>執行測試後會失敗，因為預設為 Assert.Fail，可以從測試總管 Test Explore 檢視測試訊息<br>
+<p>執行測試後會失敗，因為預設為 Assert.Fail，可以從測試總管 Test Explorer 檢視測試訊息<br>
 <img src="https://i.imgur.com/T8dzRr6.jpg" alt></p>
-<p>細節很多沒法一一描述，大家在自行摸索一下</p>
+<p>細節很多沒法全部描述，大家在自行摸索一下</p>
 <h3><span id="如何撰寫單元測試">如何撰寫單元測試？</span></h3>
 <p>撰寫方式遵循 <code>3A原則</code> 分別是 Arrange、Act、Assert 而定義如下：</p>
 <ul>
@@ -367,9 +367,13 @@ public void Greet_當參數name符合格式_應回傳nice_to_meet_you訊息()
                 <ul class="list-inline">
 
                     
+                        <li><a href="https://www.ruanyifeng.com/blog/" target="_blank">阮一峰的网络日志</a></li>
+                    
                         <li><a href="https://blog.johnwu.cc/" target="_blank">John Wu&#39;s Blog</a></li>
                     
                         <li><a href="https://jed1978.github.io/" target="_blank">Jed&#39;s blog</a></li>
+                    
+                        <li><a href="https://blackie1019.gitlab.io/" target="_blank">Blackie&#39;s Failed Notes</a></li>
                     
                         <li><a href="https://columns.chicken-house.net/categories/" target="_blank">安德魯的部落格</a></li>
                     
@@ -377,6 +381,18 @@ public void Greet_當參數name符合格式_應回傳nice_to_meet_you訊息()
                     
                 </ul>
                 
+
+                 <!-- videos Blog -->
+                 
+                    <hr>
+                    <h5>好視頻</h5>
+                    <ul class="list-inline">
+    
+                        
+                            <li><a href="https://www.youtube.com/channel/UCe1nKo3WGGzyTgDqmTdZzlA/featured">Anduin Xue (.NET)</a></li>
+                        
+                    </ul>
+                                    
             </div>
         </div>
     </div>
