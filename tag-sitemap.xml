@@ -23,13 +23,6 @@
     </url>
 
     <url>
-        <loc>https://maxlin0523.github.io/tags/C-%E6%9C%AC%E4%BA%8B/</loc>
-        <lastmod>2021-09-30T12:34:16.165Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://maxlin0523.github.io/tags/%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91%E8%A8%AD%E8%A8%88/</loc>
         <lastmod>2021-09-30T12:34:16.171Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -51,15 +44,22 @@
     </url>
 
     <url>
-        <loc>https://maxlin0523.github.io/tags/%E8%A8%AD%E8%A8%88%E6%A8%A1%E5%BC%8F/</loc>
-        <lastmod>2021-09-30T12:50:47.641Z</lastmod>
+        <loc>https://maxlin0523.github.io/tags/%E6%95%A3%E4%BA%82%E6%9C%AD%E8%A8%98/</loc>
+        <lastmod>2021-09-30T12:51:32.943Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>https://maxlin0523.github.io/tags/%E6%95%A3%E4%BA%82%E6%9C%AD%E8%A8%98/</loc>
-        <lastmod>2021-09-30T12:51:32.943Z</lastmod>
+        <loc>https://maxlin0523.github.io/tags/C-%E6%9C%AC%E4%BA%8B/</loc>
+        <lastmod>2021-09-30T13:29:10.696Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://maxlin0523.github.io/tags/%E8%A8%AD%E8%A8%88%E6%A8%A1%E5%BC%8F/</loc>
+        <lastmod>2021-09-30T13:29:15.332Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
