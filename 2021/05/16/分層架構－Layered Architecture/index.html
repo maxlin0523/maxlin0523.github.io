@@ -14,7 +14,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          分層架構－Layered Architecture - Max&#39;s Blog | 邁向全端之路
+          Software Layered Architecture - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
@@ -89,7 +89,7 @@
                               <a class="tag" href="/tags/#設計模式" title="設計模式">設計模式</a>
                             
                         </div>
-                        <h1>分層架構－Layered Architecture</h1>
+                        <h1>Software Layered Architecture</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
@@ -228,9 +228,19 @@
 </ul>
 <h1><span id="專案架構圖">專案架構圖</span></h1>
 <p><img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F80c04083-a5be-4f2f-877e-56b616066946%2FUntitled.png?table=block&amp;id=caaa0ab9-e2aa-4ebf-9b50-749f0a40e2a1&amp;spaceId=59d38cce-92ff-4673-85e7-4a3082371d03&amp;width=4270&amp;userId=6c123588-4407-4a28-9aae-2bb53ad5b808&amp;cache=v2" alt></p>
-<h1><span id="dto-enity-補充">Dto、Enity 補充</span></h1>
-<p>你可能會疑惑 Dto、Enity 的部分，其實就是我對每層間參數物件的命名，若想叫 Apple、Banana 也可以，重要是它在分層架構的職責是什麼？職責是為了達到各層之間 <code>參數物件隔離</code> 的動作，例如：我刪除了 Dto 的一個屬性，之後轉換到 Enity 也不會影響到屬性數量，因為兩者已經做了隔離的動作，若這邊不進行隔離，參數一條龍傳下去時，我可能在上層參數刪除一個屬性，那麼就會一路影響到 <code>Repository</code> 之後串接到資料庫，若資料表欄位沒同步處理就會造成例外產生；若你的同事正在修改 <code>Repository</code> ，你改了 <code>Controller</code> 的參數屬性，若沒進行參數隔離，那麼你的同事就會被影響。</p>
-<p>總之，請想像每層都是獨立的空間，當任一層有改動時，都不會影響到其他任何一層，詳細可以參考後續的實作範例。</p>
+<h1><span id="dto-enity">DTO、Enity</span></h1>
+<ul>
+<li>Enity</li>
+</ul>
+<blockquote>
+<p>為資料庫爛位對應的第一層轉型</p>
+</blockquote>
+<ul>
+<li>DTO</li>
+</ul>
+<blockquote>
+<p>為參數物件的傳輸實體</p>
+</blockquote>
 <h1><span id="總結">總結</span></h1>
 <p>以前做完此架構專案時，會疑惑為何要分如此多層，直到複雜度慢慢變多時才漸漸理解好處，寫起來會特別有安全感。<br>
 如果目前還不是很理解的話，就我的經驗來建議，就先硬著頭皮學著做，知道個大概的觀念！等到實際維護複雜度較高的專案才比較快能體會分層架構的好處（前提是專案要有使用分層）。</p>
@@ -247,7 +257,7 @@
                     
                     
                         <li class="next">
-                            <a href="/2021/05/22/相依性注入－DI-IoC/" data-toggle="tooltip" data-placement="top" title="相依性注入－DI/IoC"> 下篇 &rarr;</a>
+                            <a href="/2021/05/22/相依性注入－DI-IoC/" data-toggle="tooltip" data-placement="top" title="Dependency Injection and Inversion of Control"> 下篇 &rarr;</a>
                         </li>
                     
                 </ul>
@@ -273,7 +283,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">介紹</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">定義</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">專案架構圖</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">Dto、Enity 補充</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">總結</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">參考</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">介紹</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">定義</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">專案架構圖</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">DTO、Enity</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">總結</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">參考</span></a></li></ol>
         
         </div>
       </aside>

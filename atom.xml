@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Max&#39;s Blog</title>
   <icon>https://www.gravatar.com/avatar/12e37b5ad90b29133ebe70dd638ef20a</icon>
-  <subtitle>邁向全端的後端工程師</subtitle>
+  <subtitle>Don&#39;t code fast, good code lasts.</subtitle>
   <link href="https://maxlin0523.github.io/atom.xml" rel="self"/>
   
   <link href="https://maxlin0523.github.io/"/>
-  <updated>2021-09-11T18:47:13.278Z</updated>
+  <updated>2021-09-30T12:22:17.305Z</updated>
   <id>https://maxlin0523.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>單元測試 Part 1</title>
+    <title>UnitTest Part 1</title>
     <link href="https://maxlin0523.github.io/2021/09/11/UnitTest1/"/>
     <id>https://maxlin0523.github.io/2021/09/11/UnitTest1/</id>
     <published>2021-09-11T14:02:36.000Z</published>
-    <updated>2021-09-11T18:47:13.278Z</updated>
+    <updated>2021-09-30T12:22:17.305Z</updated>
     
     
       
@@ -40,36 +40,11 @@
   </entry>
   
   <entry>
-    <title>.NET Core 之效能監控 CoreProfiler</title>
-    <link href="https://maxlin0523.github.io/2021/08/11/coreprofiler/"/>
-    <id>https://maxlin0523.github.io/2021/08/11/coreprofiler/</id>
-    <published>2021-08-11T13:31:51.000Z</published>
-    <updated>2021-08-12T07:36:56.677Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html"></summary>
-        
-      
-    
-    
-    
-    
-    <category term="Nuget 套件" scheme="https://maxlin0523.github.io/tags/Nuget-套件/"/>
-    
-    <category term="效能監控" scheme="https://maxlin0523.github.io/tags/效能監控/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C# Boxing &amp; Unboxing</title>
+    <title>C# Boxing vs Unboxing</title>
     <link href="https://maxlin0523.github.io/2021/08/03/boxing-Unboxing/"/>
     <id>https://maxlin0523.github.io/2021/08/03/boxing-Unboxing/</id>
     <published>2021-08-03T13:09:17.000Z</published>
-    <updated>2021-08-07T18:13:28.363Z</updated>
+    <updated>2021-09-30T12:34:16.165Z</updated>
     
     
       
@@ -88,11 +63,11 @@
   </entry>
   
   <entry>
-    <title>C# 實值型別 &amp; 參考型別</title>
+    <title>C# Value vs Reference Type</title>
     <link href="https://maxlin0523.github.io/2021/08/03/value-reference/"/>
     <id>https://maxlin0523.github.io/2021/08/03/value-reference/</id>
     <published>2021-08-03T13:03:01.000Z</published>
-    <updated>2021-08-12T07:29:04.693Z</updated>
+    <updated>2021-09-30T12:34:10.750Z</updated>
     
     
       
@@ -111,11 +86,11 @@
   </entry>
   
   <entry>
-    <title>Hexo 加入網站、文章訪問數統計</title>
+    <title>Hexo adds visitor statistics</title>
     <link href="https://maxlin0523.github.io/2021/07/30/Hexo%E5%8A%A0%E5%85%A5%E7%B6%B2%E7%AB%99%E3%80%81%E6%96%87%E7%AB%A0%E8%A8%AA%E5%95%8F%E6%95%B8%E7%B5%B1%E8%A8%88/"/>
     <id>https://maxlin0523.github.io/2021/07/30/Hexo%E5%8A%A0%E5%85%A5%E7%B6%B2%E7%AB%99%E3%80%81%E6%96%87%E7%AB%A0%E8%A8%AA%E5%95%8F%E6%95%B8%E7%B5%B1%E8%A8%88/</id>
     <published>2021-07-30T12:47:12.000Z</published>
-    <updated>2021-08-03T15:54:02.100Z</updated>
+    <updated>2021-09-30T12:28:13.312Z</updated>
     
     
       
@@ -134,11 +109,11 @@
   </entry>
   
   <entry>
-    <title>Blog 正式開幕</title>
+    <title>The Blog is opening</title>
     <link href="https://maxlin0523.github.io/2021/07/25/Blog%E6%AD%A3%E5%BC%8F%E9%96%8B%E5%B9%95/"/>
     <id>https://maxlin0523.github.io/2021/07/25/Blog%E6%AD%A3%E5%BC%8F%E9%96%8B%E5%B9%95/</id>
     <published>2021-07-24T16:02:42.000Z</published>
-    <updated>2021-08-01T04:57:56.388Z</updated>
+    <updated>2021-09-30T12:36:08.815Z</updated>
     
     
       
@@ -157,11 +132,11 @@
   </entry>
   
   <entry>
-    <title>裝飾者模式－Decorator Pattern</title>
+    <title>Decorator Pattern</title>
     <link href="https://maxlin0523.github.io/2021/07/11/%E8%A3%9D%E9%A3%BE%E8%80%85%E6%A8%A1%E5%BC%8F%EF%BC%8DDecorator%20Pattern/"/>
     <id>https://maxlin0523.github.io/2021/07/11/%E8%A3%9D%E9%A3%BE%E8%80%85%E6%A8%A1%E5%BC%8F%EF%BC%8DDecorator%20Pattern/</id>
     <published>2021-07-10T16:05:23.000Z</published>
-    <updated>2021-08-01T06:55:45.674Z</updated>
+    <updated>2021-09-30T12:34:16.165Z</updated>
     
     
       
@@ -180,11 +155,11 @@
   </entry>
   
   <entry>
-    <title>Dapper 批次執行出現 Sql Exception</title>
+    <title>The sql exception occurred in Dapper&#39;s batch execution</title>
     <link href="https://maxlin0523.github.io/2021/07/07/Dapper%20%E6%89%B9%E6%AC%A1%E5%9F%B7%E8%A1%8C%E5%87%BA%E7%8F%BE%20Sql%20Exception/"/>
     <id>https://maxlin0523.github.io/2021/07/07/Dapper%20%E6%89%B9%E6%AC%A1%E5%9F%B7%E8%A1%8C%E5%87%BA%E7%8F%BE%20Sql%20Exception/</id>
     <published>2021-07-06T16:05:23.000Z</published>
-    <updated>2021-08-01T07:30:39.573Z</updated>
+    <updated>2021-09-30T12:26:56.945Z</updated>
     
     
       
@@ -203,11 +178,11 @@
   </entry>
   
   <entry>
-    <title>組合模式－Composite Pattern</title>
+    <title>Composite Pattern</title>
     <link href="https://maxlin0523.github.io/2021/07/03/%E7%B5%84%E5%90%88%E6%A8%A1%E5%BC%8F%EF%BC%8DComposite%20Pattern/"/>
     <id>https://maxlin0523.github.io/2021/07/03/%E7%B5%84%E5%90%88%E6%A8%A1%E5%BC%8F%EF%BC%8DComposite%20Pattern/</id>
     <published>2021-07-02T16:05:23.000Z</published>
-    <updated>2021-08-01T06:48:27.598Z</updated>
+    <updated>2021-09-30T12:23:04.025Z</updated>
     
     
       
@@ -226,11 +201,11 @@
   </entry>
   
   <entry>
-    <title>轉接器模式－Adapter Pattern</title>
+    <title>Adapter Pattern</title>
     <link href="https://maxlin0523.github.io/2021/06/27/%E8%BD%89%E6%8E%A5%E5%99%A8%E6%A8%A1%E5%BC%8F%EF%BC%8DAdapter%20Pattern/"/>
     <id>https://maxlin0523.github.io/2021/06/27/%E8%BD%89%E6%8E%A5%E5%99%A8%E6%A8%A1%E5%BC%8F%EF%BC%8DAdapter%20Pattern/</id>
     <published>2021-06-26T16:05:23.000Z</published>
-    <updated>2021-08-01T06:47:25.633Z</updated>
+    <updated>2021-09-30T12:23:11.333Z</updated>
     
     
       
@@ -249,11 +224,11 @@
   </entry>
   
   <entry>
-    <title>C# 反射</title>
+    <title>C# Reflection</title>
     <link href="https://maxlin0523.github.io/2021/06/21/%E5%8F%8D%E5%B0%84%EF%BC%8DReflection/"/>
     <id>https://maxlin0523.github.io/2021/06/21/%E5%8F%8D%E5%B0%84%EF%BC%8DReflection/</id>
     <published>2021-06-20T16:05:23.000Z</published>
-    <updated>2021-08-03T13:38:41.394Z</updated>
+    <updated>2021-09-30T12:22:34.729Z</updated>
     
     
       
@@ -272,11 +247,11 @@
   </entry>
   
   <entry>
-    <title>物件導向設計－Object Oriented Programming</title>
+    <title>Object Oriented Programming</title>
     <link href="https://maxlin0523.github.io/2021/06/12/%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91%E8%A8%AD%E8%A8%88%EF%BC%8DObject%20Oriented%20Programming/"/>
     <id>https://maxlin0523.github.io/2021/06/12/%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91%E8%A8%AD%E8%A8%88%EF%BC%8DObject%20Oriented%20Programming/</id>
     <published>2021-06-11T16:05:23.000Z</published>
-    <updated>2021-08-06T15:42:15.273Z</updated>
+    <updated>2021-09-30T12:34:16.171Z</updated>
     
     
       
@@ -297,11 +272,11 @@
   </entry>
   
   <entry>
-    <title>相依性注入－DI/IoC 範例</title>
+    <title>DI and IoC Sample</title>
     <link href="https://maxlin0523.github.io/2021/05/30/%E7%9B%B8%E4%BE%9D%E6%80%A7%E6%B3%A8%E5%85%A5%EF%BC%8DDI-IoC%E7%AF%84%E4%BE%8B/"/>
     <id>https://maxlin0523.github.io/2021/05/30/%E7%9B%B8%E4%BE%9D%E6%80%A7%E6%B3%A8%E5%85%A5%EF%BC%8DDI-IoC%E7%AF%84%E4%BE%8B/</id>
     <published>2021-05-29T16:05:23.000Z</published>
-    <updated>2021-08-01T06:53:06.881Z</updated>
+    <updated>2021-09-30T12:42:24.997Z</updated>
     
     
       
@@ -322,11 +297,11 @@
   </entry>
   
   <entry>
-    <title>相依性注入－DI/IoC</title>
+    <title>Dependency Injection and Inversion of Control</title>
     <link href="https://maxlin0523.github.io/2021/05/22/%E7%9B%B8%E4%BE%9D%E6%80%A7%E6%B3%A8%E5%85%A5%EF%BC%8DDI-IoC/"/>
     <id>https://maxlin0523.github.io/2021/05/22/%E7%9B%B8%E4%BE%9D%E6%80%A7%E6%B3%A8%E5%85%A5%EF%BC%8DDI-IoC/</id>
     <published>2021-05-21T16:05:23.000Z</published>
-    <updated>2021-08-01T06:53:13.918Z</updated>
+    <updated>2021-09-30T12:41:45.961Z</updated>
     
     
       
@@ -347,11 +322,11 @@
   </entry>
   
   <entry>
-    <title>分層架構－Layered Architecture</title>
+    <title>Software Layered Architecture</title>
     <link href="https://maxlin0523.github.io/2021/05/16/%E5%88%86%E5%B1%A4%E6%9E%B6%E6%A7%8B%EF%BC%8DLayered%20Architecture/"/>
     <id>https://maxlin0523.github.io/2021/05/16/%E5%88%86%E5%B1%A4%E6%9E%B6%E6%A7%8B%EF%BC%8DLayered%20Architecture/</id>
     <published>2021-05-15T16:05:23.000Z</published>
-    <updated>2021-08-01T06:53:45.443Z</updated>
+    <updated>2021-09-30T12:39:43.246Z</updated>
     
     
       

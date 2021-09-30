@@ -14,7 +14,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          單元測試 Part 1 - Max&#39;s Blog | 邁向全端之路
+          UnitTest Part 1 - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
@@ -89,7 +89,7 @@
                               <a class="tag" href="/tags/#UnitTest" title="UnitTest">UnitTest</a>
                             
                         </div>
-                        <h1>單元測試 Part 1</h1>
+                        <h1>UnitTest Part 1</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
@@ -227,9 +227,9 @@
 <ol>
 <li>當參數 name 為 Null 時，應回傳 who are you?</li>
 <li>當參數 name 為空值字串時，應回傳 who are you?</li>
-<li>當參數 name 符合格式時，應回傳 Hi {name}, nice to meet you.</li>
+<li>當參數 name 符合格式時，應回傳 Hi xxx, nice to meet you.</li>
 </ol>
-<p>知道了每個測試情境後就可開始建立單元測試專案</p>
+<p>知道每個測試情境後就可開始建立單元測試專案一步步寫出測試囉</p>
 <h3><span id="建立單元測試專案">建立單元測試專案</span></h3>
 <p>首先，方法右鍵點擊<code>建立單元測試</code>，或是由方案自行加入都行<br>
 <img src="https://i.imgur.com/uRB1nPa.jpg" alt></p>
@@ -283,7 +283,7 @@ public void Greet_當參數name為Empty_應回傳Who_are_you()
 </code></pre>
 <p>以及</p>
 <pre><code class="language-c#=">[TestMethod()]
-public void Greet_當參數name符合格式_應回傳nice_to_meet_you訊息()
+public void Greet_當參數name符合格式_應回傳正確訊息()
 {
     // Arrange
     var sut = new Test();
@@ -297,7 +297,6 @@ public void Greet_當參數name符合格式_應回傳nice_to_meet_you訊息()
 }
 </code></pre>
 <p>這樣就完成 <code>Greet</code> 功能的測試了，之後點選上方 <code>測試</code> -&gt; <code>執行所有測試</code> 就可查看結果</p>
-<p>下篇將提到 三種對測試目標的測試方式、單元測試特性以及測試帶給產品的好處</p>
 
                 
 
@@ -306,7 +305,7 @@ public void Greet_當參數name符合格式_應回傳nice_to_meet_you訊息()
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2021/08/11/coreprofiler/" data-toggle="tooltip" data-placement="top" title=".NET Core 之效能監控 CoreProfiler">&larr; 上篇 </a>
+                            <a href="/2021/08/03/boxing-Unboxing/" data-toggle="tooltip" data-placement="top" title="C# Boxing vs Unboxing">&larr; 上篇 </a>
                         </li>
                     
                     
