@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          The blog is opening - Max&#39;s Blog | 邁向全端之路
+          Redis for docker - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
-    <link rel="canonical" href="https://maxlin0523.github.io/2021/07/25/Blog正式開幕/">
+    <link rel="canonical" href="https://maxlin0523.github.io/2021/10/09/redis-for-docker/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -86,14 +86,16 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#散亂札記" title="散亂札記">散亂札記</a>
+                              <a class="tag" href="/tags/#Redis" title="Redis">Redis</a>
+                            
+                              <a class="tag" href="/tags/#Docker" title="Docker">Docker</a>
                             
                         </div>
-                        <h1>The blog is opening</h1>
+                        <h1>Redis for docker</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
-                            2021-07-25（
+                            2021-10-09（
                             <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views）
                         </span>
                     </div>
@@ -208,16 +210,33 @@
                 col-md-10 col-md-offset-1
                 ">
                 <!-- class: post-container拔除 -->
-                <p>經過幾番波折終於開幕了～</p>
-<p>原本在 Medium 發展了一小段時間（<a href="https://max-lin.medium.com/" target="_blank" rel="noopener">底加</a>），至於為什麼會轉來這邊呢，原因是當初寫了也快 10 篇文，想說是時候要來整理文章分類功能了，結果發現竟然是需要花錢才能解鎖阿！<br>
-讓我一怒之下<br>
-．</p>
-<p>．</p>
-<p>．</p>
-<p>也沒辦法幹嘛，只好自己架囉，好處就是部落格功能可以隨喜好自製，壞處當然就是麻煩要寫 code，但也是個好機會能讓我接觸到前端。</p>
-<p>而架設過程從框架 Hexo 與 Hugo 抉擇到各式網站主題，讓我這個有選擇障礙的人吃足了苦頭，整整花了有一整天的時間考慮，最終選定了 Hexo 來作為部落格框架，原因是 Hexo 使用族群多數是華人，當然就有比較多中文資料可以參考，需要自製化某些功能就不需要再去國外網站翻來翻去，對我這個前端菜鳥加上破英文實在是非常友善，再說，Hexo 也是咱們台灣人<a href="https://zespia.tw/blog/2012/10/11/hexo-debut/" target="_blank" rel="noopener">開發</a>出來的，當然要支持一下！</p>
-<p>總之</p>
-<p>最後順利架設好了，那寫部落格的動機主要就是記錄學過的知識技術，因為軟體工程的水實在太深啦，有時候自己做過的東西太久沒用到就會忘記，又或是自認為已經會的東西要講解給其他人又講不出個所以然，不知道自己到底是真懂還假懂，最簡單暴力的方法，就是直接寫一篇文章，從頭到尾依序有脈絡的描述，藉此在大腦裡重新整理過一遍再表達出來，只要能完整表達出來，就代表是真懂了😂</p>
+                <h1><span id="建置">建置</span></h1>
+<p>首先準備好相關 <code>Docker</code> 工具( Docker CLI、Docker Desktop… )<br>
+接著進入正題</p>
+<h4><span id="1-打開-cmd-準備執行命令">1. 打開 CMD 準備執行命令</span></h4>
+<h4><span id="2-獲取-image-映像">2. 獲取 image 映像</span></h4>
+<p>執行 <code>dokcer pull redis</code> 命令</p>
+<p>載好後 images 會多出 redis 映像</p>
+<p>如：<br>
+<img src="https://i.imgur.com/o4mYW0o.jpg" alt></p>
+<h4><span id="3-將-redis-image-部署於-container">3. 將 redis image 部署於 container</span></h4>
+<p>執行 <code>docker run --name &lt;containerName&gt; -p &lt;對外port&gt;:6379 -d redis:lastest</code> 命令</p>
+<p><code>&lt;&gt;</code> 中是由自己去決定的參數，若執行 <code>docker run --name myredis -p 4442:6379 -d redis</code>，執行完 container 會出現部屬好的 image，之後在本機便可透過 <code>127.0.0.1:4442</code> 對容器中 redis 進行串接。</p>
+<p>如：<br>
+<img src="https://i.imgur.com/rj4E4ca.png" alt></p>
+<h4><span id="4-進入容器-redis-終端">4. 進入容器 redis 終端</span></h4>
+<p>執行　<code>docker exec -it &lt;containerName&gt; redis-cli</code></p>
+<p>進入容器中的 redis 終端，即可下指令操作</p>
+<p>如:<br>
+<img src="https://i.imgur.com/oKJnpP2.png" alt></p>
+<h1><span id="redis-cli">Redis CLI</span></h1>
+<p><a href="http://doc.redisfans.com/" target="_blank" rel="noopener">基本 Redis 操作命令(中文版 Redis 2.8)</a><br>
+<a href="https://redis.io/commands" target="_blank" rel="noopener">官網操作命令大全(最新)</a></p>
+<h1><span id="redis-gui">Redis GUI</span></h1>
+<p><a href="https://github.com/qishibo/AnotherRedisDesktopManager/" target="_blank" rel="noopener">Another-Redis-Desktop-Manager</a></p>
+<p>可以讓使用者更直覺的進行資料操作</p>
+<p>如：<br>
+<img src="https://i.imgur.com/IPpCRjQ.png" alt></p>
 
                 
 
@@ -226,13 +245,9 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2021/07/11/裝飾者模式－Decorator Pattern/" data-toggle="tooltip" data-placement="top" title="Decorator Pattern">&larr; 上篇 </a>
+                            <a href="/2021/09/11/UnitTest1/" data-toggle="tooltip" data-placement="top" title="UnitTest Introduction">&larr; 上篇 </a>
                         </li>
                     
-                    
-                        <li class="next">
-                            <a href="/2021/07/30/Hexo加入網站、文章訪問數統計/" data-toggle="tooltip" data-placement="top" title="Hexo adds visitor statistics"> 下篇 &rarr;</a>
-                        </li>
                     
                 </ul>
 
@@ -257,7 +272,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="nav">none</ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">建置</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.0.1.</span> <span class="toc-nav-text">1. 打開 CMD 準備執行命令</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.0.2.</span> <span class="toc-nav-text">2. 獲取 image 映像</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.0.3.</span> <span class="toc-nav-text">3. 將 redis image 部署於 container</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.0.4.</span> <span class="toc-nav-text">4. 進入容器 redis 終端</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Redis CLI</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">Redis GUI</span></a></li></ol>
         
         </div>
       </aside>
@@ -278,7 +293,9 @@
                     <h5><a href="/tags/">標籤雲</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#散亂札記" title="散亂札記">散亂札記</a>
+                          <a class="tag" href="/tags/#Redis" title="Redis">Redis</a>
+                        
+                          <a class="tag" href="/tags/#Docker" title="Docker">Docker</a>
                         
                     </div>
                 </section>

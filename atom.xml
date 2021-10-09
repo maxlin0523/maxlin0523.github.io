@@ -6,7 +6,7 @@
   <link href="https://maxlin0523.github.io/atom.xml" rel="self"/>
   
   <link href="https://maxlin0523.github.io/"/>
-  <updated>2021-10-02T11:26:24.418Z</updated>
+  <updated>2021-10-09T07:53:14.907Z</updated>
   <id>https://maxlin0523.github.io/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>UnitTest Part 1</title>
+    <title>Redis for docker</title>
+    <link href="https://maxlin0523.github.io/2021/10/09/redis-for-docker/"/>
+    <id>https://maxlin0523.github.io/2021/10/09/redis-for-docker/</id>
+    <published>2021-10-09T06:42:46.000Z</published>
+    <updated>2021-10-09T07:53:14.907Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html"></summary>
+        
+      
+    
+    
+    
+    
+    <category term="Redis" scheme="https://maxlin0523.github.io/tags/Redis/"/>
+    
+    <category term="Docker" scheme="https://maxlin0523.github.io/tags/Docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>UnitTest Introduction</title>
     <link href="https://maxlin0523.github.io/2021/09/11/UnitTest1/"/>
     <id>https://maxlin0523.github.io/2021/09/11/UnitTest1/</id>
     <published>2021-09-11T14:02:36.000Z</published>
-    <updated>2021-10-02T11:26:24.418Z</updated>
+    <updated>2021-10-09T07:55:07.575Z</updated>
     
     
       

@@ -137,14 +137,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -207,16 +207,51 @@
 
 <div class="post-preview">
 
-    <a href="/2021/09/11/UnitTest1/">
+    <a href="/2021/10/09/redis-for-docker/">
         <h2 class="post-title">
-            UnitTest Part 1
+            Redis for docker
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
-            什麼是單元測試？
-單元測試（Unit Test）就是將模組（dll）裡的最小單位分成若干個測試案例來進行測試，最小單位為一個 cs 檔也就是一個類別，透過將類別裡的每個邏輯都拆分成獨立的一個測試......
+            建置
+首先準備好相關 Docker 工具( Docker CLI、Docker Desktop… )
+接著進入正題
+1. 打開 CMD 準備執行命令
+2. 獲取 image 映像
+執行 dokc......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Max Lin on
+            2021-10-09
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Redis" title="Redis">Redis</a>
+            
+              <a href="/tags/#Docker" title="Docker">Docker</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2021/09/11/UnitTest1/">
+        <h2 class="post-title">
+            UnitTest Introduction
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            單元測試
+單元測試（Unit Test）就是將模組（dll）裡的最小單位分成若干個測試案例來進行測試，最小單位為一個方法，透過將方法的每個行為都拆分成一個個測試情境，並依情境進行單元測試撰寫確保......
         </div>
     </a>
     
@@ -476,35 +511,6 @@ var result = $&quot;我的電話: {num}&quot;;
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2021/06/21/反射－Reflection/">
-        <h2 class="post-title">
-            C# Reflection
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            介紹
-反射 (Reflection) 會提供 Type 型別的物件，用來封裝組件、模組和型別。您可以使用反射來動態建立型別的執行個體、將型別繫結至現有物件，或從現有物件取得型別，並叫用其方法或存......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Max Lin on
-            2021-06-21
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#C# 本事" title="C# 本事">C# 本事</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -591,7 +597,11 @@ var result = $&quot;我的電話: {num}&quot;;
     <ul>
       
         <li>
-          <a href="/2021/09/11/UnitTest1/">UnitTest Part 1</a>
+          <a href="/2021/10/09/redis-for-docker/">Redis for docker</a>
+        </li>
+      
+        <li>
+          <a href="/2021/09/11/UnitTest1/">UnitTest Introduction</a>
         </li>
       
         <li>
@@ -604,10 +614,6 @@ var result = $&quot;我的電話: {num}&quot;;
       
         <li>
           <a href="/2021/07/30/Hexo加入網站、文章訪問數統計/">Hexo adds visitor statistics</a>
-        </li>
-      
-        <li>
-          <a href="/2021/07/25/Blog正式開幕/">The blog is opening</a>
         </li>
       
     </ul>
@@ -674,17 +680,21 @@ var result = $&quot;我的電話: {num}&quot;;
             
         
             
-            <a href="/tags/#設計模式" title="設計模式" rel="4">設計模式</a>
-            
-        
-            
             <a href="/tags/#C# 觀念" title="C# 觀念" rel="3">C# 觀念</a>
             
         
             
         
             
+            <a href="/tags/#設計模式" title="設計模式" rel="4">設計模式</a>
+            
+        
+            
             <a href="/tags/#DI Framework" title="DI Framework" rel="2">DI Framework</a>
+            
+        
+            
+        
             
         
     </div>

@@ -14,7 +14,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          UnitTest Part 1 - Max&#39;s Blog | 邁向全端之路
+          UnitTest Introduction - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
@@ -89,7 +89,7 @@
                               <a class="tag" href="/tags/#UnitTest" title="UnitTest">UnitTest</a>
                             
                         </div>
-                        <h1>UnitTest Part 1</h1>
+                        <h1>UnitTest Introduction</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
@@ -146,14 +146,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -196,8 +196,7 @@
 
 
     <!-- Main Content -->
-    <!-- Modify by Yu-Hsuan Yen -->
-
+    
 <!-- Post Content -->
 <article>
     <div class="container">
@@ -209,8 +208,9 @@
                 col-md-10 col-md-offset-1
                 ">
                 <!-- class: post-container拔除 -->
-                <h3><span id="什麼是單元測試">什麼是單元測試？</span></h3>
-<p>單元測試（Unit Test）就是將模組（dll）裡的最小單位分成若干個測試案例來進行測試，最小單位為一個 cs 檔也就是一個類別，透過將類別裡的每個邏輯都拆分成獨立的一個測試情境，並進行測試確保所有邏輯的運行結果都符合開發者預期，例如：</p>
+                <h1><span id="單元測試">單元測試</span></h1>
+<p>單元測試（Unit Test）就是將模組（dll）裡的最小單位分成若干個測試案例來進行測試，最小單位為一個方法，透過將方法的每個行為都拆分成一個個測試情境，並依情境進行單元測試撰寫確保所有行為的運行結果都符合開發者預期。</p>
+<p>如：</p>
 <pre><code class="language-c#=">public class Test
     public string Greet(string name)
     {
@@ -223,31 +223,77 @@
    }
 }
 </code></pre>
-<p>我們可以將 <code>Greet</code> 方法可以分成三種情境，分別是</p>
+<p>我們可以將 <code>Greet</code> 方法可以分成三種情境，分別是：</p>
 <ol>
-<li>當參數 name 為 Null 時，應回傳 who are you?</li>
-<li>當參數 name 為空值字串時，應回傳 who are you?</li>
+<li>當參數 name 為 null 時，應回傳 who are you?</li>
+<li>當參數 name 為空字串時，應回傳 who are you?</li>
 <li>當參數 name 符合格式時，應回傳 Hi xxx, nice to meet you.</li>
 </ol>
-<p>知道每個測試情境後就可開始建立單元測試專案一步步寫出測試囉</p>
-<h3><span id="建立單元測試專案">建立單元測試專案</span></h3>
-<p>首先，方法右鍵點擊<code>建立單元測試</code>，或是由方案自行加入都行<br>
-<img src="https://i.imgur.com/uRB1nPa.jpg" alt></p>
-<p>預設框架為 MSTest 2，這邊按<code>確定</code><br>
-<img src="https://i.imgur.com/ereUtMP.png" alt></p>
-<p>接下來就可以看到測試類別的內容，而測試主要都是用 Assert 這個類庫提供的方法進行驗證，請先閱讀（<a href="https://docs.microsoft.com/zh-tw/previous-versions/visualstudio/visual-studio-2010/ms245302(v=vs.100)?redirectedfrom=MSDN" target="_blank" rel="noopener">連結</a>），之後右鍵方法點選 <code>執行測試</code> 查看結果<br>
-<img src="https://i.imgur.com/nNNAfTt.jpg" alt></p>
-<p>執行測試後會失敗，因為預設為 Assert.Fail，可以從測試總管 Test Explorer 檢視測試訊息<br>
-<img src="https://i.imgur.com/T8dzRr6.jpg" alt></p>
-<p>細節很多沒法全部描述，大家在自行摸索一下</p>
-<h3><span id="如何撰寫單元測試">如何撰寫單元測試？</span></h3>
-<p>撰寫方式遵循 <code>3A原則</code> 分別是 Arrange、Act、Assert 而定義如下：</p>
+<p>後續範例會以此方法示範</p>
+<h1><span id="單元測試的特性">單元測試的特性</span></h1>
 <ul>
-<li>Arrange：測試場境。例如: 宣告測試目標物件 SystemUnderTest(簡稱SUT)、預期結果 Expected、測試替身…etc</li>
-<li>Act：呼叫被測試成員並得出測試結果。</li>
-<li>Assert：驗證測試與預期結果。</li>
+<li>快速</li>
 </ul>
-<p>具體寫法如下：</p>
+<blockquote>
+<p>一個單元測試為一個獨立情境不具備判斷邏輯且程式碼範圍小，所以必須要快</p>
+</blockquote>
+<ul>
+<li>獨立</li>
+</ul>
+<blockquote>
+<p>每個測試不可相依其他檔案系統或是類別也不可有邏輯判斷, 具備邏輯判斷意味著有多個情境會產生， 必須針對一個情境做測試，一個單元測試必須只關注一個行為。</p>
+</blockquote>
+<ul>
+<li>可驗證性</li>
+</ul>
+<blockquote>
+<p>測試後要能反應此次測試的結果</p>
+</blockquote>
+<ul>
+<li>可重複性</li>
+</ul>
+<blockquote>
+<p>每次重複測試的結果皆需相同</p>
+</blockquote>
+<ul>
+<li>及時</li>
+</ul>
+<blockquote>
+<p>寫完程式馬上就能進行測試</p>
+</blockquote>
+<h1><span id="建立單元測試專案">建立單元測試專案</span></h1>
+<p>首先，方法右鍵點擊 <code>建立單元測試</code>，或是由方案自行加入 <code>單元測試專案</code>　皆行</p>
+<p><img src="https://i.imgur.com/uRB1nPa.jpg" alt></p>
+<p>預設框架為 MSTest 2，這邊按 <code>確定</code></p>
+<p><img src="https://i.imgur.com/ereUtMP.png" alt></p>
+<p>接下來就可以看到測試類別的內容，而測試主要都是用 Assert 這個類別提供的方法進行驗證 (<a href="https://docs.microsoft.com/zh-tw/previous-versions/visualstudio/visual-studio-2010/ms245302(v=vs.100)?redirectedfrom=MSDN" target="_blank" rel="noopener">詳細用法</a>)，之後右鍵方法點選 <code>執行測試</code> 查看結果</p>
+<p><img src="https://i.imgur.com/nNNAfTt.jpg" alt></p>
+<p>執行測試後會失敗，因為預設為 <code>Assert.Fail</code>，可以從測試總管 Test Explorer 檢視測試訊息</p>
+<p><img src="https://i.imgur.com/T8dzRr6.jpg" alt></p>
+<h1><span id="如何撰寫單元測試">如何撰寫單元測試？</span></h1>
+<p>撰寫方式遵循 <code>3A原則</code> 分別是 <code>Arrange</code>、<code>Act</code>、<code>Assert</code></p>
+<p>定義如下：</p>
+<ul>
+<li>Arrange</li>
+</ul>
+<blockquote>
+<p>測試場境。例如: 宣告測試目標類別 SystemUnderTest (SUT)、預期結果 Expected、測試替身…etc</p>
+</blockquote>
+<ul>
+<li>Act</li>
+</ul>
+<blockquote>
+<p>呼叫測試目標方法並得出測試結果。</p>
+</blockquote>
+<ul>
+<li>Assert</li>
+</ul>
+<blockquote>
+<p>驗證測試與預期結果。</p>
+</blockquote>
+<h1><span id="實作">實作</span></h1>
+<p>測試方法名稱以 <code>測試方法_行為的情境_行為反應的結果</code> 去命名。</p>
+<p>寫法如下：</p>
 <pre><code class="language-c#=">[TestClass()]
 public class TestTests
 {
@@ -297,6 +343,10 @@ public void Greet_當參數name符合格式_應回傳正確訊息()
 }
 </code></pre>
 <p>這樣就完成 <code>Greet</code> 功能的測試了，之後點選上方 <code>測試</code> -&gt; <code>執行所有測試</code> 就可查看結果</p>
+<p><img src="https://i.imgur.com/IkrNSFw.png" alt></p>
+<h1><span id="參考">參考</span></h1>
+<p><a href="https://dotblogs.com.tw/hatelove/2011/12/18/meaning-of-unit-test" target="_blank" rel="noopener">[測試]單元測試的意義</a><br>
+<a href="https://progressbar.tw/posts/11" target="_blank" rel="noopener">[C#][Unit Test] 01. 軟體上線就等於今晚不用回家? 學&quot;單元測試&quot;可能有辦法挽救您的婚姻。</a></p>
 
                 
 
@@ -308,6 +358,10 @@ public void Greet_當參數name符合格式_應回傳正確訊息()
                             <a href="/2021/08/03/boxing-Unboxing/" data-toggle="tooltip" data-placement="top" title="C# Boxing vs Unboxing">&larr; 上篇 </a>
                         </li>
                     
+                    
+                        <li class="next">
+                            <a href="/2021/10/09/redis-for-docker/" data-toggle="tooltip" data-placement="top" title="Redis for docker"> 下篇 &rarr;</a>
+                        </li>
                     
                 </ul>
 
@@ -332,7 +386,7 @@ public void Greet_當參數name符合格式_應回傳正確訊息()
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">什麼是單元測試？</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">建立單元測試專案</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">如何撰寫單元測試？</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">單元測試</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">單元測試的特性</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">建立單元測試專案</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">如何撰寫單元測試？</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">實作</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">參考</span></a></li></ol>
         
         </div>
       </aside>

@@ -44,13 +44,6 @@
     </url>
 
     <url>
-        <loc>https://maxlin0523.github.io/tags/UnitTest/</loc>
-        <lastmod>2021-10-02T11:26:24.418Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://maxlin0523.github.io/tags/%E6%97%A5%E5%B8%B8%E9%99%A4%E9%8C%AF/</loc>
         <lastmod>2021-10-02T11:27:42.220Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -60,6 +53,27 @@
     <url>
         <loc>https://maxlin0523.github.io/tags/Hexo/</loc>
         <lastmod>2021-10-02T11:27:59.637Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://maxlin0523.github.io/tags/Redis/</loc>
+        <lastmod>2021-10-09T07:53:14.907Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://maxlin0523.github.io/tags/Docker/</loc>
+        <lastmod>2021-10-09T07:53:14.907Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://maxlin0523.github.io/tags/UnitTest/</loc>
+        <lastmod>2021-10-09T07:55:07.575Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
