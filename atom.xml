@@ -6,7 +6,7 @@
   <link href="https://maxlin0523.github.io/atom.xml" rel="self"/>
   
   <link href="https://maxlin0523.github.io/"/>
-  <updated>2021-10-09T07:53:14.907Z</updated>
+  <updated>2021-10-11T16:05:42.425Z</updated>
   <id>https://maxlin0523.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Redis for docker</title>
-    <link href="https://maxlin0523.github.io/2021/10/09/redis-for-docker/"/>
-    <id>https://maxlin0523.github.io/2021/10/09/redis-for-docker/</id>
+    <title>Redis in Docker</title>
+    <link href="https://maxlin0523.github.io/2021/10/09/redis-in-docker/"/>
+    <id>https://maxlin0523.github.io/2021/10/09/redis-in-docker/</id>
     <published>2021-10-09T06:42:46.000Z</published>
-    <updated>2021-10-09T07:53:14.907Z</updated>
+    <updated>2021-10-11T16:05:42.425Z</updated>
     
     
       
@@ -42,11 +42,11 @@
   </entry>
   
   <entry>
-    <title>UnitTest Introduction</title>
+    <title>UnitTest</title>
     <link href="https://maxlin0523.github.io/2021/09/11/UnitTest1/"/>
     <id>https://maxlin0523.github.io/2021/09/11/UnitTest1/</id>
     <published>2021-09-11T14:02:36.000Z</published>
-    <updated>2021-10-09T07:55:07.575Z</updated>
+    <updated>2021-10-11T16:08:15.419Z</updated>
     
     
       
