@@ -139,13 +139,6 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/about/">About</a>
                         </li>
                         
@@ -154,6 +147,13 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -379,7 +379,7 @@ end
 -- 2
 -- 3
 </code></pre>
-<p>從 <code>while</code> 內開始跑迴圈直到條件式成立就跳出</p>
+<p>從 <code>while</code> 內開始跑迴圈直到條件式不成立就跳出</p>
 <h4><span id="ipairs">ipairs</span></h4>
 <pre><code class="language-lua">local a = { [1] =  &quot;one&quot;, [2] = &quot;two&quot;, [4] = &quot;four&quot; }
 for index, value in ipairs(a) do
