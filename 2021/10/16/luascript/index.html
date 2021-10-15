@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          UnitTest - Max&#39;s Blog | 邁向全端之路
+          Basic LuaScript - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
-    <link rel="canonical" href="https://maxlin0523.github.io/2021/09/11/UnitTest1/">
+    <link rel="canonical" href="https://maxlin0523.github.io/2021/10/16/luascript/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -86,14 +86,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#UnitTest" title="UnitTest">UnitTest</a>
+                              <a class="tag" href="/tags/#Lua" title="Lua">Lua</a>
                             
                         </div>
-                        <h1>UnitTest</h1>
+                        <h1>Basic LuaScript</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
-                            2021-09-11（
+                            2021-10-16（
                             <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views）
                         </span>
                     </div>
@@ -208,145 +208,277 @@
                 col-md-10 col-md-offset-1
                 ">
                 <!-- class: post-container拔除 -->
-                <h1><span id="單元測試">單元測試</span></h1>
-<p>單元測試（Unit Test）就是將模組（dll）裡的最小單位分成若干個測試案例來進行測試，最小單位為一個方法，透過將方法的每個行為都拆分成一個個測試情境，並依情境進行單元測試撰寫確保所有行為的運行結果都符合開發者預期。</p>
-<p>如：</p>
-<pre><code class="language-c#=">public class Test
-    public string Greet(string name)
-    {
-        if (string.IsNullOrEmpty(name))
-        {
-            return &quot;who are you? &quot;;
-        }
-            
-        return $&quot;Hi {name}, nice to meet you.&quot;;
-   }
-}
+                <p>最近接觸了 Redis 腳本有使用到 Lua，簡單紀錄下基礎語法。</p>
+<h3><span id="常用資料型態">常用資料型態</span></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">資料型態</th>
+<th style="text-align:center">備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">nil</td>
+<td style="text-align:center">null</td>
+</tr>
+<tr>
+<td style="text-align:center">boolean</td>
+<td style="text-align:center">false 和 nil 為假，true 和非 nil 為真</td>
+</tr>
+<tr>
+<td style="text-align:center">number</td>
+<td style="text-align:center">包含整數與小數位</td>
+</tr>
+<tr>
+<td style="text-align:center">string</td>
+<td style="text-align:center">以雙引號 “” 或單引號 ‘’ 包覆</td>
+</tr>
+<tr>
+<td style="text-align:center">table</td>
+<td style="text-align:center">類似 dictionary or hashmap</td>
+</tr>
+<tr>
+<td style="text-align:center">array</td>
+<td style="text-align:center">陣列</td>
+</tr>
+<tr>
+<td style="text-align:center">function</td>
+<td style="text-align:center">函式</td>
+</tr>
+</tbody>
+</table>
+<h3><span id="運算符號">運算符號</span></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">運算符</th>
+<th style="text-align:center">備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>+</code></td>
+<td style="text-align:center">加法</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>-</code></td>
+<td style="text-align:center">減法或負號</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>*</code></td>
+<td style="text-align:center">乘法</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/</code></td>
+<td style="text-align:center">除法</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>％</code></td>
+<td style="text-align:center">餘數</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>＾</code></td>
+<td style="text-align:center">次方</td>
+</tr>
+</tbody>
+</table>
+<h3><span id="操作符號">操作符號</span></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">運算符</th>
+<th style="text-align:center">備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>==</code></td>
+<td style="text-align:center">等於</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>~=</code></td>
+<td style="text-align:center">不等於</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&gt;</code></td>
+<td style="text-align:center">大於</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;</code></td>
+<td style="text-align:center">小於</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&gt;=</code></td>
+<td style="text-align:center">大於等於</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;=</code></td>
+<td style="text-align:center">小於等於</td>
+</tr>
+</tbody>
+</table>
+<h3><span id="變數宣告">變數宣告</span></h3>
+<pre><code class="language-lua">local a = 1
+local b, c, d = 2, 3
+
+print(a)
+print(b)
+print(c)
+print(d)
+-- Output:
+-- 1
+-- 2
+-- 3
+-- nil
 </code></pre>
-<p>我們可以將 <code>Greet</code> 方法可以分成三種情境，分別是：</p>
-<ol>
-<li>當參數 name 為 null 時，應回傳 who are you?</li>
-<li>當參數 name 為空字串時，應回傳 who are you?</li>
-<li>當參數 name 符合格式時，應回傳 Hi xxx, nice to meet you.</li>
-</ol>
-<p>後續範例會以此方法示範</p>
-<h1><span id="單元測試的特性">單元測試的特性</span></h1>
-<ul>
-<li>快速</li>
-</ul>
-<blockquote>
-<p>一個單元測試為一個獨立情境不具備判斷邏輯且程式碼範圍小，所以必須要快</p>
-</blockquote>
-<ul>
-<li>獨立</li>
-</ul>
-<blockquote>
-<p>每個測試不可相依其他檔案系統或是類別也不可有邏輯判斷, 具備邏輯判斷意味著有多個情境會產生， 必須針對一個情境做測試，一個單元測試必須只關注一個行為。</p>
-</blockquote>
-<ul>
-<li>可驗證性</li>
-</ul>
-<blockquote>
-<p>測試後要能反應此次測試的結果</p>
-</blockquote>
-<ul>
-<li>可重複性</li>
-</ul>
-<blockquote>
-<p>每次重複測試的結果皆需相同</p>
-</blockquote>
-<ul>
-<li>及時</li>
-</ul>
-<blockquote>
-<p>寫完程式馬上就能進行測試</p>
-</blockquote>
-<h1><span id="建立單元測試專案">建立單元測試專案</span></h1>
-<p>首先，方法右鍵點擊 <code>建立單元測試</code>，或是由方案自行加入 <code>單元測試專案</code>　皆行</p>
-<p><img src="https://i.imgur.com/uRB1nPa.jpg" alt></p>
-<p>預設框架為 MSTest 2，這邊按 <code>確定</code></p>
-<p><img src="https://i.imgur.com/ereUtMP.png" alt></p>
-<p>接下來就可以看到測試類別的內容，而測試主要都是用 Assert 這個類別提供的方法進行驗證 (<a href="https://docs.microsoft.com/zh-tw/previous-versions/visualstudio/visual-studio-2010/ms245302(v=vs.100)?redirectedfrom=MSDN" target="_blank" rel="noopener">詳細用法</a>)，之後右鍵方法點選 <code>執行測試</code> 查看結果</p>
-<p><img src="https://i.imgur.com/nNNAfTt.jpg" alt></p>
-<p>執行測試後會失敗，因為預設為 <code>Assert.Fail</code>，可以從測試總管 Test Explorer 檢視測試訊息</p>
-<p><img src="https://i.imgur.com/T8dzRr6.jpg" alt></p>
-<h1><span id="如何撰寫單元測試">如何撰寫單元測試？</span></h1>
-<p>撰寫方式遵循 <code>3A原則</code> 分別是 <code>Arrange</code>、<code>Act</code>、<code>Assert</code></p>
-<p>定義如下：</p>
-<ul>
-<li>Arrange</li>
-</ul>
-<blockquote>
-<p>測試場境。例如: 宣告測試目標類別 SystemUnderTest (SUT)、預期結果 Expected、測試替身…etc</p>
-</blockquote>
-<ul>
-<li>Act</li>
-</ul>
-<blockquote>
-<p>呼叫測試目標方法並得出測試結果。</p>
-</blockquote>
-<ul>
-<li>Assert</li>
-</ul>
-<blockquote>
-<p>驗證測試與預期結果。</p>
-</blockquote>
-<h1><span id="實作">實作</span></h1>
-<p>測試方法名稱以 <code>測試方法_行為的情境_行為反應的結果</code> 去命名。</p>
-<p>寫法如下：</p>
-<pre><code class="language-c#=">[TestClass()]
-public class TestTests
-{
-    [TestMethod()]
-    public void Greet_當參數name為Null_應回傳Who_are_you()
-    {
-        // Arrange
-        var sut = new Test();
-        var expected = &quot;who are you? &quot;;
-
-        // Act
-        var actual = sut.Greet(null);
-
-        // Assert
-        Assert.AreEqual(expected, actual);
-    }
-}
+<p>可一次宣告多個變數，沒指派值的會是 <code>nil</code></p>
+<h3><span id="if">if</span></h3>
+<pre><code class="language-lua">if(boolean) then
+   -- if do...
+else if(boolean) then
+   -- else if do...
+else 
+   -- else do...
+end
 </code></pre>
-<p>接續把其他兩個情境補上</p>
-<pre><code class="language-c#=">[TestMethod()]
-public void Greet_當參數name為Empty_應回傳Who_are_you()
-{
-    // Arrange
-    var sut = new Test();
-    var expected = &quot;who are you? &quot;;
-
-    // Act
-    var actual = sut.Greet(string.Empty);
-
-    // Assert
-    Assert.AreEqual(expected, actual);
-}
+<h3><span id="loop-系列">Loop 系列</span></h3>
+<hr>
+<h4><span id="for-loop">for loop</span></h4>
+<pre><code class="language-lua">for i = 0, 3, 1 do
+  print(i)
+end
+-- Output:
+-- 0
+-- 1
+-- 2
+-- 3
 </code></pre>
-<p>以及</p>
-<pre><code class="language-c#=">[TestMethod()]
-public void Greet_當參數name符合格式_應回傳正確訊息()
-{
-    // Arrange
-    var sut = new Test();
-    var expected = &quot;Hi Max, nice to meet you.&quot;;
-
-    // Act
-    var actual = sut.Greet(&quot;Max&quot;);
-
-    // Assert
-    Assert.AreEqual(expected, actual);
-}
+<p>i 從 <code>0</code> 開始迴圈每次遞增 <code>1</code> 直到 <code>i &lt;= 3</code></p>
+<h4><span id="repeat-until">repeat until</span></h4>
+<pre><code class="language-lua">local i = 1
+local count = 3
+repeat
+  print(i)
+  i = i + 1
+until i == count
+-- Output:
+-- 1
+-- 2
 </code></pre>
-<p>這樣就完成 <code>Greet</code> 功能的測試了，之後點選上方 <code>測試</code> -&gt; <code>執行所有測試</code> 就可查看結果</p>
-<p><img src="https://i.imgur.com/IkrNSFw.png" alt></p>
+<p>從 <code>repeat</code> 內開始跑迴圈直到 <code>until</code> 條件式成立就跳出</p>
+<h4><span id="while-do">while do</span></h4>
+<pre><code class="language-lua">local i = 1
+local count = 3
+while i &lt;= count do
+  print(i)
+  i = i + 1
+end
+-- Output:
+-- 1
+-- 2
+-- 3
+</code></pre>
+<p>從 <code>while</code> 內開始跑迴圈直到條件式成立就跳出</p>
+<h4><span id="ipairs">ipairs</span></h4>
+<pre><code class="language-lua">local a = { [1] =  &quot;one&quot;, [2] = &quot;two&quot;, [4] = &quot;four&quot; }
+for index, value in ipairs(a) do
+    print(index .. &quot;:&quot; .. value)
+end
+-- Output:
+-- 1:one
+-- 2:two
+</code></pre>
+<p><code>ipairs</code> 會按照陣列索引順序開始跑，直到 <code>value</code> 出現 <code>nil</code> 的情況</p>
+<h4><span id="pairs">pairs</span></h4>
+<pre><code class="language-lua">local a = {
+  [1] =  &quot;one&quot;,
+  [2] = &quot;two&quot;,
+  [4] = &quot;four&quot; ,
+  dog = &quot;狗&quot;,
+  [&quot;貓&quot;] = &quot;cat&quot;
+  }
+for index, value in pairs(a) do
+    print(index .. &quot;:&quot; .. value)
+end
+-- Output:
+-- 1:one
+-- 2:two
+-- 4:four
+-- dog:狗
+-- 貓:cat
+</code></pre>
+<p><code>ipair</code> 會按順序跑完全部陣列</p>
+<h3><span id="function-系列">Function 系列</span></h3>
+<hr>
+<h4><span id="具有回傳值">具有回傳值</span></h4>
+<pre><code class="language-lua">function greet(name)
+   local result = &quot;&quot;
+   if (name == 'Max') 
+   then
+      result = 'Hello ' .. name
+   else
+      result = 'Who are you'
+   end
+
+   return result;
+end
+
+print(greet('Max'))
+-- Output:
+-- Hello Max
+</code></pre>
+<p>使用 return 回傳</p>
+<h4><span id="具有多個回傳值">具有多個回傳值</span></h4>
+<pre><code class="language-lua">function calculate(a, b)
+  return a + b, a - b
+end
+
+local a, b = calculate(5, 23)
+print('a + b = ' .. a)
+print('a - b = ' .. b)
+-- Output:
+-- a + b = 28
+-- a - b = -18
+</code></pre>
+<p>使用逗號分隔回傳值</p>
+<h4><span id="不具回傳值">不具回傳值</span></h4>
+<pre><code class="language-lua">function greet(name)
+   if (name == 'Max') 
+   then
+      print('Hello ' .. name)
+   else
+      print('Who are you')
+   end
+
+   return result;
+end
+
+greet('someone')
+-- Output:
+-- Who are you
+</code></pre>
+<p>相當於 void</p>
+<h4><span id="傳入任意參數">傳入任意參數</span></h4>
+<pre><code class="language-lua">function add(...)
+  local total = 0
+  for index, value in ipairs{...} do
+    total = total + value
+  end
+  
+  return total
+end
+
+print(add(1,2,3))
+-- Output:
+-- 6
+</code></pre>
+<p>傳入參數以逗號分隔</p>
 <h1><span id="參考">參考</span></h1>
-<p><a href="https://dotblogs.com.tw/hatelove/2011/12/18/meaning-of-unit-test" target="_blank" rel="noopener">[測試]單元測試的意義</a><br>
-<a href="https://progressbar.tw/posts/11" target="_blank" rel="noopener">[C#][Unit Test] 01. 軟體上線就等於今晚不用回家? 學&quot;單元測試&quot;可能有辦法挽救您的婚姻。</a></p>
+<p><a href="https://www.runoob.com/lua/lua-tutorial.html" target="_blank" rel="noopener">Lua 教程</a><br>
+<a href="https://opensourcedoc.com/lua-programming/function/" target="_blank" rel="noopener">撰寫和使用函式 (Function)</a><br>
+<a href="https://emilykevin.pixnet.net/blog/post/249421762-lua-%7C-pairs%E8%88%87ipairs%E7%9A%84%E5%B7%AE%E7%95%B0" target="_blank" rel="noopener">Lua | pairs與ipairs的差異</a><br>
+<a href="https://larrynung.github.io/tags/Lua/" target="_blank" rel="noopener">Tag: Lua | Level Up</a></p>
 
                 
 
@@ -355,13 +487,9 @@ public void Greet_當參數name符合格式_應回傳正確訊息()
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2021/08/03/boxing-Unboxing/" data-toggle="tooltip" data-placement="top" title="C# Boxing vs Unboxing">&larr; 上篇 </a>
+                            <a href="/2021/10/09/redis-in-docker/" data-toggle="tooltip" data-placement="top" title="Redis in Docker">&larr; 上篇 </a>
                         </li>
                     
-                    
-                        <li class="next">
-                            <a href="/2021/10/09/redis-in-docker/" data-toggle="tooltip" data-placement="top" title="Redis in Docker"> 下篇 &rarr;</a>
-                        </li>
                     
                 </ul>
 
@@ -386,7 +514,7 @@ public void Greet_當參數name符合格式_應回傳正確訊息()
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">單元測試</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">單元測試的特性</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">建立單元測試專案</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">如何撰寫單元測試？</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">實作</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">參考</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">常用資料型態</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">運算符號</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">操作符號</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">變數宣告</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">if</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">Loop 系列</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.1.</span> <span class="toc-nav-text">for loop</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.2.</span> <span class="toc-nav-text">repeat until</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.3.</span> <span class="toc-nav-text">while do</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.4.</span> <span class="toc-nav-text">ipairs</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.5.</span> <span class="toc-nav-text">pairs</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">Function 系列</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.1.</span> <span class="toc-nav-text">具有回傳值</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.2.</span> <span class="toc-nav-text">具有多個回傳值</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.3.</span> <span class="toc-nav-text">不具回傳值</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.4.</span> <span class="toc-nav-text">傳入任意參數</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number"></span> <span class="toc-nav-text">參考</span></a>
         
         </div>
       </aside>
@@ -407,7 +535,7 @@ public void Greet_當參數name符合格式_應回傳正確訊息()
                     <h5><a href="/tags/">標籤雲</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#UnitTest" title="UnitTest">UnitTest</a>
+                          <a class="tag" href="/tags/#Lua" title="Lua">Lua</a>
                         
                     </div>
                 </section>
