@@ -139,13 +139,6 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/archive/">Archives</a>
                         </li>
                         
@@ -154,6 +147,13 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -209,7 +209,7 @@
                 ">
                 <!-- class: post-container拔除 -->
                 <p>最近接觸了 Redis 腳本有使用到 Lua，簡單紀錄下基礎語法。</p>
-<h3><span id="常用資料型態">常用資料型態</span></h3>
+<h4><span id="常用資料型態">常用資料型態</span></h4>
 <table>
 <thead>
 <tr>
@@ -219,36 +219,32 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">nil</td>
+<td style="text-align:center"><code>nil</code></td>
 <td style="text-align:center">null</td>
 </tr>
 <tr>
-<td style="text-align:center">boolean</td>
+<td style="text-align:center"><code>boolean</code></td>
 <td style="text-align:center">false 和 nil 為假，true 和非 nil 為真</td>
 </tr>
 <tr>
-<td style="text-align:center">number</td>
+<td style="text-align:center"><code>number</code></td>
 <td style="text-align:center">包含整數與小數位</td>
 </tr>
 <tr>
-<td style="text-align:center">string</td>
+<td style="text-align:center"><code>string</code></td>
 <td style="text-align:center">以雙引號 “” 或單引號 ‘’ 包覆</td>
 </tr>
 <tr>
-<td style="text-align:center">table</td>
-<td style="text-align:center">類似 dictionary or hashmap</td>
+<td style="text-align:center"><code>table</code></td>
+<td style="text-align:center">類似 dictionary 或當作 array 使用</td>
 </tr>
 <tr>
-<td style="text-align:center">array</td>
-<td style="text-align:center">陣列</td>
-</tr>
-<tr>
-<td style="text-align:center">function</td>
+<td style="text-align:center"><code>function</code></td>
 <td style="text-align:center">函式</td>
 </tr>
 </tbody>
 </table>
-<h3><span id="運算符號">運算符號</span></h3>
+<h4><span id="運算符號">運算符號</span></h4>
 <table>
 <thead>
 <tr>
@@ -283,7 +279,7 @@
 </tr>
 </tbody>
 </table>
-<h3><span id="操作符號">操作符號</span></h3>
+<h4><span id="操作符號">操作符號</span></h4>
 <table>
 <thead>
 <tr>
@@ -318,7 +314,8 @@
 </tr>
 </tbody>
 </table>
-<h3><span id="變數宣告">變數宣告</span></h3>
+<h4><span id="變數">變數</span></h4>
+<p>可一次宣告多個變數，沒指派值的會是 <code>nil</code></p>
 <pre><code class="language-lua">local a = 1
 local b, c, d = 2, 3
 
@@ -332,19 +329,22 @@ print(d)
 -- 3
 -- nil
 </code></pre>
-<p>可一次宣告多個變數，沒指派值的會是 <code>nil</code></p>
-<h3><span id="if">if</span></h3>
+<hr>
+<h4><span id="if-else"><strong>if else</strong></span></h4>
 <pre><code class="language-lua">if(boolean) then
-   -- if do...
+   -- do...
 else if(boolean) then
-   -- else if do...
+   -- do...
 else 
-   -- else do...
+   -- do...
 end
 </code></pre>
-<h3><span id="loop-系列">Loop 系列</span></h3>
 <hr>
-<h4><span id="for-loop">for loop</span></h4>
+<h4><span id="loop-系列"><strong>Loop 系列</strong></span></h4>
+<ul>
+<li><strong>for loop</strong><br>
+i 從 <code>0</code> 開始迴圈每次遞增 <code>1</code> 直到 <code>i &lt;= 3</code></li>
+</ul>
 <pre><code class="language-lua">for i = 0, 3, 1 do
   print(i)
 end
@@ -354,8 +354,10 @@ end
 -- 2
 -- 3
 </code></pre>
-<p>i 從 <code>0</code> 開始迴圈每次遞增 <code>1</code> 直到 <code>i &lt;= 3</code></p>
-<h4><span id="repeat-until">repeat until</span></h4>
+<ul>
+<li><strong>repeat until</strong><br>
+從 <code>repeat</code> 內開始跑迴圈直到 <code>until</code> 條件式成立就跳出</li>
+</ul>
 <pre><code class="language-lua">local i = 1
 local count = 3
 repeat
@@ -366,8 +368,10 @@ until i == count
 -- 1
 -- 2
 </code></pre>
-<p>從 <code>repeat</code> 內開始跑迴圈直到 <code>until</code> 條件式成立就跳出</p>
-<h4><span id="while-do">while do</span></h4>
+<ul>
+<li><strong>while do</strong><br>
+從 <code>while</code> 內開始跑迴圈直到條件式不成立就跳出</li>
+</ul>
 <pre><code class="language-lua">local i = 1
 local count = 3
 while i &lt;= count do
@@ -379,8 +383,10 @@ end
 -- 2
 -- 3
 </code></pre>
-<p>從 <code>while</code> 內開始跑迴圈直到條件式不成立就跳出</p>
-<h4><span id="ipairs">ipairs</span></h4>
+<ul>
+<li><strong>ipairs</strong><br>
+<code>ipairs</code> 會按照陣列索引順序開始跑，直到 <code>value</code> 出現 <code>nil</code> 的情況</li>
+</ul>
 <pre><code class="language-lua">local a = { [1] =  &quot;one&quot;, [2] = &quot;two&quot;, [4] = &quot;four&quot; }
 for index, value in ipairs(a) do
     print(index .. &quot;:&quot; .. value)
@@ -389,8 +395,10 @@ end
 -- 1:one
 -- 2:two
 </code></pre>
-<p><code>ipairs</code> 會按照陣列索引順序開始跑，直到 <code>value</code> 出現 <code>nil</code> 的情況</p>
-<h4><span id="pairs">pairs</span></h4>
+<ul>
+<li><strong>pairs</strong><br>
+<code>pairs</code> 會按順序跑完全部陣列</li>
+</ul>
 <pre><code class="language-lua">local a = {
   [1] =  &quot;one&quot;,
   [2] = &quot;two&quot;,
@@ -408,10 +416,12 @@ end
 -- dog:狗
 -- 貓:cat
 </code></pre>
-<p><code>ipair</code> 會按順序跑完全部陣列</p>
-<h3><span id="function-系列">Function 系列</span></h3>
 <hr>
-<h4><span id="具有回傳值">具有回傳值</span></h4>
+<h4><span id="function-系列">Function 系列</span></h4>
+<ul>
+<li><strong>具有回傳值</strong><br>
+使用 <code>return</code> 回傳</li>
+</ul>
 <pre><code class="language-lua">function greet(name)
    local result = &quot;&quot;
    if (name == 'Max') 
@@ -428,8 +438,10 @@ print(greet('Max'))
 -- Output:
 -- Hello Max
 </code></pre>
-<p>使用 return 回傳</p>
-<h4><span id="具有多個回傳值">具有多個回傳值</span></h4>
+<ul>
+<li><strong>具有多回傳值</strong><br>
+使用 <code>return</code> 回傳，且用<code>逗號</code>分隔回傳值</li>
+</ul>
 <pre><code class="language-lua">function calculate(a, b)
   return a + b, a - b
 end
@@ -441,8 +453,10 @@ print('a - b = ' .. b)
 -- a + b = 28
 -- a - b = -18
 </code></pre>
-<p>使用逗號分隔回傳值</p>
-<h4><span id="不具回傳值">不具回傳值</span></h4>
+<ul>
+<li><strong>不具回傳值</strong><br>
+相當於 <code>void</code></li>
+</ul>
 <pre><code class="language-lua">function greet(name)
    if (name == 'Max') 
    then
@@ -456,8 +470,10 @@ greet('someone')
 -- Output:
 -- Who are you
 </code></pre>
-<p>相當於 void</p>
-<h4><span id="傳入任意參數">傳入任意參數</span></h4>
+<ul>
+<li><strong>傳入任意參數</strong><br>
+傳入參數以<code>逗號</code>分隔</li>
+</ul>
 <pre><code class="language-lua">function add(...)
   local total = 0
   for index, value in ipairs{...} do
@@ -471,7 +487,31 @@ print(add(1,2,3))
 -- Output:
 -- 6
 </code></pre>
-<p>傳入參數以逗號分隔</p>
+<hr>
+<h4><span id="小試身手">小試身手</span></h4>
+<p>題目：<a href="https://leetcode.com/problems/two-sum/" target="_blank" rel="noopener">LeetCode 1. Two Sum</a></p>
+<pre><code class="language-lua=">function TwoSum(nums, target)
+  local table = { }
+  for index, value in ipairs(nums) do
+    if(table[target - value])
+    then
+      return table[target - value], index
+    end
+    table[value] = index
+  end
+end
+
+local nums = {3,2,4} -- Sample
+local target = 7 -- Sample
+local one,two = TwoSum(nums, target)
+
+print('[' .. one .. ',' .. two .. ']')
+
+-- Input: nums = [3,2,4], target = 7
+
+-- Output: [1,3]    
+-- ※ Lua 的陣列索引從 1 起跳，所以原本答案是 [0,2] 會變為 [1,3]
+</code></pre>
 <h1><span id="參考">參考</span></h1>
 <p><a href="https://www.runoob.com/lua/lua-tutorial.html" target="_blank" rel="noopener">Lua 教程</a><br>
 <a href="https://opensourcedoc.com/lua-programming/function/" target="_blank" rel="noopener">撰寫和使用函式 (Function)</a><br>
@@ -512,7 +552,7 @@ print(add(1,2,3))
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">常用資料型態</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">運算符號</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">操作符號</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">變數宣告</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">if</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">Loop 系列</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.1.</span> <span class="toc-nav-text">for loop</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.2.</span> <span class="toc-nav-text">repeat until</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.3.</span> <span class="toc-nav-text">while do</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.4.</span> <span class="toc-nav-text">ipairs</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.5.</span> <span class="toc-nav-text">pairs</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">Function 系列</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.1.</span> <span class="toc-nav-text">具有回傳值</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.2.</span> <span class="toc-nav-text">具有多個回傳值</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.3.</span> <span class="toc-nav-text">不具回傳值</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.4.</span> <span class="toc-nav-text">傳入任意參數</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number"></span> <span class="toc-nav-text">參考</span></a>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">常用資料型態</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">運算符號</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">操作符號</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">變數</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">if else</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">Loop 系列</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">Function 系列</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">8.</span> <span class="toc-nav-text">小試身手</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number"></span> <span class="toc-nav-text">參考</span></a>
         
         </div>
       </aside>
