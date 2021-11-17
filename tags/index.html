@@ -198,17 +198,17 @@
                 
                     <a href="#日常除錯" title="日常除錯" rel="1">日常除錯</a>
                 
+                    <a href="#UnitTest" title="UnitTest" rel="1">UnitTest</a>
+                
                     <a href="#Hexo" title="Hexo" rel="1">Hexo</a>
                 
-                    <a href="#C# 本事" title="C# 本事" rel="3">C# 本事</a>
+                    <a href="#Lua" title="Lua" rel="1">Lua</a>
                 
-                    <a href="#UnitTest" title="UnitTest" rel="1">UnitTest</a>
+                    <a href="#C# 本事" title="C# 本事" rel="3">C# 本事</a>
                 
                     <a href="#Redis" title="Redis" rel="1">Redis</a>
                 
                     <a href="#Docker" title="Docker" rel="1">Docker</a>
-                
-                    <a href="#Lua" title="Lua" rel="1">Lua</a>
                 
                     <a href="#設計模式" title="設計模式" rel="4">設計模式</a>
                 
@@ -268,6 +268,28 @@
             </div>
             
             <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="UnitTest">
+                    <span class="tag-text">UnitTest</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2021/09/11/UnitTest1/">
+                        <h2 class="post-title">
+                            UnitTest
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="Hexo">
                     <span class="tag-text">Hexo</span>
                 </span>
@@ -280,6 +302,28 @@
                      <a href="/2021/07/30/Hexo加入網站、文章訪問數統計/">
                         <h2 class="post-title">
                             Hexo counts visitors
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Lua">
+                    <span class="tag-text">Lua</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2021/10/16/luascript/">
+                        <h2 class="post-title">
+                            Basic LuaScript
                         </h2>
                         
                     </a>
@@ -342,28 +386,6 @@
             </div>
             
             <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="UnitTest">
-                    <span class="tag-text">UnitTest</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2021/09/11/UnitTest1/">
-                        <h2 class="post-title">
-                            UnitTest
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="Redis">
                     <span class="tag-text">Redis</span>
                 </span>
@@ -398,28 +420,6 @@
                      <a href="/2021/10/09/redis-in-docker/">
                         <h2 class="post-title">
                             Redis in Docker
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Lua">
-                    <span class="tag-text">Lua</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2021/10/16/luascript/">
-                        <h2 class="post-title">
-                            Basic LuaScript
                         </h2>
                         
                     </a>
@@ -669,8 +669,8 @@
                     <span id="busuanzi_container_site_pv">
                         <i class="fas fa-eye"></i> : <span id="busuanzi_value_site_uv"></span>
                     </span>                 
-                    <br><span id="sitetime"></span>
-                    <br>Copyright &copy; Max Lin 2021<br>Powered by Hexo - Theme by BeanTech   
+                    <br>Copyright &copy; Max Lin 2021<br>Powered by Hexo - Theme by BeanTech<br>
+                    <span id="sitetime"></span>
                 </p>
             </div>
         </div>
@@ -690,14 +690,6 @@
             var todayHour = today.getHours();
             var todayMinute = today.getMinutes();
             var todaySecond = today.getSeconds();
-            /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
-            year - 作为date对象的年份，为4位年份值
-            month - 0-11之间的整数，做为date对象的月份
-            day - 1-31之间的整数，做为date对象的天数
-            hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
-            minutes - 0-59之间的整数，做为date对象的分钟数
-            seconds - 0-59之间的整数，做为date对象的秒数
-            microseconds - 0-999之间的整数，做为date对象的毫秒数 */
             var t1 = Date.UTC(2021, 07, 25, 00, 02, 42);
             var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
             var diff = t2 - t1;
@@ -706,7 +698,7 @@
             var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
             var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
             var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
-            document.getElementById("sitetime").innerHTML = "Max's Blog 已運行：" +　/* diffYears　+　" 年 "　+ */　diffDays + " 天 " + diffHours + " 時 " + diffMinutes + " 分 " + diffSeconds + " 秒";
+            document.getElementById("sitetime").innerHTML = "網站已運行：" +　/* diffYears　+　" 年 "　+ */　diffDays + " 天 " + diffHours + " 時 " + diffMinutes + " 分 " + diffSeconds + " 秒";
         }
         siteTime();
     </script>

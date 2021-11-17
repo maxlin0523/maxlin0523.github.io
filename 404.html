@@ -263,8 +263,8 @@
                     <span id="busuanzi_container_site_pv">
                         <i class="fas fa-eye"></i> : <span id="busuanzi_value_site_uv"></span>
                     </span>                 
-                    <br><span id="sitetime"></span>
-                    <br>Copyright &copy; Max Lin 2021<br>Powered by Hexo - Theme by BeanTech   
+                    <br>Copyright &copy; Max Lin 2021<br>Powered by Hexo - Theme by BeanTech<br>
+                    <span id="sitetime"></span>
                 </p>
             </div>
         </div>
@@ -284,14 +284,6 @@
             var todayHour = today.getHours();
             var todayMinute = today.getMinutes();
             var todaySecond = today.getSeconds();
-            /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
-            year - 作为date对象的年份，为4位年份值
-            month - 0-11之间的整数，做为date对象的月份
-            day - 1-31之间的整数，做为date对象的天数
-            hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
-            minutes - 0-59之间的整数，做为date对象的分钟数
-            seconds - 0-59之间的整数，做为date对象的秒数
-            microseconds - 0-999之间的整数，做为date对象的毫秒数 */
             var t1 = Date.UTC(2021, 07, 25, 00, 02, 42);
             var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
             var diff = t2 - t1;
@@ -300,7 +292,7 @@
             var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
             var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
             var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
-            document.getElementById("sitetime").innerHTML = "Max's Blog 已運行：" +　/* diffYears　+　" 年 "　+ */　diffDays + " 天 " + diffHours + " 時 " + diffMinutes + " 分 " + diffSeconds + " 秒";
+            document.getElementById("sitetime").innerHTML = "網站已運行：" +　/* diffYears　+　" 年 "　+ */　diffDays + " 天 " + diffHours + " 時 " + diffMinutes + " 分 " + diffSeconds + " 秒";
         }
         siteTime();
     </script>
