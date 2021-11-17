@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Basic LuaScript - Max&#39;s Blog | 邁向全端之路
+          Google Chrome 建立獨立環境 - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
-    <link rel="canonical" href="https://maxlin0523.github.io/2021/10/16/luascript/">
+    <link rel="canonical" href="https://maxlin0523.github.io/2021/11/18/new-chrome/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -86,14 +86,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Lua" title="Lua">Lua</a>
+                              <a class="tag" href="/tags/#Chrome" title="Chrome">Chrome</a>
                             
                         </div>
-                        <h1>Basic LuaScript</h1>
+                        <h1>Google Chrome 建立獨立環境</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
-                            2021-10-16（
+                            2021-11-18（
                             <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views）
                         </span>
                     </div>
@@ -208,315 +208,31 @@
                 col-md-10 col-md-offset-1
                 ">
                 <!-- class: post-container拔除 -->
-                <p>最近接觸了 Redis 腳本有使用到 Lua，簡單紀錄下基礎語法。</p>
-<h4><span id="常用資料型態">常用資料型態</span></h4>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">資料型態</th>
-<th style="text-align:center">備註</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><code>nil</code></td>
-<td style="text-align:center">null</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>boolean</code></td>
-<td style="text-align:center">false 和 nil 為假，true 和非 nil 為真</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>number</code></td>
-<td style="text-align:center">包含整數與小數位</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>string</code></td>
-<td style="text-align:center">以雙引號 “” 或單引號 ‘’ 包覆</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>table</code></td>
-<td style="text-align:center">類似 dictionary 或當作 array 使用</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>function</code></td>
-<td style="text-align:center">函式</td>
-</tr>
-</tbody>
-</table>
-<h4><span id="運算符號">運算符號</span></h4>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">運算符</th>
-<th style="text-align:center">備註</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><code>+</code></td>
-<td style="text-align:center">加法</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>-</code></td>
-<td style="text-align:center">減法或負號</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>*</code></td>
-<td style="text-align:center">乘法</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>/</code></td>
-<td style="text-align:center">除法</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>％</code></td>
-<td style="text-align:center">餘數</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>＾</code></td>
-<td style="text-align:center">次方</td>
-</tr>
-</tbody>
-</table>
-<h4><span id="操作符號">操作符號</span></h4>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">運算符</th>
-<th style="text-align:center">備註</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><code>==</code></td>
-<td style="text-align:center">等於</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>~=</code></td>
-<td style="text-align:center">不等於</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>&gt;</code></td>
-<td style="text-align:center">大於</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>&lt;</code></td>
-<td style="text-align:center">小於</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>&gt;=</code></td>
-<td style="text-align:center">大於等於</td>
-</tr>
-<tr>
-<td style="text-align:center"><code>&lt;=</code></td>
-<td style="text-align:center">小於等於</td>
-</tr>
-</tbody>
-</table>
-<h4><span id="變數">變數</span></h4>
-<p>可一次宣告多個變數，沒指派值的會是 <code>nil</code></p>
-<pre><code class="language-lua">local a = 1
-local b, c, d = 2, 3
-
-print(a)
-print(b)
-print(c)
-print(d)
--- Output:
--- 1
--- 2
--- 3
--- nil
-</code></pre>
-<hr>
-<h4><span id="if-else"><strong>if else</strong></span></h4>
-<pre><code class="language-lua">if(boolean) then
-   -- do...
-else if(boolean) then
-   -- do...
-else 
-   -- do...
-end
-</code></pre>
-<hr>
-<h4><span id="loop-系列"><strong>Loop 系列</strong></span></h4>
-<ul>
-<li><strong>for loop</strong><br>
-i 從 <code>0</code> 開始迴圈每次遞增 <code>1</code> 直到 <code>i &lt;= 3</code></li>
-</ul>
-<pre><code class="language-lua">for i = 0, 3, 1 do
-  print(i)
-end
--- Output:
--- 0
--- 1
--- 2
--- 3
-</code></pre>
-<ul>
-<li><strong>repeat until</strong><br>
-從 <code>repeat</code> 內開始跑迴圈直到 <code>until</code> 條件式成立就跳出</li>
-</ul>
-<pre><code class="language-lua">local i = 1
-local count = 3
-repeat
-  print(i)
-  i = i + 1
-until i == count
--- Output:
--- 1
--- 2
-</code></pre>
-<ul>
-<li><strong>while do</strong><br>
-從 <code>while</code> 內開始跑迴圈直到條件式不成立就跳出</li>
-</ul>
-<pre><code class="language-lua">local i = 1
-local count = 3
-while i &lt;= count do
-  print(i)
-  i = i + 1
-end
--- Output:
--- 1
--- 2
--- 3
-</code></pre>
-<ul>
-<li><strong>ipairs</strong><br>
-<code>ipairs</code> 會按照陣列索引順序開始跑，直到 <code>value</code> 出現 <code>nil</code> 的情況</li>
-</ul>
-<pre><code class="language-lua">local a = { [1] =  &quot;one&quot;, [2] = &quot;two&quot;, [4] = &quot;four&quot; }
-for index, value in ipairs(a) do
-    print(index .. &quot;:&quot; .. value)
-end
--- Output:
--- 1:one
--- 2:two
-</code></pre>
-<ul>
-<li><strong>pairs</strong><br>
-<code>pairs</code> 會按順序跑完全部陣列</li>
-</ul>
-<pre><code class="language-lua">local a = {
-  [1] =  &quot;one&quot;,
-  [2] = &quot;two&quot;,
-  [4] = &quot;four&quot; ,
-  dog = &quot;狗&quot;,
-  [&quot;貓&quot;] = &quot;cat&quot;
-  }
-for index, value in pairs(a) do
-    print(index .. &quot;:&quot; .. value)
-end
--- Output:
--- 1:one
--- 2:two
--- 4:four
--- dog:狗
--- 貓:cat
-</code></pre>
-<hr>
-<h4><span id="function-系列">Function 系列</span></h4>
-<ul>
-<li><strong>具有回傳值</strong><br>
-使用 <code>return</code> 回傳</li>
-</ul>
-<pre><code class="language-lua">function greet(name)
-   local result = &quot;&quot;
-   if (name == 'Max') 
-   then
-      result = 'Hello ' .. name
-   else
-      result = 'Who are you'
-   end
-
-   return result;
-end
-
-print(greet('Max'))
--- Output:
--- Hello Max
-</code></pre>
-<ul>
-<li><strong>具有多回傳值</strong><br>
-使用 <code>return</code> 回傳，且用<code>逗號</code>分隔回傳值</li>
-</ul>
-<pre><code class="language-lua">function calculate(a, b)
-  return a + b, a - b
-end
-
-local a, b = calculate(5, 23)
-print('a + b = ' .. a)
-print('a - b = ' .. b)
--- Output:
--- a + b = 28
--- a - b = -18
-</code></pre>
-<ul>
-<li><strong>不具回傳值</strong><br>
-相當於 <code>void</code></li>
-</ul>
-<pre><code class="language-lua">function greet(name)
-   if (name == 'Max') 
-   then
-      print('Hello ' .. name)
-   else
-      print('Who are you')
-   end
-end
-
-greet('someone')
--- Output:
--- Who are you
-</code></pre>
-<ul>
-<li><strong>傳入任意參數</strong><br>
-傳入參數以<code>逗號</code>分隔</li>
-</ul>
-<pre><code class="language-lua">function add(...)
-  local total = 0
-  for index, value in ipairs{...} do
-    total = total + value
-  end
-  
-  return total
-end
-
-print(add(1,2,3))
--- Output:
--- 6
-</code></pre>
-<hr>
-<h4><span id="小試身手">小試身手</span></h4>
-<p>題目：<a href="https://leetcode.com/problems/two-sum/" target="_blank" rel="noopener">LeetCode 1. Two Sum</a></p>
-<pre><code class="language-lua=">function TwoSum(nums, target)
-  local table = { }
-  for index, value in ipairs(nums) do
-    if(table[target - value])
-    then
-      return table[target - value], index
-    end
-    table[value] = index
-  end
-end
-
-local nums = {3,2,4} -- Sample
-local target = 7 -- Sample
-local one,two = TwoSum(nums, target)
-
-print('[' .. one .. ',' .. two .. ']')
-
--- Input: nums = [3,2,4], target = 7
-
--- Output: [1,3]    
--- ※ Lua 的陣列索引從 1 起跳，所以原本答案是 [0,2] 會變為 [1,3]
-</code></pre>
+                <p>最近需回家處理工作的事，而我通常都是先登出自己的筆記軟體帳號，然後再登入公司筆記軟體帳號來查看我的工作項目，但這樣一來每次都要切來切去有點麻煩</p>
+<p>這時如果有兩個獨立的 Chrome，一個自己平常使用，另一個則是工作使用該有多好</p>
+<h2><span id="做法">做法</span></h2>
+<h3><span id="第一步建立資料夾">第一步：建立資料夾</span></h3>
+<p>獨立一個資料夾給新的 Google Chrome 使用</p>
+<p>如：</p>
+<p>建立資料夾，路徑：<code>D:\work</code></p>
+<p><img src="https://i.imgur.com/AhczMWu.jpg" alt></p>
+<h3><span id="第二步建立一個-work-的-google-chrome">第二步：建立一個 Work 的 Google Chrome</span></h3>
+<p>將桌面 Chrome 執行檔複製一份並改名為 Work</p>
+<p>如：</p>
+<p><img src="https://i.imgur.com/0n7CLGs.png" alt></p>
+<h3><span id="第三步右鍵-work-點選內容後更改目標路徑">第三步：右鍵 Work 點選內容後更改目標路徑</span></h3>
+<p>右鍵 Work 點選內容</p>
+<p>如：</p>
+<p><img src="https://i.imgur.com/wf8QTAW.jpg" alt></p>
+<p>之後，於目標路徑結尾新增路徑 <code>--user-data-dir=&quot;D:\work&quot;</code>，記得結尾後面要空一格喔</p>
+<p>如：</p>
+<p><img src="https://i.imgur.com/ExmMdZj.jpg" alt></p>
+<h3><span id="第四步開啟-work-瀏覽器查看">第四步：開啟 Work 瀏覽器查看</span></h3>
+<p>應該就會是全新獨立的瀏覽器了</p>
+<p>如：</p>
+<p><img src="https://i.imgur.com/TyAEWXQ.png" alt></p>
 <h1><span id="參考">參考</span></h1>
-<p><a href="https://www.runoob.com/lua/lua-tutorial.html" target="_blank" rel="noopener">Lua 教程</a><br>
-<a href="https://opensourcedoc.com/lua-programming/function/" target="_blank" rel="noopener">撰寫和使用函式 (Function)</a><br>
-<a href="https://emilykevin.pixnet.net/blog/post/249421762-lua-%7C-pairs%E8%88%87ipairs%E7%9A%84%E5%B7%AE%E7%95%B0" target="_blank" rel="noopener">Lua | pairs與ipairs的差異</a><br>
-<a href="https://larrynung.github.io/tags/Lua/" target="_blank" rel="noopener">Tag: Lua | Level Up</a></p>
+<p><a href="https://blog.csdn.net/qq_38161040/article/details/88824517" target="_blank" rel="noopener">Chrome 技术篇-一台电脑设置多个独立chrome方法实例演示，chrome独立多开技术，chrome多开并加载原chrome的数据方法</a></p>
 
                 
 
@@ -525,13 +241,9 @@ print('[' .. one .. ',' .. two .. ']')
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2021/10/09/redis-in-docker/" data-toggle="tooltip" data-placement="top" title="Redis in Docker">&larr; 上篇 </a>
+                            <a href="/2021/10/16/luascript/" data-toggle="tooltip" data-placement="top" title="Basic LuaScript">&larr; 上篇 </a>
                         </li>
                     
-                    
-                        <li class="next">
-                            <a href="/2021/11/18/new-chrome/" data-toggle="tooltip" data-placement="top" title="Google Chrome 建立獨立環境"> 下篇 &rarr;</a>
-                        </li>
                     
                 </ul>
 
@@ -556,7 +268,7 @@ print('[' .. one .. ',' .. two .. ']')
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">常用資料型態</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">運算符號</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">操作符號</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">變數</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">if else</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">Loop 系列</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">Function 系列</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">8.</span> <span class="toc-nav-text">小試身手</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number"></span> <span class="toc-nav-text">參考</span></a>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">做法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">第一步：建立資料夾</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">第二步：建立一個 Work 的 Google Chrome</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">第三步：右鍵 Work 點選內容後更改目標路徑</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">第四步：開啟 Work 瀏覽器查看</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number"></span> <span class="toc-nav-text">參考</span></a>
         
         </div>
       </aside>
@@ -577,7 +289,7 @@ print('[' .. one .. ',' .. two .. ']')
                     <h5><a href="/tags/">標籤雲</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Lua" title="Lua">Lua</a>
+                          <a class="tag" href="/tags/#Chrome" title="Chrome">Chrome</a>
                         
                     </div>
                 </section>
