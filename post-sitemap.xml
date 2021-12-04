@@ -7,6 +7,22 @@
     </url>
 
     <url>
+        <loc>https://maxlin0523.github.io/2021/10/09/redis-in-docker/</loc>
+        <lastmod>2021-12-04T10:45:23.958Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://maxlin0523.github.io/2021/05/16/%E5%88%86%E5%B1%A4%E6%9E%B6%E6%A7%8B%EF%BC%8DLayered%20Architecture/</loc>
+        <lastmod>2021-12-04T10:19:37.513Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://maxlin0523.github.io/2021/11/18/new-chrome/</loc>
         <lastmod>2021-11-17T17:15:54.637Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -63,24 +79,8 @@
     </url>
 
     <url>
-        <loc>https://maxlin0523.github.io/2021/10/09/redis-in-docker/</loc>
-        <lastmod>2021-10-11T16:05:42.425Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>https://maxlin0523.github.io/2021/07/07/Dapper%20%E6%89%B9%E6%AC%A1%E5%9F%B7%E8%A1%8C%E5%87%BA%E7%8F%BE%20Sql%20Exception/</loc>
         <lastmod>2021-10-02T11:27:42.220Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://maxlin0523.github.io/2021/05/16/%E5%88%86%E5%B1%A4%E6%9E%B6%E6%A7%8B%EF%BC%8DLayered%20Architecture/</loc>
-        <lastmod>2021-09-30T13:29:15.332Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

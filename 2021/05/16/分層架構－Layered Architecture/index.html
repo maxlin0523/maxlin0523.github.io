@@ -139,14 +139,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -208,9 +208,9 @@
                 col-md-10 col-md-offset-1
                 ">
                 <!-- class: post-container拔除 -->
-                <h1><span id="介紹">介紹</span></h1>
-<p>一般分為 <code>Controller</code>、<code>Service</code>、<code>Repository</code> 三層。各層之間依賴介面，符合 SOLID－DIP，只需要針對各層介面提供的方法去使用並達到 <code>相依性注入</code>，而每層間參數物件傳遞也需進行隔離，如此一來也達到 <code>關注點分離</code>，大家一起分工各層時也不會互相影響。</p>
-<h1><span id="定義">定義</span></h1>
+                <h3><span id="介紹">介紹</span></h3>
+<p>一般分為 <code>Controller</code>、<code>Service</code>、<code>Repository</code> 三層。各層之間依賴介面，符合 SOLID－DIP，只需要針對各層介面提供的方法去使用並達到 <code>相依性注入</code>，而每層間參數物件傳遞也需進行隔離，如此一來也達到 <code>關注點分離</code>，大家一起分工實作層需求時也不會互相影響，更可以方便進行隔離測試。</p>
+<h3><span id="分層定義">分層定義</span></h3>
 <ul>
 <li>
 <p><strong>Controller（展示層）</strong>：主要負責處理來自於用戶端的 <code>請求與回應 I/O</code>。接收 http 請求後呼叫 <code>商業邏輯層</code> 進行後續處理，之後回應結果到用戶端。</p>
@@ -225,22 +225,22 @@
 <p><strong>Common（共用層）</strong>：各層都會參考。將各層都共用的物件或是擴充方法都存放於此。</p>
 </li>
 </ul>
-<h1><span id="專案架構圖">專案架構圖</span></h1>
+<h3><span id="專案架構圖">專案架構圖</span></h3>
 <p><img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F80c04083-a5be-4f2f-877e-56b616066946%2FUntitled.png?table=block&amp;id=caaa0ab9-e2aa-4ebf-9b50-749f0a40e2a1&amp;spaceId=59d38cce-92ff-4673-85e7-4a3082371d03&amp;width=4270&amp;userId=6c123588-4407-4a28-9aae-2bb53ad5b808&amp;cache=v2" alt></p>
-<h1><span id="dto-entity-說明">DTO、Entity 說明</span></h1>
+<h3><span id="各層間參數傳輸物件說明">各層間參數傳輸物件說明</span></h3>
 <ul>
-<li>Entity</li>
+<li><strong>Entity</strong></li>
 </ul>
 <blockquote>
-<p>為資料庫爛位的第一層轉型</p>
+<p>從資料庫獲取資料後的第一層轉型物件，基本上與 Select 欄位一致。</p>
 </blockquote>
 <ul>
-<li>DTO</li>
+<li><strong>Dto</strong></li>
 </ul>
 <blockquote>
-<p>為數據傳輸的實體</p>
+<p>全稱 Data Transfer Object，數據傳輸的物件，有時候 Entity 取出的資料屬性不一定都需要用到，這時可建立 Dto 來定義所需要的資料屬性再利用 Mapper 工具對應轉換。</p>
 </blockquote>
-<h1><span id="總結">總結</span></h1>
+<h3><span id="總結">總結</span></h3>
 <p>以前做完此架構專案時，會疑惑為何要分如此多層，直到複雜度慢慢變多時才漸漸理解好處，寫起來會特別有安全感。<br>
 如果目前還不是很理解的話，就我的經驗來建議，就先硬著頭皮學著做，知道個大概的觀念！等到實際維護複雜度較高的專案才比較快能體會分層架構的好處（前提是專案要有使用分層）。</p>
 <p>範例原始碼：<br>
@@ -282,7 +282,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">介紹</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">定義</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">專案架構圖</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">DTO、Entity 說明</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">總結</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">參考</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">介紹</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">分層定義</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">專案架構圖</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">各層間參數傳輸物件說明</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">總結</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number"></span> <span class="toc-nav-text">參考</span></a>
         
         </div>
       </aside>

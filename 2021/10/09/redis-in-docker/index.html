@@ -141,14 +141,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -210,39 +210,33 @@
                 col-md-10 col-md-offset-1
                 ">
                 <!-- class: post-container拔除 -->
-                <h1><span id="建置">建置</span></h1>
-<p>首先準備好相關 <code>Docker</code> 工具( Docker CLI、Docker Desktop… )<br>
-接著進入正題</p>
-<h4><span id="1-打開-cmd-命令介面">1. 打開 CMD 命令介面</span></h4>
-<h4><span id="2-獲取-image-映像">2. 獲取 image 映像</span></h4>
-<p>執行 <code>dokcer pull redis</code> 命令</p>
-<p>載好後 images 會多出 redis 映像</p>
-<p>如：<br>
-<img src="https://i.imgur.com/o4mYW0o.jpg" alt></p>
-<p>或是執行 <code>docker images</code> 查看所有 images</p>
-<p>如：<br>
-<img src="https://i.imgur.com/BKKsdox.png" alt></p>
-<h4><span id="3-將-redis-image-部署於-container">3. 將 redis image 部署於 container</span></h4>
-<p>執行 <code>docker run --name &lt;containerName&gt; -p &lt;對外port&gt;:6379 -d redis:lastest</code> 命令</p>
-<p><code>&lt;&gt;</code> 中是由自己去決定的參數，若執行 <code>docker run --name myredis -p 4442:6379 -d redis</code>，之後在本機便可透過 <code>127.0.0.1:4442</code> 對容器中 redis 進行串接，執行完指令後，container 會出現部屬好的 image</p>
-<p>如：<br>
-<img src="https://i.imgur.com/rj4E4ca.png" alt></p>
-<p>或是執行指令 <code>docker ps</code> 查看正在運行的容器</p>
-<p>如：<br>
-<img src="https://i.imgur.com/UeQo8gs.png" alt></p>
-<h4><span id="4-進入容器-redis-終端">4. 進入容器 redis 終端</span></h4>
-<p>執行　<code>docker exec -it &lt;containerName&gt; redis-cli</code></p>
-<p>進入容器中的 redis 終端，即可下指令操作</p>
-<p>如:<br>
-<img src="https://i.imgur.com/oKJnpP2.png" alt></p>
-<h1><span id="redis-cli">Redis CLI</span></h1>
-<p><a href="http://doc.redisfans.com/" target="_blank" rel="noopener">基本 Redis 操作命令(中文版 Redis 2.8)</a><br>
-<a href="https://redis.io/commands" target="_blank" rel="noopener">官網操作命令大全(最新)</a></p>
+                <h2><span id="流程說明">流程說明</span></h2>
+<p>首先準備好相關 <code>Docker</code> 工具，如：Docker CLI，若不習慣指令操作的朋友(就是我XD)，可下載 Docker Desktop，比較方便觀察。</p>
+<h4><span id="第一步獲取-image-映像檔">第一步：獲取 image 映像檔</span></h4>
+<p>執行 <code>dokcer pull redis</code> 命令從遠端獲取 image 映像檔</p>
+<p>載好後，可執行指令 <code>docker images</code> 查看所有 images，會看到剛剛 pull 的映像檔</p>
+<p>如：</p>
+<p><img src="https://i.imgur.com/RztlmAl.jpg" alt></p>
+<h4><span id="第二步將-redis-image-部署於-container">第二步：將 redis image 部署於 container</span></h4>
+<p>執行 <code>docker run --name &lt;container_name&gt; -p &lt;external_port&gt;:6379 -d redis:latest</code> 命令</p>
+<p><code>&lt;&gt;</code> 中的值由自己去定義。如：執行指令 <code>docker run --name myredis -p 4442:6379 -d redis:latest</code> 建立成功後，便可在本機透過 <code>127.0.0.1:4442</code> 進行串接。</p>
+<p>執行指令 <code>docker ps</code> 查看正在運行的容器，就會看到建立的 Redis server</p>
+<p>如：</p>
+<p><img src="https://i.imgur.com/04O3Mv7.jpg" alt></p>
+<h4><span id="第三步進入容器-redis-終端機">第三步：進入容器 redis 終端機</span></h4>
+<p>執行　<code>docker exec -it &lt;container_name&gt; redis-cli</code></p>
+<p>進入容器中的 redis 終端後，即可下 Redis CLI 操作</p>
+<p>如：</p>
+<p>建立 key-value 為 max 3345678 的資料，之後在 get 該 key 便得出此 value。</p>
+<p><img src="https://i.imgur.com/oKJnpP2.png" alt></p>
+<h1><span id="redis-cli-學習資源">Redis CLI 學習資源</span></h1>
+<p><a href="http://doc.redisfans.com/" target="_blank" rel="noopener">基本 Redis 操作命令(中文版 Redis 2.8)</a></p>
+<p><a href="https://redis.io/commands" target="_blank" rel="noopener">官網操作命令大全(最新)</a></p>
 <h1><span id="redis-gui">Redis GUI</span></h1>
+<p>GUI 介面可讓使用者更直覺的進行資料操作，我選用以下 GUI：</p>
 <p><a href="https://github.com/qishibo/AnotherRedisDesktopManager/" target="_blank" rel="noopener">Another-Redis-Desktop-Manager</a></p>
-<p>可以讓使用者更直覺的進行資料操作</p>
-<p>如：<br>
-<img src="https://i.imgur.com/IPpCRjQ.png" alt></p>
+<p>畫面如：</p>
+<p><img src="https://i.imgur.com/IPpCRjQ.png" alt></p>
 
                 
 
@@ -282,7 +276,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">建置</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.0.1.</span> <span class="toc-nav-text">1. 打開 CMD 命令介面</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.0.2.</span> <span class="toc-nav-text">2. 獲取 image 映像</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.0.3.</span> <span class="toc-nav-text">3. 將 redis image 部署於 container</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.0.4.</span> <span class="toc-nav-text">4. 進入容器 redis 終端</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Redis CLI</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">Redis GUI</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">流程說明</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.1.</span> <span class="toc-nav-text">第一步：獲取 image 映像檔</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.2.</span> <span class="toc-nav-text">第二步：將 redis image 部署於 container</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.3.</span> <span class="toc-nav-text">第三步：進入容器 redis 終端機</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number"></span> <span class="toc-nav-text">Redis CLI 學習資源</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number"></span> <span class="toc-nav-text">Redis GUI</span></a>
         
         </div>
       </aside>
