@@ -9,20 +9,6 @@
     </url>
 
     <url>
-        <loc>https://maxlin0523.github.io/tags/C-%E8%A7%80%E5%BF%B5/</loc>
-        <lastmod>2021-09-30T12:42:24.997Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://maxlin0523.github.io/tags/DI-Framework/</loc>
-        <lastmod>2021-09-30T12:42:24.997Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://maxlin0523.github.io/tags/%E6%97%A5%E5%B8%B8%E9%99%A4%E9%8C%AF/</loc>
         <lastmod>2021-10-02T11:27:42.220Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -79,6 +65,13 @@
     </url>
 
     <url>
+        <loc>https://maxlin0523.github.io/tags/Lua/</loc>
+        <lastmod>2021-12-10T19:54:54.788Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://maxlin0523.github.io/tags/Redis/</loc>
         <lastmod>2021-12-10T19:54:54.788Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -86,8 +79,15 @@
     </url>
 
     <url>
-        <loc>https://maxlin0523.github.io/tags/Lua/</loc>
-        <lastmod>2021-12-10T19:54:54.788Z</lastmod>
+        <loc>https://maxlin0523.github.io/tags/C-%E8%A7%80%E5%BF%B5/</loc>
+        <lastmod>2021-12-10T19:56:42.599Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://maxlin0523.github.io/tags/DI-IoC/</loc>
+        <lastmod>2021-12-10T19:56:42.599Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
