@@ -14,7 +14,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          C# 陣列亂數排序(Fisher-Yates Shuffle) - Max&#39;s Blog | 邁向全端之路
+          C# 陣列亂數排序(洗牌) - Fisher-Yates Shuffle - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
@@ -89,7 +89,7 @@
                               <a class="tag" href="/tags/#Algorithm" title="Algorithm">Algorithm</a>
                             
                         </div>
-                        <h1>C# 陣列亂數排序(Fisher-Yates Shuffle)</h1>
+                        <h1>C# 陣列亂數排序(洗牌) - Fisher-Yates Shuffle</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
@@ -139,14 +139,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -208,8 +208,8 @@
                 col-md-10 col-md-offset-1
                 ">
                 <!-- class: post-container拔除 -->
-                <p>問題來源於之前在 interview 的 live demo 中，其中一個功能為 <code>洗牌</code> ，原本預期這功能是沒問題的，仔細做到才發現有點卡住，然而又是在 live 的情況，趕緊寫出一個很醜的寫法，雖然醜但至少先有個功能😂😂</p>
-<h2><span id="假設情境為將一個裝了-0-~-9-數字陣列做亂數排序洗牌">假設情境為：將一個裝了 0 ~ 9 數字陣列做亂數排序(洗牌)</span></h2>
+                <p>問題來源於之前在 interview 的 live demo 中，其中一個功能為 <code>洗牌</code> ，原本預期這功能是沒問題的，仔細做到才發現有點卡住，然而又是在 live 的情況，趕緊寫出一個很醜的寫法，雖然醜但至少先有個功能😂</p>
+<h3><span id="假設情境為將一個裝了-0-~-9-數字陣列做亂數排序洗牌">假設情境為：將一個裝了 0 ~ 9 數字陣列做亂數排序(洗牌)</span></h3>
 <p>當時寫法如下：</p>
 <pre><code class="language-C#">Random random = new Random();
 
@@ -230,12 +230,11 @@ while (true)
     }
 }
 </code></pre>
-<p>這時間複雜度其實我也不知道怎麼算，反正比 O(N) 差，且資料量越大越差，而後續查到有個洗牌演算法叫做 <code>Fisher-Yates Shuffle</code>，其時間複雜度為 O(N)。</p>
+<p>這時間複雜度我也不知道怎麼算，反正是比 O(N) 差，且資料量越大越差，而後續查到有個洗牌演算法叫做 <code>Fisher-Yates Shuffle</code>，其時間複雜度為 O(N)。</p>
 <h3><span id="fisher-yates-shuffle">Fisher-Yates Shuffle</span></h3>
 <p>演算寫法如下：</p>
-<pre><code class="language-C#=">Random random = new Random();
+<pre><code class="language-C#">Random random = new Random();
 
-// 牌組
 List&lt;int&gt; cards = new List&lt;int&gt; { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
 // 洗牌
@@ -256,15 +255,14 @@ for (int i = cards.Count - 1; i &gt;= 0; i--)
 <li>從 cards[0] ~ cards[6] 中亂數取出一個元素，與 cards[7] 交換<br>
 …依此類推直到全部排完</li>
 </ol>
-<h3><span id="其他寫法">其他寫法</span></h3>
+<h3><span id="其他洗牌寫法">其他洗牌寫法</span></h3>
 <p>也有看到搭配 LINQ 寫起來更簡潔的方法，如下：</p>
-<pre><code class="language-C#=">// 牌組
-List&lt;int&gt; cards = new List&lt;int&gt; { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+<pre><code class="language-C#">List&lt;int&gt; cards = new List&lt;int&gt; { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
 // 洗牌
 List&lt;int&gt; randomList = cards.OrderBy(x =&gt; Guid.NewGuid()).ToList();
 </code></pre>
-<h1><span id="參考">參考</span></h1>
+<h3><span id="參考">參考</span></h3>
 <p><a href="https://stackoverflow.com/questions/108819/best-way-to-randomize-an-array-with-net" target="_blank" rel="noopener">Best way to randomize an array with .NET</a></p>
 
                 
@@ -301,7 +299,7 @@ List&lt;int&gt; randomList = cards.OrderBy(x =&gt; Guid.NewGuid()).ToList();
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">假設情境為：將一個裝了 0 ~ 9 數字陣列做亂數排序(洗牌)</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">Fisher-Yates Shuffle</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">其他寫法</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number"></span> <span class="toc-nav-text">參考</span></a>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">假設情境為：將一個裝了 0 ~ 9 數字陣列做亂數排序(洗牌)</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Fisher-Yates Shuffle</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">其他洗牌寫法</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">參考</span></a></li></ol>
         
         </div>
       </aside>
