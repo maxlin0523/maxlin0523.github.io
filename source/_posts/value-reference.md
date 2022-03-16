@@ -1,5 +1,5 @@
 ---
-title: C# 實值型別 & 參考型別
+title: C# Value and Reference Type
 catalog: true
 date: 2021-08-03 21:03:01
 subtitle:

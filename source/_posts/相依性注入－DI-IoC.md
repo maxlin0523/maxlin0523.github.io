@@ -1,12 +1,12 @@
 ---
-title: 相依性注入－DI/IoC
+title: Dependency Injection and Inversion of Control
 catalog: true
 date: 2021-05-22 00:05:23
 subtitle:
 header-img:
 tags: 
 - C# 觀念
-- DI Framework
+- DI/IoC
 ---
 # 名詞
 DI：Dependency Injection（依賴注入）

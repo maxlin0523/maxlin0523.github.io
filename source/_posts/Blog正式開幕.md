@@ -1,14 +1,12 @@
 ---
-title: Blog 正式開幕
+title: The blog is opening
 catalog: true
 date: 2021-07-25 00:02:42
 subtitle:
 header-img: "open.png"
 tags: 散亂札記
 ---
-經過幾番波折終於開幕了～
-
-原本在 Medium 發展了一小段時間（[底加](https://max-lin.medium.com/)），至於為什麼會轉來這邊呢，原因是當初寫了也快 10 篇文，想說是時候要來整理文章分類功能了，結果發現竟然是需要花錢才能解鎖阿！
+原本在 Medium 發展了一小段時間，至於為什麼會轉來這邊呢，原因是當初寫了也快 10 篇文，想說是時候要來整理文章分類功能了，結果發現竟然是需要花錢才能解鎖阿！
 讓我一怒之下
 ．
 

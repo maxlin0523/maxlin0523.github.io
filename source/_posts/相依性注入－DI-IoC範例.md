@@ -1,12 +1,12 @@
 ---
-title: 相依性注入－DI/IoC 範例
+title: DI and IoC Sample
 catalog: true
 date: 2021-05-30 00:05:23
 subtitle:
 header-img:
 tags:
 - C# 觀念
-- DI Framework
+- DI/IoC
 ---
 # 前言
 接續上篇（相依性注入－DI/IoC），這篇介紹實作的部分，關於 DI/IoC 再稍微帶過：也就是把兩個物件有相互依賴部分的控制權轉移到容器（稱為 IoC 容器），這樣的轉移行為叫做 `Inversion of Controll` ，之後在 IoC 容器裡註冊要執行依賴部分的邏輯供兩個物件來使用，這樣的註冊行為叫做 `Dependency Injection` ，日後若這兩個物件需要用到註冊的依賴物件時，則由 IoC 容器 `主動` 提供使用。

@@ -1,5 +1,5 @@
 ---
-title: Dapper 批次執行出現 Sql Exception
+title: The sql exception occurred in Dapper's batch execution
 catalog: true
 date: 2021-07-07 00:05:23
 subtitle:

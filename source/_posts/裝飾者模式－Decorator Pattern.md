@@ -1,5 +1,5 @@
 ---
-title: 裝飾者模式－Decorator Pattern
+title: Decorator Pattern
 catalog: true
 date: 2021-07-11 00:05:23
 subtitle:
@@ -56,6 +56,8 @@ Done.
 
 ###### 範例成員
 ![](https://i.imgur.com/f4KvecF.png)
+
+專案原始碼：https://github.com/maxlin0523/DecoratorPatternSample
 
 # 總結
 回想介紹提到裝飾者模式的特性：

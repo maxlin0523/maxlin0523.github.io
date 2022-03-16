@@ -1,5 +1,5 @@
 ---
-title: 轉接器模式－Adapter Pattern
+title: Adapter Pattern
 catalog: true
 date: 2021-06-27 00:05:23
 subtitle:

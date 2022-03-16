@@ -1,5 +1,5 @@
 ---
-title: C# Boxing & Unboxing
+title: C# Boxing and Unboxing
 catalog: true
 date: 2021-08-03 21:09:17
 subtitle:

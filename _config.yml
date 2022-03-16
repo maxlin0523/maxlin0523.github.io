@@ -4,7 +4,7 @@
 
 # Site
 title: Max's Blog
-subtitle: 邁向全端的後端工程師
+subtitle: Don't code fast, good code lasts.
 author: Max Lin
 language: zh-TW
 timezone:
@@ -46,6 +46,7 @@ RSS: true
 # 自訂連結
 github_username: maxlin0523
 medium_username: max-lin
+linkedin_username: maxlin0523
 
 # Build settings
 anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
@@ -100,6 +101,9 @@ friends: [
         title: "阮一峰的网络日志",
         href: "https://www.ruanyifeng.com/blog/"
     },{
+        title: "搞笑談軟工",
+        href: "http://teddy-chen-tw.blogspot.com/"
+    },{
         title: "John Wu's Blog",
         href: "https://blog.johnwu.cc/"
     },{
@@ -114,19 +118,25 @@ friends: [
     },{
         title: "石頭的coding之路",
         href: "https://isdaniel.github.io/"
+    },{
+        title: "Level Up",
+        href: "https://larrynung.github.io/"
+    },{
+        title: "Yowko's Notes",
+        href: "https://blog.yowko.com/"
     }
 ]
 
 ## 好視頻
 videos: [
     {
-        title: "Anduin Xue (.NET)",
+        title: "Anduin Xue",
         href: "https://www.youtube.com/channel/UCe1nKo3WGGzyTgDqmTdZzlA/featured"
     },{
-        title: "HackBear 泰瑞 (職涯)",
+        title: "HackBear 泰瑞",
         href: "https://www.youtube.com/c/HackBear%E6%B3%B0%E7%91%9E"
     },{
-        title: "Untyped 對啊我是工程師 (職涯)",
+        title: "Untyped 對啊我是工程師",
         href: "https://www.youtube.com/channel/UC7GawUG3AC47M5gJZsvyflg"
     }
 ]

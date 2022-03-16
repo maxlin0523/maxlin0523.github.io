@@ -1,5 +1,5 @@
 ---
-title: 組合模式－Composite Pattern
+title: Composite Pattern
 catalog: true
 date: 2021-07-03 00:05:23
 subtitle:

@@ -1,5 +1,5 @@
 ---
-title: 'Hexo 加入網站、文章訪問數統計'
+title: 'Hexo counts visitors'
 catalog: true
 date: 2021-07-30 20:47:12
 subtitle:
