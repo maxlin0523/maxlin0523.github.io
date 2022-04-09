@@ -139,14 +139,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -257,7 +257,7 @@ private void SetLblView(int num)
     LblView.Text += $&quot;{num} \r\n&quot;;
 }
 </code></pre>
-<p>之後在宣告 SetLblViewSafely` 方法，並且這方法會判斷是否需進行安全調用，如下：</p>
+<p>之後宣告 <code>SetLblViewSafely</code> 方法，並且這方法會判斷是否需進行安全調用，如下：</p>
 <pre><code class="language-C#">private void SetLblViewSafely(int num)
 {
     // 若為不同執行緒，則 InvokeRequired 會為 ture，表示需進行安全的調用
@@ -304,7 +304,7 @@ private void SetLblViewSafely(int num)
     // 若為不同執行緒，則 InvokeRequired 為 ture，表示需進行安全的調用
     if (this.InvokeRequired)
     {
-        var del = new DelSetLalView(SetLblView);
+        DelSetLalView del = new DelSetLalView(SetLblView);
         this.Invoke(del, new object[] { num });
     }
     else
