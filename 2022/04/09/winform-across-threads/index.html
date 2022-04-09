@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          C# 使用 CsvHelper 套件讀取 Csv 檔 - Max&#39;s Blog | 邁向全端之路
+          Winform 控制項跨執行緒作業無效 - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
-    <link rel="canonical" href="https://maxlin0523.github.io/2022/04/09/csvhelper/">
+    <link rel="canonical" href="https://maxlin0523.github.io/2022/04/09/winform-across-threads/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -86,10 +86,10 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Nuget" title="Nuget">Nuget</a>
+                              <a class="tag" href="/tags/#日常除錯" title="日常除錯">日常除錯</a>
                             
                         </div>
-                        <h1>C# 使用 CsvHelper 套件讀取 Csv 檔</h1>
+                        <h1>Winform 控制項跨執行緒作業無效</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
@@ -208,381 +208,137 @@
                 col-md-10 col-md-offset-1
                 ">
                 <!-- class: post-container拔除 -->
-                <p>紀錄 Nuget 套件 <code>CsvHelper</code> 幾個不同情況的 <code>讀取</code> 方式。</p>
-<h2><span id="1-當-csv-欄位與類別名稱與資料型態可對應">1. 當 csv 欄位與類別名稱與資料型態可對應</span></h2>
-<p>資料格式：</p>
-<table>
-<thead>
-<tr>
-<th>Id</th>
-<th>Name</th>
-<th>Email</th>
-<th>Phone</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>Eric</td>
-<td><a href="mailto:Eric@gmail.com" target="_blank" rel="noopener">Eric@gmail.com</a></td>
-<td>0911111111</td>
-</tr>
-<tr>
-<td>1</td>
-<td>Amy</td>
-<td><a href="mailto:Amy@gmail.com" target="_blank" rel="noopener">Amy@gmail.com</a></td>
-<td>0922222222</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Titan</td>
-<td><a href="mailto:Titan@gmail.com" target="_blank" rel="noopener">Titan@gmail.com</a></td>
-<td>0933333333</td>
-</tr>
-</tbody>
-</table>
-<p>資料源：</p>
-<pre><code>Id,Name,Email,Phone
-0,Eric,Eric@gmail.com,0911111111
-1,Amy,Amy@gmail.com,0922222222 
-2,Titan,Titan@gmail.com,0933333333
-</code></pre>
-<p>做法如下：</p>
-<pre><code class="language-C#">static void Main(string[] args)
+                <p>在開發 Winform 時，碰到這種例外狀況：<code>跨執行緒作業無效</code>，原因是：當對 UI 控制項 <code>更動的執行緒</code>與 <code>UI 控制項的執行緒</code>不相同，這會導致對 UI 控制項進行不安全的調用，從而引發此例外錯誤。</p>
+<h3><span id="示例">示例</span></h3>
+<p>簡單寫了個介面，功能為：點擊<code>計數</code>按鈕時，灰色區域要顯示 0 ~ 9 的數字(如右)</p>
+<p><img src="https://i.imgur.com/n6Redh8.png" alt> <img src="https://i.imgur.com/5TNkASm.png" alt></p>
+<p>計數按鈕程式碼：</p>
+<pre><code class="language-c#">/// &lt;summary&gt;
+/// 計數
+/// &lt;/summary&gt;
+private void BtnCount_Click(object sender, EventArgs e)
 {
-    // Csv 配置
-    CsvConfiguration setting = new CsvConfiguration(CultureInfo.InvariantCulture);
-
-    using (StreamReader sr = new StreamReader(&quot;./data.csv&quot;))
-    using (CsvReader csv = new CsvReader(sr, setting))
+    for (int i = 0; i &lt; 10; i++)
     {
-        // 取得資料
-        List&lt;User&gt; result = csv.GetRecords&lt;User&gt;().ToList();
-    }
-
-}
-public class User
-{
-    public string Id { get; set; }
-
-    public string Name { get; set; }
-
-    public string Email { get; set; }
-
-    public string Phone { get; set; }
-}
-
-</code></pre>
-<h2><span id="2-讀取不含-csv-標題">2. 讀取不含 csv 標題</span></h2>
-<p>資料格式：</p>
-<table>
-<thead>
-<tr>
-<th>0</th>
-<th>Eric</th>
-<th><a href="mailto:Eric@gmail.com" target="_blank" rel="noopener">Eric@gmail.com</a></th>
-<th>0911111111</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Amy</td>
-<td><a href="mailto:Amy@gmail.com" target="_blank" rel="noopener">Amy@gmail.com</a></td>
-<td>0922222222</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Titan</td>
-<td><a href="mailto:Titan@gmail.com" target="_blank" rel="noopener">Titan@gmail.com</a></td>
-<td>0933333333</td>
-</tr>
-</tbody>
-</table>
-<p>資料源：</p>
-<pre><code>0,Eric,Eric@gmail.com,0911111111
-1,Amy,Amy@gmail.com,0922222222 
-2,Titan,Titan@gmail.com,0933333333
-</code></pre>
-<p>需調整 <strong>Configuration</strong>，做法如下：</p>
-<pre><code class="language-C#">static void Main(string[] args)
-{
-    // Csv 配置
-    CsvConfiguration setting = new CsvConfiguration(CultureInfo.InvariantCulture)
-    {
-    　　 // 不含標題
-        HasHeaderRecord = false
-    };
-
-    using (StreamReader sr = new StreamReader(&quot;./data.csv&quot;))
-    using (CsvReader csv = new CsvReader(sr, setting))
-    {
-        // 取得資料
-        List&lt;User&gt; result = csv.GetRecords&lt;User&gt;().ToList();
-    }
-
-}
-public class User
-{
-    public string Id { get; set; }
-
-    public string Name { get; set; }
-
-    public string Email { get; set; }
-
-    public string Phone { get; set; }
-}
-
-</code></pre>
-<h2><span id="3-當-csv-欄位名與類別屬性無法對應">3. 當 csv 欄位名與類別屬性無法對應</span></h2>
-<p>資料格式：</p>
-<table>
-<thead>
-<tr>
-<th>編號</th>
-<th>名稱</th>
-<th>信箱</th>
-<th>手機</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>Eric</td>
-<td><a href="mailto:Eric@gmail.com" target="_blank" rel="noopener">Eric@gmail.com</a></td>
-<td>0911111111</td>
-</tr>
-<tr>
-<td>1</td>
-<td>Amy</td>
-<td><a href="mailto:Amy@gmail.com" target="_blank" rel="noopener">Amy@gmail.com</a></td>
-<td>0922222222</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Titan</td>
-<td><a href="mailto:Titan@gmail.com" target="_blank" rel="noopener">Titan@gmail.com</a></td>
-<td>0933333333</td>
-</tr>
-</tbody>
-</table>
-<p>資料源：</p>
-<pre><code>編號,名稱,信箱,手機
-0,Eric,Eric@gmail.com,0911111111
-1,Amy,Amy@gmail.com,0922222222 
-2,Titan,Titan@gmail.com,0933333333
-</code></pre>
-<p>可建立 <strong>ClassMap</strong> 去定義對應情境，完整做法如下：</p>
-<pre><code class="language-c#">static void Main(string[] args)
-{
-    // Csv 配置
-    CsvConfiguration setting = new CsvConfiguration(CultureInfo.InvariantCulture);
-
-    using (StreamReader sr = new StreamReader(&quot;./data.csv&quot;))
-    using (CsvReader csv = new CsvReader(sr, setting))
-    {
-        // 註冊
-        csv.Context.RegisterClassMap&lt;UserMap&gt;();
-        
-        // 取得資料
-        List&lt;User&gt; result = csv.GetRecords&lt;User&gt;().ToList();
-    }
-
-}
-public class User
-{
-    public string Id { get; set; }
-
-    public string Name { get; set; }
-
-    public string Email { get; set; }
-
-    public string Phone { get; set; }
-}
-
-public sealed class UserMap : ClassMap&lt;User&gt;
-{
-    public UserMap()
-    {
-        // 屬性對應欄位名稱
-        Map(m =&gt; m.Id).Name(&quot;編號&quot;);
-        Map(m =&gt; m.Name).Name(&quot;名稱&quot;);
-        Map(m =&gt; m.Email).Name(&quot;信箱&quot;);
-        Map(m =&gt; m.Phone).Name(&quot;手機&quot;);
+        LblView.Text += $&quot;{i} \r\n&quot;;
     }
 }
 </code></pre>
-<p>或是用類別屬性去對應 csv 欄位索引，如下：</p>
-<pre><code class="language-c#">public sealed class UserMap : ClassMap&lt;User&gt;
+<p>若改為由不同的執行緒處理時：</p>
+<pre><code class="language-c#">/// &lt;summary&gt;
+/// 計數
+/// &lt;/summary&gt;
+private void BtnCount_Click(object sender, EventArgs e)
 {
-    public UserMap()
+    Thread thread = new Thread(() =&gt;
     {
-        // 屬性對應欄位索引
-        Map(m =&gt; m.Id).Index(0);
-        Map(m =&gt; m.Name).Index(1);
-        Map(m =&gt; m.Email).Index(2);
-        Map(m =&gt; m.Phone).Index(3);
-    }
+        for (int i = 0; i &lt; 10; i++)
+        {
+            LblView.Text += $&quot;{i} \r\n&quot;;
+        }
+    });
+
+    thread.Start();
 }
 </code></pre>
-<h2><span id="4-當-csv-欄位名稱有模稜兩可的情況">4. 當 csv 欄位名稱有模稜兩可的情況</span></h2>
-<p>例如：讀檔時，第一個欄位名稱可能出現<code>編號</code> or <code>號碼</code> 的情形，如下：</p>
-<pre><code>編號,名稱,信箱,手機
-0,Eric,Eric@gmail.com,0911111111
+<p>點擊時，則會引發錯誤</p>
+<p><img src="https://i.imgur.com/0Lpzqqw.png" alt></p>
+<h3><span id="解決方式">解決方式</span></h3>
+<p>首先建立宣告委派 <code>DelSetLalView</code> 及要委託執行的方法(這邊指設定 <code>LblView.Text</code> 的這個行為，後續會在宣告 <code>SetLblView</code> 方法)，如下：</p>
+<pre><code class="language-C#">/// &lt;summary&gt;
+/// 委派 SetLalView
+/// &lt;/summary&gt;
+public delegate void DelSetLalView(int num);
 
-or 
+// ...
 
-號碼,名稱,信箱,手機
-0,Eric,Eric@gmail.com,0911111111
-</code></pre>
-<p>則 <strong>ClassMap</strong> 可改為：</p>
-<pre><code class="language-C#">public sealed class UserMap : ClassMap&lt;User&gt;
+private void SetLblView(int num)
 {
-    public UserMap()
+    LblView.Text += $&quot;{num} \r\n&quot;;
+}
+</code></pre>
+<p>之後在宣告 SetLblViewSafely` 方法，並且這方法會判斷是否需進行安全調用，如下：</p>
+<pre><code class="language-C#">private void SetLblViewSafely(int num)
+{
+    // 若為不同執行緒，則 InvokeRequired 會為 ture，表示需進行安全的調用
+    if (this.InvokeRequired)
     {
-        // 屬性對應欄位名稱
-        Map(m =&gt; m.Id).Name(&quot;編號&quot;, &quot;號碼&quot;);
-        Map(m =&gt; m.Name).Name(&quot;名稱&quot;);
-        Map(m =&gt; m.Email).Name(&quot;信箱&quot;);
-        Map(m =&gt; m.Phone).Name(&quot;手機&quot;);
+        DelSetLalView del = new DelSetLalView(SetLblView);
+        this.Invoke(del, new object[] { num });
     }
-}
-</code></pre>
-<h2><span id="5-忽略類別屬性對應">5. 忽略類別屬性對應</span></h2>
-<p>資料格式：</p>
-<table>
-<thead>
-<tr>
-<th>Id</th>
-<th>Name</th>
-<th>Email</th>
-<th>Phone</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>Eric</td>
-<td><a href="mailto:Eric@gmail.com" target="_blank" rel="noopener">Eric@gmail.com</a></td>
-<td>0911111111</td>
-</tr>
-<tr>
-<td>1</td>
-<td>Amy</td>
-<td><a href="mailto:Amy@gmail.com" target="_blank" rel="noopener">Amy@gmail.com</a></td>
-<td>0922222222</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Titan</td>
-<td><a href="mailto:Titan@gmail.com" target="_blank" rel="noopener">Titan@gmail.com</a></td>
-<td>0933333333</td>
-</tr>
-</tbody>
-</table>
-<p>資料源：</p>
-<pre><code>Id,Name,Email,Phone
-0,Eric,Eric@gmail.com,0911111111
-1,Amy,Amy@gmail.com,0922222222 
-2,Titan,Titan@gmail.com,0933333333
-</code></pre>
-<p>當類別多出 <code>Description</code> 屬性，做法如 <strong>ClassMap</strong>：</p>
-<pre><code class="language-C#">static void Main(string[] args)
-{
-    // Csv 配置
-    CsvConfiguration setting = new CsvConfiguration(CultureInfo.InvariantCulture);
-
-    using (StreamReader sr = new StreamReader(&quot;./data.csv&quot;))
-    using (CsvReader csv = new CsvReader(sr, setting))
+    else
     {
-        // 取得資料
-        csv.Context.RegisterClassMap&lt;UserMap&gt;();
-        List&lt;User&gt; result = csv.GetRecords&lt;User&gt;().ToList();
-    }
-
-}
-public class User
-{
-    public string Id { get; set; }
-
-    public string Name { get; set; }
-
-    public string Email { get; set; }
-
-    public string Phone { get; set; }
-
-    public string Description { get; set; }
-}
-
-public sealed class UserMap : ClassMap&lt;User&gt;
-{
-    public UserMap()
-    {
-        Map(m =&gt; m.Id);
-        Map(m =&gt; m.Name);
-        Map(m =&gt; m.Email);
-        Map(m =&gt; m.Phone);
-        Map(m =&gt; m.Description).Ignore();
-    }
+        SetLblView(num);
+    }     
 }
 </code></pre>
-<h2><span id="6-當-csv-欄位有-json-格式資料">6. 當 csv 欄位有 Json 格式資料</span></h2>
-<p>資料格式：</p>
-<table>
-<thead>
-<tr>
-<th>ClassId</th>
-<th>Classmate</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>3</td>
-<td>[&quot;“Andy”&quot;,&quot;“Eric”&quot;,&quot;“Max”&quot;]</td>
-</tr>
-</tbody>
-</table>
-<p>資料源：</p>
-<pre><code>ClassId,Classmate
-3,&quot;[&quot;&quot;Andy&quot;&quot;,&quot;&quot;Eric&quot;&quot;,&quot;&quot;Max&quot;&quot;]&quot;
+<p>完整程式碼：</p>
+<pre><code class="language-C#">/// &lt;summary&gt;
+/// 委派 SetLalView
+/// &lt;/summary&gt;
+public delegate void DelSetLalView(int num);
 
-</code></pre>
-<p><strong>ClassMap</strong> 對應做法如下：</p>
-<pre><code class="language-c#">static void Main(string[] args)
+public Form1()
 {
-    // Csv 配置
-    CsvConfiguration setting = new CsvConfiguration(CultureInfo.InvariantCulture);
-
-    using (StreamReader sr = new StreamReader(&quot;./data.csv&quot;))
-    using (CsvReader csv = new CsvReader(sr, setting))
-    {
-        // 取得資料
-        csv.Context.RegisterClassMap&lt;ClassroomMap&gt;();
-        List&lt;Classroom&gt; result = csv.GetRecords&lt;Classroom&gt;().ToList();
-    }
-
-}
-public class Classroom
-{
-    public string ClassId { get; set; }
-
-    public List&lt;string&gt; Classmate { get; set; }
+    InitializeComponent();  
 }
 
-public sealed class ClassroomMap : ClassMap&lt;Classroom&gt;
+/// &lt;summary&gt;
+/// 計數
+/// &lt;/summary&gt;
+private void BtnCount_Click(object sender, EventArgs e)
 {
-    public ClassroomMap()
+    Thread thread = new Thread(() =&gt;
     {
-        Map(m =&gt; m.ClassId);
-        Map(m =&gt; m.Classmate).Convert(row =&gt; JsonSerializer.Deserialize&lt;List&lt;string&gt;&gt;(row.Row.GetField(&quot;Classmate&quot;)));
+        for (int i = 0; i &lt; 10; i++)
+        {
+            SetLblViewSafely(i);
+        }
+    });
+
+    thread.Start();
+}
+
+private void SetLblViewSafely(int num)
+{
+    // 若為不同執行緒，則 InvokeRequired 為 ture，表示需進行安全的調用
+    if (this.InvokeRequired)
+    {
+        var del = new DelSetLalView(SetLblView);
+        this.Invoke(del, new object[] { num });
     }
+    else
+    {
+        SetLblView(num);
+    }     
+}
+
+private void SetLblView(int num)
+{
+    LblView.Text += $&quot;{num} \r\n&quot;;
 }
 </code></pre>
-<h2><span id="參考">參考</span></h2>
-<p><a href="https://dog0416.blogspot.com/2019/11/aspnet-core-csvhelper-c-csv.html?fbclid=IwAR2HnqnMGJhYcjnMBrcBKBYiR2JyIAkCA_NZlMPbrUiUnmaII9MpSWgquqk" target="_blank" rel="noopener">[C#][.NET Core] CsvHelper : 透過 C# 讀寫 csv 檔案</a></p>
-<p><a href="https://kevintsengtw.blogspot.com/2015/04/csvhelper-part2.html" target="_blank" rel="noopener">使用 CsvHelper - Part.2 資料讀取</a></p>
-<p><a href="https://www.cnblogs.com/gl1573/p/12922857.html" target="_blank" rel="noopener">【C#】CsvHelper 使用手册</a></p>
-<p><a href="https://joshclose.github.io/CsvHelper/examples/" target="_blank" rel="noopener">CsvHelper 官方文檔</a></p>
+<p>如此一來，即可在不同執行緒的情況下，安全改動 UI 控制項囉！</p>
+<p>若懶得寫得像上述那麼繁瑣，改成這樣就好：</p>
+<pre><code class="language-C#">private void SetLblViewSafely(int num)
+{
+    // 若為不同執行緒，則 InvokeRequired 為 ture，表示需進行安全的調用
+    if (this.InvokeRequired)
+    {
+        this.Invoke((Action)(() =&gt; 
+        { 
+            LblView.Text += $&quot;{num} \r\n&quot;; 
+        }));
+    }
+    else
+    {
+        LblView.Text += $&quot;{num} \r\n&quot;;
+    }     
+}
+</code></pre>
+<h3><span id="參考">參考</span></h3>
+<p><a href="https://medium.com/delightlearner/c-development-%E7%85%A9%E4%BA%BA%E7%9A%84%E8%B7%A8%E5%9F%B7%E8%A1%8C%E7%B7%92%E4%BD%9C%E6%A5%AD%E7%84%A1%E6%95%88-%E5%A6%82%E4%BD%95%E8%B7%A8%E5%9F%B7%E8%A1%8C%E7%B7%92%E6%8E%A7%E5%88%B6-ui-%E5%85%83%E4%BB%B6-41c7b129f47a" target="_blank" rel="noopener">C# Development | 煩人的跨執行緒作業無效 : 如何跨執行緒控制 UI 元件</a></p>
+<p><a href="https://docs.microsoft.com/zh-tw/dotnet/desktop/winforms/controls/how-to-make-thread-safe-calls?view=netdesktop-6.0" target="_blank" rel="noopener">如何 Windows Forms .net) 對控制項進行安全線程呼叫</a></p>
 
                 
 
@@ -591,13 +347,9 @@ public sealed class ClassroomMap : ClassMap&lt;Classroom&gt;
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2022/02/16/random-sort/" data-toggle="tooltip" data-placement="top" title="C# 陣列亂數排序(洗牌) - Fisher-Yates Shuffle">&larr; 上篇 </a>
+                            <a href="/2022/04/09/csvhelper/" data-toggle="tooltip" data-placement="top" title="C# 使用 CsvHelper 套件讀取 Csv 檔">&larr; 上篇 </a>
                         </li>
                     
-                    
-                        <li class="next">
-                            <a href="/2022/04/09/winform-across-threads/" data-toggle="tooltip" data-placement="top" title="Winform 控制項跨執行緒作業無效"> 下篇 &rarr;</a>
-                        </li>
                     
                 </ul>
 
@@ -622,7 +374,7 @@ public sealed class ClassroomMap : ClassMap&lt;Classroom&gt;
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">1. 當 csv 欄位與類別名稱與資料型態可對應</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">2. 讀取不含 csv 標題</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">3. 當 csv 欄位名與類別屬性無法對應</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">4. 當 csv 欄位名稱有模稜兩可的情況</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">5. 忽略類別屬性對應</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">6. 當 csv 欄位有 Json 格式資料</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">參考</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">示例</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">解決方式</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">參考</span></a></li></ol>
         
         </div>
       </aside>
@@ -643,7 +395,7 @@ public sealed class ClassroomMap : ClassMap&lt;Classroom&gt;
                     <h5><a href="/tags/">標籤雲</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Nuget" title="Nuget">Nuget</a>
+                          <a class="tag" href="/tags/#日常除錯" title="日常除錯">日常除錯</a>
                         
                     </div>
                 </section>
