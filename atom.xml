@@ -6,7 +6,7 @@
   <link href="https://maxlin0523.github.io/atom.xml" rel="self"/>
   
   <link href="https://maxlin0523.github.io/"/>
-  <updated>2022-03-16T13:52:45.087Z</updated>
+  <updated>2022-04-09T11:00:50.397Z</updated>
   <id>https://maxlin0523.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>C# 使用 CsvHelper 套件讀取 Csv 檔</title>
+    <link href="https://maxlin0523.github.io/2022/04/09/csvhelper/"/>
+    <id>https://maxlin0523.github.io/2022/04/09/csvhelper/</id>
+    <published>2022-04-09T10:22:58.000Z</published>
+    <updated>2022-04-09T11:00:50.397Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html"></summary>
+        
+      
+    
+    
+    
+    
+    <category term="Nuget" scheme="https://maxlin0523.github.io/tags/Nuget/"/>
+    
+  </entry>
   
   <entry>
     <title>C# 陣列亂數排序(洗牌) - Fisher-Yates Shuffle</title>

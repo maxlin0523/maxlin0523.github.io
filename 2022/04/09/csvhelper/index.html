@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Decorator Pattern - Max&#39;s Blog | 邁向全端之路
+          C# 使用 CsvHelper 套件讀取 Csv 檔 - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
-    <link rel="canonical" href="https://maxlin0523.github.io/2021/07/11/裝飾者模式－Decorator Pattern/">
+    <link rel="canonical" href="https://maxlin0523.github.io/2022/04/09/csvhelper/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -86,14 +86,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#設計模式" title="設計模式">設計模式</a>
+                              <a class="tag" href="/tags/#Nuget" title="Nuget">Nuget</a>
                             
                         </div>
-                        <h1>Decorator Pattern</h1>
+                        <h1>C# 使用 CsvHelper 套件讀取 Csv 檔</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
-                            2021-07-11（
+                            2022-04-09（
                             <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views）
                         </span>
                     </div>
@@ -208,52 +208,381 @@
                 col-md-10 col-md-offset-1
                 ">
                 <!-- class: post-container拔除 -->
-                <h1><span id="介紹">介紹</span></h1>
-<p>中譯裝飾者模式，是一種結構型的設計模式（Design Pattern），主要功能為動態地給一個物件附加額外的職責使物件型態保持一致，而不必衍生出其子類別，以擴展功能而言，裝飾者模式比繼承更靈活更彈性。</p>
-<p>什麼意思呢？</p>
-<p>假如我們有個漢堡類別，客人可以選擇加蛋或加起司或兩者都加，我們可以很直覺的設計出：繼承漢堡類而擴充出漢堡加蛋、漢堡加起司、漢堡兩者都加的子類別共三種，但如果今天食品種類多了，如三明治、蛋餅、吐司．．．等等，又或是配菜種類多了，這樣一來類別數量就會很肥大且難以維護！</p>
-<p>若使用裝飾者模式：<br>
-你可以想像現在有個蛋蛋工廠、起司工廠，而你手上有個漢堡，若要把漢堡加蛋，就把漢堡丟進去蛋蛋工廠，噴出來的就是一個加蛋的漢堡，而加起司也一樣，依此類推，而蛋蛋工廠、起司工廠就是裝飾類別，想裝飾誰就丟誰進去，想裝飾幾層就裝飾幾層，所以裝飾者模式具有透通性 （Transparency），可以不斷的包覆下去。</p>
-<h1><span id="範例">範例</span></h1>
-<p>開啟 <code>Console Application</code> 專案</p>
-<p>依介紹情境為例</p>
-<h6><span id="定義食品抽象類-basefood">定義食品抽象類 BaseFood</span></h6>
-<p><img src="https://i.imgur.com/5Epc63B.png" alt></p>
-<h6><span id="定義不同食品類且繼承-basefood">定義不同食品類且繼承 BaseFood</span></h6>
-<p><img src="https://i.imgur.com/yATCe67.png" alt></p>
-<p>這樣 <strong>食品類別</strong> 部分就搞定了，簡單吧！不過這不是重點<br>
-再來是本篇主軸 「<strong>裝飾者模式</strong>」</p>
-<h6><span id="定義裝飾抽象類decoratefood也就是配菜部分">定義裝飾抽象類（DecorateFood），也就是配菜部分</span></h6>
-<p><img src="https://i.imgur.com/qVriX47.png" alt></p>
-<p>裝飾類別說明</p>
-<ul>
-<li>由建構式傳入 <code>被裝飾類</code> 方便後續進行附加額外職責的動作。</li>
-<li>定義出配菜名稱、配菜價位．．．等裝飾成員。</li>
-<li>繼承 <code>BaseFood</code> 並覆寫其方法使 <code>被裝飾類</code> 附加額外職責，換句話說，就是把食品類加上配菜後的名稱與價位附加上去，同時也使物件型態保持一致。</li>
-</ul>
-<h6><span id="定義不同配菜類且繼承-decoratefood">定義不同配菜類且繼承 DecorateFood</span></h6>
-<p><img src="https://i.imgur.com/jqxqgiu.png" alt></p>
-<h3><span id="這樣裝飾部分就完成了">這樣裝飾部分就完成了！</span></h3>
-<p>假設訂單需求為漢堡兩個都加，三明治加蛋， 吐司加起士<br>
-該如何產生？</p>
-<h6><span id="programcs">Program.cs</span></h6>
-<p><img src="https://i.imgur.com/Gj88BMp.png" alt></p>
-<h6><span id="輸出">輸出</span></h6>
-<p><img src="https://i.imgur.com/YMz04Dw.png" alt></p>
-<p>Done.</p>
-<h6><span id="範例成員">範例成員</span></h6>
-<p><img src="https://i.imgur.com/f4KvecF.png" alt></p>
-<p>專案原始碼：<a href="https://github.com/maxlin0523/DecoratorPatternSample" target="_blank" rel="noopener">https://github.com/maxlin0523/DecoratorPatternSample</a></p>
-<h1><span id="總結">總結</span></h1>
-<p>回想介紹提到裝飾者模式的特性：</p>
-<ul>
-<li>動態施加職責（需要什麼裝飾自己加）</li>
-<li>物件型態一致（同屬 <code>BaseFood</code> ）</li>
-<li>透通性（可以不斷包覆被裝飾物件）</li>
-</ul>
-<p>都可以透過範例清楚理解，這些特性讓我們能更靈活的擴展程式碼，而使用時機為 「<strong>當有功能相同但處理邏輯又稍有不同</strong>」 的情況，像是後端資料快取，在功能上都是取得相同的資料但做法不同，就適合使用裝飾者模式優雅的擴展，從 <code>Disk I/O</code> ⇒ <code>Redis Cache</code> ⇒ <code>Memory Cache</code> 依序包覆，而當請求進來時，就可以從最外層 <code>Memory Cache</code> 開始查詢，有空會再實作出來分享。</p>
-<h1><span id="參考">參考</span></h1>
-<p><a href="http://weisnote.blogspot.com/2013/05/decorator-pattern.html" target="_blank" rel="noopener">一秒看破 裝飾者模式 Decorator Pattern</a></p>
+                <p>紀錄 Nuget 套件 <code>CsvHelper</code> 幾個不同情況的 <code>讀取</code> 方式。</p>
+<h2><span id="1-當-csv-欄位與類別名稱與資料型態可對應">1. 當 csv 欄位與類別名稱與資料型態可對應</span></h2>
+<p>資料格式：</p>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th>Name</th>
+<th>Email</th>
+<th>Phone</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Eric</td>
+<td><a href="mailto:Eric@gmail.com" target="_blank" rel="noopener">Eric@gmail.com</a></td>
+<td>0911111111</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Amy</td>
+<td><a href="mailto:Amy@gmail.com" target="_blank" rel="noopener">Amy@gmail.com</a></td>
+<td>0922222222</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Titan</td>
+<td><a href="mailto:Titan@gmail.com" target="_blank" rel="noopener">Titan@gmail.com</a></td>
+<td>0933333333</td>
+</tr>
+</tbody>
+</table>
+<p>資料源：</p>
+<pre><code>Id,Name,Email,Phone
+0,Eric,Eric@gmail.com,0911111111
+1,Amy,Amy@gmail.com,0922222222 
+2,Titan,Titan@gmail.com,0933333333
+</code></pre>
+<p>做法如下：</p>
+<pre><code class="language-C#">static void Main(string[] args)
+{
+    // Csv 配置
+    CsvConfiguration setting = new CsvConfiguration(CultureInfo.InvariantCulture);
+
+    using (StreamReader sr = new StreamReader(&quot;./data.csv&quot;))
+    using (CsvReader csv = new CsvReader(sr, setting))
+    {
+        // 取得資料
+        List&lt;User&gt; result = csv.GetRecords&lt;User&gt;().ToList();
+    }
+
+}
+public class User
+{
+    public string Id { get; set; }
+
+    public string Name { get; set; }
+
+    public string Email { get; set; }
+
+    public string Phone { get; set; }
+}
+
+</code></pre>
+<h2><span id="2-讀取不含-csv-標題">2. 讀取不含 csv 標題</span></h2>
+<p>資料格式：</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>Eric</th>
+<th><a href="mailto:Eric@gmail.com" target="_blank" rel="noopener">Eric@gmail.com</a></th>
+<th>0911111111</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Amy</td>
+<td><a href="mailto:Amy@gmail.com" target="_blank" rel="noopener">Amy@gmail.com</a></td>
+<td>0922222222</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Titan</td>
+<td><a href="mailto:Titan@gmail.com" target="_blank" rel="noopener">Titan@gmail.com</a></td>
+<td>0933333333</td>
+</tr>
+</tbody>
+</table>
+<p>資料源：</p>
+<pre><code>0,Eric,Eric@gmail.com,0911111111
+1,Amy,Amy@gmail.com,0922222222 
+2,Titan,Titan@gmail.com,0933333333
+</code></pre>
+<p>需調整 <strong>Configuration</strong>，做法如下：</p>
+<pre><code class="language-C#">static void Main(string[] args)
+{
+    // Csv 配置
+    CsvConfiguration setting = new CsvConfiguration(CultureInfo.InvariantCulture)
+    {
+    　　 // 不含標題
+        HasHeaderRecord = false
+    };
+
+    using (StreamReader sr = new StreamReader(&quot;./data.csv&quot;))
+    using (CsvReader csv = new CsvReader(sr, setting))
+    {
+        // 取得資料
+        List&lt;User&gt; result = csv.GetRecords&lt;User&gt;().ToList();
+    }
+
+}
+public class User
+{
+    public string Id { get; set; }
+
+    public string Name { get; set; }
+
+    public string Email { get; set; }
+
+    public string Phone { get; set; }
+}
+
+</code></pre>
+<h2><span id="3-當-csv-欄位名與類別屬性無法對應">3. 當 csv 欄位名與類別屬性無法對應</span></h2>
+<p>資料格式：</p>
+<table>
+<thead>
+<tr>
+<th>編號</th>
+<th>名稱</th>
+<th>信箱</th>
+<th>手機</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Eric</td>
+<td><a href="mailto:Eric@gmail.com" target="_blank" rel="noopener">Eric@gmail.com</a></td>
+<td>0911111111</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Amy</td>
+<td><a href="mailto:Amy@gmail.com" target="_blank" rel="noopener">Amy@gmail.com</a></td>
+<td>0922222222</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Titan</td>
+<td><a href="mailto:Titan@gmail.com" target="_blank" rel="noopener">Titan@gmail.com</a></td>
+<td>0933333333</td>
+</tr>
+</tbody>
+</table>
+<p>資料源：</p>
+<pre><code>編號,名稱,信箱,手機
+0,Eric,Eric@gmail.com,0911111111
+1,Amy,Amy@gmail.com,0922222222 
+2,Titan,Titan@gmail.com,0933333333
+</code></pre>
+<p>可建立 <strong>ClassMap</strong> 去定義對應情境，完整做法如下：</p>
+<pre><code class="language-c#">static void Main(string[] args)
+{
+    // Csv 配置
+    CsvConfiguration setting = new CsvConfiguration(CultureInfo.InvariantCulture);
+
+    using (StreamReader sr = new StreamReader(&quot;./data.csv&quot;))
+    using (CsvReader csv = new CsvReader(sr, setting))
+    {
+        // 註冊
+        csv.Context.RegisterClassMap&lt;UserMap&gt;();
+        
+        // 取得資料
+        List&lt;User&gt; result = csv.GetRecords&lt;User&gt;().ToList();
+    }
+
+}
+public class User
+{
+    public string Id { get; set; }
+
+    public string Name { get; set; }
+
+    public string Email { get; set; }
+
+    public string Phone { get; set; }
+}
+
+public sealed class UserMap : ClassMap&lt;User&gt;
+{
+    public UserMap()
+    {
+        // 屬性對應欄位名稱
+        Map(m =&gt; m.Id).Name(&quot;編號&quot;);
+        Map(m =&gt; m.Name).Name(&quot;名稱&quot;);
+        Map(m =&gt; m.Email).Name(&quot;信箱&quot;);
+        Map(m =&gt; m.Phone).Name(&quot;手機&quot;);
+    }
+}
+</code></pre>
+<p>或是用類別屬性去對應 csv 欄位索引，如下：</p>
+<pre><code class="language-c#">public sealed class UserMap : ClassMap&lt;User&gt;
+{
+    public UserMap()
+    {
+        // 屬性對應欄位索引
+        Map(m =&gt; m.Id).Index(0);
+        Map(m =&gt; m.Name).Index(1);
+        Map(m =&gt; m.Email).Index(2);
+        Map(m =&gt; m.Phone).Index(3);
+    }
+}
+</code></pre>
+<h2><span id="4-當-csv-欄位名稱有模稜兩可的情況">4. 當 csv 欄位名稱有模稜兩可的情況</span></h2>
+<p>例如：讀檔時，第一個欄位名稱可能出現<code>編號</code> or <code>號碼</code> 的情形，如下：</p>
+<pre><code>編號,名稱,信箱,手機
+0,Eric,Eric@gmail.com,0911111111
+
+or 
+
+號碼,名稱,信箱,手機
+0,Eric,Eric@gmail.com,0911111111
+</code></pre>
+<p>則 <strong>ClassMap</strong> 可改為：</p>
+<pre><code class="language-C#">public sealed class UserMap : ClassMap&lt;User&gt;
+{
+    public UserMap()
+    {
+        // 屬性對應欄位名稱
+        Map(m =&gt; m.Id).Name(&quot;編號&quot;, &quot;號碼&quot;);
+        Map(m =&gt; m.Name).Name(&quot;名稱&quot;);
+        Map(m =&gt; m.Email).Name(&quot;信箱&quot;);
+        Map(m =&gt; m.Phone).Name(&quot;手機&quot;);
+    }
+}
+</code></pre>
+<h2><span id="5-忽略類別屬性對應">5. 忽略類別屬性對應</span></h2>
+<p>資料格式：</p>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th>Name</th>
+<th>Email</th>
+<th>Phone</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Eric</td>
+<td><a href="mailto:Eric@gmail.com" target="_blank" rel="noopener">Eric@gmail.com</a></td>
+<td>0911111111</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Amy</td>
+<td><a href="mailto:Amy@gmail.com" target="_blank" rel="noopener">Amy@gmail.com</a></td>
+<td>0922222222</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Titan</td>
+<td><a href="mailto:Titan@gmail.com" target="_blank" rel="noopener">Titan@gmail.com</a></td>
+<td>0933333333</td>
+</tr>
+</tbody>
+</table>
+<p>資料源：</p>
+<pre><code>Id,Name,Email,Phone
+0,Eric,Eric@gmail.com,0911111111
+1,Amy,Amy@gmail.com,0922222222 
+2,Titan,Titan@gmail.com,0933333333
+</code></pre>
+<p>當類別多出 <code>Description</code> 屬性，做法如 <strong>ClassMap</strong>：</p>
+<pre><code class="language-C#">static void Main(string[] args)
+{
+    // Csv 配置
+    CsvConfiguration setting = new CsvConfiguration(CultureInfo.InvariantCulture);
+
+    using (StreamReader sr = new StreamReader(&quot;./data.csv&quot;))
+    using (CsvReader csv = new CsvReader(sr, setting))
+    {
+        // 取得資料
+        csv.Context.RegisterClassMap&lt;UserMap&gt;();
+        List&lt;User&gt; result = csv.GetRecords&lt;User&gt;().ToList();
+    }
+
+}
+public class User
+{
+    public string Id { get; set; }
+
+    public string Name { get; set; }
+
+    public string Email { get; set; }
+
+    public string Phone { get; set; }
+
+    public string Description { get; set; }
+}
+
+public sealed class UserMap : ClassMap&lt;User&gt;
+{
+    public UserMap()
+    {
+        Map(m =&gt; m.Id);
+        Map(m =&gt; m.Name);
+        Map(m =&gt; m.Email);
+        Map(m =&gt; m.Phone);
+        Map(m =&gt; m.Description).Ignore();
+    }
+}
+</code></pre>
+<h2><span id="6-當-csv-欄位有-json-格式資料">6. 當 csv 欄位有 Json 格式資料</span></h2>
+<p>資料格式：</p>
+<table>
+<thead>
+<tr>
+<th>ClassId</th>
+<th>Classmate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3</td>
+<td>[&quot;“Andy”&quot;,&quot;“Eric”&quot;,&quot;“Max”&quot;]</td>
+</tr>
+</tbody>
+</table>
+<p>資料源：</p>
+<pre><code>ClassId,Classmate
+3,&quot;[&quot;&quot;Andy&quot;&quot;,&quot;&quot;Eric&quot;&quot;,&quot;&quot;Max&quot;&quot;]&quot;
+
+</code></pre>
+<p><strong>ClassMap</strong> 對應做法如下：</p>
+<pre><code class="language-c#">static void Main(string[] args)
+{
+    // Csv 配置
+    CsvConfiguration setting = new CsvConfiguration(CultureInfo.InvariantCulture);
+
+    using (StreamReader sr = new StreamReader(&quot;./data.csv&quot;))
+    using (CsvReader csv = new CsvReader(sr, setting))
+    {
+        // 取得資料
+        csv.Context.RegisterClassMap&lt;ClassroomMap&gt;();
+        List&lt;Classroom&gt; result = csv.GetRecords&lt;Classroom&gt;().ToList();
+    }
+
+}
+public class Classroom
+{
+    public string ClassId { get; set; }
+
+    public List&lt;string&gt; Classmate { get; set; }
+}
+
+public sealed class ClassroomMap : ClassMap&lt;Classroom&gt;
+{
+    public ClassroomMap()
+    {
+        Map(m =&gt; m.ClassId);
+        Map(m =&gt; m.Classmate).Convert(row =&gt; JsonSerializer.Deserialize&lt;List&lt;string&gt;&gt;(row.Row.GetField(&quot;Classmate&quot;)));
+    }
+}
+</code></pre>
+<h2><span id="參考">參考</span></h2>
+<p><a href="https://dog0416.blogspot.com/2019/11/aspnet-core-csvhelper-c-csv.html?fbclid=IwAR2HnqnMGJhYcjnMBrcBKBYiR2JyIAkCA_NZlMPbrUiUnmaII9MpSWgquqk" target="_blank" rel="noopener">[C#][.NET Core] CsvHelper : 透過 C# 讀寫 csv 檔案</a></p>
+<p><a href="https://kevintsengtw.blogspot.com/2015/04/csvhelper-part2.html" target="_blank" rel="noopener">使用 CsvHelper - Part.2 資料讀取</a></p>
+<p><a href="https://www.cnblogs.com/gl1573/p/12922857.html" target="_blank" rel="noopener">【C#】CsvHelper 使用手册</a></p>
+<p><a href="https://joshclose.github.io/CsvHelper/examples/" target="_blank" rel="noopener">CsvHelper 官方文檔</a></p>
 
                 
 
@@ -262,13 +591,9 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2021/07/07/Dapper 批次執行出現 Sql Exception/" data-toggle="tooltip" data-placement="top" title="The sql exception occurred in Dapper's batch execution">&larr; 上篇 </a>
+                            <a href="/2022/02/16/random-sort/" data-toggle="tooltip" data-placement="top" title="C# 陣列亂數排序(洗牌) - Fisher-Yates Shuffle">&larr; 上篇 </a>
                         </li>
                     
-                    
-                        <li class="next">
-                            <a href="/2021/07/25/Blog正式開幕/" data-toggle="tooltip" data-placement="top" title="The blog is opening"> 下篇 &rarr;</a>
-                        </li>
                     
                 </ul>
 
@@ -293,7 +618,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">介紹</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">範例</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.1.</span> <span class="toc-nav-text">定義食品抽象類 BaseFood</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.2.</span> <span class="toc-nav-text">定義不同食品類且繼承 BaseFood</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.3.</span> <span class="toc-nav-text">定義裝飾抽象類（DecorateFood），也就是配菜部分</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.4.</span> <span class="toc-nav-text">定義不同配菜類且繼承 DecorateFood</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.1.</span> <span class="toc-nav-text">這樣裝飾部分就完成了！</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.1.0.0.1.</span> <span class="toc-nav-text">Program.cs</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.1.0.0.2.</span> <span class="toc-nav-text">輸出</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.1.0.0.3.</span> <span class="toc-nav-text">範例成員</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">總結</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">參考</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">1. 當 csv 欄位與類別名稱與資料型態可對應</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">2. 讀取不含 csv 標題</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">3. 當 csv 欄位名與類別屬性無法對應</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">4. 當 csv 欄位名稱有模稜兩可的情況</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">5. 忽略類別屬性對應</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">6. 當 csv 欄位有 Json 格式資料</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">參考</span></a></li></ol>
         
         </div>
       </aside>
@@ -314,7 +639,7 @@
                     <h5><a href="/tags/">標籤雲</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#設計模式" title="設計模式">設計模式</a>
+                          <a class="tag" href="/tags/#Nuget" title="Nuget">Nuget</a>
                         
                     </div>
                 </section>
