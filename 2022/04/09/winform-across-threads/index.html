@@ -139,14 +139,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -248,7 +248,7 @@ private void BtnCount_Click(object sender, EventArgs e)
 <pre><code class="language-C#">/// &lt;summary&gt;
 /// 委派 SetLalView
 /// &lt;/summary&gt;
-public delegate void DelSetLalView(int num);
+public delegate void DelSetLblView(int num);
 
 // ...
 
@@ -263,7 +263,7 @@ private void SetLblView(int num)
     // 若為不同執行緒，則 InvokeRequired 會為 ture，表示需進行安全的調用
     if (this.InvokeRequired)
     {
-        DelSetLalView del = new DelSetLalView(SetLblView);
+        DelSetLblView del = new DelSetLblView(SetLblView);
         this.Invoke(del, new object[] { num });
     }
     else
@@ -276,7 +276,7 @@ private void SetLblView(int num)
 <pre><code class="language-C#">/// &lt;summary&gt;
 /// 委派 SetLalView
 /// &lt;/summary&gt;
-public delegate void DelSetLalView(int num);
+public delegate void DelSetLblView(int num);
 
 public Form1()
 {
@@ -304,7 +304,7 @@ private void SetLblViewSafely(int num)
     // 若為不同執行緒，則 InvokeRequired 為 ture，表示需進行安全的調用
     if (this.InvokeRequired)
     {
-        DelSetLalView del = new DelSetLalView(SetLblView);
+        DelSetLblView del = new DelSetLblView(SetLblView);
         this.Invoke(del, new object[] { num });
     }
     else
@@ -322,17 +322,16 @@ private void SetLblView(int num)
 <p>若懶得寫得像上述那麼繁瑣，改成這樣就好：</p>
 <pre><code class="language-C#">private void SetLblViewSafely(int num)
 {
+    Action action = () =&gt; LblView.Text += $&quot;{i} \r\n&quot;;
+
     // 若為不同執行緒，則 InvokeRequired 為 ture，表示需進行安全的調用
     if (this.InvokeRequired)
     {
-        this.Invoke((Action)(() =&gt; 
-        { 
-            LblView.Text += $&quot;{num} \r\n&quot;; 
-        }));
+         this.Invoke(action);
     }
     else
     {
-        LblView.Text += $&quot;{num} \r\n&quot;;
+        action.Invoke();
     }     
 }
 </code></pre>
