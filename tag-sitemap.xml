@@ -37,13 +37,6 @@
     </url>
 
     <url>
-        <loc>https://maxlin0523.github.io/tags/%E8%A8%AD%E8%A8%88%E6%A8%A1%E5%BC%8F/</loc>
-        <lastmod>2021-12-04T10:19:37.513Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://maxlin0523.github.io/tags/Chrome/</loc>
         <lastmod>2021-12-10T19:49:48.082Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -102,6 +95,13 @@
     <url>
         <loc>https://maxlin0523.github.io/tags/%E6%97%A5%E5%B8%B8%E9%99%A4%E9%8C%AF/</loc>
         <lastmod>2022-04-10T16:39:31.676Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://maxlin0523.github.io/tags/%E8%A8%AD%E8%A8%88%E6%A8%A1%E5%BC%8F/</loc>
+        <lastmod>2022-04-23T06:08:22.698Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
