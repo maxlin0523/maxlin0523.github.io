@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Winform 控制項跨執行緒作業無效 - Max&#39;s Blog | 邁向全端之路
+          C# 串接 MongoDB - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
-    <link rel="canonical" href="https://maxlin0523.github.io/2022/04/09/winform-across-threads/">
+    <link rel="canonical" href="https://maxlin0523.github.io/2022/05/22/csharp-mongodb-drive/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -86,14 +86,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#日常除錯" title="日常除錯">日常除錯</a>
+                              <a class="tag" href="/tags/#MongoDB" title="MongoDB">MongoDB</a>
                             
                         </div>
-                        <h1>Winform 控制項跨執行緒作業無效</h1>
+                        <h1>C# 串接 MongoDB</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
-                            2022-04-09（
+                            2022-05-22（
                             <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views）
                         </span>
                     </div>
@@ -208,136 +208,200 @@
                 col-md-10 col-md-offset-1
                 ">
                 <!-- class: post-container拔除 -->
-                <p>在開發 Winform 時，碰到這種例外狀況：<code>跨執行緒作業無效</code>，原因是：當對 UI 控制項 <code>更動的執行緒</code>與 <code>UI 控制項的執行緒</code>不相同，這會導致對 UI 控制項進行不安全的調用，從而引發此例外錯誤。</p>
-<h3><span id="示例">示例</span></h3>
-<p>簡單寫了個介面，功能為：點擊<code>計數</code>按鈕時，灰色區域要顯示 0 ~ 9 的數字(如右)</p>
-<p><img src="https://i.imgur.com/n6Redh8.png" alt> <img src="https://i.imgur.com/5TNkASm.png" alt></p>
-<p>計數按鈕程式碼：</p>
-<pre><code class="language-c#">/// &lt;summary&gt;
-/// 計數
-/// &lt;/summary&gt;
-private void BtnCount_Click(object sender, EventArgs e)
+                <h3><span id="前言">前言</span></h3>
+<p>雖說之前有看過 <a href="https://university.mongodb.com/courses/catalog" target="_blank" rel="noopener">Mongo University</a>，也了解過一些 MongoDB 相關知識，但許久沒用都忘的差不多了，所以重新學習並記錄一下使用方式。</p>
+<h3><span id="環境建置使用-docker">環境建置(使用 Docker)</span></h3>
+<p>Pull Image：<br>
+<code>docker pull mongo</code></p>
+<p>Run in Container：<br>
+<code>docker run --name samplemongo -v ./data:/data/db -d -p 27017:27017 --rm mongo:latest</code></p>
+<p><img src="https://i.imgur.com/MlTR8r1.png" alt></p>
+<p>下載 GUI ( <code>MongoDB Compass</code> ) 並進行連線：<br>
+<img src="https://i.imgur.com/0Hd4PeD.png" alt></p>
+<p>成功後，回到專案內下載 Nuget( <code>MongoDB.Driver</code> )：<br>
+<img src="https://i.imgur.com/YB3rgr8.png" alt></p>
+<h3><span id="使用方式">使用方式</span></h3>
+<p>定義好要存的資料型態：</p>
+<pre><code class="language-c#">public class CourseModel
 {
-    for (int i = 0; i &lt; 10; i++)
+    [BsonId]
+    public string CourseId { get; set;}
+
+    [BsonElement]
+    public string CourseName { get; set; }
+
+    [BsonElement]
+    public string Teacher { get; set; }
+
+    [BsonElement]
+    public List&lt;Student&gt; Students { get; set; }
+}
+
+public class Student
+{
+    public int Id { get; set; }
+
+    public string Name { get; set; }
+}
+</code></pre>
+<p>接著建立連線並寫入一筆資料：</p>
+<pre><code class="language-C#">static async Task Main(string[] args)
+{
+    // 連線字串
+    string connectionString = &quot;mongodb://localhost:27017&quot;;
+    // 連接 MongoDB
+    MongoClient client = new MongoClient(connectionString);
+    // 取得 MongoDB 資料庫
+    IMongoDatabase database = client.GetDatabase(&quot;Sample&quot;);
+    // 取得 Collection(相當於 sql 的資料表)
+    IMongoCollection&lt;CourseModel&gt; collection = database.GetCollection&lt;CourseModel&gt;(&quot;Course&quot;);
+    
+    CourseModel course = new CourseModel
     {
-        LblView.Text += $&quot;{i} \r\n&quot;;
+        CourseId = &quot;AA123&quot;,
+        CourseName = &quot;英文&quot;,
+        Teacher = &quot;Amy&quot;,
+        Students = new List&lt;Student&gt;
+        {
+            new Student { Id = 1314, Name = &quot;Feii&quot; },
+            new Student { Id = 1315, Name = &quot;Danny&quot; }
+        }
+    };
+
+    // 寫入至 MongoDB
+    await collection.InsertOneAsync(course);
+}
+</code></pre>
+<p>查看寫入資料：</p>
+<p><img src="https://i.imgur.com/XwRN0pT.png" alt></p>
+<h3><span id="mongo-crud">Mongo CRUD</span></h3>
+<p>這邊我先建立一個類別存取配置檔</p>
+<pre><code class="language-C#=">public class CourseMongoDatabaseSetting
+{
+    /// &lt;summary&gt;
+    /// 連線字串
+    /// &lt;/summary&gt;
+    public string ConnectionString { get; set; }
+    /// &lt;summary&gt;
+    /// 資料庫
+    /// &lt;/summary&gt;
+    public string Database { get; set; }
+    /// &lt;summary&gt;
+    /// Collection
+    /// &lt;/summary&gt;
+    public string Collection { get; set; }
+}
+</code></pre>
+<p>接著建立 <code>MongoRepository</code> 建構子吃 <code>CourseMongoDatabaseSetting</code> 類別</p>
+<pre><code class="language-c#">public class MongoRepository
+{
+    private readonly IMongoCollection&lt;CourseModel&gt; _collection;
+
+    public MongoRepository(CourseMongoDatabaseSetting setting)
+    {
+        MongoClient client = new MongoClient(setting.ConnectionString);
+
+        IMongoDatabase database = client.GetDatabase(setting.Database);
+
+        _collection = database.GetCollection&lt;CourseModel&gt;(setting.Collection);
+    }
+
+    /// &lt;summary&gt;
+    /// 建立課程
+    /// &lt;/summary&gt;
+    public async Task&lt;bool&gt; CreateCourse(CourseModel model)
+    {
+        await _collection.InsertOneAsync(model);
+        return true;
+    }
+
+    /// &lt;summary&gt;
+    /// 更新課程
+    /// &lt;/summary&gt;
+    public async Task&lt;bool&gt; UpdateCourse(UpdateCourseModel model)
+    {
+        var update = new UpdateDefinitionBuilder&lt;CourseModel&gt;()
+            .Set(x =&gt; x.Teacher, model.Teacher)
+            .Set(x =&gt; x.CourseName, model.CourseName);
+
+        await _collection.UpdateOneAsync(x =&gt; x.CourseId == model.CourseId, update);
+        return true;
+    }
+
+    /// &lt;summary&gt;
+    /// 取得一個課程
+    /// &lt;/summary&gt;
+    public async Task&lt;CourseModel&gt; GetCourse(string courseId)
+    {
+        var result = await _collection.Find(x =&gt; x.CourseId == courseId).FirstOrDefaultAsync();
+        return result;
+    }
+
+    /// &lt;summary&gt;
+    /// 取得全部課程
+    /// &lt;/summary&gt;
+    public async Task&lt;List&lt;CourseModel&gt;&gt; GetAllCourse()
+    {
+        var result = await _collection.Find(_ =&gt; true).ToListAsync();
+        return result;
+    }
+
+    /// &lt;summary&gt;
+    /// 刪除課程
+    /// &lt;/summary&gt;
+    public async Task&lt;bool&gt; DeleteCourse(string courseId)
+    {
+        await _collection.DeleteOneAsync(x =&gt; x.CourseId == courseId);
+        return true;
     }
 }
 </code></pre>
-<p>若改為由不同的執行緒處理時：</p>
-<pre><code class="language-c#">/// &lt;summary&gt;
-/// 計數
-/// &lt;/summary&gt;
-private void BtnCount_Click(object sender, EventArgs e)
+<p>接著就可以觀察結果，如下：</p>
+<pre><code class="language-c#">static async Task Main(string[] args)
 {
-    Thread thread = new Thread(() =&gt;
+    var setting = new CourseMongoDatabaseSetting
     {
-        for (int i = 0; i &lt; 10; i++)
+        ConnectionString = &quot;mongodb://localhost:27017&quot;,
+        Database = &quot;Sample&quot;,
+        Collection = &quot;Course&quot;
+    };
+
+    // 建立 Repo 實體，並注入 setting
+    var repository = new MongoRepository(setting);
+
+    // 新增課程
+    var createResult = await repository.CreateCourse(new CourseModel
+    {
+        CourseId = &quot;123&quot;,
+        CourseName = &quot;英文&quot;,
+        Teacher = &quot;Amy&quot;,
+        Students = new List&lt;Student&gt;
         {
-            LblView.Text += $&quot;{i} \r\n&quot;;
+            new Student { Id = 1, Name = &quot;Bob&quot; },
         }
     });
 
-    thread.Start();
-}
-</code></pre>
-<p>點擊時，則會引發錯誤</p>
-<p><img src="https://i.imgur.com/0Lpzqqw.png" alt></p>
-<h3><span id="解決方式">解決方式</span></h3>
-<p>首先建立宣告委派 <code>DelSetLalView</code> 及要委託執行的方法(這邊指設定 <code>LblView.Text</code> 的這個行為，後續會在宣告 <code>SetLblView</code> 方法)，如下：</p>
-<pre><code class="language-C#">/// &lt;summary&gt;
-/// 委派 SetLalView
-/// &lt;/summary&gt;
-public delegate void DelSetLblView(int num);
-
-// ...
-
-private void SetLblView(int num)
-{
-    LblView.Text += $&quot;{num} \r\n&quot;;
-}
-</code></pre>
-<p>之後宣告 <code>SetLblViewSafely</code> 方法，並且這方法會判斷是否需進行安全調用，如下：</p>
-<pre><code class="language-C#">private void SetLblViewSafely(int num)
-{
-    // 若為不同執行緒，則 InvokeRequired 會為 ture，表示需進行安全的調用
-    if (this.InvokeRequired)
+    // 更新課程教師(Teacher) &amp; 課程名稱(CourseName)
+    var updateResult = await repository.UpdateCourse(new UpdateCourseModel
     {
-        DelSetLblView del = new DelSetLblView(SetLblView);
-        this.Invoke(del, new object[] { num });
-    }
-    else
-    {
-        SetLblView(num);
-    }     
-}
-</code></pre>
-<p>完整程式碼：</p>
-<pre><code class="language-C#">/// &lt;summary&gt;
-/// 委派 SetLalView
-/// &lt;/summary&gt;
-public delegate void DelSetLblView(int num);
-
-public Form1()
-{
-    InitializeComponent();  
-}
-
-/// &lt;summary&gt;
-/// 計數
-/// &lt;/summary&gt;
-private void BtnCount_Click(object sender, EventArgs e)
-{
-    Thread thread = new Thread(() =&gt;
-    {
-        for (int i = 0; i &lt; 10; i++)
-        {
-            SetLblViewSafely(i);
-        }
+        CourseId = &quot;123&quot;,
+        CourseName = &quot;國文&quot;,
+        Teacher = &quot;Andy&quot;
     });
 
-    thread.Start();
-}
+    // 取得課程
+    var course = await repository.GetCourse(&quot;123&quot;);
 
-private void SetLblViewSafely(int num)
-{
-    // 若為不同執行緒，則 InvokeRequired 為 ture，表示需進行安全的調用
-    if (this.InvokeRequired)
-    {
-        DelSetLblView del = new DelSetLblView(SetLblView);
-        this.Invoke(del, new object[] { num });
-    }
-    else
-    {
-        SetLblView(num);
-    }     
-}
+    // 取得所有課程
+    var courses = await repository.GetAllCourse();
 
-private void SetLblView(int num)
-{
-    LblView.Text += $&quot;{num} \r\n&quot;;
+    // 刪除課程
+    var deleteResult = await repository.DeleteCourse(&quot;123&quot;);
 }
 </code></pre>
-<p>如此一來，即可在不同執行緒的情況下，安全改動 UI 控制項囉！</p>
-<p>若懶得寫得像上述那麼繁瑣，改成這樣就好：</p>
-<pre><code class="language-C#">private void SetLblViewSafely(int num)
-{
-    Action action = () =&gt; LblView.Text += $&quot;{i} \r\n&quot;;
-
-    // 若為不同執行緒，則 InvokeRequired 為 ture，表示需進行安全的調用
-    if (this.InvokeRequired)
-    {
-         this.Invoke(action);
-    }
-    else
-    {
-        action.Invoke();
-    }     
-}
-</code></pre>
+<p>原始碼：<a href="https://github.com/maxlin0523/UsingMongoClient" target="_blank" rel="noopener">連結</a></p>
 <h3><span id="參考">參考</span></h3>
-<p><a href="https://medium.com/delightlearner/c-development-%E7%85%A9%E4%BA%BA%E7%9A%84%E8%B7%A8%E5%9F%B7%E8%A1%8C%E7%B7%92%E4%BD%9C%E6%A5%AD%E7%84%A1%E6%95%88-%E5%A6%82%E4%BD%95%E8%B7%A8%E5%9F%B7%E8%A1%8C%E7%B7%92%E6%8E%A7%E5%88%B6-ui-%E5%85%83%E4%BB%B6-41c7b129f47a" target="_blank" rel="noopener">C# Development | 煩人的跨執行緒作業無效 : 如何跨執行緒控制 UI 元件</a></p>
-<p><a href="https://docs.microsoft.com/zh-tw/dotnet/desktop/winforms/controls/how-to-make-thread-safe-calls?view=netdesktop-6.0" target="_blank" rel="noopener">如何 Windows Forms .net) 對控制項進行安全線程呼叫</a></p>
+<p><a href="https://docs.microsoft.com/zh-tw/aspnet/core/tutorials/first-mongo-app?view=aspnetcore-6.0&amp;tabs=visual-studio" target="_blank" rel="noopener">使用 ASP.NET Core 與 MongoDB 建立 Web API</a></p>
 
                 
 
@@ -346,13 +410,9 @@ private void SetLblView(int num)
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2022/04/09/csvhelper/" data-toggle="tooltip" data-placement="top" title="C# 使用 CsvHelper 套件讀取 Csv 檔">&larr; 上篇 </a>
+                            <a href="/2022/04/09/winform-across-threads/" data-toggle="tooltip" data-placement="top" title="Winform 控制項跨執行緒作業無效">&larr; 上篇 </a>
                         </li>
                     
-                    
-                        <li class="next">
-                            <a href="/2022/05/22/csharp-mongodb-drive/" data-toggle="tooltip" data-placement="top" title="C# 串接 MongoDB"> 下篇 &rarr;</a>
-                        </li>
                     
                 </ul>
 
@@ -377,7 +437,7 @@ private void SetLblView(int num)
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">示例</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">解決方式</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">參考</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">環境建置(使用 Docker)</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">使用方式</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">Mongo CRUD</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">參考</span></a></li></ol>
         
         </div>
       </aside>
@@ -398,7 +458,7 @@ private void SetLblView(int num)
                     <h5><a href="/tags/">標籤雲</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#日常除錯" title="日常除錯">日常除錯</a>
+                          <a class="tag" href="/tags/#MongoDB" title="MongoDB">MongoDB</a>
                         
                     </div>
                 </section>
