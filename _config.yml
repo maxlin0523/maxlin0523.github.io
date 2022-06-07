@@ -45,8 +45,8 @@ RSS: true
 
 # 自訂連結
 github_username: maxlin0523
-medium_username: max-lin
-linkedin_username: maxlin0523
+# medium_username: max-lin
+# linkedin_username: maxlin0523
 
 # Build settings
 anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
@@ -106,9 +106,6 @@ friends: [
     },{
         title: "John Wu's Blog",
         href: "https://blog.johnwu.cc/"
-    },{
-        title: "Jed's blog",
-        href: "https://jed1978.github.io/"
     },{
         title: "Blackie's Failed Notes",
         href: "https://blackie1019.gitlab.io/"
