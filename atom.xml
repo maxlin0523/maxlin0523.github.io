@@ -6,7 +6,7 @@
   <link href="https://maxlin0523.github.io/atom.xml" rel="self"/>
   
   <link href="https://maxlin0523.github.io/"/>
-  <updated>2022-05-21T18:43:53.692Z</updated>
+  <updated>2022-06-07T17:27:02.990Z</updated>
   <id>https://maxlin0523.github.io/</id>
   
   <author>
@@ -17,11 +17,34 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>MongoDB Aggregation Pipeline</title>
+    <link href="https://maxlin0523.github.io/2022/06/08/mongodb-aggregation-pipeline/"/>
+    <id>https://maxlin0523.github.io/2022/06/08/mongodb-aggregation-pipeline/</id>
+    <published>2022-06-07T17:22:29.000Z</published>
+    <updated>2022-06-07T17:27:02.990Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html"></summary>
+        
+      
+    
+    
+    
+    
+    <category term="MongoDB" scheme="https://maxlin0523.github.io/tags/MongoDB/"/>
+    
+  </entry>
+  
+  <entry>
     <title>C# 串接 MongoDB</title>
     <link href="https://maxlin0523.github.io/2022/05/22/csharp-mongodb-drive/"/>
     <id>https://maxlin0523.github.io/2022/05/22/csharp-mongodb-drive/</id>
     <published>2022-05-21T18:42:47.000Z</published>
-    <updated>2022-05-21T18:43:53.692Z</updated>
+    <updated>2022-06-07T17:21:38.950Z</updated>
     
     
       
@@ -456,31 +479,6 @@
     <category term="C# 觀念" scheme="https://maxlin0523.github.io/tags/C-觀念/"/>
     
     <category term="物件導向設計" scheme="https://maxlin0523.github.io/tags/物件導向設計/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>DI and IoC Sample</title>
-    <link href="https://maxlin0523.github.io/2021/05/30/%E7%9B%B8%E4%BE%9D%E6%80%A7%E6%B3%A8%E5%85%A5%EF%BC%8DDI-IoC%E7%AF%84%E4%BE%8B/"/>
-    <id>https://maxlin0523.github.io/2021/05/30/%E7%9B%B8%E4%BE%9D%E6%80%A7%E6%B3%A8%E5%85%A5%EF%BC%8DDI-IoC%E7%AF%84%E4%BE%8B/</id>
-    <published>2021-05-29T16:05:23.000Z</published>
-    <updated>2021-12-10T19:56:34.548Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html"></summary>
-        
-      
-    
-    
-    
-    
-    <category term="C# 觀念" scheme="https://maxlin0523.github.io/tags/C-觀念/"/>
-    
-    <category term="DI/IoC" scheme="https://maxlin0523.github.io/tags/DI-IoC/"/>
     
   </entry>
   

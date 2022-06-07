@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          C# 使用 CsvHelper 套件讀取 Csv 檔 - Max&#39;s Blog | 邁向全端之路
+          MongoDB Aggregation Pipeline - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
-    <link rel="canonical" href="https://maxlin0523.github.io/2022/04/09/csvhelper/">
+    <link rel="canonical" href="https://maxlin0523.github.io/2022/06/08/mongodb-aggregation-pipeline/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -86,14 +86,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Nuget" title="Nuget">Nuget</a>
+                              <a class="tag" href="/tags/#MongoDB" title="MongoDB">MongoDB</a>
                             
                         </div>
-                        <h1>C# 使用 CsvHelper 套件讀取 Csv 檔</h1>
+                        <h1>MongoDB Aggregation Pipeline</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
-                            2022-04-09（
+                            2022-06-08（
                             <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views）
                         </span>
                     </div>
@@ -208,381 +208,126 @@
                 col-md-10 col-md-offset-1
                 ">
                 <!-- class: post-container拔除 -->
-                <p>紀錄 Nuget 套件 <code>CsvHelper</code> 幾個不同情況的 <code>讀取</code> 方式。</p>
-<h2><span id="1-當-csv-欄位與類別名稱與資料型態可對應">1. 當 csv 欄位與類別名稱與資料型態可對應</span></h2>
-<p>資料格式：</p>
+                <h2><span id="前言">前言</span></h2>
+<p><code>Aggregation 聚合</code> 主要用於統計篩選資料，以 <code>pipeline</code> 的型式分成多個 <code>stage</code>，後面的 <code>stage</code> 會拿前面的產出結果當成輸入資料，每個 <code>stage</code> 做一次資料的聚合。</p>
+<p>可以將每個步驟看成一個個 <code>stage</code>，而整個流程就是一個 <code>Aggregation pipeline</code></p>
+<p><img src="https://i.imgur.com/HSVB1YO.jpg" alt></p>
+<h2><span id="基礎表達式">基礎表達式</span></h2>
+<p>簡單介紹 Aggregation 一些常見的表達式：</p>
 <table>
 <thead>
 <tr>
-<th>Id</th>
-<th>Name</th>
-<th>Email</th>
-<th>Phone</th>
+<th style="text-align:left">表達式</th>
+<th style="text-align:left">功能</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>0</td>
-<td>Eric</td>
-<td><a href="mailto:Eric@gmail.com" target="_blank" rel="noopener">Eric@gmail.com</a></td>
-<td>0911111111</td>
+<td style="text-align:left">$project</td>
+<td style="text-align:left">定義回傳的 document 結構等</td>
 </tr>
 <tr>
-<td>1</td>
-<td>Amy</td>
-<td><a href="mailto:Amy@gmail.com" target="_blank" rel="noopener">Amy@gmail.com</a></td>
-<td>0922222222</td>
+<td style="text-align:left">$match</td>
+<td style="text-align:left">過濾篩選資料</td>
 </tr>
 <tr>
-<td>2</td>
-<td>Titan</td>
-<td><a href="mailto:Titan@gmail.com" target="_blank" rel="noopener">Titan@gmail.com</a></td>
-<td>0933333333</td>
+<td style="text-align:left">$limit</td>
+<td style="text-align:left">限制回傳 n 筆</td>
+</tr>
+<tr>
+<td style="text-align:left">$skip</td>
+<td style="text-align:left">略過 n 筆資料</td>
+</tr>
+<tr>
+<td style="text-align:left">$group</td>
+<td style="text-align:left">資料分群</td>
+</tr>
+<tr>
+<td style="text-align:left">$sum</td>
+<td style="text-align:left">計算總和</td>
+</tr>
+<tr>
+<td style="text-align:left">$avg</td>
+<td style="text-align:left">計算平均值</td>
+</tr>
+<tr>
+<td style="text-align:left">$sort</td>
+<td style="text-align:left">排序</td>
 </tr>
 </tbody>
 </table>
-<p>資料源：</p>
-<pre><code>Id,Name,Email,Phone
-0,Eric,Eric@gmail.com,0911111111
-1,Amy,Amy@gmail.com,0922222222 
-2,Titan,Titan@gmail.com,0933333333
+<p>首先，備好我們要測試的資料：</p>
+<p><img src="https://i.imgur.com/OeJroxB.png" alt></p>
+<h3><span id="project">$project</span></h3>
+<ul>
+<li>將要取得的欄位賦予 <code>1</code></li>
+</ul>
+<p><code>db.user.aggregate({&quot;$project&quot;: { &quot;userName&quot; : 1, &quot;age&quot; : 1 }}).pretty()</code></p>
+<p><img src="https://i.imgur.com/30q9Hvd.png" alt></p>
+<ul>
+<li>將不要的欄位賦予 <code>0</code></li>
+</ul>
+<p><code>db.user.aggregate({&quot;$project&quot;: { &quot;age&quot; : 0 }}).pretty()</code></p>
+<p><img src="https://i.imgur.com/Y1nQ0bM.png" alt></p>
+<p>※ 不可混用 <code>0</code> 或 <code>1</code></p>
+<ul>
+<li>產生自定義欄位</li>
+</ul>
+<p><code>db.user.aggregate({ &quot;$project&quot;: { &quot;userDescription&quot; : { &quot;$concat&quot; : [ &quot;$userName&quot;, &quot;-&quot;, &quot;$gender&quot; ]}}}).pretty()</code></p>
+<p><img src="https://i.imgur.com/a2VWk4j.png" alt></p>
+<h3><span id="match">$match</span></h3>
+<p>篩選資料</p>
+<p><code>db.user.aggregate({&quot;$match&quot;: { &quot;age&quot; : { &quot;$lt&quot; : 30} }}).pretty()</code></p>
+<p><img src="https://i.imgur.com/b22Ds2j.png" alt></p>
+<h3><span id="limit">$limit</span></h3>
+<p>限制資料回傳的筆數</p>
+<p><code>db.user.aggregate({&quot;$limit&quot;: 3 }).pretty()</code></p>
+<p><img src="https://i.imgur.com/rL2Rvmm.png" alt></p>
+<h3><span id="skip">$skip</span></h3>
+<p>略過 <code>5</code> 筆資料</p>
+<p><code>db.user.aggregate({&quot;$skip&quot;: 5 }).pretty()</code></p>
+<p><img src="https://i.imgur.com/kTN2DYQ.png" alt></p>
+<h3><span id="group">$group</span></h3>
+<p>使用時必須要定義 <code>_id</code></p>
+<p><code>db.user.aggregate({ &quot;$group&quot; : { &quot;_id&quot; : &quot;$gender&quot; }})</code></p>
+<p><img src="https://i.imgur.com/zyHdrs2.png" alt></p>
+<p>通常搭配 <code>$sum</code> &amp; <code>$avg</code> 等聚合表達式來做使用</p>
+<p><code>db.user.aggregate({ &quot;$group&quot; : { &quot;_id&quot; : &quot;$gender&quot;, &quot;totalAge&quot; : { &quot;$sum&quot; : &quot;$age&quot; }, &quot;avgAge&quot; : { &quot;$avg&quot; : &quot;$age&quot;} }})</code></p>
+<p><img src="https://i.imgur.com/QxybVnS.png" alt></p>
+<h2><span id="aggregation-pipeline">Aggregation Pipeline</span></h2>
+<p>使用方式：</p>
+<p><code>db.collection.aggregate( [ { &lt;stage1&gt; },　{ &lt;stage2&gt; }, { &lt;stage3&gt; }, ... ] )</code></p>
+<p>假設情境為：</p>
+<ol>
+<li>篩選 25 歲以上的使用者(stage1)</li>
+<li>將使用者依年齡遞減排序(stage2)</li>
+<li>取得排序前5位使用者(stage3)</li>
+<li>算出平均年齡(stage4)</li>
+</ol>
+<p><code>db.user.aggregate([ { &quot;$match&quot; : { &quot;age&quot; : { &quot;$gt&quot; : 25 } } }, { &quot;$sort&quot; : { &quot;age&quot; : -1 } }, { &quot;$limit&quot; : 5 }, { &quot;$group&quot; : { &quot;_id&quot; : null, &quot;top5_avgAge&quot; : { &quot;$avg&quot; : &quot;$age&quot; } } } ])</code></p>
+<p>顏色用以區分各個 stage，對比上面的步驟，就可以清楚知道每個 stage 的作用。</p>
+<p><img src="https://i.imgur.com/xq8TbUU.png" alt></p>
+<h2><span id="補充-facet">補充 $facet</span></h2>
+<p>用來一次執行多個 aggregation pipeline</p>
+<p>使用方式：</p>
+<pre><code>db.collection.aggregate({ $facet:
+   {
+      &lt;aggregation_pipeline_1&gt;: [ &lt;stage1&gt;, &lt;stage2&gt;, ... ],
+      &lt;aggregation_pipeline_2&gt;: [ &lt;stage1&gt;, &lt;stage2&gt;, ... ],
+      ...
+   }
+})
 </code></pre>
-<p>做法如下：</p>
-<pre><code class="language-C#">static void Main(string[] args)
-{
-    // Csv 配置
-    CsvConfiguration setting = new CsvConfiguration(CultureInfo.InvariantCulture);
-
-    using (StreamReader sr = new StreamReader(&quot;./data.csv&quot;))
-    using (CsvReader csv = new CsvReader(sr, setting))
-    {
-        // 取得資料
-        List&lt;User&gt; result = csv.GetRecords&lt;User&gt;().ToList();
-    }
-
-}
-public class User
-{
-    public string Id { get; set; }
-
-    public string Name { get; set; }
-
-    public string Email { get; set; }
-
-    public string Phone { get; set; }
-}
-
-</code></pre>
-<h2><span id="2-讀取不含-csv-標題">2. 讀取不含 csv 標題</span></h2>
-<p>資料格式：</p>
-<table>
-<thead>
-<tr>
-<th>0</th>
-<th>Eric</th>
-<th><a href="mailto:Eric@gmail.com" target="_blank" rel="noopener">Eric@gmail.com</a></th>
-<th>0911111111</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Amy</td>
-<td><a href="mailto:Amy@gmail.com" target="_blank" rel="noopener">Amy@gmail.com</a></td>
-<td>0922222222</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Titan</td>
-<td><a href="mailto:Titan@gmail.com" target="_blank" rel="noopener">Titan@gmail.com</a></td>
-<td>0933333333</td>
-</tr>
-</tbody>
-</table>
-<p>資料源：</p>
-<pre><code>0,Eric,Eric@gmail.com,0911111111
-1,Amy,Amy@gmail.com,0922222222 
-2,Titan,Titan@gmail.com,0933333333
-</code></pre>
-<p>需調整 <strong>Configuration</strong>，做法如下：</p>
-<pre><code class="language-C#">static void Main(string[] args)
-{
-    // Csv 配置
-    CsvConfiguration setting = new CsvConfiguration(CultureInfo.InvariantCulture)
-    {
-    　　 // 不含標題
-        HasHeaderRecord = false
-    };
-
-    using (StreamReader sr = new StreamReader(&quot;./data.csv&quot;))
-    using (CsvReader csv = new CsvReader(sr, setting))
-    {
-        // 取得資料
-        List&lt;User&gt; result = csv.GetRecords&lt;User&gt;().ToList();
-    }
-
-}
-public class User
-{
-    public string Id { get; set; }
-
-    public string Name { get; set; }
-
-    public string Email { get; set; }
-
-    public string Phone { get; set; }
-}
-
-</code></pre>
-<h2><span id="3-當-csv-欄位名與類別屬性無法對應">3. 當 csv 欄位名與類別屬性無法對應</span></h2>
-<p>資料格式：</p>
-<table>
-<thead>
-<tr>
-<th>編號</th>
-<th>名稱</th>
-<th>信箱</th>
-<th>手機</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>Eric</td>
-<td><a href="mailto:Eric@gmail.com" target="_blank" rel="noopener">Eric@gmail.com</a></td>
-<td>0911111111</td>
-</tr>
-<tr>
-<td>1</td>
-<td>Amy</td>
-<td><a href="mailto:Amy@gmail.com" target="_blank" rel="noopener">Amy@gmail.com</a></td>
-<td>0922222222</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Titan</td>
-<td><a href="mailto:Titan@gmail.com" target="_blank" rel="noopener">Titan@gmail.com</a></td>
-<td>0933333333</td>
-</tr>
-</tbody>
-</table>
-<p>資料源：</p>
-<pre><code>編號,名稱,信箱,手機
-0,Eric,Eric@gmail.com,0911111111
-1,Amy,Amy@gmail.com,0922222222 
-2,Titan,Titan@gmail.com,0933333333
-</code></pre>
-<p>可建立 <strong>ClassMap</strong> 去定義對應情境，完整做法如下：</p>
-<pre><code class="language-c#">static void Main(string[] args)
-{
-    // Csv 配置
-    CsvConfiguration setting = new CsvConfiguration(CultureInfo.InvariantCulture);
-
-    using (StreamReader sr = new StreamReader(&quot;./data.csv&quot;))
-    using (CsvReader csv = new CsvReader(sr, setting))
-    {
-        // 註冊
-        csv.Context.RegisterClassMap&lt;UserMap&gt;();
-        
-        // 取得資料
-        List&lt;User&gt; result = csv.GetRecords&lt;User&gt;().ToList();
-    }
-
-}
-public class User
-{
-    public string Id { get; set; }
-
-    public string Name { get; set; }
-
-    public string Email { get; set; }
-
-    public string Phone { get; set; }
-}
-
-public sealed class UserMap : ClassMap&lt;User&gt;
-{
-    public UserMap()
-    {
-        // 屬性對應欄位名稱
-        Map(m =&gt; m.Id).Name(&quot;編號&quot;);
-        Map(m =&gt; m.Name).Name(&quot;名稱&quot;);
-        Map(m =&gt; m.Email).Name(&quot;信箱&quot;);
-        Map(m =&gt; m.Phone).Name(&quot;手機&quot;);
-    }
-}
-</code></pre>
-<p>或是用類別屬性去對應 csv 欄位索引，如下：</p>
-<pre><code class="language-c#">public sealed class UserMap : ClassMap&lt;User&gt;
-{
-    public UserMap()
-    {
-        // 屬性對應欄位索引
-        Map(m =&gt; m.Id).Index(0);
-        Map(m =&gt; m.Name).Index(1);
-        Map(m =&gt; m.Email).Index(2);
-        Map(m =&gt; m.Phone).Index(3);
-    }
-}
-</code></pre>
-<h2><span id="4-當-csv-欄位名稱有模稜兩可的情況">4. 當 csv 欄位名稱有模稜兩可的情況</span></h2>
-<p>例如：讀檔時，第一個欄位名稱可能出現<code>編號</code> or <code>號碼</code> 的情形，如下：</p>
-<pre><code>編號,名稱,信箱,手機
-0,Eric,Eric@gmail.com,0911111111
-
-or 
-
-號碼,名稱,信箱,手機
-0,Eric,Eric@gmail.com,0911111111
-</code></pre>
-<p>則 <strong>ClassMap</strong> 可改為：</p>
-<pre><code class="language-C#">public sealed class UserMap : ClassMap&lt;User&gt;
-{
-    public UserMap()
-    {
-        // 屬性對應欄位名稱
-        Map(m =&gt; m.Id).Name(&quot;編號&quot;, &quot;號碼&quot;);
-        Map(m =&gt; m.Name).Name(&quot;名稱&quot;);
-        Map(m =&gt; m.Email).Name(&quot;信箱&quot;);
-        Map(m =&gt; m.Phone).Name(&quot;手機&quot;);
-    }
-}
-</code></pre>
-<h2><span id="5-忽略類別屬性對應">5. 忽略類別屬性對應</span></h2>
-<p>資料格式：</p>
-<table>
-<thead>
-<tr>
-<th>Id</th>
-<th>Name</th>
-<th>Email</th>
-<th>Phone</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>Eric</td>
-<td><a href="mailto:Eric@gmail.com" target="_blank" rel="noopener">Eric@gmail.com</a></td>
-<td>0911111111</td>
-</tr>
-<tr>
-<td>1</td>
-<td>Amy</td>
-<td><a href="mailto:Amy@gmail.com" target="_blank" rel="noopener">Amy@gmail.com</a></td>
-<td>0922222222</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Titan</td>
-<td><a href="mailto:Titan@gmail.com" target="_blank" rel="noopener">Titan@gmail.com</a></td>
-<td>0933333333</td>
-</tr>
-</tbody>
-</table>
-<p>資料源：</p>
-<pre><code>Id,Name,Email,Phone
-0,Eric,Eric@gmail.com,0911111111
-1,Amy,Amy@gmail.com,0922222222 
-2,Titan,Titan@gmail.com,0933333333
-</code></pre>
-<p>當類別多出 <code>Description</code> 屬性，做法如 <strong>ClassMap</strong>：</p>
-<pre><code class="language-C#">static void Main(string[] args)
-{
-    // Csv 配置
-    CsvConfiguration setting = new CsvConfiguration(CultureInfo.InvariantCulture);
-
-    using (StreamReader sr = new StreamReader(&quot;./data.csv&quot;))
-    using (CsvReader csv = new CsvReader(sr, setting))
-    {
-        // 取得資料
-        csv.Context.RegisterClassMap&lt;UserMap&gt;();
-        List&lt;User&gt; result = csv.GetRecords&lt;User&gt;().ToList();
-    }
-
-}
-public class User
-{
-    public string Id { get; set; }
-
-    public string Name { get; set; }
-
-    public string Email { get; set; }
-
-    public string Phone { get; set; }
-
-    public string Description { get; set; }
-}
-
-public sealed class UserMap : ClassMap&lt;User&gt;
-{
-    public UserMap()
-    {
-        Map(m =&gt; m.Id);
-        Map(m =&gt; m.Name);
-        Map(m =&gt; m.Email);
-        Map(m =&gt; m.Phone);
-        Map(m =&gt; m.Description).Ignore();
-    }
-}
-</code></pre>
-<h2><span id="6-當-csv-欄位有-json-格式資料">6. 當 csv 欄位有 Json 格式資料</span></h2>
-<p>資料格式：</p>
-<table>
-<thead>
-<tr>
-<th>ClassId</th>
-<th>Classmate</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>3</td>
-<td>[&quot;“Andy”&quot;,&quot;“Eric”&quot;,&quot;“Max”&quot;]</td>
-</tr>
-</tbody>
-</table>
-<p>資料源：</p>
-<pre><code>ClassId,Classmate
-3,&quot;[&quot;&quot;Andy&quot;&quot;,&quot;&quot;Eric&quot;&quot;,&quot;&quot;Max&quot;&quot;]&quot;
-
-</code></pre>
-<p><strong>ClassMap</strong> 對應做法如下：</p>
-<pre><code class="language-c#">static void Main(string[] args)
-{
-    // Csv 配置
-    CsvConfiguration setting = new CsvConfiguration(CultureInfo.InvariantCulture);
-
-    using (StreamReader sr = new StreamReader(&quot;./data.csv&quot;))
-    using (CsvReader csv = new CsvReader(sr, setting))
-    {
-        // 取得資料
-        csv.Context.RegisterClassMap&lt;ClassroomMap&gt;();
-        List&lt;Classroom&gt; result = csv.GetRecords&lt;Classroom&gt;().ToList();
-    }
-
-}
-public class Classroom
-{
-    public string ClassId { get; set; }
-
-    public List&lt;string&gt; Classmate { get; set; }
-}
-
-public sealed class ClassroomMap : ClassMap&lt;Classroom&gt;
-{
-    public ClassroomMap()
-    {
-        Map(m =&gt; m.ClassId);
-        Map(m =&gt; m.Classmate).Convert(row =&gt; JsonSerializer.Deserialize&lt;List&lt;string&gt;&gt;(row.Row.GetField(&quot;Classmate&quot;)));
-    }
-}
-</code></pre>
+<p>假設情境為：</p>
+<ol>
+<li>第一個 aggregation pipeline 為取年齡小於 30 的使用者</li>
+<li>第二個 aggregation pipeline 為取出所有使用者的暱稱</li>
+</ol>
+<p><code>db.user.aggregate({ &quot;$facet&quot; : { aggregation1 : [ { &quot;$match&quot; : { &quot;age&quot;　:{ &quot;$lt&quot; : 30 } } } ] , aggregation2: [{ &quot;$project&quot; : { &quot;userName&quot; : 1 } } ] }})</code></p>
+<p><img src="https://i.imgur.com/8R5wF3Z.png" alt></p>
 <h2><span id="參考">參考</span></h2>
-<p><a href="https://dog0416.blogspot.com/2019/11/aspnet-core-csvhelper-c-csv.html?fbclid=IwAR2HnqnMGJhYcjnMBrcBKBYiR2JyIAkCA_NZlMPbrUiUnmaII9MpSWgquqk" target="_blank" rel="noopener">[C#][.NET Core] CsvHelper : 透過 C# 讀寫 csv 檔案</a></p>
-<p><a href="https://kevintsengtw.blogspot.com/2015/04/csvhelper-part2.html" target="_blank" rel="noopener">使用 CsvHelper - Part.2 資料讀取</a></p>
-<p><a href="https://www.cnblogs.com/gl1573/p/12922857.html" target="_blank" rel="noopener">【C#】CsvHelper 使用手册</a></p>
-<p><a href="https://joshclose.github.io/CsvHelper/examples/" target="_blank" rel="noopener">CsvHelper 官方文檔</a></p>
+<p><a href="https://www.mongodb.com/docs/manual/core/aggregation-pipeline/" target="_blank" rel="noopener">Aggregation Pipeline — MongoDB Manual</a></p>
+<p><a href="https://www.runoob.com/mongodb/mongodb-aggregate.html" target="_blank" rel="noopener">MongoDB 聚合 - 菜鸟教程</a></p>
 
                 
 
@@ -591,13 +336,9 @@ public sealed class ClassroomMap : ClassMap&lt;Classroom&gt;
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2022/02/16/random-sort/" data-toggle="tooltip" data-placement="top" title="C# 陣列亂數排序(洗牌) - Fisher-Yates Shuffle">&larr; 上篇 </a>
+                            <a href="/2022/05/22/csharp-mongodb-drive/" data-toggle="tooltip" data-placement="top" title="C# 串接 MongoDB">&larr; 上篇 </a>
                         </li>
                     
-                    
-                        <li class="next">
-                            <a href="/2022/04/09/winform-across-threads/" data-toggle="tooltip" data-placement="top" title="Winform 控制項跨執行緒作業無效"> 下篇 &rarr;</a>
-                        </li>
                     
                 </ul>
 
@@ -622,7 +363,7 @@ public sealed class ClassroomMap : ClassMap&lt;Classroom&gt;
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">1. 當 csv 欄位與類別名稱與資料型態可對應</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">2. 讀取不含 csv 標題</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">3. 當 csv 欄位名與類別屬性無法對應</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">4. 當 csv 欄位名稱有模稜兩可的情況</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">5. 忽略類別屬性對應</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">6. 當 csv 欄位有 Json 格式資料</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">參考</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">基礎表達式</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">$project</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">$match</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">$limit</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.4.</span> <span class="toc-nav-text">$skip</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.5.</span> <span class="toc-nav-text">$group</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">Aggregation Pipeline</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">補充 $facet</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">參考</span></a></li></ol>
         
         </div>
       </aside>
@@ -643,7 +384,7 @@ public sealed class ClassroomMap : ClassMap&lt;Classroom&gt;
                     <h5><a href="/tags/">標籤雲</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Nuget" title="Nuget">Nuget</a>
+                          <a class="tag" href="/tags/#MongoDB" title="MongoDB">MongoDB</a>
                         
                     </div>
                 </section>
