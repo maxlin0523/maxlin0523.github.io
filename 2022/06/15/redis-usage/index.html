@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          MongoDB Aggregation Pipeline - Max&#39;s Blog | 邁向全端之路
+          C# 串接 Redis - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
-    <link rel="canonical" href="https://maxlin0523.github.io/2022/06/08/mongodb-aggregation-pipeline/">
+    <link rel="canonical" href="https://maxlin0523.github.io/2022/06/15/redis-usage/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -86,14 +86,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#MongoDB" title="MongoDB">MongoDB</a>
+                              <a class="tag" href="/tags/#Redis" title="Redis">Redis</a>
                             
                         </div>
-                        <h1>MongoDB Aggregation Pipeline</h1>
+                        <h1>C# 串接 Redis</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
-                            2022-06-08（
+                            2022-06-15（
                             <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views）
                         </span>
                     </div>
@@ -209,125 +209,177 @@
                 ">
                 <!-- class: post-container拔除 -->
                 <h2><span id="前言">前言</span></h2>
-<p><code>Aggregation 聚合</code> 主要用於統計篩選資料，以 <code>pipeline</code> 的型式分成多個 <code>stage</code>，後面的 <code>stage</code> 會拿前面的產出結果當成輸入資料，每個 <code>stage</code> 做一次資料的聚合。</p>
-<p>可以將每個步驟看成一個個 <code>stage</code>，而整個流程就是一個 <code>Aggregation pipeline</code></p>
-<p><img src="https://i.imgur.com/HSVB1YO.jpg" alt></p>
-<h2><span id="基礎表達式">基礎表達式</span></h2>
-<p>簡單介紹 Aggregation 一些常見的表達式：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">表達式</th>
-<th style="text-align:left">功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">$project</td>
-<td style="text-align:left">定義回傳的 document 結構等</td>
-</tr>
-<tr>
-<td style="text-align:left">$match</td>
-<td style="text-align:left">過濾篩選資料</td>
-</tr>
-<tr>
-<td style="text-align:left">$limit</td>
-<td style="text-align:left">限制回傳 n 筆</td>
-</tr>
-<tr>
-<td style="text-align:left">$skip</td>
-<td style="text-align:left">略過 n 筆資料</td>
-</tr>
-<tr>
-<td style="text-align:left">$group</td>
-<td style="text-align:left">資料分群</td>
-</tr>
-<tr>
-<td style="text-align:left">$sum</td>
-<td style="text-align:left">計算總和</td>
-</tr>
-<tr>
-<td style="text-align:left">$avg</td>
-<td style="text-align:left">計算平均值</td>
-</tr>
-<tr>
-<td style="text-align:left">$sort</td>
-<td style="text-align:left">排序</td>
-</tr>
-</tbody>
-</table>
-<p>首先，備好我們要測試的資料：</p>
-<p><img src="https://i.imgur.com/OeJroxB.png" alt></p>
-<h3><span id="project">$project</span></h3>
+<p>先前 <a href="./2021/10/09/redis-in-docker/">Docker 佈署 Redis</a> 記錄如何佈署 Redis，這篇來記錄如何在 C# 串接 Redis 資料庫和一些基本的資料結構使用</p>
+<h2><span id="介紹">介紹</span></h2>
+<p>Redis 是一個 open source 且 in-memory 的 NoSQL 資料庫( key-value 類型 )</p>
 <ul>
-<li>將要取得的欄位賦予 <code>1</code></li>
-</ul>
-<p><code>db.user.aggregate({&quot;$project&quot;: { &quot;userName&quot; : 1, &quot;age&quot; : 1 }}).pretty()</code></p>
-<p><img src="https://i.imgur.com/30q9Hvd.png" alt></p>
+<li><strong>特點</strong>
 <ul>
-<li>將不要的欄位賦予 <code>0</code></li>
+<li>支持持久化，可將內存資料存於硬碟，備份模式如：<code>RDB</code>、<code>AOF</code></li>
+<li>豐富資料類型，如：<code>String</code>、<code>List</code>、<code>Set</code>、<code>ZSet</code>、<code>HashSet</code></li>
+<li>支持高可用及高擴充 Solution，如：Master-Slave(主從)、Sentinel(哨兵)、Cluster(叢集)模式</li>
+<li>性能極高，特性：I/O Multiplex、In-memory</li>
+<li>豐富功能，如：pub/sub 訂閱、data expired</li>
 </ul>
-<p><code>db.user.aggregate({&quot;$project&quot;: { &quot;age&quot; : 0 }}).pretty()</code></p>
-<p><img src="https://i.imgur.com/Y1nQ0bM.png" alt></p>
-<p>※ 不可混用 <code>0</code> 或 <code>1</code></p>
+</li>
+<li><strong>應用場景</strong>
 <ul>
-<li>產生自定義欄位</li>
+<li>具有<code>時效性</code>的資料控制，如：驗證碼、Token</li>
+<li>分散式架構資料共享，如：快取</li>
+<li>即時訊息查詢，如：在線人數、廣播訊息</li>
 </ul>
-<p><code>db.user.aggregate({ &quot;$project&quot;: { &quot;userDescription&quot; : { &quot;$concat&quot; : [ &quot;$userName&quot;, &quot;-&quot;, &quot;$gender&quot; ]}}}).pretty()</code></p>
-<p><img src="https://i.imgur.com/a2VWk4j.png" alt></p>
-<h3><span id="match">$match</span></h3>
-<p>篩選資料</p>
-<p><code>db.user.aggregate({&quot;$match&quot;: { &quot;age&quot; : { &quot;$lt&quot; : 30} }}).pretty()</code></p>
-<p><img src="https://i.imgur.com/b22Ds2j.png" alt></p>
-<h3><span id="limit">$limit</span></h3>
-<p>限制資料回傳的筆數</p>
-<p><code>db.user.aggregate({&quot;$limit&quot;: 3 }).pretty()</code></p>
-<p><img src="https://i.imgur.com/rL2Rvmm.png" alt></p>
-<h3><span id="skip">$skip</span></h3>
-<p>略過 <code>5</code> 筆資料</p>
-<p><code>db.user.aggregate({&quot;$skip&quot;: 5 }).pretty()</code></p>
-<p><img src="https://i.imgur.com/kTN2DYQ.png" alt></p>
-<h3><span id="group">$group</span></h3>
-<p>使用時必須要定義 <code>_id</code></p>
-<p><code>db.user.aggregate({ &quot;$group&quot; : { &quot;_id&quot; : &quot;$gender&quot; }})</code></p>
-<p><img src="https://i.imgur.com/zyHdrs2.png" alt></p>
-<p>通常搭配 <code>$sum</code> &amp; <code>$avg</code> 等聚合表達式來做使用</p>
-<p><code>db.user.aggregate({ &quot;$group&quot; : { &quot;_id&quot; : &quot;$gender&quot;, &quot;totalAge&quot; : { &quot;$sum&quot; : &quot;$age&quot; }, &quot;avgAge&quot; : { &quot;$avg&quot; : &quot;$age&quot;} }})</code></p>
-<p><img src="https://i.imgur.com/QxybVnS.png" alt></p>
-<h2><span id="aggregation-pipeline">Aggregation Pipeline</span></h2>
-<p>使用方式：</p>
-<p><code>db.collection.aggregate( [ { &lt;stage1&gt; },　{ &lt;stage2&gt; }, { &lt;stage3&gt; }, ... ] )</code></p>
-<p>假設情境為：</p>
-<ol>
-<li>篩選 25 歲以上的使用者(stage1)</li>
-<li>將使用者依年齡遞減排序(stage2)</li>
-<li>取得排序前5位使用者(stage3)</li>
-<li>算出平均年齡(stage4)</li>
-</ol>
-<p><code>db.user.aggregate([ { &quot;$match&quot; : { &quot;age&quot; : { &quot;$gt&quot; : 25 } } }, { &quot;$sort&quot; : { &quot;age&quot; : -1 } }, { &quot;$limit&quot; : 5 }, { &quot;$group&quot; : { &quot;_id&quot; : null, &quot;top5_avgAge&quot; : { &quot;$avg&quot; : &quot;$age&quot; } } } ])</code></p>
-<p>顏色用以區分各個 stage，對比上面的步驟，就可以清楚知道每個 stage 的作用。</p>
-<p><img src="https://i.imgur.com/xq8TbUU.png" alt></p>
-<h2><span id="補充-facet">補充 $facet</span></h2>
-<p>用來一次執行多個 aggregation pipeline</p>
-<p>使用方式：</p>
-<pre><code>db.collection.aggregate({ $facet:
-   {
-      &lt;aggregation_pipeline_1&gt;: [ &lt;stage1&gt;, &lt;stage2&gt;, ... ],
-      &lt;aggregation_pipeline_2&gt;: [ &lt;stage1&gt;, &lt;stage2&gt;, ... ],
-      ...
-   }
-})
+</li>
+</ul>
+<h2><span id="下載套件與串接">下載套件與串接</span></h2>
+<ul>
+<li>
+<p>下載 <code>StackExchange.Redis</code> 套件<br>
+<img src="https://i.imgur.com/86mSmgi.png" alt></p>
+</li>
+<li>
+<p>串接<br>
+※ Redis 使用多路複用(Multiplex)，也就是單一個執行緒可以同時處理多個連線，所以沒有 connection pool 的情況，不需使用 using 來建立 &amp; 釋放</p>
+</li>
+</ul>
+<pre><code class="language-C#=">// 連線字串
+string address = &quot;127.0.0.1:6379&quot;;
+// 建立連線，不需 using
+ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(address);
+// 取得實體
+IDatabase db =  redis.GetDatabase();
 </code></pre>
-<p>假設情境為：</p>
-<ol>
-<li>第一個 aggregation pipeline 為取年齡小於 30 的使用者</li>
-<li>第二個 aggregation pipeline 為取出所有使用者的暱稱</li>
-</ol>
-<p><code>db.user.aggregate({ &quot;$facet&quot; : { aggregation1 : [ { &quot;$match&quot; : { &quot;age&quot;　:{ &quot;$lt&quot; : 30 } } } ] , aggregation2: [{ &quot;$project&quot; : { &quot;userName&quot; : 1 } } ] }})</code></p>
-<p><img src="https://i.imgur.com/8R5wF3Z.png" alt></p>
+<h2><span id="string">String</span></h2>
+<pre><code class="language-c#=">// 設定資料
+var stringKey = &quot;Hello&quot;;
+await db.StringSetAsync(stringKey, &quot;0523&quot;);
+
+// 取得資料
+string value = await db.StringGetAsync(stringKey);
+
+// 刪除資料
+await db.KeyDeleteAsync(stringKey);
+</code></pre>
+<h2><span id="list">List</span></h2>
+<p>value 為一個 List 結構，且 Redis 的集合 Index 都是從 1 開始</p>
+<pre><code class="language-c#=">var listkey = &quot;List&quot;;
+// 從頭部加入元素
+await db.ListRightPushAsync(listkey, &quot;AAA&quot;);
+
+// 從尾部加入元素
+await db.ListLeftPushAsync(listkey, &quot;BBB&quot;);
+
+// 取出指定 Index 元素
+var indexValue = await db.ListGetByIndexAsync(listkey, 1);
+
+// 取出陣列
+var array = (await db.ListRangeAsync(listkey)).ToStringArray();
+
+// 取出子陣列，取 index 1 之後的 2 個
+var subArray = (await db.ListRangeAsync(listkey, 1, 2)).ToStringArray();
+
+// 插入多筆資料
+var insertCount = await db.ListRightPushAsync(listkey, new RedisValue[] { &quot;B&quot;, &quot;B&quot;, &quot;B&quot;, &quot;D&quot; });
+
+// 刪除特定資料，將 A 的資料全部刪除
+await db.ListRemoveAsync(listkey, &quot;A&quot;, 0);
+
+// 刪除特定資料，從頭開始刪除 1 筆 B 的資料
+await db.ListRemoveAsync(listkey, &quot;B&quot;, 1);
+
+// 刪除特定資料，從尾開始刪除 2 筆 B 的資料
+await db.ListRemoveAsync(listkey, &quot;B&quot;, -2);
+
+// 保留一段範圍的資料，取 index 1 之後的 2 個
+await db.ListTrimAsync(listkey, 1, 2);
+</code></pre>
+<h2><span id="set">Set</span></h2>
+<p>value 為一個 Set，且為一個 <code>不重複</code> 的集合</p>
+<pre><code class="language-C#=">var setKey = &quot;set&quot;;
+
+// 建立一筆資料
+await db.SetAddAsync(setKey, &quot;1&quot;);
+
+// 建立多筆資料
+await db.SetAddAsync(setKey, new RedisValue[] { 1, 1, 2, 3 });
+
+// 刪除指定元素 1 的資料
+await db.SetRemoveAsync(setKey, 1);
+
+// 取得 Set 長度
+var setLength = await db.SetLengthAsync(setKey);
+
+// 取得 Set 所有元素
+var setItems = await db.SetMembersAsync(setKey);
+
+// 判斷指定元素 1 是否存在
+var itemExists = await db.SetContainsAsync(setKey, 1);
+</code></pre>
+<h2><span id="zsetsorted-set">ZSet(Sorted Set)</span></h2>
+<p>value 為一個 SortedSet，為一個 <code>排序且不重複</code> 的集合，寫入時會依照 Score 進行排序</p>
+<pre><code class="language-C#=">var sortedSetKey = &quot;sortedSet&quot;;
+// 新增一筆資料
+await db.SortedSetAddAsync(sortedSetKey, &quot;Amy&quot;, 5);
+
+// 新增多筆資料
+await db.SortedSetAddAsync(sortedSetKey, new SortedSetEntry[]
+{ 
+    new SortedSetEntry(&quot;Andy&quot;, 8),
+    new SortedSetEntry(&quot;Danny&quot;, 4)
+});
+
+// 取得 SortedSet 長度
+var sortedSetLength = await db.SortedSetLengthAsync(sortedSetKey);
+
+// 取得 SortedSet 所有元素
+var sortedSetItems = await db.SortedSetRangeByValueAsync(sortedSetKey);
+
+// 取得 SortedSet 所有元素包含分數
+var sortedSetItemsAndSorce = await db.SortedSetRangeByScoreWithScoresAsync(sortedSetKey);
+
+// 取得分數遞減排序後 Danny 的排名，默認從索引 0 開始排
+var rankDanny = await db.SortedSetRankAsync(sortedSetKey, &quot;Danny&quot;, Order.Descending);
+
+// 取得分數遞減前10名元素的排名，默認從索引 0 開始排
+var rankValues = await db.SortedSetRangeByRankAsync(sortedSetKey, start: 0, stop: 10, order: Order.Descending);
+
+// 取得分數遞減前10名元素的排名和分數，默認從索引 0 開始排
+var rankValueAndScore = await db.SortedSetRangeByScoreWithScoresAsync(sortedSetKey, start: 0, stop: 10, order: Order.Descending);
+
+// 刪除指定元素
+await db.SortedSetRemoveAsync(sortedSetKey, &quot;Andy&quot;);
+</code></pre>
+<h2><span id="hashset">HashSet</span></h2>
+<p>value 為一個像是 C# Dictionary 結構</p>
+<pre><code class="language-C#=">var hashKey = &quot;hashData&quot;;
+
+// 新增資料
+await db.HashSetAsync(hashKey, new HashEntry[]
+{
+    new HashEntry (&quot;Number&quot;, &quot;1&quot;),
+    new HashEntry (&quot;Name&quot;, &quot;Max&quot;),
+    new HashEntry (&quot;Phone&quot;, &quot;3345678&quot;)
+});
+
+// 查看指定資料的所有值
+var hashSetValues = await db.HashValuesAsync(hashKey);
+
+// 查看指定資料的所有 Key
+var hashSetKeys = await db.HashKeysAsync(hashKey);
+</code></pre>
+<h2><span id="資料過期data-expired">資料過期(data expired)</span></h2>
+<pre><code class="language-C#=">// 過期時間
+var expiredTime = TimeSpan.FromSeconds(5);
+
+// 加入測試資料
+await db.StringSetAsync(&quot;sample&quot;, &quot;hello world&quot;);
+
+// 設定過期時間
+var success = await db.KeyExpireAsync(&quot;sample&quot;, expiredTime);
+</code></pre>
+<p><a href="https://github.com/maxlin0523/redis-usage" target="_blank" rel="noopener">原始碼</a></p>
 <h2><span id="參考">參考</span></h2>
-<p><a href="https://www.mongodb.com/docs/manual/core/aggregation-pipeline/" target="_blank" rel="noopener">Aggregation Pipeline — MongoDB Manual</a></p>
-<p><a href="https://www.runoob.com/mongodb/mongodb-aggregate.html" target="_blank" rel="noopener">MongoDB 聚合 - 菜鸟教程</a></p>
+<p><a href="https://jed1978.github.io/2018/05/11/Redis-Programming-CSharp-Basic-1.html" target="_blank" rel="noopener">Redis系列 - C#存取Redis</a></p>
+<p><a href="https://www.cnblogs.com/Lulus/p/16004541.html" target="_blank" rel="noopener">.NET 6使用Redis</a></p>
 
                 
 
@@ -336,13 +388,9 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2022/05/22/csharp-mongodb-drive/" data-toggle="tooltip" data-placement="top" title="C# 串接 MongoDB">&larr; 上篇 </a>
+                            <a href="/2022/06/08/mongodb-aggregation-pipeline/" data-toggle="tooltip" data-placement="top" title="MongoDB Aggregation Pipeline">&larr; 上篇 </a>
                         </li>
                     
-                    
-                        <li class="next">
-                            <a href="/2022/06/15/redis-usage/" data-toggle="tooltip" data-placement="top" title="C# 串接 Redis"> 下篇 &rarr;</a>
-                        </li>
                     
                 </ul>
 
@@ -367,7 +415,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">基礎表達式</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">$project</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">$match</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">$limit</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.4.</span> <span class="toc-nav-text">$skip</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.5.</span> <span class="toc-nav-text">$group</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">Aggregation Pipeline</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">補充 $facet</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">參考</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">前言</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">介紹</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">下載套件與串接</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">String</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">List</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">Set</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">ZSet(Sorted Set)</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">8.</span> <span class="toc-nav-text">HashSet</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">9.</span> <span class="toc-nav-text">資料過期(data expired)</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">10.</span> <span class="toc-nav-text">參考</span></a></li></ol>
         
         </div>
       </aside>
@@ -388,7 +436,7 @@
                     <h5><a href="/tags/">標籤雲</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#MongoDB" title="MongoDB">MongoDB</a>
+                          <a class="tag" href="/tags/#Redis" title="Redis">Redis</a>
                         
                     </div>
                 </section>

@@ -6,7 +6,7 @@
   <link href="https://maxlin0523.github.io/atom.xml" rel="self"/>
   
   <link href="https://maxlin0523.github.io/"/>
-  <updated>2022-06-07T17:27:02.990Z</updated>
+  <updated>2022-06-14T19:04:02.923Z</updated>
   <id>https://maxlin0523.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>C# 串接 Redis</title>
+    <link href="https://maxlin0523.github.io/2022/06/15/redis-usage/"/>
+    <id>https://maxlin0523.github.io/2022/06/15/redis-usage/</id>
+    <published>2022-06-14T19:01:46.000Z</published>
+    <updated>2022-06-14T19:04:02.923Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html"></summary>
+        
+      
+    
+    
+    
+    
+    <category term="Redis" scheme="https://maxlin0523.github.io/tags/Redis/"/>
+    
+  </entry>
   
   <entry>
     <title>MongoDB Aggregation Pipeline</title>
@@ -454,31 +477,6 @@
     
     
     <category term="C# 本事" scheme="https://maxlin0523.github.io/tags/C-本事/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Object Oriented Programming</title>
-    <link href="https://maxlin0523.github.io/2021/06/12/%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91%E8%A8%AD%E8%A8%88%EF%BC%8DObject%20Oriented%20Programming/"/>
-    <id>https://maxlin0523.github.io/2021/06/12/%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91%E8%A8%AD%E8%A8%88%EF%BC%8DObject%20Oriented%20Programming/</id>
-    <published>2021-06-11T16:05:23.000Z</published>
-    <updated>2021-09-30T12:34:16.171Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html"></summary>
-        
-      
-    
-    
-    
-    
-    <category term="C# 觀念" scheme="https://maxlin0523.github.io/tags/C-觀念/"/>
-    
-    <category term="物件導向設計" scheme="https://maxlin0523.github.io/tags/物件導向設計/"/>
     
   </entry>
   
