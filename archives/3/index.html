@@ -130,13 +130,6 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/archive/">Archives</a>
                         </li>
                         
@@ -145,6 +138,13 @@
                         
                         <li>
                             <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -489,13 +489,7 @@ IoC：Inversion of Controll（控制反轉）
             
         
             
-        
-            
             <a href="/tags/#MongoDB" title="MongoDB" rel="2">MongoDB</a>
-            
-        
-            
-            <a href="/tags/#C# 本事" title="C# 本事" rel="3">C# 本事</a>
             
         
             
@@ -509,9 +503,13 @@ IoC：Inversion of Controll（控制反轉）
             
         
             
+        
+            
             <a href="/tags/#Redis" title="Redis" rel="3">Redis</a>
             
         
+            
+            <a href="/tags/#C# 本事" title="C# 本事" rel="3">C# 本事</a>
             
         
             
@@ -519,13 +517,15 @@ IoC：Inversion of Controll（控制反轉）
             
         
             
+        
+            
             <a href="/tags/#C# 觀念" title="C# 觀念" rel="3">C# 觀念</a>
             
         
             
-            <a href="/tags/#DI/IoC" title="DI/IoC" rel="2">DI/IoC</a>
-            
         
+            
+            <a href="/tags/#DI/IoC" title="DI/IoC" rel="2">DI/IoC</a>
             
         
     </div>
@@ -615,7 +615,7 @@ IoC：Inversion of Controll（控制反轉）
             var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
             var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
             var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
-            document.getElementById("sitetime").innerHTML = "網站已運行：" +　/* diffYears　+　" 年 "　+ */　diffDays + " 天 " + diffHours + " 時 " + diffMinutes + " 分 " + diffSeconds + " 秒";
+            document.getElementById("sitetime").innerHTML = "網站已運行：" + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 時 " + diffMinutes + " 分 " + diffSeconds + " 秒";
         }
         siteTime();
     </script>

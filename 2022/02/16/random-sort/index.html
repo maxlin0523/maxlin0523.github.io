@@ -93,8 +93,8 @@
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
-                            2022-02-16（
-                            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views）
+                            2022-02-16 <!--（
+                            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views） -->
                         </span>
                     </div>
                 
@@ -139,13 +139,6 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/archive/">Archives</a>
                         </li>
                         
@@ -154,6 +147,13 @@
                         
                         <li>
                             <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -493,7 +493,7 @@ List&lt;int&gt; randomList = cards.OrderBy(x =&gt; Guid.NewGuid()).ToList();
             var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
             var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
             var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
-            document.getElementById("sitetime").innerHTML = "網站已運行：" +　/* diffYears　+　" 年 "　+ */　diffDays + " 天 " + diffHours + " 時 " + diffMinutes + " 分 " + diffSeconds + " 秒";
+            document.getElementById("sitetime").innerHTML = "網站已運行：" + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 時 " + diffMinutes + " 分 " + diffSeconds + " 秒";
         }
         siteTime();
     </script>
