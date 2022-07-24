@@ -6,7 +6,7 @@
   <link href="https://maxlin0523.github.io/atom.xml" rel="self"/>
   
   <link href="https://maxlin0523.github.io/"/>
-  <updated>2022-06-14T19:05:57.953Z</updated>
+  <updated>2022-07-24T17:54:21.100Z</updated>
   <id>https://maxlin0523.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>C# 串接 Redis</title>
-    <link href="https://maxlin0523.github.io/2022/06/15/redis-usage/"/>
-    <id>https://maxlin0523.github.io/2022/06/15/redis-usage/</id>
-    <published>2022-06-14T19:01:46.000Z</published>
-    <updated>2022-06-14T19:05:57.953Z</updated>
+    <title>C# 使用 Redis Script</title>
+    <link href="https://maxlin0523.github.io/2022/07/25/csharp-redis-script/"/>
+    <id>https://maxlin0523.github.io/2022/07/25/csharp-redis-script/</id>
+    <published>2022-07-24T17:48:11.000Z</published>
+    <updated>2022-07-24T17:54:21.100Z</updated>
     
     
       
@@ -35,6 +35,35 @@
     
     
     
+    <category term="C#" scheme="https://maxlin0523.github.io/tags/C/"/>
+    
+    <category term="Redis" scheme="https://maxlin0523.github.io/tags/Redis/"/>
+    
+    <category term="Lua" scheme="https://maxlin0523.github.io/tags/Lua/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C# 串接 Redis</title>
+    <link href="https://maxlin0523.github.io/2022/06/15/redis-usage/"/>
+    <id>https://maxlin0523.github.io/2022/06/15/redis-usage/</id>
+    <published>2022-06-14T19:01:46.000Z</published>
+    <updated>2022-07-24T17:55:25.172Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html"></summary>
+        
+      
+    
+    
+    
+    
+    <category term="C#" scheme="https://maxlin0523.github.io/tags/C/"/>
+    
     <category term="Redis" scheme="https://maxlin0523.github.io/tags/Redis/"/>
     
   </entry>
@@ -44,7 +73,7 @@
     <link href="https://maxlin0523.github.io/2022/06/08/mongodb-aggregation-pipeline/"/>
     <id>https://maxlin0523.github.io/2022/06/08/mongodb-aggregation-pipeline/</id>
     <published>2022-06-07T17:22:29.000Z</published>
-    <updated>2022-06-07T17:27:02.990Z</updated>
+    <updated>2022-07-24T17:55:38.182Z</updated>
     
     
       
@@ -67,7 +96,7 @@
     <link href="https://maxlin0523.github.io/2022/05/22/csharp-mongodb-drive/"/>
     <id>https://maxlin0523.github.io/2022/05/22/csharp-mongodb-drive/</id>
     <published>2022-05-21T18:42:47.000Z</published>
-    <updated>2022-06-07T17:21:38.950Z</updated>
+    <updated>2022-07-24T17:54:35.941Z</updated>
     
     
       
@@ -82,6 +111,8 @@
     
     
     <category term="MongoDB" scheme="https://maxlin0523.github.io/tags/MongoDB/"/>
+    
+    <category term="C#" scheme="https://maxlin0523.github.io/tags/C/"/>
     
   </entry>
   
@@ -113,7 +144,7 @@
     <link href="https://maxlin0523.github.io/2022/04/09/csvhelper/"/>
     <id>https://maxlin0523.github.io/2022/04/09/csvhelper/</id>
     <published>2022-04-09T10:22:58.000Z</published>
-    <updated>2022-04-09T11:00:50.397Z</updated>
+    <updated>2022-07-24T17:54:26.841Z</updated>
     
     
       
@@ -126,6 +157,8 @@
     
     
     
+    
+    <category term="C#" scheme="https://maxlin0523.github.io/tags/C/"/>
     
     <category term="Nuget" scheme="https://maxlin0523.github.io/tags/Nuget/"/>
     
@@ -173,9 +206,9 @@
     
     
     
-    <category term="Lua" scheme="https://maxlin0523.github.io/tags/Lua/"/>
-    
     <category term="Redis" scheme="https://maxlin0523.github.io/tags/Redis/"/>
+    
+    <category term="Lua" scheme="https://maxlin0523.github.io/tags/Lua/"/>
     
   </entry>
   
@@ -255,7 +288,7 @@
     <link href="https://maxlin0523.github.io/2021/09/11/UnitTest1/"/>
     <id>https://maxlin0523.github.io/2021/09/11/UnitTest1/</id>
     <published>2021-09-11T14:02:36.000Z</published>
-    <updated>2021-10-15T18:21:33.536Z</updated>
+    <updated>2022-07-24T17:56:43.063Z</updated>
     
     
       
@@ -271,6 +304,8 @@
     
     <category term="UnitTest" scheme="https://maxlin0523.github.io/tags/UnitTest/"/>
     
+    <category term="General" scheme="https://maxlin0523.github.io/tags/General/"/>
+    
   </entry>
   
   <entry>
@@ -278,7 +313,7 @@
     <link href="https://maxlin0523.github.io/2021/08/03/boxing-Unboxing/"/>
     <id>https://maxlin0523.github.io/2021/08/03/boxing-Unboxing/</id>
     <published>2021-08-03T13:09:17.000Z</published>
-    <updated>2021-10-15T18:20:34.546Z</updated>
+    <updated>2022-07-24T17:55:49.488Z</updated>
     
     
       
@@ -292,7 +327,7 @@
     
     
     
-    <category term="C# 本事" scheme="https://maxlin0523.github.io/tags/C-本事/"/>
+    <category term="C#" scheme="https://maxlin0523.github.io/tags/C/"/>
     
   </entry>
   
@@ -301,7 +336,7 @@
     <link href="https://maxlin0523.github.io/2021/08/03/value-reference/"/>
     <id>https://maxlin0523.github.io/2021/08/03/value-reference/</id>
     <published>2021-08-03T13:03:01.000Z</published>
-    <updated>2021-10-15T18:17:32.621Z</updated>
+    <updated>2022-07-24T17:55:08.146Z</updated>
     
     
       
@@ -315,7 +350,7 @@
     
     
     
-    <category term="C# 本事" scheme="https://maxlin0523.github.io/tags/C-本事/"/>
+    <category term="C#" scheme="https://maxlin0523.github.io/tags/C/"/>
     
   </entry>
   
@@ -454,29 +489,6 @@
     
     
     <category term="設計模式" scheme="https://maxlin0523.github.io/tags/設計模式/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C# Reflection</title>
-    <link href="https://maxlin0523.github.io/2021/06/21/%E5%8F%8D%E5%B0%84%EF%BC%8DReflection/"/>
-    <id>https://maxlin0523.github.io/2021/06/21/%E5%8F%8D%E5%B0%84%EF%BC%8DReflection/</id>
-    <published>2021-06-20T16:05:23.000Z</published>
-    <updated>2021-09-30T13:29:10.696Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html"></summary>
-        
-      
-    
-    
-    
-    
-    <category term="C# 本事" scheme="https://maxlin0523.github.io/tags/C-本事/"/>
     
   </entry>
   
