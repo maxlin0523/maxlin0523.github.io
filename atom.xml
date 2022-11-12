@@ -6,7 +6,7 @@
   <link href="https://maxlin0523.github.io/atom.xml" rel="self"/>
   
   <link href="https://maxlin0523.github.io/"/>
-  <updated>2022-11-12T19:33:28.154Z</updated>
+  <updated>2022-11-12T19:38:54.861Z</updated>
   <id>https://maxlin0523.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Microservices Patterns 微服務架構</title>
+    <title>Microservices Pattern 微服務架構</title>
     <link href="https://maxlin0523.github.io/2022/11/13/microservices-pattern/"/>
     <id>https://maxlin0523.github.io/2022/11/13/microservices-pattern/</id>
     <published>2022-11-12T19:27:34.000Z</published>
-    <updated>2022-11-12T19:33:28.154Z</updated>
+    <updated>2022-11-12T19:38:54.861Z</updated>
     
     
       
@@ -60,9 +60,9 @@
     
     <category term="C#" scheme="https://maxlin0523.github.io/tags/C/"/>
     
-    <category term="Redis" scheme="https://maxlin0523.github.io/tags/Redis/"/>
-    
     <category term="Lua" scheme="https://maxlin0523.github.io/tags/Lua/"/>
+    
+    <category term="Redis" scheme="https://maxlin0523.github.io/tags/Redis/"/>
     
   </entry>
   
@@ -133,9 +133,9 @@
     
     
     
-    <category term="MongoDB" scheme="https://maxlin0523.github.io/tags/MongoDB/"/>
-    
     <category term="C#" scheme="https://maxlin0523.github.io/tags/C/"/>
+    
+    <category term="MongoDB" scheme="https://maxlin0523.github.io/tags/MongoDB/"/>
     
   </entry>
   
@@ -229,9 +229,9 @@
     
     
     
-    <category term="Redis" scheme="https://maxlin0523.github.io/tags/Redis/"/>
-    
     <category term="Lua" scheme="https://maxlin0523.github.io/tags/Lua/"/>
+    
+    <category term="Redis" scheme="https://maxlin0523.github.io/tags/Redis/"/>
     
   </entry>
   

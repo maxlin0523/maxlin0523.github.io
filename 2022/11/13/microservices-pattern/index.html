@@ -14,7 +14,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Microservices Patterns 微服務架構 - Max&#39;s Blog | 邁向全端之路
+          Microservices Pattern 微服務架構 - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
@@ -89,7 +89,7 @@
                               <a class="tag" href="/tags/#系統設計" title="系統設計">系統設計</a>
                             
                         </div>
-                        <h1>Microservices Patterns 微服務架構</h1>
+                        <h1>Microservices Pattern 微服務架構</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
@@ -216,48 +216,48 @@
 <p>把應用程序的功能性分解為一組服務的架構風格，且每一個服務都是由一組專注、內聚的功能職責組成。</p>
 </blockquote>
 <p>個人理解：由多個專注各自<code>職責功能(Domain)</code> 的微小服務組合成一個應用程式的整體功能。</p>
-<h2><span id="何謂一組服務">何謂一組服務</span></h2>
+<h3><span id="何謂一組服務">何謂一組服務</span></h3>
 <p>作者(Chris Richardson)給出了擴展服務的三個維度：</p>
-<h3><span id="x在多個實例之間實現請求的負載平衡">Ｘ：在多個實例之間實現請求的負載平衡</span></h3>
+<h4><span id="x在多個實例之間實現請求的負載平衡">Ｘ：在多個實例之間實現請求的負載平衡</span></h4>
 <blockquote>
 <p>這組服務是由負載平衡器 + 多個相同實例組成</p>
 <p><img src="https://i.imgur.com/3YR9Avb.jpg" alt></p>
 </blockquote>
-<h3><span id="y根據功能將應用程式拆分">Ｙ：根據功能將應用程式拆分</span></h3>
+<h4><span id="y根據功能將應用程式拆分">Ｙ：根據功能將應用程式拆分</span></h4>
 <blockquote>
 <p>這組服務是透過功能分解組成</p>
 <p><img src="https://i.imgur.com/uZ9RS0v.jpg" alt></p>
 </blockquote>
-<h3><span id="z根據請求的屬性路由">Ｚ：根據請求的屬性路由</span></h3>
+<h4><span id="z根據請求的屬性路由">Ｚ：根據請求的屬性路由</span></h4>
 <blockquote>
 <p>這組服務是由路由器 + 多個相同應用實例組成</p>
 </blockquote>
 <p><img src="https://i.imgur.com/FzahR89.jpg" alt></p>
-<h3><span id="結合">結合</span></h3>
+<h4><span id="結合">結合</span></h4>
 <p>也可以由多個維度複合組成，如下：</p>
 <p><img src="https://i.imgur.com/CycVp26.jpg" alt></p>
 <p>可看出是先利用 Y 軸擴展方式依據功能切分出多個小服務，將一個應用程式分解成一組服務，再視需要借助 X 軸或 Z 軸方式進行擴展。</p>
-<h2><span id="特性">特性：</span></h2>
+<h3><span id="特性">特性：</span></h3>
 <p>在微服務架構中，服務間是<code>鬆耦合</code>特性等於是封裝了服務內的實現細節並透過 API 進行溝通，且每個服務具有自己的資料庫，在開發時，可以專注當前服務的開發，不必與其他服務協調，運行時，彼此相互獨立，不會因為其他服務的例外情況造成 Blocking、Exception…之類的影響。</p>
-<h2><span id="優勢">優勢</span></h2>
-<h3><span id="使大型複雜的應用程式可以-cicd">使大型複雜的應用程式可以 CI/CD</span></h3>
+<h3><span id="優勢">優勢</span></h3>
+<h4><span id="使大型複雜的應用程式可以-cicd">使大型複雜的應用程式可以 CI/CD</span></h4>
 <blockquote>
 <p><img src="https://i.imgur.com/IbCt5Sz.jpg" alt></p>
 <p>產品規模越大代表團隊越大，可能導致溝通成本過高使效率降低，但使用微服務架構時，代表著也可以將大團隊分解成小團隊，每個團隊有著明確的職責，並可以獨立完成開發、測試、部屬流水線，不需要頻繁的與其他團隊溝通協調，效率相對高於單一的大團隊，且能夠快速響應產品的需求。</p>
 </blockquote>
-<h3><span id="每個服務相對較小容易維護">每個服務相對較小，容易維護</span></h3>
+<h4><span id="每個服務相對較小容易維護">每個服務相對較小，容易維護</span></h4>
 <blockquote>
 <p>服務小而負責的功能單一意味著能讓 RD 更容易理解程式碼的作用，且規模小啟動快速也有助於提高效率(測試、部屬…)，相比單體架構，跑完全部的測試和 StartUp 可能就需要耗費一些時間。</p>
 </blockquote>
-<h3><span id="服務可以獨立擴展或部屬">服務可以獨立擴展或部屬</span></h3>
+<h4><span id="服務可以獨立擴展或部屬">服務可以獨立擴展或部屬</span></h4>
 <blockquote>
 <p>微服務架構可以視每個服務需求實現相應的擴展，例如：某個服務負載比較吃重，就可以使用 X 軸擴展(Load Balance)，或是視需求部屬於不同的硬體環境，彈性更高於單體架構。</p>
 </blockquote>
-<h3><span id="更容易採納新的技術">更容易採納新的技術</span></h3>
+<h4><span id="更容易採納新的技術">更容易採納新的技術</span></h4>
 <blockquote>
 <p>因為鬆耦合的特性，只要接口規格訂好，不必在乎內部細節如何實現，也就代表可以選擇更適合這個服務的語言與開發框架，彈性更高於單體架構。</p>
 </blockquote>
-<h3><span id="更好的容錯性">更好的容錯性</span></h3>
+<h4><span id="更好的容錯性">更好的容錯性</span></h4>
 <blockquote>
 <p>可以實現更好的故障隔離，假設有沒設想到的例外情境導致服務當掉或其他意外時，相比單體架構，也不至於對整體應用程式造成影響。</p>
 </blockquote>
@@ -283,7 +283,7 @@
 <blockquote>
 <p>很少有架構能夠被<code>徹底</code>的遵循實現，還是要依據現實情境考量，可能免不了會有耦合的情況，這時候必須協調各個開發團隊，制定一個部屬計畫，讓服務能夠按照著依賴關係進行排序。</p>
 </blockquote>
-<h1><span id="參考">參考</span></h1>
+<h3><span id="參考">參考</span></h3>
 <p>《<em>微服務架構設計模式</em>》- Chris Richardson</p>
 <p><a href="https://jed1978.github.io/2018/05/06/How-To-Start-Architecture-Design.html" target="_blank" rel="noopener">如何開始架構設計</a></p>
 
@@ -321,7 +321,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">何謂一組服務</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">Ｘ：在多個實例之間實現請求的負載平衡</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">Ｙ：根據功能將應用程式拆分</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">Ｚ：根據請求的屬性路由</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">結合</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">特性：</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">優勢</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">使大型複雜的應用程式可以 CI/CD</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">每個服務相對較小，容易維護</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.3.</span> <span class="toc-nav-text">服務可以獨立擴展或部屬</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.4.</span> <span class="toc-nav-text">更容易採納新的技術</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.5.</span> <span class="toc-nav-text">更好的容錯性</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">劣勢</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number"></span> <span class="toc-nav-text">參考</span></a>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">何謂一組服務</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">Ｘ：在多個實例之間實現請求的負載平衡</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">Ｙ：根據功能將應用程式拆分</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">Ｚ：根據請求的屬性路由</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">結合</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">特性：</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">優勢</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">使大型複雜的應用程式可以 CI/CD</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">每個服務相對較小，容易維護</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.3.</span> <span class="toc-nav-text">服務可以獨立擴展或部屬</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.4.</span> <span class="toc-nav-text">更容易採納新的技術</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.5.</span> <span class="toc-nav-text">更好的容錯性</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number"></span> <span class="toc-nav-text">劣勢</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">參考</span></a></li></ol>
         
         </div>
       </aside>
