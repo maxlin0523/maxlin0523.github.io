@@ -6,7 +6,7 @@
   <link href="https://maxlin0523.github.io/atom.xml" rel="self"/>
   
   <link href="https://maxlin0523.github.io/"/>
-  <updated>2022-07-24T17:54:21.100Z</updated>
+  <updated>2022-11-12T19:33:28.154Z</updated>
   <id>https://maxlin0523.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Microservices Patterns 微服務架構</title>
+    <link href="https://maxlin0523.github.io/2022/11/13/microservices-pattern/"/>
+    <id>https://maxlin0523.github.io/2022/11/13/microservices-pattern/</id>
+    <published>2022-11-12T19:27:34.000Z</published>
+    <updated>2022-11-12T19:33:28.154Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html"></summary>
+        
+      
+    
+    
+    
+    
+    <category term="系統設計" scheme="https://maxlin0523.github.io/tags/系統設計/"/>
+    
+  </entry>
   
   <entry>
     <title>C# 使用 Redis Script</title>
@@ -452,29 +475,6 @@
     <id>https://maxlin0523.github.io/2021/07/03/%E7%B5%84%E5%90%88%E6%A8%A1%E5%BC%8F%EF%BC%8DComposite%20Pattern/</id>
     <published>2021-07-02T16:05:23.000Z</published>
     <updated>2021-09-30T12:23:04.025Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html"></summary>
-        
-      
-    
-    
-    
-    
-    <category term="設計模式" scheme="https://maxlin0523.github.io/tags/設計模式/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Adapter Pattern</title>
-    <link href="https://maxlin0523.github.io/2021/06/27/%E8%BD%89%E6%8E%A5%E5%99%A8%E6%A8%A1%E5%BC%8F%EF%BC%8DAdapter%20Pattern/"/>
-    <id>https://maxlin0523.github.io/2021/06/27/%E8%BD%89%E6%8E%A5%E5%99%A8%E6%A8%A1%E5%BC%8F%EF%BC%8DAdapter%20Pattern/</id>
-    <published>2021-06-26T16:05:23.000Z</published>
-    <updated>2021-09-30T12:23:11.333Z</updated>
     
     
       
