@@ -6,6 +6,7 @@ subtitle:
 header-img:
 tags: 
 - MongoDB
+- C#
 ---
 ### 前言
 雖說之前有看過 [Mongo University](https://university.mongodb.com/courses/catalog)，也了解過一些 MongoDB 相關知識，但許久沒用都忘的差不多了，所以重新學習並記錄一下使用方式。

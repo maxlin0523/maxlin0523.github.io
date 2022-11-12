@@ -5,8 +5,7 @@ date: 2021-05-22 00:05:23
 subtitle:
 header-img:
 tags: 
-- C# 觀念
-- DI/IoC
+- General
 ---
 # 名詞
 DI：Dependency Injection（依賴注入）

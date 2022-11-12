@@ -4,7 +4,9 @@ catalog: true
 date: 2021-09-11 22:02:36
 subtitle:
 header-img:
-tags: UnitTest
+tags: 
+- UnitTest
+- General
 ---
 # 單元測試
 單元測試（Unit Test）就是將模組（dll）裡的最小單位分成若干個測試案例來進行測試，最小單位為一個方法，透過將方法的每個行為都拆分成一個個測試情境，並依情境進行單元測試撰寫確保所有行為的運行結果都符合開發者預期。

@@ -5,8 +5,7 @@ date: 2021-06-12 00:05:23
 subtitle:
 header-img:
 tags: 
-- C# 觀念
-- 物件導向設計
+- General
 ---
 # 類別(Class)與物件(Object)
 ### 類別

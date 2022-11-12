@@ -4,7 +4,7 @@ catalog: true
 date: 2021-08-03 21:03:01
 subtitle:
 header-img:
-tags: C# 本事
+tags: C#
 ---
 # 前言
 在 C# 世界裡，資料型態分為 **實值型別（Value Type）** 與 **參考型別（Reference Type）**，例如像 `int`、`char`、`byte` ...等屬於實值型別，`class`、`object`、`string` 、`List` ...等屬於參考型別，辨別方法為參考類型需使用 `new` 關鍵字實體化，但請記得 `string` 也屬於參考型別（詳細請[參閱](https://medium.com/ninas-note/c-%E5%AF%A6%E8%B3%AA%E5%9E%8B%E5%88%A5-value-type-vs%E5%8F%83%E8%80%83%E5%9E%8B%E5%88%A5-reference-type-64ba5cf8bf8b)），而兩者主要的差異在於存儲方式。
