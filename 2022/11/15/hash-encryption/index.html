@@ -14,7 +14,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Hash &amp; Encryption - Max&#39;s Blog | 邁向全端之路
+          加密 &amp; 雜湊 - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
@@ -89,7 +89,7 @@
                               <a class="tag" href="/tags/#其他" title="其他">其他</a>
                             
                         </div>
-                        <h1>Hash &amp; Encryption</h1>
+                        <h1>加密 &amp; 雜湊</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
@@ -139,14 +139,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -209,7 +209,7 @@
                 ">
                 <!-- class: post-container拔除 -->
                 <h2><span id="雜湊hash">雜湊(Hash)</span></h2>
-<p>雜湊又稱哈希，作用為將一段明文(<code>plain text</code>)透過雜湊函數(<code>hash function</code>)經過該雜湊函數演算法輸出成一個雜湊值，並且過程是 <code>單向</code> 也就是 <code>不可逆</code> 的，常用於密碼存儲的部分。</p>
+<p>雜湊又稱哈希，雜湊值為一段明文(<code>plain text</code>)透過雜湊函數(<code>hash function</code>)所演算出來的一個值，並且過程是 <code>單向</code> 也就是 <code>不可逆</code> 的，常用於密碼存儲的部分。</p>
 <p>例如：<br>
 用戶密碼就以雜湊值的形式儲存於資料庫，當用戶登入時，將輸入明文密碼以同樣的雜湊函數演算完去跟資料庫的密碼雜湊值比對，登入成功代表密碼所算出的雜湊值與資料庫儲存的雜湊值相同</p>
 <p>如此一來，當資料庫受到攻擊時，密碼也就以雜湊值的形式外流，而雜湊又是 <code>不可逆</code> 的，就使得真正的資料無法被竊取，當然，也可在中途將明文密碼多添加一些額外規則來增加安全性。</p>
