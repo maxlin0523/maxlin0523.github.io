@@ -6,7 +6,7 @@
   <link href="https://maxlin0523.github.io/atom.xml" rel="self"/>
   
   <link href="https://maxlin0523.github.io/"/>
-  <updated>2022-11-12T19:38:54.861Z</updated>
+  <updated>2022-11-15T15:16:31.932Z</updated>
   <id>https://maxlin0523.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hash &amp; Encryption</title>
+    <link href="https://maxlin0523.github.io/2022/11/15/hash-encryption/"/>
+    <id>https://maxlin0523.github.io/2022/11/15/hash-encryption/</id>
+    <published>2022-11-15T15:12:44.000Z</published>
+    <updated>2022-11-15T15:16:31.932Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html"></summary>
+        
+      
+    
+    
+    
+    
+    <category term="其他" scheme="https://maxlin0523.github.io/tags/其他/"/>
+    
+  </entry>
   
   <entry>
     <title>Microservices Pattern 微服務架構</title>
@@ -58,11 +81,11 @@
     
     
     
-    <category term="C#" scheme="https://maxlin0523.github.io/tags/C/"/>
-    
     <category term="Redis" scheme="https://maxlin0523.github.io/tags/Redis/"/>
     
     <category term="Lua" scheme="https://maxlin0523.github.io/tags/Lua/"/>
+    
+    <category term="C#" scheme="https://maxlin0523.github.io/tags/C/"/>
     
   </entry>
   
@@ -85,9 +108,9 @@
     
     
     
-    <category term="C#" scheme="https://maxlin0523.github.io/tags/C/"/>
-    
     <category term="Redis" scheme="https://maxlin0523.github.io/tags/Redis/"/>
+    
+    <category term="C#" scheme="https://maxlin0523.github.io/tags/C/"/>
     
   </entry>
   
@@ -133,9 +156,9 @@
     
     
     
-    <category term="MongoDB" scheme="https://maxlin0523.github.io/tags/MongoDB/"/>
-    
     <category term="C#" scheme="https://maxlin0523.github.io/tags/C/"/>
+    
+    <category term="MongoDB" scheme="https://maxlin0523.github.io/tags/MongoDB/"/>
     
   </entry>
   
@@ -466,29 +489,6 @@
     
     
     <category term="日常除錯" scheme="https://maxlin0523.github.io/tags/日常除錯/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Composite Pattern</title>
-    <link href="https://maxlin0523.github.io/2021/07/03/%E7%B5%84%E5%90%88%E6%A8%A1%E5%BC%8F%EF%BC%8DComposite%20Pattern/"/>
-    <id>https://maxlin0523.github.io/2021/07/03/%E7%B5%84%E5%90%88%E6%A8%A1%E5%BC%8F%EF%BC%8DComposite%20Pattern/</id>
-    <published>2021-07-02T16:05:23.000Z</published>
-    <updated>2021-09-30T12:23:04.025Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html"></summary>
-        
-      
-    
-    
-    
-    
-    <category term="設計模式" scheme="https://maxlin0523.github.io/tags/設計模式/"/>
     
   </entry>
   

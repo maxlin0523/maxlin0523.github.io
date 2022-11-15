@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          C# 使用 Redis Script - Max&#39;s Blog | 邁向全端之路
+          Hash &amp; Encryption - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
-    <link rel="canonical" href="https://maxlin0523.github.io/2022/07/25/csharp-redis-script/">
+    <link rel="canonical" href="https://maxlin0523.github.io/2022/11/15/hash-encryption/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -86,18 +86,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Redis" title="Redis">Redis</a>
-                            
-                              <a class="tag" href="/tags/#Lua" title="Lua">Lua</a>
-                            
-                              <a class="tag" href="/tags/#C#" title="C#">C#</a>
+                              <a class="tag" href="/tags/#其他" title="其他">其他</a>
                             
                         </div>
-                        <h1>C# 使用 Redis Script</h1>
+                        <h1>Hash &amp; Encryption</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
-                            2022-07-25 <!--（
+                            2022-11-15 <!--（
                             <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views） -->
                         </span>
                     </div>
@@ -212,69 +208,50 @@
                 col-md-10 col-md-offset-1
                 ">
                 <!-- class: post-container拔除 -->
-                <p>先前大致有紀錄 <a href="/2021/10/16/luascript/">基礎 LuaScript 語法</a>、<a href="/2021/10/09/redis-in-docker/">Docker 佈署 Redis</a> 以及 <a href="/2021/12/11/redis-lua-script/">Redis 腳本</a>，接下來紀錄一下 C# 與 Redis 腳本串接方式。</p>
-<p>連線：</p>
-<pre><code class="language-c#=">var connString = &quot;localhost:6379&quot;;
-
-// 建立連線
-ConnectionMultiplexer conn = ConnectionMultiplexer.Connect(connString);
-
-// 取得 redis server 實體
-IServer redisServer = conn.GetServer(connString);
-</code></pre>
-<p>建立資料：</p>
-<pre><code class="language-c#=">var createScript = @&quot;
-local key = KEYS[1]
-local id = ARGV[1]
-local name = ARGV[2]
-local phone = ARGV[3]
-return redis.call('HSET', key, 'Id', id, 'Name', name, 'Phone', phone)&quot;; // do redis command
-
-// 載入至 server
-var loadedScript = await LuaScript.Prepare(createScript).LoadAsync(redisServer);
-
-// 宣告入參
-var keys = new RedisKey[] { &quot;Profile:Max&quot; };
-var values = new RedisValue[] { &quot;A128996644&quot;, &quot;Max Lin&quot;, &quot;3345678&quot; };
-
-// 執行腳本
-await conn.GetDatabase().ScriptEvaluateAsync(loadedScript.Hash, keys, values);
-</code></pre>
-<p>查看：</p>
-<p><img src="https://i.imgur.com/LzT298z.png" alt></p>
-<p>取得資料：</p>
-<pre><code class="language-C#=">var getScript = @&quot;
-local key = KEYS[1]
-return redis.call('HVALS', key)&quot;;
-
-// 載入至 server
-var loadedScript = await LuaScript.Prepare(getScript).LoadAsync(redisServer);
-
-// 執行腳本
-var result = (string[])await conn.GetDatabase().ScriptEvaluateAsync(loadedScript.Hash, new RedisKey[] { &quot;Profile:Max&quot; });
-
-var profile = result.Length == 0 ? null : new Profile
-{
-    Id = result[0],
-    Name = result[1],
-    Phone = int.Parse(result[2])
-};
-
-Console.WriteLine(&quot;Profile： &quot;);
-Console.WriteLine(profile.Id);
-Console.WriteLine(profile.Name);
-Console.WriteLine(profile.Phone);
-Console.ReadKey();
-
-</code></pre>
-<p><img src="https://i.imgur.com/3VlkWhP.png" alt></p>
-<h2><span id="補充">補充</span></h2>
-<p>在使用 lua script 執行 redis command 時，分別有兩種方式：</p>
+                <h2><span id="雜湊hash">雜湊(Hash)</span></h2>
+<p>雜湊又稱哈希，作用為將一段明文(<code>plain text</code>)透過雜湊函數(<code>hash function</code>)經過該雜湊函數演算法輸出成一個雜湊值，並且過程是 <code>單向</code> 也就是 <code>不可逆</code> 的，常用於密碼存儲的部分。</p>
+<p>例如：<br>
+用戶密碼就以雜湊值的形式儲存於資料庫，當用戶登入時，將輸入明文密碼以同樣的雜湊函數演算完去跟資料庫的密碼雜湊值比對，登入成功代表密碼所算出的雜湊值與資料庫儲存的雜湊值相同</p>
+<p>如此一來，當資料庫受到攻擊時，密碼也就以雜湊值的形式外流，而雜湊又是 <code>不可逆</code> 的，就使得真正的資料無法被竊取，當然，也可在中途將明文密碼多添加一些額外規則來增加安全性。</p>
+<p>範例：</p>
+<p><code>哈哈</code> 經 <code>sha-1</code> 雜湊函數所演算的雜湊值</p>
+<p><img src="https://i.imgur.com/3fAMKAC.jpg" alt></p>
+<p><a href="http://www.sha1-online.com/" target="_blank" rel="noopener"><strong>連結</strong></a></p>
+<h3><span id="雜湊的特性">雜湊的特性</span></h3>
 <ul>
-<li>redis.call</li>
-<li>redis.pcall</li>
+<li>一個明文通常只有一個雜湊值</li>
+<li>雜湊值通常無法逆推明文</li>
+<li>雜湊函數必須演算很快</li>
+<li>兩段明文就算很相似，其雜湊值通常都大不相同</li>
 </ul>
-<p>兩者差別主要在於錯誤處理方式，在調用 <code>redis.call</code> 時出現錯誤，則會將錯誤向上拋出，而 <code>redis.pcall</code> 則會將錯誤 catch 並回傳一個錯誤訊息。</p>
+<h3><span id="常見的雜湊函數">常見的雜湊函數</span></h3>
+<ul>
+<li>MD5</li>
+<li>SHA-1</li>
+<li>Tiger</li>
+</ul>
+<h3><span id="雜湊碰撞hash-collision">雜湊碰撞(Hash Collision)</span></h3>
+<p>代表該雜湊函數出現兩段明文演算出 <code>相同雜湊值</code>　的情況，當出現這種情況，如：<code>A</code> 跟 <code>B</code> 擁有相同雜湊值，可能的風險為：你使用了 <code>A</code> 去查詢，結果回傳了 <code>B</code> 的資料。</p>
+<h2><span id="加密encryption">加密(Encryption)</span></h2>
+<p>加密主要的用途為 <code>保護敏感數據</code>，如密碼、帳號、信用卡、帳單…等數據，當把這些明文透過加密演算法算出密文，而密文通常都可以解密回原資料，主要是為了防範資料在傳輸過程受到攻擊攔截，當攻擊者攔截到資料，卻已是加密後的密文而無法達到目的，常見加密方式有以下兩種：</p>
+<h3><span id="對稱加密symmetric-encryption">對稱加密(Symmetric Encryption)</span></h3>
+<p>透過一組對稱加密演算法搭配一組密鑰來完成加解密功能，簡單來說，假設我用 <code>AES</code> 對稱加密演算法搭配一組叫 <code>Max</code> 的密鑰來加密，那如果要解密的話就需用 <code>AES</code> 對稱加密演算法搭配同樣叫 <code>Max</code> 的密鑰來解密。</p>
+<p><img src="https://i.imgur.com/MmTK1GV.png" alt></p>
+<h3><span id="非對稱加密asymmetric-encryption">非對稱加密(Asymmetric Encryption)</span></h3>
+<p>透過公鑰與私鑰來進行非對稱加密前，先記住幾點：</p>
+<ul>
+<li>公鑰是廣泛公開且大家都知道</li>
+<li>私鑰只有當事人知道</li>
+<li>公私鑰是一對的，當經過公鑰加密後需拿配對的私鑰才能解密</li>
+<li>每個人都有屬於自己的公鑰與私鑰</li>
+</ul>
+<p>假設我要發信件給 Max，我會利用 Max 公開出來的 <code>公鑰</code> 加密傳給他，後續他才可用自己的 <code>私鑰</code> 解密查看信件，但問題是若有攻擊者拿 Max 的 <code>公鑰</code> 發病毒該怎麼辦？要怎麼確認是我這個<code>已信任</code>的人發信的？這時候會使用到 <strong>數位簽章(Digital Signature)</strong> ，就需要再做一次相似的步驟，在發信時再多傳一份由我的 <code>私鑰</code> 與 <code>信件資料</code> 所產生出的加密簽章過去，之後，Max 再拿我公開出來的 <code>公鑰</code> 進行驗證簽章即可確認完成。</p>
+<p><img src="https://i.imgur.com/XgLE1hv.png" alt></p>
+<h3><span id="參考">參考</span></h3>
+<p><a href="https://www.clickssl.net/blog/difference-between-hashing-vs-encryption" target="_blank" rel="noopener">Hashing vs Encryption – What Are the Difference?</a></p>
+<p><a href="https://medium.com/starbugs/what-are-encoding-encrypt-and-hashing-4b03d40e7b0c" target="_blank" rel="noopener">一次搞懂密碼學中的三兄弟 — Encode、Encrypt 跟 Hash</a></p>
+<p><a href="http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html" target="_blank" rel="noopener">Hash Table：Intro(簡介)</a></p>
+<p><a href="https://medium.com/@RiverChan/%E5%9F%BA%E7%A4%8E%E5%AF%86%E7%A2%BC%E5%AD%B8-%E5%B0%8D%E7%A8%B1%E5%BC%8F%E8%88%87%E9%9D%9E%E5%B0%8D%E7%A8%B1%E5%BC%8F%E5%8A%A0%E5%AF%86%E6%8A%80%E8%A1%93-de25fd5fa537" target="_blank" rel="noopener">基礎密碼學(對稱式與非對稱式加密技術)</a></p>
 
                 
 
@@ -283,13 +260,9 @@ Console.ReadKey();
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2022/06/15/redis-usage/" data-toggle="tooltip" data-placement="top" title="C# 串接 Redis">&larr; 上篇 </a>
+                            <a href="/2022/11/13/microservices-pattern/" data-toggle="tooltip" data-placement="top" title="Microservices Pattern 微服務架構">&larr; 上篇 </a>
                         </li>
                     
-                    
-                        <li class="next">
-                            <a href="/2022/11/13/microservices-pattern/" data-toggle="tooltip" data-placement="top" title="Microservices Pattern 微服務架構"> 下篇 &rarr;</a>
-                        </li>
                     
                 </ul>
 
@@ -314,7 +287,7 @@ Console.ReadKey();
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">補充</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">雜湊(Hash)</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">雜湊的特性</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">常見的雜湊函數</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">雜湊碰撞(Hash Collision)</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">加密(Encryption)</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">對稱加密(Symmetric Encryption)</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">非對稱加密(Asymmetric Encryption)</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">參考</span></a></li></ol></li></ol>
         
         </div>
       </aside>
@@ -335,11 +308,7 @@ Console.ReadKey();
                     <h5><a href="/tags/">標籤雲</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Redis" title="Redis">Redis</a>
-                        
-                          <a class="tag" href="/tags/#Lua" title="Lua">Lua</a>
-                        
-                          <a class="tag" href="/tags/#C#" title="C#">C#</a>
+                          <a class="tag" href="/tags/#其他" title="其他">其他</a>
                         
                     </div>
                 </section>
