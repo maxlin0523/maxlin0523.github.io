@@ -144,14 +144,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -208,10 +208,10 @@
                 <!-- class: post-container拔除 -->
                 <p>主要是用 <code>非對稱</code> 的方式來驗證是否為合法的使用者，首先會需要產生出一對金鑰，分別為：</p>
 <ul>
-<li>公鑰(<code>Public Key</code>)：之後會存放在 Github Server</li>
-<li>私鑰(<code>Private Key</code>)：會存放於自己的本機</li>
+<li>公鑰(<code>Public Key</code>)：存放於 Github Server</li>
+<li>私鑰(<code>Private Key</code>)：存放於使用者的本機</li>
 </ul>
-<p>當本機對遠端進行操作時，就會將私鑰與公鑰比對來驗證是否為合法操作。</p>
+<p>當本機對遠端進行操作時，就會將私鑰與公鑰進行比對來驗證是否合法。</p>
 <h3><span id="產生-ssh-key">產生 SSH-Key</span></h3>
 <p>打開 Terminal 輸入：</p>
 <p><code>$ ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;</code></p>
