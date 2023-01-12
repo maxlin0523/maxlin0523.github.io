@@ -130,14 +130,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -204,6 +204,38 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2021/12/11/redis-lua-script/">
+        <h2 class="post-title">
+            Redis 腳本
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Redis 腳本是由 Lua Script 搭配 redis 的 call 指令來完成與 server 端的溝通邏輯，主要好處：
+
+可由腳本達到一次處理多條指令的效果，減少指令來回往返時間(Ro......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Max Lin on
+            2021-12-11
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Redis" title="Redis">Redis</a>
+            
+              <a href="/tags/#Lua" title="Lua">Lua</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -497,35 +529,6 @@ var result = $&quot;我的電話: {num}&quot;;
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2021/07/07/Dapper 批次執行出現 Sql Exception/">
-        <h2 class="post-title">
-            The sql exception occurred in Dapper's batch execution
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            問題描述
-來源是份爬蟲的 Json 物件，而此資料會 post 到 API 服務最終存入 DB，資料型態為 List 且物件屬性有 30 幾個，今天在測試時， post 有 800 多筆，但 A......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Max Lin on
-            2021-07-07
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#日常除錯" title="日常除錯">日常除錯</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -607,6 +610,10 @@ var result = $&quot;我的電話: {num}&quot;;
     <ul>
       
         <li>
+          <a href="/2023/01/12/git-ssh-key/">Github 使用 SSH-Key</a>
+        </li>
+      
+        <li>
           <a href="/2022/11/15/hash-encryption/">加密 &amp; 雜湊</a>
         </li>
       
@@ -620,10 +627,6 @@ var result = $&quot;我的電話: {num}&quot;;
       
         <li>
           <a href="/2022/06/15/redis-usage/">C# 串接 Redis</a>
-        </li>
-      
-        <li>
-          <a href="/2022/06/08/mongodb-aggregation-pipeline/">MongoDB Aggregation Pipeline</a>
         </li>
       
     </ul>
@@ -694,10 +697,6 @@ var result = $&quot;我的電話: {num}&quot;;
             
         
             
-            <a href="/tags/#MongoDB" title="MongoDB" rel="2">MongoDB</a>
-            
-        
-            
             <a href="/tags/#C#" title="C#" rel="7">C#</a>
             
         
@@ -707,6 +706,10 @@ var result = $&quot;我的電話: {num}&quot;;
         
             
             <a href="/tags/#Lua" title="Lua" rel="3">Lua</a>
+            
+        
+            
+            <a href="/tags/#MongoDB" title="MongoDB" rel="2">MongoDB</a>
             
         
             
@@ -785,7 +788,7 @@ var result = $&quot;我的電話: {num}&quot;;
                     <span id="busuanzi_container_site_pv">
                         <i class="fas fa-eye"></i> : <span id="busuanzi_value_site_uv"></span>
                     </span>                 
-                    <br>Copyright &copy; Max Lin 2022<br>Powered by Hexo - Theme by BeanTech<br>
+                    <br>Copyright &copy; Max Lin 2023<br>Powered by Hexo - Theme by BeanTech<br>
                     <span id="sitetime"></span>
                 </p>
             </div>
