@@ -144,14 +144,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -206,12 +206,13 @@
                 col-md-10 col-md-offset-1
                 ">
                 <!-- class: post-container拔除 -->
-                <p>主要是用 <code>非對稱</code> 的方式來驗證是否為合法的使用者，首先會需要產生出一對金鑰，分別為：</p>
+                <p>是一種 Github 的認證機制，用途是允許使用者在不提供密碼的情況下使用 SSH 進行遠端存取。</p>
+<p>主要使用 <code>非對稱</code> 的方式來驗證是否為合法的使用者，所以會需要產生出一對金鑰，分別為：</p>
 <ul>
 <li>公鑰(<code>Public Key</code>)：存放於 Github Server</li>
 <li>私鑰(<code>Private Key</code>)：存放於使用者的本機</li>
 </ul>
-<p>當本機對遠端進行操作時，就會將私鑰與公鑰進行比對來驗證是否合法。</p>
+<p>當本機對遠端進行操作時，就會將私鑰與公鑰進行<code>匹配</code>來驗證是否合法。</p>
 <h3><span id="產生-ssh-key">產生 SSH-Key</span></h3>
 <p>打開 Terminal 輸入：</p>
 <p><code>$ ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;</code></p>
@@ -222,20 +223,21 @@
 <h2><span id="取得-public-key">取得 Public Key</span></h2>
 <p>打開 Terminal 輸入：</p>
 <p><code>$ cd ~/.ssh</code></p>
-<p>接著輸入 <code>ls</code> 就可以查看到 public key</p>
+<p>可以查看到 public key</p>
 <p><img src="https://i.imgur.com/fxClwd4.png" alt></p>
-<p>輸入 <code>cat</code> 查看公鑰(末尾要是一開始輸入的 <code>Email</code>)</p>
+<p>查看公鑰(末尾應該會是輸入的 <code>Email</code>)</p>
 <p><img src="https://i.imgur.com/L8ezJ97.png" alt></p>
 <h2><span id="將-public-key-放到-github-server">將 Public Key 放到 Github Server</span></h2>
 <p>進到 Github 點出以下頁面：</p>
 <p><img src="https://i.imgur.com/1ZbvNv3.png" alt></p>
 <p>進入該頁面點擊 <code>New SSH Key</code></p>
 <p>填好 <code>Title</code> 後，並將公鑰貼在 <code>Key</code> 欄位</p>
-<p><img src="https://i.imgur.com/tNkPeNA.png" alt></p>
-<p>之後點擊 <code>Add SSH Key</code> 輸入完帳密即可啟用。</p>
+<p><img src="https://i.imgur.com/aXRT9x7.png" alt></p>
+<p>之後點擊 <code>Add SSH Key</code> 輸入完密碼即可啟用。</p>
 <h3><span id="參考">參考</span></h3>
 <p><a href="https://noob.tw/ssh-key/" target="_blank" rel="noopener">SSH 金鑰：免密碼登入遠端主機、傳遞檔案</a></p>
 <p><a href="https://git-scm.com/book/zh-tw/v2/%E4%BC%BA%E6%9C%8D%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E7%94%A2%E7%94%9F%E4%BD%A0%E7%9A%84-SSH-%E5%85%AC%E9%91%B0" target="_blank" rel="noopener">4.3 伺服器上的 Git - 產生你的 SSH 公鑰</a></p>
+<p><a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent" target="_blank" rel="noopener">Generating a new SSH key and adding it to the ssh-agent</a></p>
 
                 
 
