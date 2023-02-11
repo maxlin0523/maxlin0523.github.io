@@ -6,11 +6,13 @@ subtitle:
 header-img:
 tags:
 ---
-主要是用 `非對稱` 的方式來驗證是否為合法的使用者，首先會需要產生出一對金鑰，分別為：
+是一種 Github 的認證機制，用途是允許使用者在不提供密碼的情況下使用 SSH 進行遠端存取。
+
+主要使用 `非對稱` 的方式來驗證是否為合法的使用者，所以會需要產生出一對金鑰，分別為：
 * 公鑰(`Public Key`)：存放於 Github Server
 * 私鑰(`Private Key`)：存放於使用者的本機
 
-當本機對遠端進行操作時，就會將私鑰與公鑰進行比對來驗證是否合法。
+當本機對遠端進行操作時，就會將私鑰與公鑰進行`匹配`來驗證是否合法。
 
 ### 產生 SSH-Key
 
@@ -31,11 +33,11 @@ tags:
 
 `$ cd ~/.ssh`
 
-接著輸入 `ls` 就可以查看到 public key
+可以查看到 public key
 
 ![](https://i.imgur.com/fxClwd4.png)
 
-輸入 `cat` 查看公鑰(末尾要是一開始輸入的 `Email`)
+查看公鑰(末尾應該會是輸入的 `Email`)
 
 ![](https://i.imgur.com/L8ezJ97.png)
 
@@ -49,9 +51,10 @@ tags:
 
 填好 `Title` 後，並將公鑰貼在 `Key` 欄位
 
-![](https://i.imgur.com/tNkPeNA.png)
+![](https://i.imgur.com/aXRT9x7.png)
 
-之後點擊 `Add SSH Key` 輸入完帳密即可啟用。
+
+之後點擊 `Add SSH Key` 輸入完密碼即可啟用。
 
 
 ### 參考
@@ -59,4 +62,6 @@ tags:
 [SSH 金鑰：免密碼登入遠端主機、傳遞檔案](https://noob.tw/ssh-key/)
 
 [4.3 伺服器上的 Git - 產生你的 SSH 公鑰](https://git-scm.com/book/zh-tw/v2/%E4%BC%BA%E6%9C%8D%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E7%94%A2%E7%94%9F%E4%BD%A0%E7%9A%84-SSH-%E5%85%AC%E9%91%B0)
+
+[Generating a new SSH key and adding it to the ssh-agent](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 

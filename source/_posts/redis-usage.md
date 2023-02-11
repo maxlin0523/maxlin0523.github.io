@@ -10,7 +10,7 @@ tags:
 ---
 ## 前言
 
-先前 [Docker 佈署 Redis](./2021/10/09/redis-in-docker/) 記錄如何佈署 Redis，這篇來記錄如何在 C# 串接 Redis 資料庫和一些基本的資料結構使用
+先前 [Docker 佈署 Redis](https://maxlin0523.github.io/2021/10/09/redis-in-docker/) 記錄如何佈署 Redis，這篇來記錄如何在 C# 串接 Redis 資料庫和一些基本的資料結構使用
 
 ## 介紹
 Redis 是一個 open source 且 in-memory 的 NoSQL 資料庫( key-value 類型 )
