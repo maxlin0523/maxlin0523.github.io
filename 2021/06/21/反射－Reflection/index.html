@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="邁向全端的後端工程師">
+    <meta name="keyword" content="前端,後端,全端,程式開發,後端開發,後端工程師,C#,ASP.NET,.NET Core,.NET Framework">
+    <link rel="shortcut icon" href="/img/icon.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          C# Reflection - Max&#39;s Blog | 邁向全端之路
+        
+    </title>
+
+    <link rel="canonical" href="https://maxlin0523.github.io/2021/06/21/反射－Reflection/">
+
+    <!-- 不蒜子 觀看人次計數 -->
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <!-- google pretty print -->
+    <link rel="stylesheet" href="/css/prettify.css">
+
+    <!-- 程式碼樣式 -->
+    <!-- <link rel="stylesheet" href="/css/atelier-forest-light.css"> -->
+    <link rel="stylesheet" href="/css/atelier-dune-light.min.css">
+    
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Jquery -->
+    <script src="/js/jquery.min.js"></script>
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/96542121e6.js" crossorigin="anonymous"></script>
+
+  <link rel="alternate" href="/atom.xml" title="Max's Blog" type="application/atom+xml">
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/Architecture.jpeg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/null');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#C# 本事" title="C# 本事">C# 本事</a>
+                            
+                        </div>
+                        <h1>C# Reflection</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Max Lin on
+                            2021-06-21 <!--（
+                            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views） -->
+                        </span>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Max&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div id = "pages" class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                ">
+                <!-- class: post-container拔除 -->
+                <h1><span id="介紹">介紹</span></h1>
+<p>反射 (Reflection) 會提供 <code>Type</code> 型別的物件，用來封裝組件、模組和型別。您可以使用反射來動態建立型別的執行個體、將型別繫結至現有物件，或從現有物件取得型別，並叫用其方法或存取其欄位和屬性（<a href="https://docs.microsoft.com/zh-tw/previous-versions/ms173183(v=vs.80)?redirectedfrom=MSDN" target="_blank" rel="noopener">出自MSDN</a>）</p>
+<p>簡單來說</p>
+<p>只要把類別物件轉換成 <code>Type</code> 型別，藉由 <code>Type</code> 型別，可以反射出類別物件本身或其內部成員的各種資訊。例如：方法、屬性、欄位、建構式、資料型態、存取修飾詞（如 <code>public</code>/<code>private</code> ）．．．等，如果是透過實體物件轉換的情況，實體物件成員的賦值也是可以取得的。<br>
+總之，在這個物件能呼叫到的成員大都可以透過反射取得，甚至無法直接呼叫的私有成員也可以。</p>
+<p>可以看到 <code>Type</code> 提供的屬性數量（多到爆XD），若要反射出那麼多的資訊，勢必會犧牲掉效能，就好比你需要查某個生字的單詞造句，所以需要利用一本字典查詢，但那本字典同時也建了所有生字的單詞造句供你使用。</p>
+<p>效能問題可<a href="https://www.gushiciku.cn/pl/2s9p/zh-tw" target="_blank" rel="noopener">參考</a></p>
+<h1><span id="基本範例">基本範例</span></h1>
+<h6><span id="定義一個要測試的類別有公開屬性-公開方法-私有方法">定義一個要測試的類別，有公開屬性、公開方法、私有方法</span></h6>
+<p><img src="https://i.imgur.com/ks8XFUa.png" alt></p>
+<h6><span id="反射類別內所有公開屬性">反射類別內所有公開屬性</span></h6>
+<p><img src="https://i.imgur.com/ayhF09Z.png" alt></p>
+<h6><span id="反射類別內所有公開方法">反射類別內所有公開方法</span></h6>
+<p><img src="https://i.imgur.com/TDlvjzh.png" alt></p>
+<h6><span id="驗證定義的公開成員和反射是否一樣">驗證定義的公開成員和反射是否一樣</span></h6>
+<p><img src="https://i.imgur.com/qFw2AMJ.png" alt></p>
+<p>確實都一樣，有一些是屬於內建的公開成員！</p>
+<p>如果想反射非公開方法呢？<br>
+那會需要加入 <code>Bindflags</code> 列舉型別參數告訴 <code>GetMethods</code> 要搜尋哪些存取範圍<br>
+這邊設定為實體 <code>Instance</code>＋非公開 <code>NonPublic</code><br>
+<img src="https://i.imgur.com/U18dg0c.png" alt></p>
+<p>如此一來就能輕鬆反射出非公開方法！<br>
+當然，想要哪些存取範圍都可以自定義 Bindflags 參數去搜尋，詳細請<a href="https://blog.csdn.net/qq_32452623/article/details/53401890" target="_blank" rel="noopener">參考</a></p>
+<h1><span id="應用範例使用sql-server">應用範例(使用SQL Server)</span></h1>
+<p>當我們使用 Dapper 做 CRUD 時，常常需要組裝 SQL 語法參數，而當要做的資料表或資料表欄位很多時，就會覺得很麻煩要一個個打上去，這時候就是使用反射的時機<br>
+直接開始實作！</p>
+<h6><span id="定義要測試的資料表">定義要測試的資料表</span></h6>
+<h6><span id="名稱nba">名稱：NBA</span></h6>
+<h6><span id="欄位playername-playernumber-leagueteam-position">欄位：PlayerName、PlayerNumber、LeagueTeam、Position</span></h6>
+<p><img src="https://i.imgur.com/VXNzu1V.png" alt></p>
+<h6><span id="我們可以定義一個類別與資料表名稱欄位一致">我們可以定義一個類別與資料表名稱欄位一致</span></h6>
+<p><img src="https://i.imgur.com/fPyuiFy.png" alt></p>
+<p>若不想名稱一致可在後續範例方法自行新增參數去調整，或不想欄位一致也可自建 Dictionary 匹配。<br>
+有了類別接下來就可以利用反射慢慢把語法拼湊出來。</p>
+<h6><span id="建立-sqlcommandcs">建立（ SqlCommand.cs ）</span></h6>
+<pre><code class="language-C#">/// &lt;summary&gt;
+/// 根據反射類別，映射出SQL語法。
+/// ※資料表名稱預設為類別名
+/// &lt;/summary&gt;
+public class SqlCommand
+{
+
+}
+</code></pre>
+<p>再依序加入</p>
+<h6><span id="insert">Insert</span></h6>
+<pre><code class="language-C#=">/// &lt;summary&gt;
+/// Insert語法組裝
+/// &lt;/summary&gt;
+public static string Insert&lt;T&gt;() where T : class
+{
+    var type = typeof(T)
+    var props = type.GetProperties()
+    // 取得欄位加入內存
+    var columns = props.Select(prop =&gt;
+        prop.Name)
+    var values = props.Select(prop =&gt;
+        $&quot;@{prop.Name}&quot;)
+    // 欄位
+    var columnString = string.Join(&quot;,\r\n&quot;, columns)
+    // 欄位參數
+    var valueString = string.Join(&quot;,\r\n&quot;, values)
+    var table = type.Name
+    // 組裝
+    var sql = new StringBuilder();
+    sql.AppendLine($&quot;INSERT INTO dbo.{table}&quot;);
+    sql.AppendLine($&quot;(&quot;);
+    sql.AppendLine(columnString);
+    sql.AppendLine($&quot;)&quot;);
+    sql.AppendLine($&quot;VALUES&quot;);
+    sql.AppendLine($&quot;(&quot;);
+    sql.AppendLine(valueString);
+    sql.AppendLine($&quot;)&quot;);
+    return sql.ToString();
+}
+</code></pre>
+<h6><span id="select">Select</span></h6>
+<pre><code class="language-C#=">/// &lt;summary&gt;
+/// Select語法組裝
+/// &lt;/summary&gt;
+public static string Select&lt;T&gt;(object param = null) 
+    where T : class
+{
+    var type = typeof(T)
+    // 取得欄位並加入內存
+    var columns = type.GetProperties()
+        .Select(prop =&gt; prop.Name)
+    // 條件式內存
+    var conditions = new List&lt;string&gt;()
+    // 檢查有無條件式參數
+    if (param != null)
+    {
+        // 取得條件式並組裝加入條件式內存
+        conditions = param.GetType()
+            .GetProperties()
+            .Select(prop =&gt; $&quot;{prop.Name} = @{prop.Name}&quot;)
+            .ToList()
+        // 條件式前加上WHERE
+        conditions[0] = $&quot;WHERE {conditions[0]}&quot;;
+    
+    var columnString = string.Join(&quot;,\r\n&quot;, columns)
+    var conditionString = string.Join(&quot;\r\nAND &quot;, conditions)
+    var table = type.Name
+    // 組裝
+    var sql = new StringBuilder();
+    sql.AppendLine(&quot;SELECT&quot;);
+    sql.AppendLine(columnString);
+    sql.AppendLine($&quot;FROM dbo.{table}&quot;);
+    sql.AppendLine(conditionString);
+    return sql.ToString();
+}
+</code></pre>
+<h6><span id="update">Update</span></h6>
+<pre><code class="language-C#=">/// &lt;summary&gt;
+/// Update語法組裝
+/// &lt;/summary&gt;
+public static string Update&lt;T&gt;(object param = null) 
+    where T : class
+{
+    var type = typeof(T)
+    // 取得欄位並組裝加入內存
+    var columns = type.GetProperties()
+        .Select(prop =&gt; $&quot;{prop.Name} = @{prop.Name}&quot;)
+        .ToList()
+    // 條件式內存
+    var conditions = new List&lt;string&gt;()
+    // 檢查有無條件式
+    if (param != null)
+    {
+        // 取得條件式並組裝加入條件式內存
+        conditions = param.GetType()
+            .GetProperties()
+            .Select(prop =&gt; $&quot;{prop.Name} = @{prop.Name}&quot;)
+            .ToList()
+        // 條件式參數不需更新，故排除
+        columns = columns.Except(conditions).ToList()
+        // 條件式前面加上WHERE
+        conditions[0] = $&quot;WHERE {conditions[0]}&quot;;
+    
+    // 欄位
+    var columnString = string.Join(&quot;,\r\n&quot;, columns)
+    // 條件式
+    var conditionString = string.Join(&quot;\r\nAND &quot;, conditions)
+    var table = type.Name
+    // 組裝
+    var sql = new StringBuilder();
+    sql.AppendLine($&quot;UPDATE dbo.{table}&quot;);
+    sql.AppendLine($&quot;SET&quot;);
+    sql.AppendLine(columnString);
+    sql.AppendLine(conditionString);
+    return sql.ToString();
+}
+</code></pre>
+<h6><span id="delete">Delete</span></h6>
+<pre><code class="language-C#=">/// &lt;summary&gt;
+/// Delete語法組裝
+/// &lt;/summary&gt;
+public static string Delete&lt;T&gt;(object param = null) 
+    where T : class
+{
+    var type = typeof(T);
+
+    // 條件式內存
+    var conditions = new List&lt;string&gt;();
+
+    // 判斷有無條件式參數
+    if (param != null)
+    {
+        // 取得條件式並組裝加入條件式內存
+        conditions = param.GetType()
+            .GetProperties()
+            .Select(prop =&gt; $&quot;{prop.Name} = @{prop.Name}&quot;)
+            .ToList();
+
+        // 條件式前加上WHERE
+        conditions[0] = &quot;WHERE &quot; + conditions[0];
+    }
+
+    var conditionString = string.Join(&quot;\r\nAND &quot;, conditions);
+
+    var table = type.Name;
+
+    // 組裝
+    var sql = new StringBuilder();
+    sql.AppendLine($&quot;DELETE FROM dbo.{table}&quot;);
+    sql.AppendLine(conditionString);
+    return sql.ToString();
+}
+</code></pre>
+<p>這樣就完成了！<br>
+可能有人疑惑為什麼一堆換行(<code>\r\n</code>)、<code>AppendLine</code> 之類的 code？<br>
+目的是排版，當效能不允許使用時反射時，也可直接用範例 <code>return</code> 出的字串來微調使用。</p>
+<h6><span id="測試">測試</span></h6>
+<pre><code class="language-C#=">  
+using ReflectionSample.Models;
+using System;
+
+namespace ReflectionSample
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var param = new NBA();
+
+            Console.WriteLine(&quot;新增&quot;);
+            var post = SqlCommand.Insert&lt;NBA&gt;();
+            Console.WriteLine(post);
+
+
+            Console.WriteLine(&quot;查詢&quot;);
+            var get = SqlCommand.Select&lt;NBA&gt;(
+                new { param.LeagueTeam});
+            Console.WriteLine(get);
+
+            Console.WriteLine(&quot;修改&quot;);
+            var put = SqlCommand.Update&lt;NBA&gt;(
+                new { param.PlayerName, param.PlayerNumber });
+            Console.WriteLine(put);
+
+
+            Console.WriteLine(&quot;刪除&quot;);
+            var delete = SqlCommand.Delete&lt;NBA&gt;(
+                new { param.PlayerName });
+            Console.WriteLine(delete);
+
+
+            Console.ReadKey();
+        }
+    }
+}
+</code></pre>
+<p>輸出</p>
+<pre><code>新增
+INSERT INTO dbo.NBA
+(
+PlayerName,
+PlayerNumber,
+LeagueTeam,
+Position
+)
+VALUES
+(
+@PlayerName,
+@PlayerNumber,
+@LeagueTeam,
+@Position
+)
+
+查詢
+SELECT
+PlayerName,
+PlayerNumber,
+LeagueTeam,
+Position
+FROM dbo.NBA
+WHERE LeagueTeam = @LeagueTeam
+
+修改
+UPDATE dbo.NBA
+SET
+LeagueTeam = @LeagueTeam,
+Position = @Position
+WHERE PlayerName = @PlayerName
+AND PlayerNumber = @PlayerNumber
+
+刪除
+DELETE FROM dbo.NBA
+WHERE PlayerName = @PlayerName
+</code></pre>
+<p>範例原始碼：<a href="https://github.com/maxlin0523/ReflectionSample" target="_blank" rel="noopener">https://github.com/maxlin0523/ReflectionSample</a></p>
+<p>還可參考另一篇<a href="https://maxlin0523.github.io/2021/05/16/%E5%88%86%E5%B1%A4%E6%9E%B6%E6%A7%8B%EF%BC%8DLayered%20Architecture/">分層架構</a>， <code>Repository</code> 層就是應用 <code>Dapper</code> + <code>Reflection</code> 。</p>
+<h1><span id="參考">參考</span></h1>
+<p><a href="https://www.runoob.com/csharp/csharp-reflection.html" target="_blank" rel="noopener">C# 反射（Reflection）</a></p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2021/06/12/物件導向設計－Object Oriented Programming/" data-toggle="tooltip" data-placement="top" title="Object Oriented Programming">&larr; 上篇 </a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2021/06/27/轉接器模式－Adapter Pattern/" data-toggle="tooltip" data-placement="top" title="Adapter Pattern"> 下篇 &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents 
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">介紹</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">基本範例</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.1.</span> <span class="toc-nav-text">定義一個要測試的類別，有公開屬性、公開方法、私有方法</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.2.</span> <span class="toc-nav-text">反射類別內所有公開屬性</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.3.</span> <span class="toc-nav-text">反射類別內所有公開方法</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.0.0.0.0.4.</span> <span class="toc-nav-text">驗證定義的公開成員和反射是否一樣</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">應用範例(使用SQL Server)</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.0.0.0.0.1.</span> <span class="toc-nav-text">定義要測試的資料表</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.0.0.0.0.2.</span> <span class="toc-nav-text">名稱：NBA</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.0.0.0.0.3.</span> <span class="toc-nav-text">欄位：PlayerName、PlayerNumber、LeagueTeam、Position</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.0.0.0.0.4.</span> <span class="toc-nav-text">我們可以定義一個類別與資料表名稱欄位一致</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.0.0.0.0.5.</span> <span class="toc-nav-text">建立（ SqlCommand.cs ）</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.0.0.0.0.6.</span> <span class="toc-nav-text">Insert</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.0.0.0.0.7.</span> <span class="toc-nav-text">Select</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.0.0.0.0.8.</span> <span class="toc-nav-text">Update</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.0.0.0.0.9.</span> <span class="toc-nav-text">Delete</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.0.0.0.0.10.</span> <span class="toc-nav-text">測試</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">參考</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+ -->
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">標籤雲</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#C# 本事" title="C# 本事">C# 本事</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>好部落</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://www.ruanyifeng.com/blog/" target="_blank">阮一峰的网络日志</a></li>
+                    
+                        <li><a href="http://teddy-chen-tw.blogspot.com/" target="_blank">搞笑談軟工</a></li>
+                    
+                        <li><a href="https://blog.johnwu.cc/" target="_blank">John Wu&#39;s Blog</a></li>
+                    
+                        <li><a href="https://blackie1019.gitlab.io/" target="_blank">Blackie&#39;s Failed Notes</a></li>
+                    
+                        <li><a href="https://columns.chicken-house.net/categories/" target="_blank">安德魯的部落格</a></li>
+                    
+                        <li><a href="https://isdaniel.github.io/" target="_blank">石頭的coding之路</a></li>
+                    
+                        <li><a href="https://larrynung.github.io/" target="_blank">Level Up</a></li>
+                    
+                        <li><a href="https://blog.yowko.com/" target="_blank">Yowko&#39;s Notes</a></li>
+                    
+                </ul>
+                
+
+                 <!-- videos Blog -->
+                 
+                    <hr>
+                    <h5>好視頻</h5>
+                    <ul class="list-inline">
+    
+                        
+                            <li><a href="https://www.youtube.com/channel/UCe1nKo3WGGzyTgDqmTdZzlA/featured">Anduin Xue</a></li>
+                        
+                            <li><a href="https://www.youtube.com/c/HackBear%E6%B3%B0%E7%91%9E">HackBear 泰瑞</a></li>
+                        
+                            <li><a href="https://www.youtube.com/channel/UC7GawUG3AC47M5gJZsvyflg">Untyped 對啊我是工程師</a></li>
+                        
+                    </ul>
+                                    
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<!--<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>-->
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+     $(document).ready(function(){
+     $('pre').addClass('prettyprint linenums');
+     $('code').addClass('prettyprint');
+     $("#pages a[href]").css('color', '#337ab7'); 
+     $(".pager a[href]").css('color', '#404040'); 
+     prettyPrint();
+     })
+    </script>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a href="/atom.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/maxlin0523">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    <span id="busuanzi_container_site_pv">
+                        <i class="fas fa-eye"></i> : <span id="busuanzi_value_site_uv"></span>
+                    </span>                 
+                    <br>Copyright &copy; Max Lin 2023<br>Powered by Hexo - Theme by BeanTech<br>
+                    <span id="sitetime"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script language=javascript>
+        function siteTime() {
+            window.setTimeout("siteTime()", 1000);
+            var seconds = 1000;
+            var minutes = seconds * 60;
+            var hours = minutes * 60;
+            var days = hours * 24;
+            var years = days * 365;
+            var today = new Date();
+            var todayYear = today.getFullYear();
+            var todayMonth = today.getMonth() + 1;
+            var todayDate = today.getDate();
+            var todayHour = today.getHours();
+            var todayMinute = today.getMinutes();
+            var todaySecond = today.getSeconds();
+            var t1 = Date.UTC(2021, 07, 25, 00, 02, 42);
+            var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+            var diff = t2 - t1;
+            var diffYears = Math.floor(diff / years);
+            var diffDays = Math.floor((diff / days) - diffYears * 365);
+            var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+            var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+            var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+            document.getElementById("sitetime").innerHTML = "網站已運行：" + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 時 " + diffMinutes + " 分 " + diffSeconds + " 秒";
+        }
+        siteTime();
+    </script>
+</footer>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://maxlin0523.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://maxlin0523.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+</body>
+
+</html>

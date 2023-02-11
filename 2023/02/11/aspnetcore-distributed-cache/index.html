@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="邁向全端的後端工程師">
+    <meta name="keyword" content="前端,後端,全端,程式開發,後端開發,後端工程師,C#,ASP.NET,.NET Core,.NET Framework">
+    <link rel="shortcut icon" href="/img/icon.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          ASP.NET Core Distributed Cache - Max&#39;s Blog | 邁向全端之路
+        
+    </title>
+
+    <link rel="canonical" href="https://maxlin0523.github.io/2023/02/11/aspnetcore-distributed-cache/">
+
+    <!-- 不蒜子 觀看人次計數 -->
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <!-- google pretty print -->
+    <link rel="stylesheet" href="/css/prettify.css">
+
+    <!-- 程式碼樣式 -->
+    <!-- <link rel="stylesheet" href="/css/atelier-forest-light.css"> -->
+    <link rel="stylesheet" href="/css/atelier-dune-light.min.css">
+    
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Jquery -->
+    <script src="/js/jquery.min.js"></script>
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/96542121e6.js" crossorigin="anonymous"></script>
+
+  <link rel="alternate" href="/atom.xml" title="Max's Blog" type="application/atom+xml">
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/Architecture.jpeg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/null');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#AspNetCore" title="AspNetCore">AspNetCore</a>
+                            
+                              <a class="tag" href="/tags/#Cache" title="Cache">Cache</a>
+                            
+                        </div>
+                        <h1>ASP.NET Core Distributed Cache</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Max Lin on
+                            2023-02-11 <!--（
+                            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views） -->
+                        </span>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Max&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div id = "pages" class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                ">
+                <!-- class: post-container拔除 -->
+                <p>如果說系統架構是多台的情況呢？例如：Load Balance，這時就適合用 <code>分散式快取</code> 。</p>
+<p>簡單來說，<code>分散式快取</code> 就是統一將快取資料存在某個 <code>儲存體</code>，當多台機器去查詢資料時，就會指向該 <code>儲存體</code> 來進行存取。</p>
+<p>這邊選用 Redis 來當作分散式快取的 <code>儲存體</code> 。</p>
+<h3><span id="在實作前">在實作前</span></h3>
+<ol>
+<li>先將 Redis 架在 <code>localhost:6379</code> (架設可<a href="https://maxlin0523.github.io/2021/10/09/redis-in-docker/">參考</a>)，並將連線字串加入 appsettings.json</li>
+<li>將專案參考 <code>Microsoft.Extensions.Caching.StackExchangeRedis</code></li>
+</ol>
+<h3><span id="於-programcs-注入-idistributedcache">於 Program.cs 注入 IDistributedCache</span></h3>
+<p>如下：</p>
+<pre><code class="language-C#=">// 取得 appsettings 中的 Redis 連線字串
+var redisConStr = builder.Configuration.GetSection(&quot;RedisCache:ConnectionString&quot;).Value;
+builder.Services.AddStackExchangeRedisCache(options =&gt;
+{
+    options.Configuration = redisConStr;
+});
+</code></pre>
+<h3><span id="在建構式傳入-idistributedcache-實體">在建構式傳入 IDistributedCache 實體</span></h3>
+<p>如下：</p>
+<pre><code class="language-c#=">private readonly IDistributedCache _distributedCache;
+
+public DistributedCacheController(IDistributedCache distributedCache)
+{
+    _distributedCache = distributedCache;
+}
+</code></pre>
+<h3><span id="取得快取資料">取得快取資料</span></h3>
+<p>如下：</p>
+<pre><code class="language-C#=">[HttpGet(&quot;{userId}&quot;)]
+public async Task&lt;ActionResult&lt;UserInfo&gt;&gt; Get(int userId)
+{
+    var source = await _distributedCache.GetAsync(userId.ToString());
+    if (source == null)
+    {
+        return NotFound();         
+    }
+    
+    var info = JsonSerializer.Deserialize&lt;UserInfo&gt;(source);
+    return info;
+}
+</code></pre>
+<h3><span id="更新快取資料">更新快取資料</span></h3>
+<p>如下：</p>
+<pre><code class="language-C#=">[HttpPost]
+public async Task&lt;ActionResult&gt; Set([FromBody] UserInfo info)
+{
+    await _distributedCache.SetStringAsync(info.Id.ToString(), JsonSerializer.Serialize(info));
+    return NoContent();
+}
+</code></pre>
+<h3><span id="刪除快取資料">刪除快取資料</span></h3>
+<p>如下：</p>
+<pre><code class="language-C#=">[HttpDelete(&quot;{userId}&quot;)]
+public async Task&lt;ActionResult&gt; Remove(int userId)
+{
+    await _distributedCache.RemoveAsync(userId.ToString());
+    return NoContent();
+}
+</code></pre>
+<h4><span id="取得或新增快取資料">取得或新增快取資料</span></h4>
+<p>因為已習慣使用 <code>MemoryCache</code> 的 GetOrCreate，所以我也刻了一個給 <code>IDistributedCache</code> 來使用。</p>
+<p>然後快取時間就依情境設定即可</p>
+<pre><code class="language-c#=">[HttpGet(&quot;{userId}&quot;)]
+public async Task&lt;ActionResult&lt;UserInfo&gt;&gt; GetOrCreate(int userId)
+{
+    var cacheEntryOptions = new DistributedCacheEntryOptions
+    {
+        // Set AbsoluteExpiration for 3 mins
+        AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(3),
+        // Set SlidingExpiration for 5 s
+        SlidingExpiration = TimeSpan.FromSeconds(5)
+    };
+
+    var info = await _distributedCache.GetOrCreateAsync(userId.ToString(), () =&gt; GetUserInfoFromDbAsync(), cacheEntryOptions);
+    return Ok(info);
+}
+</code></pre>
+<p>擴充方法代碼如下：</p>
+<pre><code class="language-c#=">public static async Task&lt;TItem&gt; GetOrCreateAsync&lt;TItem&gt;(this IDistributedCache cache, string key, Func&lt;Task&lt;TItem&gt;&gt; entity, DistributedCacheEntryOptions options = null)
+{
+    if (options == null)
+    {
+        options = new DistributedCacheEntryOptions()
+        {
+            // 預設 5 分鐘快取
+            AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(5)
+        };
+    }
+
+    var value = await cache.GetStringAsync(key);
+    if (value == null)
+    {
+        var source = await entity();
+        var jsonSource = JsonSerializer.Serialize(source);
+        await cache.SetStringAsync(key, jsonSource, options);
+        return source;
+    }
+    return JsonSerializer.Deserialize&lt;TItem&gt;(value);
+}
+</code></pre>
+<h2><span id="參考">參考：</span></h2>
+<p><a href="https://github.com/maxlin0523/aspnetcore.caching.demo" target="_blank" rel="noopener">範例原始碼</a></p>
+<p><a href="https://learn.microsoft.com/zh-tw/aspnet/core/performance/caching/distributed?view=aspnetcore-7.0" target="_blank" rel="noopener">ASP.NET Core中的分散式快取</a></p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2023/02/11/aspnetcore-cache/" data-toggle="tooltip" data-placement="top" title="ASP.NET Core Cache">&larr; 上篇 </a>
+                        </li>
+                    
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents 
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">在實作前</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">於 Program.cs 注入 IDistributedCache</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">在建構式傳入 IDistributedCache 實體</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">取得快取資料</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">更新快取資料</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">刪除快取資料</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.1.</span> <span class="toc-nav-text">取得或新增快取資料</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number"></span> <span class="toc-nav-text">參考：</span></a>
+        
+        </div>
+      </aside>
+    
+ -->
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">標籤雲</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#AspNetCore" title="AspNetCore">AspNetCore</a>
+                        
+                          <a class="tag" href="/tags/#Cache" title="Cache">Cache</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>好部落</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://www.ruanyifeng.com/blog/" target="_blank">阮一峰的网络日志</a></li>
+                    
+                        <li><a href="http://teddy-chen-tw.blogspot.com/" target="_blank">搞笑談軟工</a></li>
+                    
+                        <li><a href="https://blog.johnwu.cc/" target="_blank">John Wu&#39;s Blog</a></li>
+                    
+                        <li><a href="https://blackie1019.gitlab.io/" target="_blank">Blackie&#39;s Failed Notes</a></li>
+                    
+                        <li><a href="https://columns.chicken-house.net/categories/" target="_blank">安德魯的部落格</a></li>
+                    
+                        <li><a href="https://isdaniel.github.io/" target="_blank">石頭的coding之路</a></li>
+                    
+                        <li><a href="https://larrynung.github.io/" target="_blank">Level Up</a></li>
+                    
+                        <li><a href="https://blog.yowko.com/" target="_blank">Yowko&#39;s Notes</a></li>
+                    
+                </ul>
+                
+
+                 <!-- videos Blog -->
+                 
+                    <hr>
+                    <h5>好視頻</h5>
+                    <ul class="list-inline">
+    
+                        
+                            <li><a href="https://www.youtube.com/channel/UCe1nKo3WGGzyTgDqmTdZzlA/featured">Anduin Xue</a></li>
+                        
+                            <li><a href="https://www.youtube.com/c/HackBear%E6%B3%B0%E7%91%9E">HackBear 泰瑞</a></li>
+                        
+                            <li><a href="https://www.youtube.com/channel/UC7GawUG3AC47M5gJZsvyflg">Untyped 對啊我是工程師</a></li>
+                        
+                    </ul>
+                                    
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<!--<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>-->
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+     $(document).ready(function(){
+     $('pre').addClass('prettyprint linenums');
+     $('code').addClass('prettyprint');
+     $("#pages a[href]").css('color', '#337ab7'); 
+     $(".pager a[href]").css('color', '#404040'); 
+     prettyPrint();
+     })
+    </script>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a href="/atom.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/maxlin0523">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    <span id="busuanzi_container_site_pv">
+                        <i class="fas fa-eye"></i> : <span id="busuanzi_value_site_uv"></span>
+                    </span>                 
+                    <br>Copyright &copy; Max Lin 2023<br>Powered by Hexo - Theme by BeanTech<br>
+                    <span id="sitetime"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script language=javascript>
+        function siteTime() {
+            window.setTimeout("siteTime()", 1000);
+            var seconds = 1000;
+            var minutes = seconds * 60;
+            var hours = minutes * 60;
+            var days = hours * 24;
+            var years = days * 365;
+            var today = new Date();
+            var todayYear = today.getFullYear();
+            var todayMonth = today.getMonth() + 1;
+            var todayDate = today.getDate();
+            var todayHour = today.getHours();
+            var todayMinute = today.getMinutes();
+            var todaySecond = today.getSeconds();
+            var t1 = Date.UTC(2021, 07, 25, 00, 02, 42);
+            var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+            var diff = t2 - t1;
+            var diffYears = Math.floor(diff / years);
+            var diffDays = Math.floor((diff / days) - diffYears * 365);
+            var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+            var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+            var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+            document.getElementById("sitetime").innerHTML = "網站已運行：" + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 時 " + diffMinutes + " 分 " + diffSeconds + " 秒";
+        }
+        siteTime();
+    </script>
+</footer>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://maxlin0523.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://maxlin0523.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+</body>
+
+</html>

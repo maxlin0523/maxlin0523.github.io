@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="邁向全端的後端工程師">
+    <meta name="keyword" content="前端,後端,全端,程式開發,後端開發,後端工程師,C#,ASP.NET,.NET Core,.NET Framework">
+    <link rel="shortcut icon" href="/img/icon.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          基礎 LuaScript 語法 - Max&#39;s Blog | 邁向全端之路
+        
+    </title>
+
+    <link rel="canonical" href="https://maxlin0523.github.io/2021/10/16/luascript/">
+
+    <!-- 不蒜子 觀看人次計數 -->
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <!-- google pretty print -->
+    <link rel="stylesheet" href="/css/prettify.css">
+
+    <!-- 程式碼樣式 -->
+    <!-- <link rel="stylesheet" href="/css/atelier-forest-light.css"> -->
+    <link rel="stylesheet" href="/css/atelier-dune-light.min.css">
+    
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Jquery -->
+    <script src="/js/jquery.min.js"></script>
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/96542121e6.js" crossorigin="anonymous"></script>
+
+  <link rel="alternate" href="/atom.xml" title="Max's Blog" type="application/atom+xml">
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/Architecture.jpeg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/null');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Lua" title="Lua">Lua</a>
+                            
+                        </div>
+                        <h1>基礎 LuaScript 語法</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Max Lin on
+                            2021-10-16 <!--（
+                            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views） -->
+                        </span>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Max&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div id = "pages" class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                ">
+                <!-- class: post-container拔除 -->
+                <p>最近接觸了 Redis 腳本有使用到 Lua，簡單紀錄下基礎語法。</p>
+<h4><span id="常用資料型態">常用資料型態</span></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">資料型態</th>
+<th style="text-align:center">備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>nil</code></td>
+<td style="text-align:center">null</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>boolean</code></td>
+<td style="text-align:center">false 和 nil 為假，true 和非 nil 為真</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>number</code></td>
+<td style="text-align:center">包含整數與小數位</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">以雙引號 “” 或單引號 ‘’ 包覆</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>table</code></td>
+<td style="text-align:center">類似 dictionary 或當作 array 使用</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>function</code></td>
+<td style="text-align:center">函式</td>
+</tr>
+</tbody>
+</table>
+<h4><span id="運算符號">運算符號</span></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">運算符</th>
+<th style="text-align:center">備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>+</code></td>
+<td style="text-align:center">加法</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>-</code></td>
+<td style="text-align:center">減法或負號</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>*</code></td>
+<td style="text-align:center">乘法</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>/</code></td>
+<td style="text-align:center">除法</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>％</code></td>
+<td style="text-align:center">餘數</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>＾</code></td>
+<td style="text-align:center">次方</td>
+</tr>
+</tbody>
+</table>
+<h4><span id="操作符號">操作符號</span></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">運算符</th>
+<th style="text-align:center">備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>==</code></td>
+<td style="text-align:center">等於</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>~=</code></td>
+<td style="text-align:center">不等於</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&gt;</code></td>
+<td style="text-align:center">大於</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;</code></td>
+<td style="text-align:center">小於</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&gt;=</code></td>
+<td style="text-align:center">大於等於</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&lt;=</code></td>
+<td style="text-align:center">小於等於</td>
+</tr>
+</tbody>
+</table>
+<h4><span id="變數">變數</span></h4>
+<p>可一次宣告多個變數，沒指派值的會是 <code>nil</code></p>
+<pre><code class="language-lua">local a = 1
+local b, c, d = 2, 3
+
+print(a)
+print(b)
+print(c)
+print(d)
+-- Output:
+-- 1
+-- 2
+-- 3
+-- nil
+</code></pre>
+<hr>
+<h4><span id="if-else"><strong>if else</strong></span></h4>
+<pre><code class="language-lua">if(boolean) then
+   -- do...
+else if(boolean) then
+   -- do...
+else 
+   -- do...
+end
+</code></pre>
+<hr>
+<h4><span id="loop-系列"><strong>Loop 系列</strong></span></h4>
+<ul>
+<li><strong>for loop</strong><br>
+i 從 <code>0</code> 開始迴圈每次遞增 <code>1</code> 直到 <code>i &lt;= 3</code></li>
+</ul>
+<pre><code class="language-lua">for i = 0, 3, 1 do
+  print(i)
+end
+-- Output:
+-- 0
+-- 1
+-- 2
+-- 3
+</code></pre>
+<ul>
+<li><strong>repeat until</strong><br>
+從 <code>repeat</code> 內開始跑迴圈直到 <code>until</code> 條件式成立就跳出</li>
+</ul>
+<pre><code class="language-lua">local i = 1
+local count = 3
+repeat
+  print(i)
+  i = i + 1
+until i == count
+-- Output:
+-- 1
+-- 2
+</code></pre>
+<ul>
+<li><strong>while do</strong><br>
+從 <code>while</code> 內開始跑迴圈直到條件式不成立就跳出</li>
+</ul>
+<pre><code class="language-lua">local i = 1
+local count = 3
+while i &lt;= count do
+  print(i)
+  i = i + 1
+end
+-- Output:
+-- 1
+-- 2
+-- 3
+</code></pre>
+<ul>
+<li><strong>ipairs</strong><br>
+<code>ipairs</code> 會按照陣列索引順序開始跑，直到 <code>value</code> 出現 <code>nil</code> 的情況</li>
+</ul>
+<pre><code class="language-lua">local a = { [1] =  &quot;one&quot;, [2] = &quot;two&quot;, [4] = &quot;four&quot; }
+for index, value in ipairs(a) do
+    print(index .. &quot;:&quot; .. value)
+end
+-- Output:
+-- 1:one
+-- 2:two
+</code></pre>
+<ul>
+<li><strong>pairs</strong><br>
+<code>pairs</code> 會按順序跑完全部陣列</li>
+</ul>
+<pre><code class="language-lua">local a = {
+  [1] =  &quot;one&quot;,
+  [2] = &quot;two&quot;,
+  [4] = &quot;four&quot; ,
+  dog = &quot;狗&quot;,
+  [&quot;貓&quot;] = &quot;cat&quot;
+  }
+for index, value in pairs(a) do
+    print(index .. &quot;:&quot; .. value)
+end
+-- Output:
+-- 1:one
+-- 2:two
+-- 4:four
+-- dog:狗
+-- 貓:cat
+</code></pre>
+<hr>
+<h4><span id="function-系列">Function 系列</span></h4>
+<ul>
+<li><strong>具有回傳值</strong><br>
+使用 <code>return</code> 回傳</li>
+</ul>
+<pre><code class="language-lua">function greet(name)
+   local result = &quot;&quot;
+   if (name == 'Max') 
+   then
+      result = 'Hello ' .. name
+   else
+      result = 'Who are you'
+   end
+
+   return result;
+end
+
+print(greet('Max'))
+-- Output:
+-- Hello Max
+</code></pre>
+<ul>
+<li><strong>具有多回傳值</strong><br>
+使用 <code>return</code> 回傳，且用<code>逗號</code>分隔回傳值</li>
+</ul>
+<pre><code class="language-lua">function calculate(a, b)
+  return a + b, a - b
+end
+
+local a, b = calculate(5, 23)
+print('a + b = ' .. a)
+print('a - b = ' .. b)
+-- Output:
+-- a + b = 28
+-- a - b = -18
+</code></pre>
+<ul>
+<li><strong>不具回傳值</strong><br>
+相當於 <code>void</code></li>
+</ul>
+<pre><code class="language-lua">function greet(name)
+   if (name == 'Max') 
+   then
+      print('Hello ' .. name)
+   else
+      print('Who are you')
+   end
+end
+
+greet('someone')
+-- Output:
+-- Who are you
+</code></pre>
+<ul>
+<li><strong>傳入任意參數</strong><br>
+傳入參數以<code>逗號</code>分隔</li>
+</ul>
+<pre><code class="language-lua">function add(...)
+  local total = 0
+  for index, value in ipairs{...} do
+    total = total + value
+  end
+  
+  return total
+end
+
+print(add(1,2,3))
+-- Output:
+-- 6
+</code></pre>
+<hr>
+<h4><span id="小試身手">小試身手</span></h4>
+<p>題目：<a href="https://leetcode.com/problems/two-sum/" target="_blank" rel="noopener">LeetCode 1. Two Sum</a></p>
+<pre><code class="language-lua=">function TwoSum(nums, target)
+  local table = { }
+  for index, value in ipairs(nums) do
+    if(table[target - value])
+    then
+      return table[target - value], index
+    end
+    table[value] = index
+  end
+end
+
+local nums = {3,2,4} -- Sample
+local target = 7 -- Sample
+local one,two = TwoSum(nums, target)
+
+print('[' .. one .. ',' .. two .. ']')
+
+-- Input: nums = [3,2,4], target = 7
+
+-- Output: [1,3]    
+-- ※ Lua 的陣列索引從 1 起跳，所以原本答案是 [0,2] 會變為 [1,3]
+</code></pre>
+<h1><span id="參考">參考</span></h1>
+<p><a href="https://www.runoob.com/lua/lua-tutorial.html" target="_blank" rel="noopener">Lua 教程</a><br>
+<a href="https://opensourcedoc.com/lua-programming/function/" target="_blank" rel="noopener">撰寫和使用函式 (Function)</a><br>
+<a href="https://emilykevin.pixnet.net/blog/post/249421762-lua-%7C-pairs%E8%88%87ipairs%E7%9A%84%E5%B7%AE%E7%95%B0" target="_blank" rel="noopener">Lua | pairs與ipairs的差異</a><br>
+<a href="https://larrynung.github.io/tags/Lua/" target="_blank" rel="noopener">Tag: Lua | Level Up</a></p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2021/10/09/redis-in-docker/" data-toggle="tooltip" data-placement="top" title="Docker 佈署 Redis">&larr; 上篇 </a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2021/11/18/new-chrome/" data-toggle="tooltip" data-placement="top" title="Google Chrome 建立獨立環境"> 下篇 &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents 
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">常用資料型態</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">運算符號</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">操作符號</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">變數</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">if else</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">Loop 系列</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">Function 系列</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">8.</span> <span class="toc-nav-text">小試身手</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number"></span> <span class="toc-nav-text">參考</span></a>
+        
+        </div>
+      </aside>
+    
+ -->
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">標籤雲</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Lua" title="Lua">Lua</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>好部落</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://www.ruanyifeng.com/blog/" target="_blank">阮一峰的网络日志</a></li>
+                    
+                        <li><a href="http://teddy-chen-tw.blogspot.com/" target="_blank">搞笑談軟工</a></li>
+                    
+                        <li><a href="https://blog.johnwu.cc/" target="_blank">John Wu&#39;s Blog</a></li>
+                    
+                        <li><a href="https://blackie1019.gitlab.io/" target="_blank">Blackie&#39;s Failed Notes</a></li>
+                    
+                        <li><a href="https://columns.chicken-house.net/categories/" target="_blank">安德魯的部落格</a></li>
+                    
+                        <li><a href="https://isdaniel.github.io/" target="_blank">石頭的coding之路</a></li>
+                    
+                        <li><a href="https://larrynung.github.io/" target="_blank">Level Up</a></li>
+                    
+                        <li><a href="https://blog.yowko.com/" target="_blank">Yowko&#39;s Notes</a></li>
+                    
+                </ul>
+                
+
+                 <!-- videos Blog -->
+                 
+                    <hr>
+                    <h5>好視頻</h5>
+                    <ul class="list-inline">
+    
+                        
+                            <li><a href="https://www.youtube.com/channel/UCe1nKo3WGGzyTgDqmTdZzlA/featured">Anduin Xue</a></li>
+                        
+                            <li><a href="https://www.youtube.com/c/HackBear%E6%B3%B0%E7%91%9E">HackBear 泰瑞</a></li>
+                        
+                            <li><a href="https://www.youtube.com/channel/UC7GawUG3AC47M5gJZsvyflg">Untyped 對啊我是工程師</a></li>
+                        
+                    </ul>
+                                    
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<!--<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>-->
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+     $(document).ready(function(){
+     $('pre').addClass('prettyprint linenums');
+     $('code').addClass('prettyprint');
+     $("#pages a[href]").css('color', '#337ab7'); 
+     $(".pager a[href]").css('color', '#404040'); 
+     prettyPrint();
+     })
+    </script>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a href="/atom.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/maxlin0523">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    <span id="busuanzi_container_site_pv">
+                        <i class="fas fa-eye"></i> : <span id="busuanzi_value_site_uv"></span>
+                    </span>                 
+                    <br>Copyright &copy; Max Lin 2023<br>Powered by Hexo - Theme by BeanTech<br>
+                    <span id="sitetime"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script language=javascript>
+        function siteTime() {
+            window.setTimeout("siteTime()", 1000);
+            var seconds = 1000;
+            var minutes = seconds * 60;
+            var hours = minutes * 60;
+            var days = hours * 24;
+            var years = days * 365;
+            var today = new Date();
+            var todayYear = today.getFullYear();
+            var todayMonth = today.getMonth() + 1;
+            var todayDate = today.getDate();
+            var todayHour = today.getHours();
+            var todayMinute = today.getMinutes();
+            var todaySecond = today.getSeconds();
+            var t1 = Date.UTC(2021, 07, 25, 00, 02, 42);
+            var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+            var diff = t2 - t1;
+            var diffYears = Math.floor(diff / years);
+            var diffDays = Math.floor((diff / days) - diffYears * 365);
+            var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+            var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+            var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+            document.getElementById("sitetime").innerHTML = "網站已運行：" + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 時 " + diffMinutes + " 分 " + diffSeconds + " 秒";
+        }
+        siteTime();
+    </script>
+</footer>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://maxlin0523.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://maxlin0523.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+</body>
+
+</html>

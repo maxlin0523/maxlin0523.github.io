@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="邁向全端的後端工程師">
+    <meta name="keyword" content="前端,後端,全端,程式開發,後端開發,後端工程師,C#,ASP.NET,.NET Core,.NET Framework">
+    <link rel="shortcut icon" href="/img/icon.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          Software Layered Architecture - Max&#39;s Blog | 邁向全端之路
+        
+    </title>
+
+    <link rel="canonical" href="https://maxlin0523.github.io/2021/05/16/分層架構－Layered Architecture/">
+
+    <!-- 不蒜子 觀看人次計數 -->
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <!-- google pretty print -->
+    <link rel="stylesheet" href="/css/prettify.css">
+
+    <!-- 程式碼樣式 -->
+    <!-- <link rel="stylesheet" href="/css/atelier-forest-light.css"> -->
+    <link rel="stylesheet" href="/css/atelier-dune-light.min.css">
+    
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Jquery -->
+    <script src="/js/jquery.min.js"></script>
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/96542121e6.js" crossorigin="anonymous"></script>
+
+  <link rel="alternate" href="/atom.xml" title="Max's Blog" type="application/atom+xml">
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/Architecture.jpeg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/null');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#設計模式" title="設計模式">設計模式</a>
+                            
+                        </div>
+                        <h1>Software Layered Architecture</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Max Lin on
+                            2021-05-16 <!--（
+                            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views） -->
+                        </span>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Max&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div id = "pages" class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                ">
+                <!-- class: post-container拔除 -->
+                <h3><span id="介紹">介紹</span></h3>
+<p>一般分為 <code>Controller</code>、<code>Service</code>、<code>Repository</code> 三層。各層之間依賴介面，符合 SOLID－DIP，只需要針對各層介面提供的方法去使用並達到 <code>相依性注入</code>，而每層間參數物件傳遞也需進行隔離，如此一來也達到 <code>關注點分離</code>，大家一起分工實作層需求時也不會互相影響，更可以方便進行隔離測試。</p>
+<h3><span id="分層定義">分層定義</span></h3>
+<ul>
+<li>
+<p><strong>Controller（展示層）</strong>：專注處理來自於客端的 <code>請求與回應 I/O</code>。接收到請求後呼叫 <code>商業邏輯層</code> 進行後續處理，之後回應結果到客端。</p>
+</li>
+<li>
+<p><strong>Service（商業邏輯層）</strong>：專注處理 <code>商業邏輯</code> 運算。商業邏輯處理完後呼叫 <code>資料存取層</code> 進行後續處理，再回應結果到展示層。</p>
+</li>
+<li>
+<p><strong>Repository（資料存取層）</strong>：主要負責資料存取。專注處理 <code>資料存取</code> 的邏輯，例如：使用ORM 對資料庫存取、串接其他 API 服務．．．等行為，做完後再回應結果到 <code>商業邏輯層</code>。</p>
+</li>
+<li>
+<p><strong>Common（共用層）</strong>：各層都會參考。將各層都共用的物件或是擴充方法都存放於此。</p>
+</li>
+</ul>
+<h3><span id="專案架構圖">專案架構圖</span></h3>
+<p><img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F80c04083-a5be-4f2f-877e-56b616066946%2FUntitled.png?table=block&amp;id=caaa0ab9-e2aa-4ebf-9b50-749f0a40e2a1&amp;spaceId=59d38cce-92ff-4673-85e7-4a3082371d03&amp;width=4270&amp;userId=6c123588-4407-4a28-9aae-2bb53ad5b808&amp;cache=v2" alt></p>
+<h3><span id="參數傳輸物件說明">參數傳輸物件說明</span></h3>
+<ul>
+<li><strong>Entity</strong></li>
+</ul>
+<blockquote>
+<p>作用在 Repository 層，從資料庫獲取資料後的第一層轉型物件，基本與 Select 欄位一致，或是當作傳入條件式參數之類…的物件，這邊是作為對 Repository 層調用的傳入與傳出</p>
+</blockquote>
+<ul>
+<li><strong>Dto</strong></li>
+</ul>
+<blockquote>
+<p>作用在 Service 層，全稱<code>資料傳輸物件 Data Transfer Object</code>，這邊是作為對商業邏輯層調用的傳入與傳出，例如：一個 Service 層介面方法，可能會調用多個 Repository 層方法去做商業邏輯演算，而最後產出的資料就可以封裝層一個 DTO 再傳出給後續的 layer。</p>
+</blockquote>
+<p>透過這樣的隔離方式，就能保證各層間是相互獨立、互不影響，溝通時只針對各層的介面去調用，也可以更好的去進行合作開發或測試。</p>
+<h3><span id="總結">總結</span></h3>
+<p>以前做完此架構專案時，會疑惑為何要分如此多層，直到複雜度慢慢變多時才漸漸理解好處，寫起來會特別有安全感。</p>
+<p>如果還不是很理解的話，就我的經驗來建議，就先硬著頭皮學著做，知道個大概的觀念！等到實際維護複雜度較高的專案才比較快能體會分層架構的好處（前提是專案要有使用分層）。</p>
+<h1><span id="參考">參考</span></h1>
+<p><a href="https://raychiutw.github.io/2019/%E9%9A%A8%E6%89%8B-Design-Pattern-2-%E8%BB%9F%E9%AB%94%E5%88%86%E5%B1%A4%E8%A8%AD%E8%A8%88%E6%A8%A1%E5%BC%8F-Software-Layered-Architecture-Pattern/" target="_blank" rel="noopener">隨手 Design Pattern (2) - 軟體分層設計模式 (Software Layered Architecture Pattern)</a></p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2021/05/22/相依性注入－DI-IoC/" data-toggle="tooltip" data-placement="top" title="Dependency Injection and Inversion of Control"> 下篇 &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents 
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">介紹</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">分層定義</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">專案架構圖</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">參數傳輸物件說明</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">總結</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number"></span> <span class="toc-nav-text">參考</span></a>
+        
+        </div>
+      </aside>
+    
+ -->
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">標籤雲</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#設計模式" title="設計模式">設計模式</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>好部落</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://www.ruanyifeng.com/blog/" target="_blank">阮一峰的网络日志</a></li>
+                    
+                        <li><a href="http://teddy-chen-tw.blogspot.com/" target="_blank">搞笑談軟工</a></li>
+                    
+                        <li><a href="https://blog.johnwu.cc/" target="_blank">John Wu&#39;s Blog</a></li>
+                    
+                        <li><a href="https://blackie1019.gitlab.io/" target="_blank">Blackie&#39;s Failed Notes</a></li>
+                    
+                        <li><a href="https://columns.chicken-house.net/categories/" target="_blank">安德魯的部落格</a></li>
+                    
+                        <li><a href="https://isdaniel.github.io/" target="_blank">石頭的coding之路</a></li>
+                    
+                        <li><a href="https://larrynung.github.io/" target="_blank">Level Up</a></li>
+                    
+                        <li><a href="https://blog.yowko.com/" target="_blank">Yowko&#39;s Notes</a></li>
+                    
+                </ul>
+                
+
+                 <!-- videos Blog -->
+                 
+                    <hr>
+                    <h5>好視頻</h5>
+                    <ul class="list-inline">
+    
+                        
+                            <li><a href="https://www.youtube.com/channel/UCe1nKo3WGGzyTgDqmTdZzlA/featured">Anduin Xue</a></li>
+                        
+                            <li><a href="https://www.youtube.com/c/HackBear%E6%B3%B0%E7%91%9E">HackBear 泰瑞</a></li>
+                        
+                            <li><a href="https://www.youtube.com/channel/UC7GawUG3AC47M5gJZsvyflg">Untyped 對啊我是工程師</a></li>
+                        
+                    </ul>
+                                    
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<!--<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>-->
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+     $(document).ready(function(){
+     $('pre').addClass('prettyprint linenums');
+     $('code').addClass('prettyprint');
+     $("#pages a[href]").css('color', '#337ab7'); 
+     $(".pager a[href]").css('color', '#404040'); 
+     prettyPrint();
+     })
+    </script>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a href="/atom.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/maxlin0523">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    <span id="busuanzi_container_site_pv">
+                        <i class="fas fa-eye"></i> : <span id="busuanzi_value_site_uv"></span>
+                    </span>                 
+                    <br>Copyright &copy; Max Lin 2023<br>Powered by Hexo - Theme by BeanTech<br>
+                    <span id="sitetime"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script language=javascript>
+        function siteTime() {
+            window.setTimeout("siteTime()", 1000);
+            var seconds = 1000;
+            var minutes = seconds * 60;
+            var hours = minutes * 60;
+            var days = hours * 24;
+            var years = days * 365;
+            var today = new Date();
+            var todayYear = today.getFullYear();
+            var todayMonth = today.getMonth() + 1;
+            var todayDate = today.getDate();
+            var todayHour = today.getHours();
+            var todayMinute = today.getMinutes();
+            var todaySecond = today.getSeconds();
+            var t1 = Date.UTC(2021, 07, 25, 00, 02, 42);
+            var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+            var diff = t2 - t1;
+            var diffYears = Math.floor(diff / years);
+            var diffDays = Math.floor((diff / days) - diffYears * 365);
+            var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+            var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+            var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+            document.getElementById("sitetime").innerHTML = "網站已運行：" + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 時 " + diffMinutes + " 分 " + diffSeconds + " 秒";
+        }
+        siteTime();
+    </script>
+</footer>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://maxlin0523.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://maxlin0523.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+</body>
+
+</html>

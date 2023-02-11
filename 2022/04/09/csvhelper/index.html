@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="邁向全端的後端工程師">
+    <meta name="keyword" content="前端,後端,全端,程式開發,後端開發,後端工程師,C#,ASP.NET,.NET Core,.NET Framework">
+    <link rel="shortcut icon" href="/img/icon.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          C# 使用 CsvHelper 套件讀取 Csv 檔 - Max&#39;s Blog | 邁向全端之路
+        
+    </title>
+
+    <link rel="canonical" href="https://maxlin0523.github.io/2022/04/09/csvhelper/">
+
+    <!-- 不蒜子 觀看人次計數 -->
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <!-- google pretty print -->
+    <link rel="stylesheet" href="/css/prettify.css">
+
+    <!-- 程式碼樣式 -->
+    <!-- <link rel="stylesheet" href="/css/atelier-forest-light.css"> -->
+    <link rel="stylesheet" href="/css/atelier-dune-light.min.css">
+    
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Jquery -->
+    <script src="/js/jquery.min.js"></script>
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/96542121e6.js" crossorigin="anonymous"></script>
+
+  <link rel="alternate" href="/atom.xml" title="Max's Blog" type="application/atom+xml">
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/Architecture.jpeg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/null');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#C#" title="C#">C#</a>
+                            
+                              <a class="tag" href="/tags/#Nuget" title="Nuget">Nuget</a>
+                            
+                        </div>
+                        <h1>C# 使用 CsvHelper 套件讀取 Csv 檔</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Max Lin on
+                            2022-04-09 <!--（
+                            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views） -->
+                        </span>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Max&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div id = "pages" class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                ">
+                <!-- class: post-container拔除 -->
+                <p>紀錄 Nuget 套件 <code>CsvHelper</code> 幾個不同情況的 <code>讀取</code> 方式。</p>
+<h2><span id="1-當-csv-欄位與類別名稱與資料型態可對應">1. 當 csv 欄位與類別名稱與資料型態可對應</span></h2>
+<p>資料格式：</p>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th>Name</th>
+<th>Email</th>
+<th>Phone</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Eric</td>
+<td><a href="mailto:Eric@gmail.com" target="_blank" rel="noopener">Eric@gmail.com</a></td>
+<td>0911111111</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Amy</td>
+<td><a href="mailto:Amy@gmail.com" target="_blank" rel="noopener">Amy@gmail.com</a></td>
+<td>0922222222</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Titan</td>
+<td><a href="mailto:Titan@gmail.com" target="_blank" rel="noopener">Titan@gmail.com</a></td>
+<td>0933333333</td>
+</tr>
+</tbody>
+</table>
+<p>資料源：</p>
+<pre><code>Id,Name,Email,Phone
+0,Eric,Eric@gmail.com,0911111111
+1,Amy,Amy@gmail.com,0922222222 
+2,Titan,Titan@gmail.com,0933333333
+</code></pre>
+<p>做法如下：</p>
+<pre><code class="language-C#">static void Main(string[] args)
+{
+    // Csv 配置
+    CsvConfiguration setting = new CsvConfiguration(CultureInfo.InvariantCulture);
+
+    using (StreamReader sr = new StreamReader(&quot;./data.csv&quot;))
+    using (CsvReader csv = new CsvReader(sr, setting))
+    {
+        // 取得資料
+        List&lt;User&gt; result = csv.GetRecords&lt;User&gt;().ToList();
+    }
+
+}
+public class User
+{
+    public string Id { get; set; }
+
+    public string Name { get; set; }
+
+    public string Email { get; set; }
+
+    public string Phone { get; set; }
+}
+
+</code></pre>
+<h2><span id="2-讀取不含-csv-標題">2. 讀取不含 csv 標題</span></h2>
+<p>資料格式：</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>Eric</th>
+<th><a href="mailto:Eric@gmail.com" target="_blank" rel="noopener">Eric@gmail.com</a></th>
+<th>0911111111</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Amy</td>
+<td><a href="mailto:Amy@gmail.com" target="_blank" rel="noopener">Amy@gmail.com</a></td>
+<td>0922222222</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Titan</td>
+<td><a href="mailto:Titan@gmail.com" target="_blank" rel="noopener">Titan@gmail.com</a></td>
+<td>0933333333</td>
+</tr>
+</tbody>
+</table>
+<p>資料源：</p>
+<pre><code>0,Eric,Eric@gmail.com,0911111111
+1,Amy,Amy@gmail.com,0922222222 
+2,Titan,Titan@gmail.com,0933333333
+</code></pre>
+<p>需調整 <strong>Configuration</strong>，做法如下：</p>
+<pre><code class="language-C#">static void Main(string[] args)
+{
+    // Csv 配置
+    CsvConfiguration setting = new CsvConfiguration(CultureInfo.InvariantCulture)
+    {
+    　　 // 不含標題
+        HasHeaderRecord = false
+    };
+
+    using (StreamReader sr = new StreamReader(&quot;./data.csv&quot;))
+    using (CsvReader csv = new CsvReader(sr, setting))
+    {
+        // 取得資料
+        List&lt;User&gt; result = csv.GetRecords&lt;User&gt;().ToList();
+    }
+
+}
+public class User
+{
+    public string Id { get; set; }
+
+    public string Name { get; set; }
+
+    public string Email { get; set; }
+
+    public string Phone { get; set; }
+}
+
+</code></pre>
+<h2><span id="3-當-csv-欄位名與類別屬性無法對應">3. 當 csv 欄位名與類別屬性無法對應</span></h2>
+<p>資料格式：</p>
+<table>
+<thead>
+<tr>
+<th>編號</th>
+<th>名稱</th>
+<th>信箱</th>
+<th>手機</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Eric</td>
+<td><a href="mailto:Eric@gmail.com" target="_blank" rel="noopener">Eric@gmail.com</a></td>
+<td>0911111111</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Amy</td>
+<td><a href="mailto:Amy@gmail.com" target="_blank" rel="noopener">Amy@gmail.com</a></td>
+<td>0922222222</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Titan</td>
+<td><a href="mailto:Titan@gmail.com" target="_blank" rel="noopener">Titan@gmail.com</a></td>
+<td>0933333333</td>
+</tr>
+</tbody>
+</table>
+<p>資料源：</p>
+<pre><code>編號,名稱,信箱,手機
+0,Eric,Eric@gmail.com,0911111111
+1,Amy,Amy@gmail.com,0922222222 
+2,Titan,Titan@gmail.com,0933333333
+</code></pre>
+<p>可建立 <strong>ClassMap</strong> 去定義對應情境，完整做法如下：</p>
+<pre><code class="language-c#">static void Main(string[] args)
+{
+    // Csv 配置
+    CsvConfiguration setting = new CsvConfiguration(CultureInfo.InvariantCulture);
+
+    using (StreamReader sr = new StreamReader(&quot;./data.csv&quot;))
+    using (CsvReader csv = new CsvReader(sr, setting))
+    {
+        // 註冊
+        csv.Context.RegisterClassMap&lt;UserMap&gt;();
+        
+        // 取得資料
+        List&lt;User&gt; result = csv.GetRecords&lt;User&gt;().ToList();
+    }
+
+}
+public class User
+{
+    public string Id { get; set; }
+
+    public string Name { get; set; }
+
+    public string Email { get; set; }
+
+    public string Phone { get; set; }
+}
+
+public sealed class UserMap : ClassMap&lt;User&gt;
+{
+    public UserMap()
+    {
+        // 屬性對應欄位名稱
+        Map(m =&gt; m.Id).Name(&quot;編號&quot;);
+        Map(m =&gt; m.Name).Name(&quot;名稱&quot;);
+        Map(m =&gt; m.Email).Name(&quot;信箱&quot;);
+        Map(m =&gt; m.Phone).Name(&quot;手機&quot;);
+    }
+}
+</code></pre>
+<p>或是用類別屬性去對應 csv 欄位索引，如下：</p>
+<pre><code class="language-c#">public sealed class UserMap : ClassMap&lt;User&gt;
+{
+    public UserMap()
+    {
+        // 屬性對應欄位索引
+        Map(m =&gt; m.Id).Index(0);
+        Map(m =&gt; m.Name).Index(1);
+        Map(m =&gt; m.Email).Index(2);
+        Map(m =&gt; m.Phone).Index(3);
+    }
+}
+</code></pre>
+<h2><span id="4-當-csv-欄位名稱有模稜兩可的情況">4. 當 csv 欄位名稱有模稜兩可的情況</span></h2>
+<p>例如：讀檔時，第一個欄位名稱可能出現<code>編號</code> or <code>號碼</code> 的情形，如下：</p>
+<pre><code>編號,名稱,信箱,手機
+0,Eric,Eric@gmail.com,0911111111
+
+or 
+
+號碼,名稱,信箱,手機
+0,Eric,Eric@gmail.com,0911111111
+</code></pre>
+<p>則 <strong>ClassMap</strong> 可改為：</p>
+<pre><code class="language-C#">public sealed class UserMap : ClassMap&lt;User&gt;
+{
+    public UserMap()
+    {
+        // 屬性對應欄位名稱
+        Map(m =&gt; m.Id).Name(&quot;編號&quot;, &quot;號碼&quot;);
+        Map(m =&gt; m.Name).Name(&quot;名稱&quot;);
+        Map(m =&gt; m.Email).Name(&quot;信箱&quot;);
+        Map(m =&gt; m.Phone).Name(&quot;手機&quot;);
+    }
+}
+</code></pre>
+<h2><span id="5-忽略類別屬性對應">5. 忽略類別屬性對應</span></h2>
+<p>資料格式：</p>
+<table>
+<thead>
+<tr>
+<th>Id</th>
+<th>Name</th>
+<th>Email</th>
+<th>Phone</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Eric</td>
+<td><a href="mailto:Eric@gmail.com" target="_blank" rel="noopener">Eric@gmail.com</a></td>
+<td>0911111111</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Amy</td>
+<td><a href="mailto:Amy@gmail.com" target="_blank" rel="noopener">Amy@gmail.com</a></td>
+<td>0922222222</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Titan</td>
+<td><a href="mailto:Titan@gmail.com" target="_blank" rel="noopener">Titan@gmail.com</a></td>
+<td>0933333333</td>
+</tr>
+</tbody>
+</table>
+<p>資料源：</p>
+<pre><code>Id,Name,Email,Phone
+0,Eric,Eric@gmail.com,0911111111
+1,Amy,Amy@gmail.com,0922222222 
+2,Titan,Titan@gmail.com,0933333333
+</code></pre>
+<p>當類別多出 <code>Description</code> 屬性，做法如 <strong>ClassMap</strong>：</p>
+<pre><code class="language-C#">static void Main(string[] args)
+{
+    // Csv 配置
+    CsvConfiguration setting = new CsvConfiguration(CultureInfo.InvariantCulture);
+
+    using (StreamReader sr = new StreamReader(&quot;./data.csv&quot;))
+    using (CsvReader csv = new CsvReader(sr, setting))
+    {
+        // 取得資料
+        csv.Context.RegisterClassMap&lt;UserMap&gt;();
+        List&lt;User&gt; result = csv.GetRecords&lt;User&gt;().ToList();
+    }
+
+}
+public class User
+{
+    public string Id { get; set; }
+
+    public string Name { get; set; }
+
+    public string Email { get; set; }
+
+    public string Phone { get; set; }
+
+    public string Description { get; set; }
+}
+
+public sealed class UserMap : ClassMap&lt;User&gt;
+{
+    public UserMap()
+    {
+        Map(m =&gt; m.Id);
+        Map(m =&gt; m.Name);
+        Map(m =&gt; m.Email);
+        Map(m =&gt; m.Phone);
+        Map(m =&gt; m.Description).Ignore();
+    }
+}
+</code></pre>
+<h2><span id="6-當-csv-欄位有-json-格式資料">6. 當 csv 欄位有 Json 格式資料</span></h2>
+<p>資料格式：</p>
+<table>
+<thead>
+<tr>
+<th>ClassId</th>
+<th>Classmate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3</td>
+<td>[&quot;“Andy”&quot;,&quot;“Eric”&quot;,&quot;“Max”&quot;]</td>
+</tr>
+</tbody>
+</table>
+<p>資料源：</p>
+<pre><code>ClassId,Classmate
+3,&quot;[&quot;&quot;Andy&quot;&quot;,&quot;&quot;Eric&quot;&quot;,&quot;&quot;Max&quot;&quot;]&quot;
+
+</code></pre>
+<p><strong>ClassMap</strong> 對應做法如下：</p>
+<pre><code class="language-c#">static void Main(string[] args)
+{
+    // Csv 配置
+    CsvConfiguration setting = new CsvConfiguration(CultureInfo.InvariantCulture);
+
+    using (StreamReader sr = new StreamReader(&quot;./data.csv&quot;))
+    using (CsvReader csv = new CsvReader(sr, setting))
+    {
+        // 取得資料
+        csv.Context.RegisterClassMap&lt;ClassroomMap&gt;();
+        List&lt;Classroom&gt; result = csv.GetRecords&lt;Classroom&gt;().ToList();
+    }
+
+}
+public class Classroom
+{
+    public string ClassId { get; set; }
+
+    public List&lt;string&gt; Classmate { get; set; }
+}
+
+public sealed class ClassroomMap : ClassMap&lt;Classroom&gt;
+{
+    public ClassroomMap()
+    {
+        Map(m =&gt; m.ClassId);
+        Map(m =&gt; m.Classmate).Convert(row =&gt; JsonSerializer.Deserialize&lt;List&lt;string&gt;&gt;(row.Row.GetField(&quot;Classmate&quot;)));
+    }
+}
+</code></pre>
+<h2><span id="參考">參考</span></h2>
+<p><a href="https://dog0416.blogspot.com/2019/11/aspnet-core-csvhelper-c-csv.html?fbclid=IwAR2HnqnMGJhYcjnMBrcBKBYiR2JyIAkCA_NZlMPbrUiUnmaII9MpSWgquqk" target="_blank" rel="noopener">[C#][.NET Core] CsvHelper : 透過 C# 讀寫 csv 檔案</a></p>
+<p><a href="https://kevintsengtw.blogspot.com/2015/04/csvhelper-part2.html" target="_blank" rel="noopener">使用 CsvHelper - Part.2 資料讀取</a></p>
+<p><a href="https://www.cnblogs.com/gl1573/p/12922857.html" target="_blank" rel="noopener">【C#】CsvHelper 使用手册</a></p>
+<p><a href="https://joshclose.github.io/CsvHelper/examples/" target="_blank" rel="noopener">CsvHelper 官方文檔</a></p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2022/02/16/random-sort/" data-toggle="tooltip" data-placement="top" title="C# 陣列亂數排序(洗牌) - Fisher-Yates Shuffle">&larr; 上篇 </a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2022/04/09/winform-across-threads/" data-toggle="tooltip" data-placement="top" title="Winform 控制項跨執行緒作業無效"> 下篇 &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents 
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">1. 當 csv 欄位與類別名稱與資料型態可對應</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">2. 讀取不含 csv 標題</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">3. 當 csv 欄位名與類別屬性無法對應</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">4. 當 csv 欄位名稱有模稜兩可的情況</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">5. 忽略類別屬性對應</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">6. 當 csv 欄位有 Json 格式資料</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">參考</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+ -->
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">標籤雲</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#C#" title="C#">C#</a>
+                        
+                          <a class="tag" href="/tags/#Nuget" title="Nuget">Nuget</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>好部落</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://www.ruanyifeng.com/blog/" target="_blank">阮一峰的网络日志</a></li>
+                    
+                        <li><a href="http://teddy-chen-tw.blogspot.com/" target="_blank">搞笑談軟工</a></li>
+                    
+                        <li><a href="https://blog.johnwu.cc/" target="_blank">John Wu&#39;s Blog</a></li>
+                    
+                        <li><a href="https://blackie1019.gitlab.io/" target="_blank">Blackie&#39;s Failed Notes</a></li>
+                    
+                        <li><a href="https://columns.chicken-house.net/categories/" target="_blank">安德魯的部落格</a></li>
+                    
+                        <li><a href="https://isdaniel.github.io/" target="_blank">石頭的coding之路</a></li>
+                    
+                        <li><a href="https://larrynung.github.io/" target="_blank">Level Up</a></li>
+                    
+                        <li><a href="https://blog.yowko.com/" target="_blank">Yowko&#39;s Notes</a></li>
+                    
+                </ul>
+                
+
+                 <!-- videos Blog -->
+                 
+                    <hr>
+                    <h5>好視頻</h5>
+                    <ul class="list-inline">
+    
+                        
+                            <li><a href="https://www.youtube.com/channel/UCe1nKo3WGGzyTgDqmTdZzlA/featured">Anduin Xue</a></li>
+                        
+                            <li><a href="https://www.youtube.com/c/HackBear%E6%B3%B0%E7%91%9E">HackBear 泰瑞</a></li>
+                        
+                            <li><a href="https://www.youtube.com/channel/UC7GawUG3AC47M5gJZsvyflg">Untyped 對啊我是工程師</a></li>
+                        
+                    </ul>
+                                    
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<!--<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>-->
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+     $(document).ready(function(){
+     $('pre').addClass('prettyprint linenums');
+     $('code').addClass('prettyprint');
+     $("#pages a[href]").css('color', '#337ab7'); 
+     $(".pager a[href]").css('color', '#404040'); 
+     prettyPrint();
+     })
+    </script>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a href="/atom.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/maxlin0523">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    <span id="busuanzi_container_site_pv">
+                        <i class="fas fa-eye"></i> : <span id="busuanzi_value_site_uv"></span>
+                    </span>                 
+                    <br>Copyright &copy; Max Lin 2023<br>Powered by Hexo - Theme by BeanTech<br>
+                    <span id="sitetime"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script language=javascript>
+        function siteTime() {
+            window.setTimeout("siteTime()", 1000);
+            var seconds = 1000;
+            var minutes = seconds * 60;
+            var hours = minutes * 60;
+            var days = hours * 24;
+            var years = days * 365;
+            var today = new Date();
+            var todayYear = today.getFullYear();
+            var todayMonth = today.getMonth() + 1;
+            var todayDate = today.getDate();
+            var todayHour = today.getHours();
+            var todayMinute = today.getMinutes();
+            var todaySecond = today.getSeconds();
+            var t1 = Date.UTC(2021, 07, 25, 00, 02, 42);
+            var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+            var diff = t2 - t1;
+            var diffYears = Math.floor(diff / years);
+            var diffDays = Math.floor((diff / days) - diffYears * 365);
+            var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+            var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+            var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+            document.getElementById("sitetime").innerHTML = "網站已運行：" + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 時 " + diffMinutes + " 分 " + diffSeconds + " 秒";
+        }
+        siteTime();
+    </script>
+</footer>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://maxlin0523.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://maxlin0523.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+</body>
+
+</html>
