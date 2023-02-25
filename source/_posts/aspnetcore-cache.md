@@ -40,27 +40,14 @@ public MemoryCacheController(IMemoryCache memoryCache)
 ※ 如新增重複 key 會直接覆蓋舊 value
 
 ```C#=
-[HttpPost]
-public ActionResult Set([FromBody] UserInfo info)
-{
-    // 依 id 儲存資料於快取
-    _memoryCache.Set(info.Id, info);
-    return NoContent();
-}
+// 依 id 儲存資料於快取
+_memoryCache.Set(info.Id, info);
 ```
 
 ### 刪除快取資料
-
-※ 如刪除不存在 key 不會出現例外
-
 ```C#=
-[HttpDelete("{userId}")]
-public ActionResult Remove(int userId)
-{
-    // 依 id 刪除快取資料
-    _memoryCache.Remove(userId);
-    return NoContent();
-}
+// 依 id 刪除快取資料
+_memoryCache.Remove(userId);
 ```
 
 
@@ -68,7 +55,7 @@ public ActionResult Remove(int userId)
 
 分幾種方式：
 
-第一種(單純 `get`)：
+* 單純 `get`
 
 ```C#=
 var info = _memoryCache.Get<UserInfo>(userId);
@@ -81,7 +68,7 @@ if (info == null)
 return info;
 ```
 
-第二種(`TryGetValue`)：
+* `TryGetValue`
 
 ```C#=
 if (_memoryCache.TryGetValue<UserInfo>(userId, out var info) == false)
@@ -92,7 +79,7 @@ if (_memoryCache.TryGetValue<UserInfo>(userId, out var info) == false)
 return info;
 ```
 
-第三種(`GetOrCreate` 個人較常用)：
+* `GetOrCreate` (個人較常用)
 
 此方式支援同步(`GetOrCreate`)和非同步(`GetOrCreateAsync`)
 

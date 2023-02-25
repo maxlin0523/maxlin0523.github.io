@@ -18,8 +18,9 @@ header-img:
 
 * **Common（共用層）**：各層都會參考。將各層都共用的物件或是擴充方法都存放於此。
 
-### 專案架構圖
-![](https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F80c04083-a5be-4f2f-877e-56b616066946%2FUntitled.png?table=block&id=caaa0ab9-e2aa-4ebf-9b50-749f0a40e2a1&spaceId=59d38cce-92ff-4673-85e7-4a3082371d03&width=4270&userId=6c123588-4407-4a28-9aae-2bb53ad5b808&cache=v2)
+### 分層架構圖
+![](https://i.imgur.com/gTOngyn.png)
+
 
 ### 參數傳輸物件說明
 * **Entity** 

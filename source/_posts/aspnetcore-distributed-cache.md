@@ -48,64 +48,53 @@ public DistributedCacheController(IDistributedCache distributedCache)
 
 如下：
 ```C#=
-[HttpGet("{userId}")]
-public async Task<ActionResult<UserInfo>> Get(int userId)
+var userId = 123;
+
+// 取得快取資料，不存在則返回 null
+var source = await _distributedCache.GetAsync(userId.ToString());
+if (source == null)
 {
-    var source = await _distributedCache.GetAsync(userId.ToString());
-    if (source == null)
-    {
-        return NotFound();         
-    }
-    
-    var info = JsonSerializer.Deserialize<UserInfo>(source);
-    return info;
+    throw new KeyNotFoundException();        
 }
+
+var info = JsonSerializer.Deserialize<UserInfo>(source);
 ```
 
 ### 更新快取資料
 
 如下：
 ```C#=
-[HttpPost]
-public async Task<ActionResult> Set([FromBody] UserInfo info)
-{
-    await _distributedCache.SetStringAsync(info.Id.ToString(), JsonSerializer.Serialize(info));
-    return NoContent();
-}
+var userId = 123;
+
+await _distributedCache.SetStringAsync(
+userId.ToString(), JsonSerializer.Serialize(info));
 ```
 
 ### 刪除快取資料
 
 如下：
 ```C#=
-[HttpDelete("{userId}")]
-public async Task<ActionResult> Remove(int userId)
-{
-    await _distributedCache.RemoveAsync(userId.ToString());
-    return NoContent();
-}
+var userId = 123;
+await _distributedCache.RemoveAsync(userId.ToString());
 ```
 
 
 #### 取得或新增快取資料
 
-因為已習慣使用 `MemoryCache` 的 GetOrCreate，所以我也刻了一個給 `IDistributedCache` 來使用。
+因為個人習慣使用 `MemoryCache` 的 GetOrCreate，所以也刻了一個擴充方法：
 
-然後快取時間就依情境設定即可
+有關快取機制 `Absolute`、`Sliding` 於上一篇有介紹過了，讀者就根據使用情境來搭配使用
 ```c#=
-[HttpGet("{userId}")]
-public async Task<ActionResult<UserInfo>> GetOrCreate(int userId)
+var userId = 123;
+var cacheEntryOptions = new DistributedCacheEntryOptions
 {
-    var cacheEntryOptions = new DistributedCacheEntryOptions
-    {
-        // Set AbsoluteExpiration for 3 mins
-        AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(3),
-        // Set SlidingExpiration for 5 s
-        SlidingExpiration = TimeSpan.FromSeconds(5)
-    };
+    // Set AbsoluteExpiration for 3 mins
+    AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(3),
+    // Set SlidingExpiration for 5 s
+    SlidingExpiration = TimeSpan.FromSeconds(5)
+};
 
-    var info = await _distributedCache.GetOrCreateAsync(userId.ToString(), () => GetUserInfoFromDbAsync(), cacheEntryOptions);
-    return Ok(info);
+var info = await _distributedCache.GetOrCreateAsync(userId.ToString(), async () => await GetUserInfoFromDbAsync(), cacheEntryOptions);
 }
 ```
 
@@ -114,6 +103,7 @@ public async Task<ActionResult<UserInfo>> GetOrCreate(int userId)
 ```c#=
 public static async Task<TItem> GetOrCreateAsync<TItem>(this IDistributedCache cache, string key, Func<Task<TItem>> entity, DistributedCacheEntryOptions options = null)
 {
+    // 如果快取 options 沒傳入則自動設定預設快取
     if (options == null)
     {
         options = new DistributedCacheEntryOptions()
@@ -123,14 +113,23 @@ public static async Task<TItem> GetOrCreateAsync<TItem>(this IDistributedCache c
         };
     }
 
+    // 取得快取資料，不存在則返回 null
     var value = await cache.GetStringAsync(key);
+    
+    // 不存在的情況
     if (value == null)
     {
+        // 透過傳入的委派 entity 取得 resource
         var source = await entity();
+        
+        // 序列化 json
         var jsonSource = JsonSerializer.Serialize(source);
+        
+        // 存入快取並同時回傳
         await cache.SetStringAsync(key, jsonSource, options);
         return source;
     }
+    
     return JsonSerializer.Deserialize<TItem>(value);
 }
 ```
