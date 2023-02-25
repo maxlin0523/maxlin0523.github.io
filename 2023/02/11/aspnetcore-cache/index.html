@@ -141,7 +141,7 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -155,7 +155,7 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -228,27 +228,18 @@ public MemoryCacheController(IMemoryCache memoryCache)
 </code></pre>
 <h3><span id="新增快取資料">新增快取資料</span></h3>
 <p>※ 如新增重複 key 會直接覆蓋舊 value</p>
-<pre><code class="language-C#=">[HttpPost]
-public ActionResult Set([FromBody] UserInfo info)
-{
-    // 依 id 儲存資料於快取
-    _memoryCache.Set(info.Id, info);
-    return NoContent();
-}
+<pre><code class="language-C#=">// 依 id 儲存資料於快取
+_memoryCache.Set(info.Id, info);
 </code></pre>
 <h3><span id="刪除快取資料">刪除快取資料</span></h3>
-<p>※ 如刪除不存在 key 不會出現例外</p>
-<pre><code class="language-C#=">[HttpDelete(&quot;{userId}&quot;)]
-public ActionResult Remove(int userId)
-{
-    // 依 id 刪除快取資料
-    _memoryCache.Remove(userId);
-    return NoContent();
-}
+<pre><code class="language-C#=">// 依 id 刪除快取資料
+_memoryCache.Remove(userId);
 </code></pre>
 <h3><span id="取得快取資料">取得快取資料</span></h3>
 <p>分幾種方式：</p>
-<p>第一種(單純 <code>get</code>)：</p>
+<ul>
+<li>單純 <code>get</code></li>
+</ul>
 <pre><code class="language-C#=">var info = _memoryCache.Get&lt;UserInfo&gt;(userId);
 if (info == null)
 {
@@ -258,7 +249,9 @@ if (info == null)
 
 return info;
 </code></pre>
-<p>第二種(<code>TryGetValue</code>)：</p>
+<ul>
+<li><code>TryGetValue</code></li>
+</ul>
 <pre><code class="language-C#=">if (_memoryCache.TryGetValue&lt;UserInfo&gt;(userId, out var info) == false)
 {
     // 找不到的情況
@@ -266,7 +259,9 @@ return info;
 }
 return info;
 </code></pre>
-<p>第三種(<code>GetOrCreate</code> 個人較常用)：</p>
+<ul>
+<li><code>GetOrCreate</code> (個人較常用)</li>
+</ul>
 <p>此方式支援同步(<code>GetOrCreate</code>)和非同步(<code>GetOrCreateAsync</code>)</p>
 <pre><code class="language-C#=">// 找到就直接回傳，找不到就去 GetUserInfoFromDb 取
 var info = _memoryCache.GetOrCreate(userId, (entry) =&gt;

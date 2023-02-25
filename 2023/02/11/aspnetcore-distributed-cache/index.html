@@ -141,7 +141,7 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -155,7 +155,7 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -238,58 +238,48 @@ public DistributedCacheController(IDistributedCache distributedCache)
 </code></pre>
 <h3><span id="取得快取資料">取得快取資料</span></h3>
 <p>如下：</p>
-<pre><code class="language-C#=">[HttpGet(&quot;{userId}&quot;)]
-public async Task&lt;ActionResult&lt;UserInfo&gt;&gt; Get(int userId)
+<pre><code class="language-C#=">var userId = 123;
+
+// 取得快取資料，不存在則返回 null
+var source = await _distributedCache.GetAsync(userId.ToString());
+if (source == null)
 {
-    var source = await _distributedCache.GetAsync(userId.ToString());
-    if (source == null)
-    {
-        return NotFound();         
-    }
-    
-    var info = JsonSerializer.Deserialize&lt;UserInfo&gt;(source);
-    return info;
+    throw new KeyNotFoundException();        
 }
+
+var info = JsonSerializer.Deserialize&lt;UserInfo&gt;(source);
 </code></pre>
 <h3><span id="更新快取資料">更新快取資料</span></h3>
 <p>如下：</p>
-<pre><code class="language-C#=">[HttpPost]
-public async Task&lt;ActionResult&gt; Set([FromBody] UserInfo info)
-{
-    await _distributedCache.SetStringAsync(info.Id.ToString(), JsonSerializer.Serialize(info));
-    return NoContent();
-}
+<pre><code class="language-C#=">var userId = 123;
+
+await _distributedCache.SetStringAsync(
+userId.ToString(), JsonSerializer.Serialize(info));
 </code></pre>
 <h3><span id="刪除快取資料">刪除快取資料</span></h3>
 <p>如下：</p>
-<pre><code class="language-C#=">[HttpDelete(&quot;{userId}&quot;)]
-public async Task&lt;ActionResult&gt; Remove(int userId)
-{
-    await _distributedCache.RemoveAsync(userId.ToString());
-    return NoContent();
-}
+<pre><code class="language-C#=">var userId = 123;
+await _distributedCache.RemoveAsync(userId.ToString());
 </code></pre>
 <h4><span id="取得或新增快取資料">取得或新增快取資料</span></h4>
-<p>因為已習慣使用 <code>MemoryCache</code> 的 GetOrCreate，所以我也刻了一個給 <code>IDistributedCache</code> 來使用。</p>
-<p>然後快取時間就依情境設定即可</p>
-<pre><code class="language-c#=">[HttpGet(&quot;{userId}&quot;)]
-public async Task&lt;ActionResult&lt;UserInfo&gt;&gt; GetOrCreate(int userId)
+<p>因為個人習慣使用 <code>MemoryCache</code> 的 GetOrCreate，所以也刻了一個擴充方法：</p>
+<p>有關快取機制 <code>Absolute</code>、<code>Sliding</code> 於上一篇有介紹過了，讀者就根據使用情境來搭配使用</p>
+<pre><code class="language-c#=">var userId = 123;
+var cacheEntryOptions = new DistributedCacheEntryOptions
 {
-    var cacheEntryOptions = new DistributedCacheEntryOptions
-    {
-        // Set AbsoluteExpiration for 3 mins
-        AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(3),
-        // Set SlidingExpiration for 5 s
-        SlidingExpiration = TimeSpan.FromSeconds(5)
-    };
+    // Set AbsoluteExpiration for 3 mins
+    AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(3),
+    // Set SlidingExpiration for 5 s
+    SlidingExpiration = TimeSpan.FromSeconds(5)
+};
 
-    var info = await _distributedCache.GetOrCreateAsync(userId.ToString(), () =&gt; GetUserInfoFromDbAsync(), cacheEntryOptions);
-    return Ok(info);
+var info = await _distributedCache.GetOrCreateAsync(userId.ToString(), () =&gt; GetUserInfoFromDbAsync(), cacheEntryOptions);
 }
 </code></pre>
 <p>擴充方法代碼如下：</p>
 <pre><code class="language-c#=">public static async Task&lt;TItem&gt; GetOrCreateAsync&lt;TItem&gt;(this IDistributedCache cache, string key, Func&lt;Task&lt;TItem&gt;&gt; entity, DistributedCacheEntryOptions options = null)
 {
+    // 如果快取 options 沒傳入則自動設定預設快取
     if (options == null)
     {
         options = new DistributedCacheEntryOptions()
@@ -299,14 +289,23 @@ public async Task&lt;ActionResult&lt;UserInfo&gt;&gt; GetOrCreate(int userId)
         };
     }
 
+    // 取得快取資料，不存在則返回 null
     var value = await cache.GetStringAsync(key);
+    
+    // 不存在的情況
     if (value == null)
     {
+        // 透過傳入的委派 entity 取得 resource
         var source = await entity();
+        
+        // 序列化 json
         var jsonSource = JsonSerializer.Serialize(source);
+        
+        // 存入快取並同時回傳
         await cache.SetStringAsync(key, jsonSource, options);
         return source;
     }
+    
     return JsonSerializer.Deserialize&lt;TItem&gt;(value);
 }
 </code></pre>
