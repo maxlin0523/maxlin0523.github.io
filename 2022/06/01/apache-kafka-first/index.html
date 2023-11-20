@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Hexo counts visitors - Max&#39;s Blog | 邁向全端之路
+          Apache Kafka - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
-    <link rel="canonical" href="https://maxlin0523.github.io/2021/07/30/Hexo加入網站、文章訪問數統計/">
+    <link rel="canonical" href="https://maxlin0523.github.io/2022/06/01/apache-kafka-first/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -86,14 +86,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Hexo" title="Hexo">Hexo</a>
+                              <a class="tag" href="/tags/#Message Queue" title="Message Queue">Message Queue</a>
                             
                         </div>
-                        <h1>Hexo counts visitors</h1>
+                        <h1>Apache Kafka</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
-                            2021-07-30 <!--（
+                            2022-06-01 <!--（
                             <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views） -->
                         </span>
                     </div>
@@ -208,38 +208,110 @@
                 col-md-10 col-md-offset-1
                 ">
                 <!-- class: post-container拔除 -->
-                <p>本篇採用 <code>不蒜子計數器</code> 。</p>
-<h3><span id="第一步引用腳本">第一步：引用腳本</span></h3>
-<p>將網站標籤 <code>&lt;Head&gt;</code> 引入：</p>
-<pre><code class="language-javascript=">&lt;script async src=&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;&gt;&lt;/script&gt;
+                <h1><span id="apache-kafka">Apache Kafka</span></h1>
+<h2><span id="簡介">簡介</span></h2>
+<p>Kafka 最初是 Linkedin 開發，後 Confluent 維護與開發，是一套消息代理(Message broker) 的系統，並具有高吞吐、可擴充、高可用、持久的特性。</p>
+<h2><span id="何謂消息代理">何謂消息代理？</span></h2>
+<p>擔任各服務之間的中介層，應用在溝通、信息的傳遞，並代理服務傳送的訊息，流程如下：</p>
+<p><img src="https://i.imgur.com/DgPejAs.png" alt></p>
+<p>Producer 生產一個訊息，會存在一個訊息佇列裡(在此指 kafka)，Consumer 會再透過訊息佇列去消費訊息。</p>
+<p>常用來解決複雜的服務關係，有效達到解耦，kafka 也有以下好處：</p>
+<ol>
+<li>可用性：kafka 可以是一個分散式架構，如：Replication</li>
+<li>可擴展性: 架構進行擴展縮放無需停機，如：Cluster</li>
+<li>耐用性： 所有訊息都是存放於硬碟裡</li>
+<li>性能：由於在磁碟讀寫都是循序的，速度可比 <code>RAM</code> 時間快，並有著高吞吐量可達到巨量緩衝作用</li>
+</ol>
+<h2><span id="利用-docker-建置">利用 Docker 建置</span></h2>
+<h4><span id="docker-compose">Docker-Compose</span></h4>
+<p>GUI 使用者介面：<a href="https://www.kafkatool.com/" target="_blank" rel="noopener">kafka-tool</a></p>
+<pre><code class="language-yaml=">version: '3'
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    ports:
+      - &quot;2181:2181&quot;
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  broker:
+    image: wurstmeister/kafka
+    container_name: kafka
+    ports:
+      - &quot;9092:9092&quot;
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
 </code></pre>
-<h3><span id="第二步網站觀看數">第二步：網站觀看數</span></h3>
-<p>將想要顯示網站計數的片段（footer.ejs）貼上：</p>
-<pre><code class="language-javascript=">總訪問量: &lt;span id=&quot;busuanzi_value_site_pv&quot;&gt;&lt;/span&gt;次
+<h3><span id="c">C#</span></h3>
+<p>下載 Nuget <code>Confluent.Kafka</code></p>
+<h4><span id="producer">Producer</span></h4>
+<pre><code class="language-c#">// kafka 位置
+var config = new ProducerConfig { BootstrapServers = &quot;localhost:9092&quot; };
+
+// Producer
+using (var p = new ProducerBuilder&lt;Null, string&gt;(config).Build())
+{
+    try
+    {
+        await p.ProduceAsync(&quot;max-topic&quot;, new Message&lt;Null, string&gt; { Value = &quot;a&quot; });
+        await p.ProduceAsync(&quot;max-topic&quot;, new Message&lt;Null, string&gt; { Value = &quot;b&quot; });
+        await p.ProduceAsync(&quot;max-topic&quot;, new Message&lt;Null, string&gt; { Value = &quot;c&quot; });
+        await p.ProduceAsync(&quot;max-topic&quot;, new Message&lt;Null, string&gt; { Value = &quot;d&quot; });
+        await p.ProduceAsync(&quot;max-topic&quot;, new Message&lt;Null, string&gt; { Value = &quot;e&quot; });
+    }
+    catch (ProduceException&lt;Null, string&gt; e)
+    {
+        Console.WriteLine($&quot;Delivery failed: {e.Error.Reason}&quot;);
+    }
+}
 </code></pre>
-<p>或</p>
-<pre><code class="language-javascript">總訪客數: &lt;span id=&quot;busuanzi_value_site_uv&quot;&gt;&lt;/span&gt;次
+<h4><span id="consumer">Consumer</span></h4>
+<pre><code class="language-c#=">var conf = new ConsumerConfig
+{
+    GroupId = &quot;test-consumer-group&quot;,
+    BootstrapServers = &quot;localhost:9092&quot;,
+    AutoOffsetReset = AutoOffsetReset.Earliest
+};
+
+using (var c = new ConsumerBuilder&lt;Ignore, string&gt;(conf).Build())
+{
+    c.Subscribe(&quot;max-topic&quot;); // 訂閱 Topic
+
+    CancellationTokenSource cts = new CancellationTokenSource();
+
+    try
+    {
+        while (true)
+        {
+            try
+            {
+                var cr = c.Consume(cts.Token);
+                Console.WriteLine($&quot;Consumed message '{cr.Value}' at: '{cr.TopicPartitionOffset}'.&quot;);
+            }
+            catch (ConsumeException e)
+            {
+                Console.WriteLine($&quot;Error occured: {e.Error.Reason}&quot;);
+            }
+
+            Thread.Sleep(1000); // 一秒消費一次
+        }
+    }
+    catch (OperationCanceledException)
+    {
+        c.Close();
+    }
+}
 </code></pre>
-<p>算法<br>
-pv： 單用戶點擊 n 篇文章，觀看數增加 n 次<br>
-uv： 單用戶點擊 n 篇文章，觀看數增加 1 次</p>
-<h3><span id="第三步文章觀看數">第三步：文章觀看數</span></h3>
-<p>將想要顯示文章計數的片段（header.ejs）貼上：</p>
-<pre><code class="language-javascript=">文章觀看數: &lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
-</code></pre>
-<p>done.</p>
-<p>當然，後續也可添加一些 CSS 裝飾</p>
-<h3><span id="範本">範本</span></h3>
-<p>我的網頁</p>
-<h6><span id="tags-文章觀看數">tags: 文章觀看數</span></h6>
-<p><img src="https://i.imgur.com/17kN728.jpg" alt></p>
-<h6><span id="tags-網站觀看數pv">tags: 網站觀看數（pv）</span></h6>
-<p><img src="https://i.imgur.com/dkOnxR8.jpg" alt></p>
-<h3><span id="原理">原理</span></h3>
-<p>將域名生成唯一碼後傳入第三方服務計數，每次點擊就計數一次，只要域名不變，訪問數就會一直累計。</p>
-<p>※ 要注意的是在本地端開啟時，網站訪問量數字會很大，因為大家本地端都是由 <code>http://localhost:4000/</code> 開啟，所以生成的唯一碼都相同，此情況在部屬後會恢復正常。</p>
-<h3><span id="參考">參考</span></h3>
-<p><a href="https://blog.csdn.net/weixin_46247581/article/details/105848853" target="_blank" rel="noopener">不蒜子计数器的使用</a></p>
+<h2><span id="參考">參考：</span></h2>
+<p><a href="https://zh.wikipedia.org/zh-tw/Kafka" target="_blank" rel="noopener">Kafka 維基百科</a></p>
+<p><a href="https://morosedog.gitlab.io/kafka-20201117-kafka-1/" target="_blank" rel="noopener">Apache Kafka 概述</a></p>
+<p><a href="https://github.com/confluentinc/confluent-kafka-dotnet" target="_blank" rel="noopener">confluentinc/confluent-kafka-dotnet</a></p>
+<p><a href="https://medium.com/@chihsuan/introduction-to-apache-kafka-1cae693aa85e" target="_blank" rel="noopener">Apache Kafka 介紹</a></p>
 
                 
 
@@ -248,12 +320,12 @@ uv： 單用戶點擊 n 篇文章，觀看數增加 1 次</p>
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2021/07/25/Blog正式開幕/" data-toggle="tooltip" data-placement="top" title="The blog is opening">&larr; 上篇 </a>
+                            <a href="/2022/05/22/csharp-mongodb-drive/" data-toggle="tooltip" data-placement="top" title="C# 串接 MongoDB">&larr; 上篇 </a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2021/08/03/value-reference/" data-toggle="tooltip" data-placement="top" title="C# Value and Reference Type"> 下篇 &rarr;</a>
+                            <a href="/2022/06/08/mongodb-aggregation-pipeline/" data-toggle="tooltip" data-placement="top" title="MongoDB Aggregation Pipeline"> 下篇 &rarr;</a>
                         </li>
                     
                 </ul>
@@ -279,7 +351,7 @@ uv： 單用戶點擊 n 篇文章，觀看數增加 1 次</p>
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">第一步：引用腳本</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">第二步：網站觀看數</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">第三步：文章觀看數</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">範本</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.0.0.1.</span> <span class="toc-nav-text">tags: 文章觀看數</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.0.0.2.</span> <span class="toc-nav-text">tags: 網站觀看數（pv）</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">原理</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">參考</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Apache Kafka</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">簡介</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">何謂消息代理？</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">利用 Docker 建置</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.3.0.1.</span> <span class="toc-nav-text">Docker-Compose</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.3.1.</span> <span class="toc-nav-text">C#</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.3.1.1.</span> <span class="toc-nav-text">Producer</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.3.1.2.</span> <span class="toc-nav-text">Consumer</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">參考：</span></a></li></ol></li></ol>
         
         </div>
       </aside>
@@ -300,7 +372,7 @@ uv： 單用戶點擊 n 篇文章，觀看數增加 1 次</p>
                     <h5><a href="/tags/">標籤雲</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Hexo" title="Hexo">Hexo</a>
+                          <a class="tag" href="/tags/#Message Queue" title="Message Queue">Message Queue</a>
                         
                     </div>
                 </section>

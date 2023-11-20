@@ -209,6 +209,29 @@
   </entry>
   
   <entry>
+    <title>Apache Kafka</title>
+    <link href="https://maxlin0523.github.io/2022/06/01/apache-kafka-first/"/>
+    <id>https://maxlin0523.github.io/2022/06/01/apache-kafka-first/</id>
+    <published>2022-06-01T10:16:18.000Z</published>
+    <updated>2023-11-20T15:54:13.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html"></summary>
+        
+      
+    
+    
+    
+    
+    <category term="Message Queue" scheme="https://maxlin0523.github.io/tags/Message-Queue/"/>
+    
+  </entry>
+  
+  <entry>
     <title>C# 串接 MongoDB</title>
     <link href="https://maxlin0523.github.io/2022/05/22/csharp-mongodb-drive/"/>
     <id>https://maxlin0523.github.io/2022/05/22/csharp-mongodb-drive/</id>
@@ -468,29 +491,6 @@
     
     
     <category term="C#" scheme="https://maxlin0523.github.io/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hexo counts visitors</title>
-    <link href="https://maxlin0523.github.io/2021/07/30/Hexo%E5%8A%A0%E5%85%A5%E7%B6%B2%E7%AB%99%E3%80%81%E6%96%87%E7%AB%A0%E8%A8%AA%E5%95%8F%E6%95%B8%E7%B5%B1%E8%A8%88/"/>
-    <id>https://maxlin0523.github.io/2021/07/30/Hexo%E5%8A%A0%E5%85%A5%E7%B6%B2%E7%AB%99%E3%80%81%E6%96%87%E7%AB%A0%E8%A8%AA%E5%95%8F%E6%95%B8%E7%B5%B1%E8%A8%88/</id>
-    <published>2021-07-30T12:47:12.000Z</published>
-    <updated>2023-02-11T14:43:48.188Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html"></summary>
-        
-      
-    
-    
-    
-    
-    <category term="Hexo" scheme="https://maxlin0523.github.io/tags/Hexo/"/>
     
   </entry>
   

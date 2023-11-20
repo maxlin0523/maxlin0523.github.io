@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Hexo counts visitors - Max&#39;s Blog | 邁向全端之路
+          Max&#39;s Blog | 邁向全端之路
         
     </title>
 
-    <link rel="canonical" href="https://maxlin0523.github.io/2021/07/30/Hexo加入網站、文章訪問數統計/">
+    <link rel="canonical" href="https://maxlin0523.github.io/archives/4/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -65,8 +65,8 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('/img/Architecture.jpeg')
-            /*post*/
+            background-image: url('https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Feeb2a157-aaf5-469e-8662-7442c36a1a0f%2FUntitled.png?table=block&id=ebe1a59c-240f-4051-8ad1-34ad1d959ce6&spaceId=59d38cce-92ff-4673-85e7-4a3082371d03&width=2850&userId=6c123588-4407-4a28-9aae-2bb53ad5b808&cache=v2') 
+            /*config*/
         
     }
     
@@ -83,19 +83,10 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 
-                    <div class="post-heading">
-                        <div class="tags">
-                            
-                              <a class="tag" href="/tags/#Hexo" title="Hexo">Hexo</a>
-                            
-                        </div>
-                        <h1>Hexo counts visitors</h1>
-                        <h2 class="subheading"></h2>
-                        <span class="meta">
-                            Posted by Max Lin on
-                            2021-07-30 <!--（
-                            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views） -->
-                        </span>
+                    <div class="site-heading">
+                        <h1>Max&#39;s Blog</h1>
+                        <!--<hr class="small">-->
+                        <span class="subheading">Don&#39;t code fast, good code lasts.</span>
                     </div>
                 
                 </div>
@@ -196,202 +187,270 @@
 
 
     <!-- Main Content -->
-    
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-
-            <!-- Post Container -->
-            <div id = "pages" class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                ">
-                <!-- class: post-container拔除 -->
-                <p>本篇採用 <code>不蒜子計數器</code> 。</p>
-<h3><span id="第一步引用腳本">第一步：引用腳本</span></h3>
-<p>將網站標籤 <code>&lt;Head&gt;</code> 引入：</p>
-<pre><code class="language-javascript=">&lt;script async src=&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;&gt;&lt;/script&gt;
-</code></pre>
-<h3><span id="第二步網站觀看數">第二步：網站觀看數</span></h3>
-<p>將想要顯示網站計數的片段（footer.ejs）貼上：</p>
-<pre><code class="language-javascript=">總訪問量: &lt;span id=&quot;busuanzi_value_site_pv&quot;&gt;&lt;/span&gt;次
-</code></pre>
-<p>或</p>
-<pre><code class="language-javascript">總訪客數: &lt;span id=&quot;busuanzi_value_site_uv&quot;&gt;&lt;/span&gt;次
-</code></pre>
-<p>算法<br>
-pv： 單用戶點擊 n 篇文章，觀看數增加 n 次<br>
-uv： 單用戶點擊 n 篇文章，觀看數增加 1 次</p>
-<h3><span id="第三步文章觀看數">第三步：文章觀看數</span></h3>
-<p>將想要顯示文章計數的片段（header.ejs）貼上：</p>
-<pre><code class="language-javascript=">文章觀看數: &lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;
-</code></pre>
-<p>done.</p>
-<p>當然，後續也可添加一些 CSS 裝飾</p>
-<h3><span id="範本">範本</span></h3>
-<p>我的網頁</p>
-<h6><span id="tags-文章觀看數">tags: 文章觀看數</span></h6>
-<p><img src="https://i.imgur.com/17kN728.jpg" alt></p>
-<h6><span id="tags-網站觀看數pv">tags: 網站觀看數（pv）</span></h6>
-<p><img src="https://i.imgur.com/dkOnxR8.jpg" alt></p>
-<h3><span id="原理">原理</span></h3>
-<p>將域名生成唯一碼後傳入第三方服務計數，每次點擊就計數一次，只要域名不變，訪問數就會一直累計。</p>
-<p>※ 要注意的是在本地端開啟時，網站訪問量數字會很大，因為大家本地端都是由 <code>http://localhost:4000/</code> 開啟，所以生成的唯一碼都相同，此情況在部屬後會恢復正常。</p>
-<h3><span id="參考">參考</span></h3>
-<p><a href="https://blog.csdn.net/weixin_46247581/article/details/105848853" target="_blank" rel="noopener">不蒜子计数器的使用</a></p>
-
-                
-
-                <hr>
-                <!-- Pager -->
-                <ul class="pager">
-                    
-                        <li class="previous">
-                            <a href="/2021/07/25/Blog正式開幕/" data-toggle="tooltip" data-placement="top" title="The blog is opening">&larr; 上篇 </a>
-                        </li>
-                    
-                    
-                        <li class="next">
-                            <a href="/2021/08/03/value-reference/" data-toggle="tooltip" data-placement="top" title="C# Value and Reference Type"> 下篇 &rarr;</a>
-                        </li>
-                    
-                </ul>
-
-                <!-- duoshuo Share start -->
-                
-                <!-- 多说 Share end-->
-
-                <!-- 多说评论框 start -->
-                
-                <!-- 多说评论框 end -->
-
-                <!-- disqus comment start -->
-                
-                <!-- disqus comment end -->
-            </div>
-            
-            <!-- Tabe of Content -->
-            <!-- Table of Contents 
-
-    
-      <aside id="sidebar">
-        <div id="toc" class="toc-article">
-        <strong class="toc-title">Contents</strong>
+    <!-- Main Content -->
+<div class="container">
+    <div class="row">
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">第一步：引用腳本</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">第二步：網站觀看數</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">第三步：文章觀看數</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">範本</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.0.0.1.</span> <span class="toc-nav-text">tags: 文章觀看數</span></a></li><li class="toc-nav-item toc-nav-level-6"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.0.0.2.</span> <span class="toc-nav-text">tags: 網站觀看數（pv）</span></a></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">原理</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">參考</span></a></li></ol>
-        
-        </div>
-      </aside>
-    
- -->
-                
-            <!-- Sidebar Container -->
+
+<!-- USE SIDEBAR -->
+    <!-- Post Container -->
             <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+            
+                <!-- Main Content -->
 
-                
-                <!-- Featured Tags -->
-                
-                <section>
-                    <!-- no hr -->
-                    <h5><a href="/tags/">標籤雲</a></h5>
-                    <div class="tags">
-                       
-                          <a class="tag" href="/tags/#Hexo" title="Hexo">Hexo</a>
-                        
-                    </div>
-                </section>
-                
 
-                <!-- Friends Blog -->
-                
-                <hr>
-                <h5>好部落</h5>
-                <ul class="list-inline">
+<div class="post-preview">
 
-                    
-                        <li><a href="https://www.ruanyifeng.com/blog/" target="_blank">阮一峰的网络日志</a></li>
-                    
-                        <li><a href="http://teddy-chen-tw.blogspot.com/" target="_blank">搞笑談軟工</a></li>
-                    
-                        <li><a href="https://blog.johnwu.cc/" target="_blank">John Wu&#39;s Blog</a></li>
-                    
-                        <li><a href="https://blackie1019.gitlab.io/" target="_blank">Blackie&#39;s Failed Notes</a></li>
-                    
-                        <li><a href="https://columns.chicken-house.net/categories/" target="_blank">安德魯的部落格</a></li>
-                    
-                        <li><a href="https://isdaniel.github.io/" target="_blank">石頭的coding之路</a></li>
-                    
-                        <li><a href="https://larrynung.github.io/" target="_blank">Level Up</a></li>
-                    
-                        <li><a href="https://blog.yowko.com/" target="_blank">Yowko&#39;s Notes</a></li>
-                    
-                </ul>
-                
-
-                 <!-- videos Blog -->
-                 
-                    <hr>
-                    <h5>好視頻</h5>
-                    <ul class="list-inline">
-    
-                        
-                            <li><a href="https://www.youtube.com/channel/UCe1nKo3WGGzyTgDqmTdZzlA/featured">Anduin Xue</a></li>
-                        
-                            <li><a href="https://www.youtube.com/c/HackBear%E6%B3%B0%E7%91%9E">HackBear 泰瑞</a></li>
-                        
-                            <li><a href="https://www.youtube.com/channel/UC7GawUG3AC47M5gJZsvyflg">Untyped 對啊我是工程師</a></li>
-                        
-                    </ul>
-                                    
-            </div>
+    <a href="/2021/05/16/分層架構－Layered Architecture/">
+        <h2 class="post-title">
+            Software Layered Architecture
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            介紹
+一般分為 Controller、Service、Repository 三層。各層之間依賴介面，符合 SOLID－DIP，只需要針對各層介面提供的方法去使用並達到 相依性注入，而每層間參數物......
         </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Max Lin on
+            2021-05-16
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#設計模式" title="設計模式">設計模式</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+        <li class="previous">
+            <a href="/archives/3/">&larr; Previews</a>
+        </li>
+    
+    
+</ul>
+
+
+
+                <!-- 如果开启评论功能 -->
+                
+            </div>
+
+          <!-- Sidebar Container -->
+<div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+    
+        <!-- Short About -->
+<section class="visible-md visible-lg">
+    <h5><a href="/about/">關於我</a></h5>
+    <div class="short-about">
+
+        
+            <img id = "avatar_pic" src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fe989c118-0e35-46d0-8180-3b81e1951d93%2F94E6B1BC-695F-450D-93D8-8880E424A8F4.jpeg?table=block&id=2f192d56-e330-44bc-97b1-0857518471cc&spaceId=59d38cce-92ff-4673-85e7-4a3082371d03&width=4270&userId=6c123588-4407-4a28-9aae-2bb53ad5b808&cache=v2" />
+        
+
+        
+            <p>Hi, I&#39;m Max, also a backend engineer.</p>
+        
+
+        <!-- SNS Link -->
+        <ul class="list-inline">
+            
+                <li>
+                    <a href="/atom.xml">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+            
+
+            
+                <li>
+                    <a target="_blank"  href="https://github.com/maxlin0523">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+            
+                      
+            
+        </ul>
     </div>
-</article>
+</section>
+        <hr>
+    
+        
+  <h5>近期貼文</h3>
+  <div class="widget">
+    <ul>
+      
+        <li>
+          <a href="/2023/02/11/aspnetcore-distributed-cache/">ASP.NET Core Distributed Cache</a>
+        </li>
+      
+        <li>
+          <a href="/2023/02/11/aspnetcore-cache/">ASP.NET Core Cache</a>
+        </li>
+      
+        <li>
+          <a href="/2023/01/12/git-ssh-key/">Github 使用 SSH-Key</a>
+        </li>
+      
+        <li>
+          <a href="/2022/11/15/hash-encryption/">加密 &amp; 雜湊</a>
+        </li>
+      
+        <li>
+          <a href="/2022/11/13/microservices-pattern/">Microservices Pattern 微服務架構</a>
+        </li>
+      
+    </ul>
+  </div>
 
+        <hr>
+    
+        <!-- Friends Blog -->
 
+<h5>好部落</h5>
+<ul class="list-inline">
 
+    
+        <li><a href="https://www.ruanyifeng.com/blog/" target="_blank">阮一峰的网络日志</a></li><br>
+    
+        <li><a href="http://teddy-chen-tw.blogspot.com/" target="_blank">搞笑談軟工</a></li><br>
+    
+        <li><a href="https://blog.johnwu.cc/" target="_blank">John Wu&#39;s Blog</a></li><br>
+    
+        <li><a href="https://blackie1019.gitlab.io/" target="_blank">Blackie&#39;s Failed Notes</a></li><br>
+    
+        <li><a href="https://columns.chicken-house.net/categories/" target="_blank">安德魯的部落格</a></li><br>
+    
+        <li><a href="https://isdaniel.github.io/" target="_blank">石頭的coding之路</a></li><br>
+    
+        <li><a href="https://larrynung.github.io/" target="_blank">Level Up</a></li><br>
+    
+        <li><a href="https://blog.yowko.com/" target="_blank">Yowko&#39;s Notes</a></li><br>
+    
+</ul>
 
+        <hr>
+    
+        
+    <h5>好視頻</h5>
+    <ul class="list-inline">
+    
+        
+            <li><a href="https://www.youtube.com/channel/UCe1nKo3WGGzyTgDqmTdZzlA/featured" target="_blank">Anduin Xue</a></li><br>
+        
+            <li><a href="https://www.youtube.com/c/HackBear%E6%B3%B0%E7%91%9E" target="_blank">HackBear 泰瑞</a></li><br>
+        
+            <li><a href="https://www.youtube.com/channel/UC7GawUG3AC47M5gJZsvyflg" target="_blank">Untyped 對啊我是工程師</a></li><br>
+        
+    </ul>
 
+        <hr>
+    
+        <!-- Featured Tags -->
 
+<section>
+    <!-- no hr -->
+    <h5><a href="/tags/">標籤雲</a></h5>
+    <div class="tags">
+        
+            
+        
+            
+            <a href="/tags/#日常除錯" title="日常除錯" rel="2">日常除錯</a>
+            
+        
+            
+        
+            
+            <a href="/tags/#C#" title="C#" rel="7">C#</a>
+            
+        
+            
+        
+            
+            <a href="/tags/#General" title="General" rel="4">General</a>
+            
+        
+            
+        
+            
+            <a href="/tags/#AspNetCore" title="AspNetCore" rel="2">AspNetCore</a>
+            
+        
+            
+            <a href="/tags/#Cache" title="Cache" rel="2">Cache</a>
+            
+        
+            
+            <a href="/tags/#Redis" title="Redis" rel="4">Redis</a>
+            
+        
+            
+            <a href="/tags/#Lua" title="Lua" rel="3">Lua</a>
+            
+        
+            
+            <a href="/tags/#MongoDB" title="MongoDB" rel="2">MongoDB</a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+            <a href="/tags/#設計模式" title="設計模式" rel="4">設計模式</a>
+            
+        
+            
+        
+    </div>
+</section>
 
-<!-- async load function -->
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
-    }
-</script>
-<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
-<!--<script>
-    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
-        anchors.options = {
-          visible: 'hover',
-          placement: 'left',
-          icon: 'ℬ'
-        };
-        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
-    })
-</script>-->
-<style>
-    /* place left on bigger screen */
-    @media all and (min-width: 800px) {
-        .anchorjs-link{
-            position: absolute;
-            left: -0.75em;
-            font-size: 1.1em;
-            margin-top : -0.1em;
-        }
-    }
-</style>
+        <hr>
+    
+</div>
 
+        
+    </div>
+</div>
 
 
     <!-- Footer -->
