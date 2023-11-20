@@ -7,6 +7,13 @@
     </url>
     
     <url>
+        <loc>https://maxlin0523.github.io/about/</loc>
+        <lastmod>2023-11-20T15:39:49.337Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
         <loc>https://maxlin0523.github.io/tags/</loc>
         <lastmod>2023-02-11T14:43:48.258Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -15,13 +22,6 @@
     
     <url>
         <loc>https://maxlin0523.github.io/archive/</loc>
-        <lastmod>2023-02-11T14:43:48.210Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <url>
-        <loc>https://maxlin0523.github.io/about/</loc>
         <lastmod>2023-02-11T14:43:48.210Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
