@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          The blog is opening - Max&#39;s Blog | 邁向全端之路
+          MongoDB Read Preference - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
-    <link rel="canonical" href="https://maxlin0523.github.io/2021/07/25/Blog正式開幕/">
+    <link rel="canonical" href="https://maxlin0523.github.io/2023/11/21/mongodb-read-preference/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -86,14 +86,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#散亂札記" title="散亂札記">散亂札記</a>
+                              <a class="tag" href="/tags/#MongoDB" title="MongoDB">MongoDB</a>
                             
                         </div>
-                        <h1>The blog is opening</h1>
+                        <h1>MongoDB Read Preference</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
-                            2021-07-25 <!--（
+                            2023-11-21 <!--（
                             <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views） -->
                         </span>
                     </div>
@@ -208,15 +208,23 @@
                 col-md-10 col-md-offset-1
                 ">
                 <!-- class: post-container拔除 -->
-                <p>原本在 Medium 發展了一小段時間，至於為什麼會轉來這邊呢，原因是當初寫了也快 10 篇文，想說是時候要來整理文章分類功能了，結果發現竟然是需要花錢才能解鎖阿！<br>
-讓我一怒之下<br>
-．</p>
-<p>．</p>
-<p>．</p>
-<p>也沒辦法幹嘛，只好自己架囉，好處就是部落格功能可以隨喜好自製，壞處當然就是麻煩要寫 code，但也是個好機會能讓我接觸到前端。</p>
-<p>而架設過程從框架 Hexo 與 Hugo 抉擇到各式網站主題，讓我這個有選擇障礙的人吃足了苦頭，整整花了有一整天的時間考慮，最終選定了 Hexo 來作為部落格框架，原因是 Hexo 使用族群多數是華人，當然就有比較多中文資料可以參考，需要自製化某些功能就不需要再去國外網站翻來翻去，對我這個前端菜鳥加上破英文實在是非常友善，再說，Hexo 也是咱們台灣人<a href="https://zespia.tw/blog/2012/10/11/hexo-debut/" target="_blank" rel="noopener">開發</a>出來的，當然要支持一下！</p>
-<p>總之</p>
-<p>最後順利架設好了，那寫部落格的動機主要就是記錄學過的知識技術，因為軟體工程的水實在太深啦，有時候自己做過的東西太久沒用到就會忘記，又或是自認為已經會的東西要講解給其他人又講不出個所以然，不知道自己到底是真懂還假懂，最簡單暴力的方法，就是直接寫一篇文章，從頭到尾依序有脈絡的描述，藉此在大腦裡重新整理過一遍再表達出來，只要能完整表達出來，就代表是真懂了😂</p>
+                <p>MongoDB 提供了不同的 Read Preference(讀取偏好)的模式，用來決定 Replica Set 架構下 <code>讀的操作</code></p>
+<p>有以下幾種模式:</p>
+<h2><span id="primary">primary</span></h2>
+<p>一切<code>讀的操作</code>都是由 Primary 節點進行</p>
+<h2><span id="primarypreferred">primaryPreferred</span></h2>
+<p>正常狀況下<code>讀的操作</code>都是由 Primary 進行, 當 Primary 故障則是替換由 Secondary 節點進行</p>
+<h2><span id="secondary">secondary</span></h2>
+<p>一切<code>讀的操作</code>都是由 Secondary 節點進行</p>
+<h2><span id="secondarypreferred">secondaryPreferred</span></h2>
+<p>正常狀況下<code>讀的操作</code>都是由 Secondary 進行, 當 Secondary 故障則是替換由 Primary 節點進行</p>
+<h2><span id="nearest">nearest</span></h2>
+<p>從延遲最小的節點進行<code>讀的操作</code>, 不管該節點是 Primary 或 Secondary。</p>
+<hr>
+<p>用哪一種取決於不同場景和需求，像是：<code>金錢交易</code> 或 <code>賠率推送</code> 等對資料的即時性和一致性有較高要求的情況用 primary 模式、需要 <code>快速呈現</code> 數據的場景則用 nearest，而讀寫分離通常使用 Secondary or SecondaryPreferred 用來減輕 Primary 的負擔</p>
+<p><img src="https://i.imgur.com/CJqwaPS.png" alt></p>
+<h1><span id="參考">參考</span></h1>
+<p><a href="https://zhuanlan.zhihu.com/p/107278045" target="_blank" rel="noopener">MongoDB 事务 —— 基础入门篇</a></p>
 
                 
 
@@ -225,13 +233,9 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2021/07/11/裝飾者模式－Decorator Pattern/" data-toggle="tooltip" data-placement="top" title="Decorator Pattern">&larr; 上篇 </a>
+                            <a href="/2023/02/11/aspnetcore-distributed-cache/" data-toggle="tooltip" data-placement="top" title="ASP.NET Core Distributed Cache">&larr; 上篇 </a>
                         </li>
                     
-                    
-                        <li class="next">
-                            <a href="/2021/07/30/Hexo加入網站、文章訪問數統計/" data-toggle="tooltip" data-placement="top" title="Hexo counts visitors"> 下篇 &rarr;</a>
-                        </li>
                     
                 </ul>
 
@@ -256,7 +260,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="nav">none</ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">primary</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">primaryPreferred</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">secondary</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">secondaryPreferred</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">nearest</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number"></span> <span class="toc-nav-text">參考</span></a>
         
         </div>
       </aside>
@@ -277,7 +281,7 @@
                     <h5><a href="/tags/">標籤雲</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#散亂札記" title="散亂札記">散亂札記</a>
+                          <a class="tag" href="/tags/#MongoDB" title="MongoDB">MongoDB</a>
                         
                     </div>
                 </section>

@@ -6,7 +6,7 @@
   <link href="https://maxlin0523.github.io/atom.xml" rel="self"/>
   
   <link href="https://maxlin0523.github.io/"/>
-  <updated>2023-02-25T09:41:09.775Z</updated>
+  <updated>2023-11-20T16:19:47.979Z</updated>
   <id>https://maxlin0523.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MongoDB Read Preference</title>
+    <link href="https://maxlin0523.github.io/2023/11/21/mongodb-read-preference/"/>
+    <id>https://maxlin0523.github.io/2023/11/21/mongodb-read-preference/</id>
+    <published>2023-11-20T16:15:40.000Z</published>
+    <updated>2023-11-20T16:19:47.979Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html"></summary>
+        
+      
+    
+    
+    
+    
+    <category term="MongoDB" scheme="https://maxlin0523.github.io/tags/MongoDB/"/>
+    
+  </entry>
   
   <entry>
     <title>ASP.NET Core Distributed Cache</title>
@@ -213,7 +236,7 @@
     <link href="https://maxlin0523.github.io/2022/06/01/apache-kafka-first/"/>
     <id>https://maxlin0523.github.io/2022/06/01/apache-kafka-first/</id>
     <published>2022-06-01T10:16:18.000Z</published>
-    <updated>2023-11-20T15:54:13.000Z</updated>
+    <updated>2023-11-20T16:19:56.397Z</updated>
     
     
       
@@ -454,29 +477,6 @@
     <id>https://maxlin0523.github.io/2021/08/03/boxing-Unboxing/</id>
     <published>2021-08-03T13:09:17.000Z</published>
     <updated>2023-02-11T14:43:48.189Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html"></summary>
-        
-      
-    
-    
-    
-    
-    <category term="C#" scheme="https://maxlin0523.github.io/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C# Value and Reference Type</title>
-    <link href="https://maxlin0523.github.io/2021/08/03/value-reference/"/>
-    <id>https://maxlin0523.github.io/2021/08/03/value-reference/</id>
-    <published>2021-08-03T13:03:01.000Z</published>
-    <updated>2023-02-11T14:43:48.204Z</updated>
     
     
       
