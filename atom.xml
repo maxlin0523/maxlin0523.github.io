@@ -6,7 +6,7 @@
   <link href="https://maxlin0523.github.io/atom.xml" rel="self"/>
   
   <link href="https://maxlin0523.github.io/"/>
-  <updated>2023-11-21T16:26:53.215Z</updated>
+  <updated>2023-11-21T16:29:13.133Z</updated>
   <id>https://maxlin0523.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>dotnet-graceful-shutdown</title>
+    <title>ASP.NET Core Graceful Shutdown</title>
     <link href="https://maxlin0523.github.io/2023/11/22/dotnet-graceful-shutdown/"/>
     <id>https://maxlin0523.github.io/2023/11/22/dotnet-graceful-shutdown/</id>
     <published>2023-11-21T16:03:50.000Z</published>
-    <updated>2023-11-21T16:26:53.215Z</updated>
+    <updated>2023-11-21T16:29:13.133Z</updated>
     
     
       

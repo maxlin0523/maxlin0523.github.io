@@ -14,7 +14,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          dotnet-graceful-shutdown - Max&#39;s Blog | 邁向全端之路
+          ASP.NET Core Graceful Shutdown - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
@@ -89,7 +89,7 @@
                               <a class="tag" href="/tags/#AspNetCore" title="AspNetCore">AspNetCore</a>
                             
                         </div>
-                        <h1>dotnet-graceful-shutdown</h1>
+                        <h1>ASP.NET Core Graceful Shutdown</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
@@ -139,14 +139,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -209,9 +209,9 @@
                 ">
                 <!-- class: post-container拔除 -->
                 <p>目的是當 application 結束時, 能夠優雅的使其關閉，像是留有足夠的緩衝時間來消化 application 內執行中的 task 以減少不必要的損害。</p>
-<hr>
+<h2><span id="範例">範例</span></h2>
 <p>假設目前需要將 Application 關閉重啟，但是 <code>Task1</code> 和 <code>Task2</code> 正再執行，且分別需要 10 秒和 5 秒，因此我們可以將延遲關閉時間訂一個合適的時間，範例為 20 秒，</p>
-<p>範例：</p>
+<p>如：</p>
 <pre><code class="language-C#=">WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -294,7 +294,7 @@ async Task Task2()
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">參考</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">範例</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">參考</span></a></li></ol>
         
         </div>
       </aside>
