@@ -139,14 +139,14 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -223,8 +223,8 @@ if (app.Environment.IsDevelopment())
 
 app.Lifetime.ApplicationStopping.Register(() =&gt; {
     app.Logger.LogInformation($&quot;{DateTime.Now:mm:ss.fff} ApplicationStopping&quot;);
-    Task.Run(() =&gt; Task1());  // Task1 excuting
-    Task.Run(() =&gt; Task2());  // Task2 excuting
+    Task.Run(async () =&gt; await Task1());  // Task1 excuting
+    Task.Run(async () =&gt; await Task2());  // Task2 excuting
     Task.Delay(20000).Wait(); // Wait for 20 s, then it's done.&quot;
 });
 
