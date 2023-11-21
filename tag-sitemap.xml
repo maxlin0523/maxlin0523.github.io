@@ -9,14 +9,14 @@
     </url>
 
     <url>
-        <loc>https://maxlin0523.github.io/tags/UnitTest/</loc>
+        <loc>https://maxlin0523.github.io/tags/Hexo/</loc>
         <lastmod>2023-02-11T14:43:48.188Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>https://maxlin0523.github.io/tags/Hexo/</loc>
+        <loc>https://maxlin0523.github.io/tags/UnitTest/</loc>
         <lastmod>2023-02-11T14:43:48.188Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -121,13 +121,6 @@
     </url>
 
     <url>
-        <loc>https://maxlin0523.github.io/tags/MongoDB/</loc>
-        <lastmod>2023-11-20T16:19:47.979Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://maxlin0523.github.io/tags/Message-Queue/</loc>
         <lastmod>2023-11-20T16:19:56.397Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -137,6 +130,13 @@
     <url>
         <loc>https://maxlin0523.github.io/tags/%E5%85%B6%E4%BB%96/</loc>
         <lastmod>2023-11-20T16:34:05.415Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://maxlin0523.github.io/tags/MongoDB/</loc>
+        <lastmod>2023-11-21T14:59:10.758Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

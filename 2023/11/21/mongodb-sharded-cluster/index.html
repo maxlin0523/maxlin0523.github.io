@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          MongoDB Read Preference - Max&#39;s Blog | 邁向全端之路
+          MongoDB Sharded Cluster - Max&#39;s Blog | 邁向全端之路
         
     </title>
 
-    <link rel="canonical" href="https://maxlin0523.github.io/2023/11/21/mongodb-read-preference/">
+    <link rel="canonical" href="https://maxlin0523.github.io/2023/11/21/mongodb-sharded-cluster/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -89,7 +89,7 @@
                               <a class="tag" href="/tags/#MongoDB" title="MongoDB">MongoDB</a>
                             
                         </div>
-                        <h1>MongoDB Read Preference</h1>
+                        <h1>MongoDB Sharded Cluster</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
@@ -208,23 +208,98 @@
                 col-md-10 col-md-offset-1
                 ">
                 <!-- class: post-container拔除 -->
-                <p>MongoDB 提供了不同的 Read Preference(讀取偏好)的模式，用來決定 Replica Set 架構下 <code>讀的操作</code></p>
-<p>有以下幾種模式:</p>
-<h2><span id="primary">primary</span></h2>
-<p>一切<code>讀的操作</code>都是由 Primary 節點進行</p>
-<h2><span id="primarypreferred">primaryPreferred</span></h2>
-<p>正常狀況下<code>讀的操作</code>都是由 Primary 進行, 當 Primary 故障則是替換由 Secondary 節點進行</p>
-<h2><span id="secondary">secondary</span></h2>
-<p>一切<code>讀的操作</code>都是由 Secondary 節點進行</p>
-<h2><span id="secondarypreferred">secondaryPreferred</span></h2>
-<p>正常狀況下<code>讀的操作</code>都是由 Secondary 進行, 當 Secondary 故障則是替換由 Primary 節點進行</p>
-<h2><span id="nearest">nearest</span></h2>
-<p>從延遲最小的節點進行<code>讀的操作</code>, 不管該節點是 Primary 或 Secondary。</p>
-<hr>
-<p>用哪一種取決於不同場景和需求，像是：<code>金錢交易</code> 或 <code>賠率推送</code> 等對資料的即時性和一致性有較高要求的情況用 primary 模式、需要 <code>快速呈現</code> 數據的場景則用 nearest，而讀寫分離通常使用 Secondary or SecondaryPreferred 用來減輕 Primary 的負擔</p>
-<p><img src="https://i.imgur.com/CJqwaPS.png" alt></p>
+                <p>將 MongoDB 資料庫由一組 Shard 組成並且各 Shard 分散在不同機器儲存, 以 <code>水平</code> 的方式將資料擴展，並可隨著需求即時 <code>新增</code> 或 <code>刪除</code> Shard。</p>
+<h3><span id="優勢">優勢：</span></h3>
+<ul>
+<li>有效降低 <code>讀/寫</code> 的工作負載</li>
+</ul>
+<blockquote>
+<p>將整個資料庫分成多個 shards，將讀寫操作分散在不同機器上，有效降低單一機器負載。</p>
+</blockquote>
+<ul>
+<li>提升<code>存儲容量</code>，可隨著資料的增長，橫向擴展增加 Shard 的數量</li>
+</ul>
+<blockquote>
+<p>可將存儲資料分成各個 Shard 並分散於不同的機器，有效提升整體存儲容量</p>
+</blockquote>
+<ul>
+<li>可搭配使用 Replica Set，提升<code>可用性</code></li>
+</ul>
+<blockquote>
+<p>將分散於在不同機器的 Shard 搭配使用 Replica Set 架構，當某個 Shard 不可用時，就會由Secondary 節點替代，達到 <code>可用性</code>。</p>
+</blockquote>
+<h3><span id="劣勢">劣勢</span></h3>
+<ul>
+<li>架構設計較為複雜</li>
+</ul>
+<blockquote>
+<p>實現架構時，需要在較多的機器建立實體以及配置設定檔</p>
+</blockquote>
+<ul>
+<li>延遲較多</li>
+</ul>
+<blockquote>
+<p>可能需在各個 Shard 中進行資料操作並回傳，耗時將比單機架構多</p>
+</blockquote>
+<h2><span id="存儲方式">存儲方式</span></h2>
+<p>選定一個欄位做為 <code>Shard Key</code> 以及將此 Shard Key 去分群，以下是 MongoDB 兩種不同的分群機制：</p>
+<h3><span id="range-based-partitioning">Range Based Partitioning</span></h3>
+<p>以線性的方式分群，相近範圍的資料會被分在同一個 Chunk，好處是 Router 可以很輕易的判斷分布在哪個 Shard，<code>Query</code> 較快，但如果資料 Range 都相近，那麼特定 Chunk 的資料量會特別大，且整體分布也不平均，可能會造成某個 Shard 讀/取負擔過大。</p>
+<p>運作如下：</p>
+<p><img src="https://hackmd.io/_uploads/BJ29zHcNT.png" alt="image"></p>
+<h3><span id="hash-based-sharding">Hash Based Sharding</span></h3>
+<p>透過 <code>雜湊函式</code> 將 Shard Key 分配到各個 Chunk，好處是用此方式資料分散性比較 <code>平均</code>，但進行範圍查詢時，就需要到各個 Shard 獲取資料，查詢耗時可能較長。</p>
+<p>運作如下：</p>
+<p><img src="https://hackmd.io/_uploads/HJfY7ScV6.png" alt="image"></p>
+<h2><span id="基本成員">基本成員</span></h2>
+<h3><span id="shards">Shards</span></h3>
+<blockquote>
+<p>儲存資料的節點，每個 Shard 都是整體資料的 <code>子集</code>。</p>
+</blockquote>
+<h3><span id="routermongos">Router(mongos)</span></h3>
+<blockquote>
+<p>做為整個 Sharded Cluster 的訪問入口，所有請求都由 mongos 路由、分發、合併。</p>
+</blockquote>
+<ul>
+<li><strong>讀取請求</strong><br>
+條件 <code>不包含</code> Shard Key：將會將請求發送到整個 Shards，合併查詢結果回傳<br>
+條件 <code>包含</code> Shard Key：將根據 Shard Key 計算出位於哪個 Chunk，再向對應的 Shard 發出查詢</li>
+<li><strong>寫入請求</strong><br>
+根據分群機制算出 Shard Key 應存在哪個 Chunk，再寫入該 Chunk 所在的 Shard</li>
+<li><strong>更新/刪除請求</strong><br>
+若條件有包含到 Shard Key 則直接路由到該 Chunk 執行，否則將請求發送到整個 Shards</li>
+</ul>
+<h3><span id="config-servers">Config Servers</span></h3>
+<blockquote>
+<p>紀錄了每一筆資料(doc)存放的 Chunk 位置，以及哪些 Shard 存儲了哪些 Chunk，也是 Balancer 均衡器運行的所在位置。</p>
+</blockquote>
+<ul>
+<li><strong>Chunk</strong><br>
+分片的 Metadata，預設為 64 MB，可調整大小(chunkSize)
+<ul>
+<li>ChunkSize 很小：分裂及遷移的情況較多，資料越均衡，但容易造成 Jumbo Chunk(例如：出現很多相同 Shard Key，就會聚集在同一個 Chunk)</li>
+<li>ChunkSize 很大：分裂及遷移的情況較少，資料可能不均衡</li>
+</ul>
+</li>
+<li><strong>Balancer</strong><br>
+位在 Config Server 的一個背景程序(預設會<code>開啟</code>)，主要是 <code>監控</code> 每一個 Shard 內的 Chunks 差異量，如果超過定義的差異量(Migration Thresholds)，Balancer 會在<strong>約束條件</strong>(EX: Range 分區)下自動執行 <code>moveChunk</code> 指令在分片之間進行遷移，使每個 Shard 的 Chunks 達到均衡，而當 <code>擴展</code> 與 <code>刪除</code> Shard 的過程中也會進行平衡。</li>
+</ul>
+<h2><span id="基本架構">基本架構</span></h2>
+<p><strong>Query Work Flow</strong></p>
+<ol>
+<li>透過 Mongos(Router) 接收外部請求</li>
+<li>Mongos(Router) 會請 Config Servers 根據 Shard Key 找出請求資料 Shard 所在位置或是發送請求到各個 Shard</li>
+<li>Mongos(Router) 便可以正確找到各個資料對應的 Shard，於查詢後再合併資料</li>
+<li>回傳結果給 User</li>
+</ol>
+<p><img src="https://i.imgur.com/ESnEzrg.png" alt></p>
 <h1><span id="參考">參考</span></h1>
-<p><a href="https://zhuanlan.zhihu.com/p/107278045" target="_blank" rel="noopener">MongoDB 事务 —— 基础入门篇</a></p>
+<p><a href="https://blog.toright.com/posts/4552/mongodb-sharding-%E5%88%86%E6%95%A3%E5%BC%8F%E5%84%B2%E5%AD%98%E6%9E%B6%E6%A7%8B%E5%BB%BA%E7%BD%AE-%E6%A6%82%E5%BF%B5%E7%AF%87.html" target="_blank" rel="noopener">MongoDB Sharding 分散式儲存架構建置 (概念篇)</a></p>
+<p><a href="https://docs.mongodb.com/v3.2/sharding/" target="_blank" rel="noopener">Sharding</a></p>
+<p><a href="https://tw.alphacamp.co/blog/mongodb-with-docker" target="_blank" rel="noopener">為什麼要用 Docker？如何用 Docker 構築不同 MongoDB 架構？</a></p>
+<p><a href="https://developer.aliyun.com/article/32434" target="_blank" rel="noopener">MongoDB Sharded cluster架构原理</a></p>
+<p><a href="https://docs.mongodb.com/manual/core/ranged-sharding/" target="_blank" rel="noopener">Ranged Sharding</a></p>
+<p><a href="https://kknews.cc/zh-tw/code/8pza8jg.html" target="_blank" rel="noopener">純乾貨|一文看懂 資料庫分片（Database Sharding)詳解</a></p>
 
                 
 
@@ -233,13 +308,9 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2023/02/11/aspnetcore-distributed-cache/" data-toggle="tooltip" data-placement="top" title="ASP.NET Core Distributed Cache">&larr; 上篇 </a>
+                            <a href="/2023/11/21/mongodb-read-preference/" data-toggle="tooltip" data-placement="top" title="MongoDB Read Preference">&larr; 上篇 </a>
                         </li>
                     
-                    
-                        <li class="next">
-                            <a href="/2023/11/21/mongodb-sharded-cluster/" data-toggle="tooltip" data-placement="top" title="MongoDB Sharded Cluster"> 下篇 &rarr;</a>
-                        </li>
                     
                 </ul>
 
@@ -264,7 +335,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">primary</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">primaryPreferred</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">secondary</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">secondaryPreferred</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">nearest</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number"></span> <span class="toc-nav-text">參考</span></a>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">優勢：</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">劣勢</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number"></span> <span class="toc-nav-text">存儲方式</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Range Based Partitioning</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Hash Based Sharding</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number"></span> <span class="toc-nav-text">基本成員</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Shards</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Router(mongos)</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">Config Servers</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number"></span> <span class="toc-nav-text">基本架構</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number"></span> <span class="toc-nav-text">參考</span></a>
         
         </div>
       </aside>

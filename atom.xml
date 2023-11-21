@@ -6,7 +6,7 @@
   <link href="https://maxlin0523.github.io/atom.xml" rel="self"/>
   
   <link href="https://maxlin0523.github.io/"/>
-  <updated>2023-11-20T16:19:47.979Z</updated>
+  <updated>2023-11-21T14:59:10.758Z</updated>
   <id>https://maxlin0523.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MongoDB Sharded Cluster</title>
+    <link href="https://maxlin0523.github.io/2023/11/21/mongodb-sharded-cluster/"/>
+    <id>https://maxlin0523.github.io/2023/11/21/mongodb-sharded-cluster/</id>
+    <published>2023-11-21T14:50:45.000Z</published>
+    <updated>2023-11-21T14:59:10.758Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html"></summary>
+        
+      
+    
+    
+    
+    
+    <category term="MongoDB" scheme="https://maxlin0523.github.io/tags/MongoDB/"/>
+    
+  </entry>
   
   <entry>
     <title>MongoDB Read Preference</title>
@@ -273,9 +296,9 @@
     
     
     
-    <category term="MongoDB" scheme="https://maxlin0523.github.io/tags/MongoDB/"/>
-    
     <category term="C#" scheme="https://maxlin0523.github.io/tags/C/"/>
+    
+    <category term="MongoDB" scheme="https://maxlin0523.github.io/tags/MongoDB/"/>
     
   </entry>
   
@@ -468,29 +491,6 @@
     <category term="UnitTest" scheme="https://maxlin0523.github.io/tags/UnitTest/"/>
     
     <category term="General" scheme="https://maxlin0523.github.io/tags/General/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C# Boxing and Unboxing</title>
-    <link href="https://maxlin0523.github.io/2021/08/03/boxing-Unboxing/"/>
-    <id>https://maxlin0523.github.io/2021/08/03/boxing-Unboxing/</id>
-    <published>2021-08-03T13:09:17.000Z</published>
-    <updated>2023-02-11T14:43:48.189Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html"></summary>
-        
-      
-    
-    
-    
-    
-    <category term="C#" scheme="https://maxlin0523.github.io/tags/C/"/>
     
   </entry>
   
