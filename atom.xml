@@ -6,7 +6,7 @@
   <link href="https://maxlin0523.github.io/atom.xml" rel="self"/>
   
   <link href="https://maxlin0523.github.io/"/>
-  <updated>2023-11-21T14:59:10.758Z</updated>
+  <updated>2023-11-21T16:26:53.215Z</updated>
   <id>https://maxlin0523.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>dotnet-graceful-shutdown</title>
+    <link href="https://maxlin0523.github.io/2023/11/22/dotnet-graceful-shutdown/"/>
+    <id>https://maxlin0523.github.io/2023/11/22/dotnet-graceful-shutdown/</id>
+    <published>2023-11-21T16:03:50.000Z</published>
+    <updated>2023-11-21T16:26:53.215Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html"></summary>
+        
+      
+    
+    
+    
+    
+    <category term="AspNetCore" scheme="https://maxlin0523.github.io/tags/AspNetCore/"/>
+    
+  </entry>
   
   <entry>
     <title>MongoDB Sharded Cluster</title>
@@ -466,31 +489,6 @@
     <category term="Redis" scheme="https://maxlin0523.github.io/tags/Redis/"/>
     
     <category term="Docker" scheme="https://maxlin0523.github.io/tags/Docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>UnitTest</title>
-    <link href="https://maxlin0523.github.io/2021/09/11/UnitTest1/"/>
-    <id>https://maxlin0523.github.io/2021/09/11/UnitTest1/</id>
-    <published>2021-09-11T14:02:36.000Z</published>
-    <updated>2023-02-11T14:43:48.188Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html"></summary>
-        
-      
-    
-    
-    
-    
-    <category term="UnitTest" scheme="https://maxlin0523.github.io/tags/UnitTest/"/>
-    
-    <category term="General" scheme="https://maxlin0523.github.io/tags/General/"/>
     
   </entry>
   
