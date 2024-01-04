@@ -6,7 +6,7 @@
   <link href="https://maxlin0523.github.io/atom.xml" rel="self"/>
   
   <link href="https://maxlin0523.github.io/"/>
-  <updated>2023-11-21T16:33:45.001Z</updated>
+  <updated>2024-01-04T16:22:34.977Z</updated>
   <id>https://maxlin0523.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>C# Tuple &amp; ValueTuple</title>
+    <link href="https://maxlin0523.github.io/2024/01/05/tuple-and-value-tuple/"/>
+    <id>https://maxlin0523.github.io/2024/01/05/tuple-and-value-tuple/</id>
+    <published>2024-01-04T16:13:14.000Z</published>
+    <updated>2024-01-04T16:22:34.977Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html"></summary>
+        
+      
+    
+    
+    
+    
+    <category term="C#" scheme="https://maxlin0523.github.io/tags/C/"/>
+    
+  </entry>
   
   <entry>
     <title>ASP.NET Core Graceful Shutdown</title>
@@ -464,31 +487,6 @@
     
     
     <category term="Lua" scheme="https://maxlin0523.github.io/tags/Lua/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Docker 佈署 Redis</title>
-    <link href="https://maxlin0523.github.io/2021/10/09/redis-in-docker/"/>
-    <id>https://maxlin0523.github.io/2021/10/09/redis-in-docker/</id>
-    <published>2021-10-09T06:42:46.000Z</published>
-    <updated>2023-02-11T14:43:48.203Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html"></summary>
-        
-      
-    
-    
-    
-    
-    <category term="Redis" scheme="https://maxlin0523.github.io/tags/Redis/"/>
-    
-    <category term="Docker" scheme="https://maxlin0523.github.io/tags/Docker/"/>
     
   </entry>
   
