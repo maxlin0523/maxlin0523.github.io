@@ -9,6 +9,13 @@
     </url>
 
     <url>
+        <loc>https://maxlin0523.github.io/tags/%E6%97%A5%E5%B8%B8%E9%99%A4%E9%8C%AF/</loc>
+        <lastmod>2023-02-11T14:43:48.187Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://maxlin0523.github.io/tags/UnitTest/</loc>
         <lastmod>2023-02-11T14:43:48.188Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -72,13 +79,6 @@
     </url>
 
     <url>
-        <loc>https://maxlin0523.github.io/tags/%E6%97%A5%E5%B8%B8%E9%99%A4%E9%8C%AF/</loc>
-        <lastmod>2023-02-11T14:43:48.205Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://maxlin0523.github.io/tags/C-%E6%9C%AC%E4%BA%8B/</loc>
         <lastmod>2023-02-11T14:43:48.207Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -107,13 +107,6 @@
     </url>
 
     <url>
-        <loc>https://maxlin0523.github.io/tags/%E8%A8%AD%E8%A8%88%E6%A8%A1%E5%BC%8F/</loc>
-        <lastmod>2023-02-25T09:50:42.957Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://maxlin0523.github.io/tags/Message-Queue/</loc>
         <lastmod>2023-11-20T16:19:56.397Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -137,6 +130,20 @@
     <url>
         <loc>https://maxlin0523.github.io/tags/AspNetCore/</loc>
         <lastmod>2023-11-21T16:33:45.001Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://maxlin0523.github.io/tags/Design-Patterns/</loc>
+        <lastmod>2024-01-04T14:35:49.379Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://maxlin0523.github.io/tags/Debug/</loc>
+        <lastmod>2024-01-04T14:36:28.180Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

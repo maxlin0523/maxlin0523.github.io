@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Max&#39;s Blog</title>
   <icon>https://www.gravatar.com/avatar/12e37b5ad90b29133ebe70dd638ef20a</icon>
-  <subtitle>Don&#39;t code fast, good code lasts.</subtitle>
+  <subtitle>ヽ(=^･ω･^=)丿</subtitle>
   <link href="https://maxlin0523.github.io/atom.xml" rel="self"/>
   
   <link href="https://maxlin0523.github.io/"/>
@@ -330,7 +330,7 @@
     <link href="https://maxlin0523.github.io/2022/04/09/winform-across-threads/"/>
     <id>https://maxlin0523.github.io/2022/04/09/winform-across-threads/</id>
     <published>2022-04-09T15:37:03.000Z</published>
-    <updated>2023-02-11T14:43:48.205Z</updated>
+    <updated>2024-01-04T14:36:28.180Z</updated>
     
     
       
@@ -344,7 +344,7 @@
     
     
     
-    <category term="日常除錯" scheme="https://maxlin0523.github.io/tags/日常除錯/"/>
+    <category term="Debug" scheme="https://maxlin0523.github.io/tags/Debug/"/>
     
   </entry>
   
