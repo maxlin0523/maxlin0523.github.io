@@ -113,7 +113,7 @@
     <link href="https://maxlin0523.github.io/2023/02/11/aspnetcore-distributed-cache/"/>
     <id>https://maxlin0523.github.io/2023/02/11/aspnetcore-distributed-cache/</id>
     <published>2023-02-11T14:13:13.000Z</published>
-    <updated>2023-02-25T09:41:09.775Z</updated>
+    <updated>2024-01-04T16:33:12.175Z</updated>
     
     
       
@@ -130,6 +130,8 @@
     <category term="AspNetCore" scheme="https://maxlin0523.github.io/tags/AspNetCore/"/>
     
     <category term="Cache" scheme="https://maxlin0523.github.io/tags/Cache/"/>
+    
+    <category term="C#" scheme="https://maxlin0523.github.io/tags/C/"/>
     
   </entry>
   
@@ -138,7 +140,7 @@
     <link href="https://maxlin0523.github.io/2023/02/11/aspnetcore-cache/"/>
     <id>https://maxlin0523.github.io/2023/02/11/aspnetcore-cache/</id>
     <published>2023-02-11T14:00:22.000Z</published>
-    <updated>2023-02-25T09:14:33.547Z</updated>
+    <updated>2024-01-04T16:33:30.423Z</updated>
     
     
       
@@ -155,6 +157,8 @@
     <category term="AspNetCore" scheme="https://maxlin0523.github.io/tags/AspNetCore/"/>
     
     <category term="Cache" scheme="https://maxlin0523.github.io/tags/Cache/"/>
+    
+    <category term="C#" scheme="https://maxlin0523.github.io/tags/C/"/>
     
   </entry>
   
@@ -184,7 +188,7 @@
     <link href="https://maxlin0523.github.io/2022/11/15/hash-encryption/"/>
     <id>https://maxlin0523.github.io/2022/11/15/hash-encryption/</id>
     <published>2022-11-15T15:12:44.000Z</published>
-    <updated>2023-11-20T16:34:05.415Z</updated>
+    <updated>2024-01-04T16:30:47.839Z</updated>
     
     
       
@@ -198,16 +202,16 @@
     
     
     
-    <category term="其他" scheme="https://maxlin0523.github.io/tags/其他/"/>
+    <category term="General" scheme="https://maxlin0523.github.io/tags/General/"/>
     
   </entry>
   
   <entry>
-    <title>Microservices Pattern 微服務架構</title>
+    <title>Microservices Pattern</title>
     <link href="https://maxlin0523.github.io/2022/11/13/microservices-pattern/"/>
     <id>https://maxlin0523.github.io/2022/11/13/microservices-pattern/</id>
     <published>2022-11-12T19:27:34.000Z</published>
-    <updated>2023-02-11T14:43:48.201Z</updated>
+    <updated>2024-01-04T16:33:46.903Z</updated>
     
     
       
@@ -221,7 +225,7 @@
     
     
     
-    <category term="系統設計" scheme="https://maxlin0523.github.io/tags/系統設計/"/>
+    <category term="System Design" scheme="https://maxlin0523.github.io/tags/System-Design/"/>
     
   </entry>
   

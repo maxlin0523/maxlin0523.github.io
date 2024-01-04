@@ -130,6 +130,13 @@
 
                         
                         <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
                             <a href="/archive/">Archives</a>
                         </li>
                         
@@ -138,13 +145,6 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -194,9 +194,11 @@
             <!-- 标签云 -->
             <div id='tag_cloud' class="tags">
                 
-                    <a href="#散亂札記" title="散亂札記" rel="1">散亂札記</a>
+                    <a href="#Debug" title="Debug" rel="2">Debug</a>
                 
-                    <a href="#日常除錯" title="日常除錯" rel="1">日常除錯</a>
+                    <a href="#UnitTest" title="UnitTest" rel="1">UnitTest</a>
+                
+                    <a href="#General" title="General" rel="5">General</a>
                 
                     <a href="#Message Queue" title="Message Queue" rel="1">Message Queue</a>
                 
@@ -206,23 +208,17 @@
                 
                     <a href="#Cache" title="Cache" rel="2">Cache</a>
                 
-                    <a href="#UnitTest" title="UnitTest" rel="1">UnitTest</a>
-                
-                    <a href="#General" title="General" rel="4">General</a>
-                
-                    <a href="#C#" title="C#" rel="8">C#</a>
+                    <a href="#C#" title="C#" rel="11">C#</a>
                 
                     <a href="#MongoDB" title="MongoDB" rel="4">MongoDB</a>
+                
+                    <a href="#Nuget" title="Nuget" rel="1">Nuget</a>
                 
                     <a href="#Redis" title="Redis" rel="4">Redis</a>
                 
                     <a href="#Lua" title="Lua" rel="3">Lua</a>
                 
-                    <a href="#Nuget" title="Nuget" rel="1">Nuget</a>
-                
-                    <a href="#其他" title="其他" rel="1">其他</a>
-                
-                    <a href="#系統設計" title="系統設計" rel="1">系統設計</a>
+                    <a href="#System Design" title="System Design" rel="2">System Design</a>
                 
                     <a href="#Chrome" title="Chrome" rel="1">Chrome</a>
                 
@@ -230,11 +226,7 @@
                 
                     <a href="#Docker" title="Docker" rel="1">Docker</a>
                 
-                    <a href="#Debug" title="Debug" rel="1">Debug</a>
-                
-                    <a href="#C# 本事" title="C# 本事" rel="1">C# 本事</a>
-                
-                    <a href="#Design Patterns" title="Design Patterns" rel="4">Design Patterns</a>
+                    <a href="#Design Patterns" title="Design Patterns" rel="3">Design Patterns</a>
                 
             </div>
 
@@ -242,30 +234,8 @@
 
             
             <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="散亂札記">
-                    <span class="tag-text">散亂札記</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2021/07/25/Blog正式開幕/">
-                        <h2 class="post-title">
-                            The blog is opening
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="日常除錯">
-                    <span class="tag-text">日常除錯</span>
+                <span class="fa fa-tag listing-seperator" id="Debug">
+                    <span class="tag-text">Debug</span>
                 </span>
                 
                   <!-- <li class="listing-item">
@@ -276,6 +246,125 @@
                      <a href="/2021/07/07/Dapper 批次執行出現 Sql Exception/">
                         <h2 class="post-title">
                             The sql exception occurred in Dapper's batch execution
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2022/04/09/winform-across-threads/">
+                        <h2 class="post-title">
+                            Winform 控制項跨執行緒作業無效
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="UnitTest">
+                    <span class="tag-text">UnitTest</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2021/09/11/UnitTest1/">
+                        <h2 class="post-title">
+                            UnitTest
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="General">
+                    <span class="tag-text">General</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2021/09/11/UnitTest1/">
+                        <h2 class="post-title">
+                            UnitTest
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2022/11/15/hash-encryption/">
+                        <h2 class="post-title">
+                            Hash & Encryption
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2021/06/12/物件導向設計－Object Oriented Programming/">
+                        <h2 class="post-title">
+                            Object Oriented Programming
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2021/05/30/相依性注入－DI-IoC範例/">
+                        <h2 class="post-title">
+                            DI and IoC Sample
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2021/05/22/相依性注入－DI-IoC/">
+                        <h2 class="post-title">
+                            Dependency Injection and Inversion of Control
                         </h2>
                         
                     </a>
@@ -419,98 +508,39 @@
             </div>
             
             <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="UnitTest">
-                    <span class="tag-text">UnitTest</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2021/09/11/UnitTest1/">
-                        <h2 class="post-title">
-                            UnitTest
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="General">
-                    <span class="tag-text">General</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2021/09/11/UnitTest1/">
-                        <h2 class="post-title">
-                            UnitTest
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2021/06/12/物件導向設計－Object Oriented Programming/">
-                        <h2 class="post-title">
-                            Object Oriented Programming
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2021/05/30/相依性注入－DI-IoC範例/">
-                        <h2 class="post-title">
-                            DI and IoC Sample
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2021/05/22/相依性注入－DI-IoC/">
-                        <h2 class="post-title">
-                            Dependency Injection and Inversion of Control
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="C#">
                     <span class="tag-text">C#</span>
                 </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2023/02/11/aspnetcore-cache/">
+                        <h2 class="post-title">
+                            ASP.NET Core Cache
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2023/02/11/aspnetcore-distributed-cache/">
+                        <h2 class="post-title">
+                            ASP.NET Core Distributed Cache
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
                 
                   <!-- <li class="listing-item">
                   <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
@@ -547,9 +577,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2022/07/25/csharp-redis-script/">
+                     <a href="/2022/04/09/csvhelper/">
                         <h2 class="post-title">
-                            C# 使用 Redis Script
+                            C# 使用 CsvHelper 套件讀取 Csv 檔
                         </h2>
                         
                     </a>
@@ -562,9 +592,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2022/04/09/csvhelper/">
+                     <a href="/2022/07/25/csharp-redis-script/">
                         <h2 class="post-title">
-                            C# 使用 CsvHelper 套件讀取 Csv 檔
+                            C# 使用 Redis Script
                         </h2>
                         
                     </a>
@@ -610,6 +640,21 @@
                      <a href="/2021/08/03/value-reference/">
                         <h2 class="post-title">
                             C# Value and Reference Type
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2021/06/21/反射－Reflection/">
+                        <h2 class="post-title">
+                            C# Reflection
                         </h2>
                         
                     </a>
@@ -692,6 +737,28 @@
                      <a href="/2023/11/21/mongodb-sharded-cluster/">
                         <h2 class="post-title">
                             MongoDB Sharded Cluster
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Nuget">
+                    <span class="tag-text">Nuget</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2022/04/09/csvhelper/">
+                        <h2 class="post-title">
+                            C# 使用 CsvHelper 套件讀取 Csv 檔
                         </h2>
                         
                     </a>
@@ -821,52 +888,8 @@
             </div>
             
             <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Nuget">
-                    <span class="tag-text">Nuget</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2022/04/09/csvhelper/">
-                        <h2 class="post-title">
-                            C# 使用 CsvHelper 套件讀取 Csv 檔
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="其他">
-                    <span class="tag-text">其他</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2022/11/15/hash-encryption/">
-                        <h2 class="post-title">
-                            Hash & Encryption
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="系統設計">
-                    <span class="tag-text">系統設計</span>
+                <span class="fa fa-tag listing-seperator" id="System Design">
+                    <span class="tag-text">System Design</span>
                 </span>
                 
                   <!-- <li class="listing-item">
@@ -876,7 +899,22 @@
                  <div class="post-preview">
                      <a href="/2022/11/13/microservices-pattern/">
                         <h2 class="post-title">
-                            Microservices Pattern 微服務架構
+                            Microservices Pattern
+                        </h2>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview">
+                     <a href="/2021/05/16/分層架構－Layered Architecture/">
+                        <h2 class="post-title">
+                            Software Layered Architecture
                         </h2>
                         
                     </a>
@@ -953,50 +991,6 @@
             </div>
             
             <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Debug">
-                    <span class="tag-text">Debug</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2022/04/09/winform-across-threads/">
-                        <h2 class="post-title">
-                            Winform 控制項跨執行緒作業無效
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="C# 本事">
-                    <span class="tag-text">C# 本事</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2021/06/21/反射－Reflection/">
-                        <h2 class="post-title">
-                            C# Reflection
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="Design Patterns">
                     <span class="tag-text">Design Patterns</span>
                 </span>
@@ -1006,9 +1000,9 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview">
-                     <a href="/2021/05/16/分層架構－Layered Architecture/">
+                     <a href="/2021/07/03/組合模式－Composite Pattern/">
                         <h2 class="post-title">
-                            Software Layered Architecture
+                            Composite Pattern
                         </h2>
                         
                     </a>
@@ -1024,21 +1018,6 @@
                      <a href="/2021/07/11/裝飾者模式－Decorator Pattern/">
                         <h2 class="post-title">
                             Decorator Pattern
-                        </h2>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/2021/07/03/組合模式－Composite Pattern/">
-                        <h2 class="post-title">
-                            Composite Pattern
                         </h2>
                         
                     </a>
