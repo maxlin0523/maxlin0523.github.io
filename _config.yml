@@ -4,7 +4,7 @@
 
 # Site
 title: Max's Blog
-subtitle: Don't code fast, good code lasts.
+subtitle: ヽ(=^･ω･^=)丿
 author: Max Lin
 language: zh-TW
 timezone:
@@ -19,13 +19,13 @@ permalink_defaults:
 #Custom Setting Start
 
 # Site settings
-SEOTitle: Max's Blog | 邁向全端之路
+SEOTitle: Max's Blog
 email: happytieu@gmail.com
 description: 邁向全端的後端工程師
 keyword: 前端,後端,全端,程式開發,後端開發,後端工程師,C#,ASP.NET,.NET Core,.NET Framework
 
 ## Home封面
-header-img: https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Feeb2a157-aaf5-469e-8662-7442c36a1a0f%2FUntitled.png?table=block&id=ebe1a59c-240f-4051-8ad1-34ad1d959ce6&spaceId=59d38cce-92ff-4673-85e7-4a3082371d03&width=2850&userId=6c123588-4407-4a28-9aae-2bb53ad5b808&cache=v2
+header-img: https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F25abd23a-b145-4f9d-8667-100bab8366c6%2FUntitled.png?table=block&id=b3dc468b-64b8-44b3-8a47-c211424efd22&spaceId=59d38cce-92ff-4673-85e7-4a3082371d03&width=2000&userId=6c123588-4407-4a28-9aae-2bb53ad5b808&cache=v2
 
 # 封面右下角標籤
 signature: true #show signature
@@ -46,7 +46,7 @@ RSS: true
 # 自訂連結
 github_username: maxlin0523
 # medium_username: max-lin
-# linkedin_username: maxlin0523
+linkedin_username: maxlin0523
 
 # Build settings
 anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
@@ -74,7 +74,7 @@ sidebar: true                       # whether or not using Sidebar.
 # 個資簡介
 sidebar-about-description: "Hi, I'm Max, also a backend engineer."
 # 大頭貼
-sidebar-avatar: https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fe989c118-0e35-46d0-8180-3b81e1951d93%2F94E6B1BC-695F-450D-93D8-8880E424A8F4.jpeg?table=block&id=2f192d56-e330-44bc-97b1-0857518471cc&spaceId=59d38cce-92ff-4673-85e7-4a3082371d03&width=4270&userId=6c123588-4407-4a28-9aae-2bb53ad5b808&cache=v2    
+sidebar-avatar: https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F59d38cce-92ff-4673-85e7-4a3082371d03%2F208c4ce8-fba3-4180-b2fa-fb6ab6bc6f5a%2FUntitled.png?table=block&id=b0f4ae69-8c3c-4f7a-8e43-73ded57583c2&spaceId=59d38cce-92ff-4673-85e7-4a3082371d03&width=2000&userId=6c123588-4407-4a28-9aae-2bb53ad5b808&cache=v2
 widgets:
 - short-about
 - recent-posts
@@ -101,23 +101,11 @@ friends: [
         title: "阮一峰的网络日志",
         href: "https://www.ruanyifeng.com/blog/"
     },{
-        title: "搞笑談軟工",
-        href: "http://teddy-chen-tw.blogspot.com/"
-    },{
-        title: "John Wu's Blog",
-        href: "https://blog.johnwu.cc/"
-    },{
-        title: "Blackie's Failed Notes",
-        href: "https://blackie1019.gitlab.io/"
+        title: "黑暗執行緒",
+        href: "https://blog.darkthread.net/"
     },{
         title: "安德魯的部落格",
         href: "https://columns.chicken-house.net/categories/"
-    },{
-        title: "石頭的coding之路",
-        href: "https://isdaniel.github.io/"
-    },{
-        title: "Level Up",
-        href: "https://larrynung.github.io/"
     },{
         title: "Yowko's Notes",
         href: "https://blog.yowko.com/"
@@ -127,9 +115,6 @@ friends: [
 ## 好視頻
 videos: [
     {
-        title: "Anduin Xue",
-        href: "https://www.youtube.com/channel/UCe1nKo3WGGzyTgDqmTdZzlA/featured"
-    },{
         title: "HackBear 泰瑞",
         href: "https://www.youtube.com/c/HackBear%E6%B3%B0%E7%91%9E"
     },{

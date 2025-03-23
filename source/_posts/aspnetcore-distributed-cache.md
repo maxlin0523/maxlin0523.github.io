@@ -7,6 +7,7 @@ header-img:
 tags:
 - AspNetCore
 - Cache
+- C#
 ---
 如果說系統架構是多台的情況呢？例如：Load Balance，這時就適合用 `分散式快取` 。
 

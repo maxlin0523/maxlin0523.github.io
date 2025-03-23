@@ -4,7 +4,7 @@ catalog: true
 date: 2021-07-07 00:05:23
 subtitle:
 header-img:
-tags: 日常除錯
+tags: Debug
 ---
 # 問題描述
 來源是份爬蟲的 Json 物件，而此資料會 post 到 API 服務最終存入 DB，資料型態為 List 且物件屬性有 30 幾個，今天在測試時， post 有 800 多筆，但 API 回傳的儲存筆數卻總是 0 。

@@ -4,7 +4,7 @@ catalog: true
 date: 2021-07-11 00:05:23
 subtitle:
 header-img:
-tags: 設計模式
+tags: Design Patterns
 ---
 # 介紹
 中譯裝飾者模式，是一種結構型的設計模式（Design Pattern），主要功能為動態地給一個物件附加額外的職責使物件型態保持一致，而不必衍生出其子類別，以擴展功能而言，裝飾者模式比繼承更靈活更彈性。

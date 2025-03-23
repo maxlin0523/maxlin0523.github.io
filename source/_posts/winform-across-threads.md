@@ -4,7 +4,7 @@ catalog: true
 date: 2022-04-09 23:37:03
 subtitle:
 header-img:
-tags: 日常除錯
+tags: Debug
 ---
 在開發 Winform 時，碰到這種例外狀況：`跨執行緒作業無效`，原因是：當對 UI 控制項 `更動的執行緒`與 `UI 控制項的執行緒`不相同，這會導致對 UI 控制項進行不安全的調用，從而引發此例外錯誤。
 

@@ -1,11 +1,11 @@
 ---
-title: 加密 & 雜湊
+title: Hash & Encryption
 catalog: true
 date: 2022-11-15 23:12:44
 subtitle:
 header-img:
 tags: 
-- 其他
+- General
 ---
 
 ## 雜湊(Hash)

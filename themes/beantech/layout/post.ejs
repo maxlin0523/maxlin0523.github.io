@@ -90,7 +90,7 @@ layout: layout
                 <% if(config['featured-tags']) { %>
                 <section>
                     <!-- no hr -->
-                    <h5><a href="<%= config.root %>tags/">標籤雲</a></h5>
+                    <h5><a href="<%= config.root %>tags/">tags</a></h5>
                     <div class="tags">
                        <% page.tags.forEach(function(tag){ %>
                           <a class="tag" href="<%= config.root %>tags/#<%= tag.name %>" title="<%= tag.name %>"><%= tag.name %></a>
@@ -102,7 +102,7 @@ layout: layout
                 <!-- Friends Blog -->
                 <% if(config.friends) { %>
                 <hr>
-                <h5>好部落</h5>
+                <h5>推薦</h5>
                 <ul class="list-inline">
 
                     <% config.friends.forEach(function(friend){ %>

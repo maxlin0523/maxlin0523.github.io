@@ -4,7 +4,7 @@ catalog: true
 date: 2021-06-27 00:05:23
 subtitle:
 header-img:
-tags: 設計模式
+tags: Design Patterns
 ---
 # 介紹
 中譯為轉接器模式，是一種結構型的設計模式( Design Pattern )，而實際上就是一個轉接器概念，將兩個彼此不相容的類別藉由一個轉接器類別轉換使彼此達到相容，進而一起完成任務。

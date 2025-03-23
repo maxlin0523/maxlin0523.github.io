@@ -7,6 +7,7 @@ header-img:
 tags: 
 - AspNetCore
 - Cache
+- C#
 ---
 快取主要是將資料暫存於記憶體，方面日後調用時能有更好的回應速度以及重用性，同時也減少對資源的消耗(如：網路、Disk I/O)。
 

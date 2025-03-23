@@ -5,7 +5,7 @@ date: 2021-06-21 00:05:23
 subtitle:
 header-img:
 tags: 
-- C# 本事
+- C#
 ---
 # 介紹
 反射 (Reflection) 會提供 `Type` 型別的物件，用來封裝組件、模組和型別。您可以使用反射來動態建立型別的執行個體、將型別繫結至現有物件，或從現有物件取得型別，並叫用其方法或存取其欄位和屬性（[出自MSDN](https://docs.microsoft.com/zh-tw/previous-versions/ms173183(v=vs.80)?redirectedfrom=MSDN)）
