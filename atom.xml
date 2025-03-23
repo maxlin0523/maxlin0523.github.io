@@ -6,7 +6,7 @@
   <link href="https://maxlin0523.github.io/atom.xml" rel="self"/>
   
   <link href="https://maxlin0523.github.io/"/>
-  <updated>2024-01-04T16:37:24.310Z</updated>
+  <updated>2025-03-23T15:05:58.926Z</updated>
   <id>https://maxlin0523.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JWT</title>
+    <link href="https://maxlin0523.github.io/2025/03/23/jwt/"/>
+    <id>https://maxlin0523.github.io/2025/03/23/jwt/</id>
+    <published>2025-03-23T15:03:10.000Z</published>
+    <updated>2025-03-23T15:05:58.926Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html"></summary>
+        
+      
+    
+    
+    
+    
+    <category term="General" scheme="https://maxlin0523.github.io/tags/General/"/>
+    
+  </entry>
   
   <entry>
     <title>C# Tuple &amp; ValueTuple</title>
@@ -127,11 +150,11 @@
     
     
     
-    <category term="C#" scheme="https://maxlin0523.github.io/tags/C/"/>
-    
     <category term="AspNetCore" scheme="https://maxlin0523.github.io/tags/AspNetCore/"/>
     
     <category term="Cache" scheme="https://maxlin0523.github.io/tags/Cache/"/>
+    
+    <category term="C#" scheme="https://maxlin0523.github.io/tags/C/"/>
     
   </entry>
   
@@ -154,11 +177,11 @@
     
     
     
-    <category term="C#" scheme="https://maxlin0523.github.io/tags/C/"/>
-    
     <category term="AspNetCore" scheme="https://maxlin0523.github.io/tags/AspNetCore/"/>
     
     <category term="Cache" scheme="https://maxlin0523.github.io/tags/Cache/"/>
+    
+    <category term="C#" scheme="https://maxlin0523.github.io/tags/C/"/>
     
   </entry>
   
@@ -468,29 +491,6 @@
     
     
     <category term="Chrome" scheme="https://maxlin0523.github.io/tags/Chrome/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>基礎 LuaScript 語法</title>
-    <link href="https://maxlin0523.github.io/2021/10/16/luascript/"/>
-    <id>https://maxlin0523.github.io/2021/10/16/luascript/</id>
-    <published>2021-10-15T17:48:14.000Z</published>
-    <updated>2023-02-11T14:43:48.201Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html"></summary>
-        
-      
-    
-    
-    
-    
-    <category term="Lua" scheme="https://maxlin0523.github.io/tags/Lua/"/>
     
   </entry>
   

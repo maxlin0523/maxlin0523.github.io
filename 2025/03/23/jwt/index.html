@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Apache Kafka - Max&#39;s Blog
+          JWT - Max&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="https://maxlin0523.github.io/2022/06/01/apache-kafka-first/">
+    <link rel="canonical" href="https://maxlin0523.github.io/2025/03/23/jwt/">
 
     <!-- 不蒜子 觀看人次計數 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -86,14 +86,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Message Queue" title="Message Queue">Message Queue</a>
+                              <a class="tag" href="/tags/#General" title="General">General</a>
                             
                         </div>
-                        <h1>Apache Kafka</h1>
+                        <h1>JWT</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Max Lin on
-                            2022-06-01 <!--（
+                            2025-03-23 <!--（
                             <span class="busuanzi-value" id="busuanzi_value_page_pv"></span> Views） -->
                         </span>
                     </div>
@@ -208,109 +208,152 @@
                 col-md-10 col-md-offset-1
                 ">
                 <!-- class: post-container拔除 -->
-                <h2><span id="簡介">簡介</span></h2>
-<p>Kafka 最初是 Linkedin 開發，後 Confluent 維護與開發，是一套消息代理(Message broker) 的系統，並具有高吞吐、可擴充、高可用、持久的特性。</p>
-<h2><span id="何謂消息代理">何謂消息代理？</span></h2>
-<p>擔任各服務之間的中介層，應用在溝通、信息的傳遞，並代理服務傳送的訊息，流程如下：</p>
-<p><img src="https://i.imgur.com/DgPejAs.png" alt></p>
-<p>Producer 生產一個訊息，會存在一個訊息佇列裡(在此指 kafka)，Consumer 會再透過訊息佇列去消費訊息。</p>
-<p>常用來解決複雜的服務關係，有效達到解耦，kafka 也有以下好處：</p>
+                <h1><span id="jwt">JWT</span></h1>
+<p>全名為 JSON Web Token (JWT)，是一種基於 JSON 的開放標準(<a href="https://www.rfc-editor.org/rfc/rfc7519.html" target="_blank" rel="noopener">RFC 7519</a>)，主要用於服務間傳遞信息，並可透過 HMAC、RSA、ECDS 等演算法進行加密驗證。</p>
+<h3><span id="結構">結構</span></h3>
+<p>主要由這三個部分組成：</p>
 <ol>
-<li>可用性：kafka 可以是一個分散式架構，如：Replication</li>
-<li>可擴展性: 架構進行擴展縮放無需停機，如：Cluster</li>
-<li>耐用性： 所有訊息都是存放於硬碟裡</li>
-<li>性能：由於在磁碟讀寫都是循序的，速度可比 <code>RAM</code> 時間快，並有著高吞吐量可達到巨量緩衝作用</li>
+<li>Header</li>
+<li>Payload</li>
+<li>Signature</li>
 </ol>
-<h2><span id="利用-docker-建置">利用 Docker 建置</span></h2>
-<h4><span id="docker-compose">Docker-Compose</span></h4>
-<p>GUI 使用者介面：<a href="https://www.kafkatool.com/" target="_blank" rel="noopener">kafka-tool</a></p>
-<pre><code class="language-yaml=">version: '3'
-services:
-  zookeeper:
-    image: wurstmeister/zookeeper
-    container_name: zookeeper
-    ports:
-      - &quot;2181:2181&quot;
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
-
-  broker:
-    image: wurstmeister/kafka
-    container_name: kafka
-    ports:
-      - &quot;9092:9092&quot;
-    depends_on:
-      - zookeeper
-    environment:
-      KAFKA_ADVERTISED_HOST_NAME: localhost
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-</code></pre>
-<h3><span id="c">C#</span></h3>
-<p>下載 Nuget <code>Confluent.Kafka</code></p>
-<h4><span id="producer">Producer</span></h4>
-<pre><code class="language-c#">// kafka 位置
-var config = new ProducerConfig { BootstrapServers = &quot;localhost:9092&quot; };
-
-// Producer
-using (var p = new ProducerBuilder&lt;Null, string&gt;(config).Build())
-{
-    try
-    {
-        await p.ProduceAsync(&quot;max-topic&quot;, new Message&lt;Null, string&gt; { Value = &quot;a&quot; });
-        await p.ProduceAsync(&quot;max-topic&quot;, new Message&lt;Null, string&gt; { Value = &quot;b&quot; });
-        await p.ProduceAsync(&quot;max-topic&quot;, new Message&lt;Null, string&gt; { Value = &quot;c&quot; });
-        await p.ProduceAsync(&quot;max-topic&quot;, new Message&lt;Null, string&gt; { Value = &quot;d&quot; });
-        await p.ProduceAsync(&quot;max-topic&quot;, new Message&lt;Null, string&gt; { Value = &quot;e&quot; });
-    }
-    catch (ProduceException&lt;Null, string&gt; e)
-    {
-        Console.WriteLine($&quot;Delivery failed: {e.Error.Reason}&quot;);
-    }
+<p>組合後的格式會像： <code>&lt;Header&gt;.&lt;Payload&gt;.&lt;Signature&gt;</code></p>
+<p><img src="https://hackmd.io/_uploads/rJEPmSLOye.png" alt="image"></p>
+<h4><span id="header">Header</span></h4>
+<p>Header 通常由兩部分組成， <code>alg</code> 爲 Signature 用的加密演算法，<code>typ</code> 基本上是 JWT：</p>
+<pre><code>{
+  &quot;alg&quot;: &quot;RS256&quot;,
+  &quot;typ&quot;: &quot;JWT&quot;
 }
 </code></pre>
-<h4><span id="consumer">Consumer</span></h4>
-<pre><code class="language-c#=">var conf = new ConsumerConfig
-{
-    GroupId = &quot;test-consumer-group&quot;,
-    BootstrapServers = &quot;localhost:9092&quot;,
-    AutoOffsetReset = AutoOffsetReset.Earliest
-};
+<h4><span id="payload">Payload</span></h4>
+<p>Payload 內容通常就是 Claims 的部分，而 Claims 又分三個種類：</p>
+<ul>
+<li><code>Registered claims</code>： 儲存一些標準公認的訊息，像是：<code>iss</code>、<code>sub</code>、<code>exp</code>…，詳見 <a href="https://www.rfc-editor.org/rfc/rfc7519.html#section-4.1" target="_blank" rel="noopener">RFC-7591-section-4.1 </a></li>
+<li><code>Public claims</code>：可以向官方申請註冊的 claims ( <a href="https://www.iana.org/assignments/jwt/jwt.xhtml" target="_blank" rel="noopener">IANA JSON Web Token</a> )</li>
+<li><code>Private claims</code>：自定義的資訊，但要避免與上述的 claims 衝突</li>
+</ul>
+<h4><span id="signature">Signature</span></h4>
+<p>主要就是由 Header(Base64) + Payload(Base64) + secret 組合加密出來的一串文字</p>
+<h3><span id="實作">實作</span></h3>
+<p>首先產生出一對 RSA key pair 並放置於 cert 資料夾</p>
+<pre><code># 生成 private key
+openssl genpkey -algorithm RSA -out cert/test -pkeyopt rsa_keygen_bits:4096
+# 生成 public key
+openssl rsa -pubout -in cert/test -out cert/test.pub
+</code></pre>
+<p>main.go</p>
+<pre><code class="language-go=">package main
 
-using (var c = new ConsumerBuilder&lt;Ignore, string&gt;(conf).Build())
-{
-    c.Subscribe(&quot;max-topic&quot;); // 訂閱 Topic
+import (
+	&quot;fmt&quot;
+	&quot;os&quot;
+	&quot;time&quot;
 
-    CancellationTokenSource cts = new CancellationTokenSource();
+	&quot;test/token&quot;
 
-    try
-    {
-        while (true)
-        {
-            try
-            {
-                var cr = c.Consume(cts.Token);
-                Console.WriteLine($&quot;Consumed message '{cr.Value}' at: '{cr.TopicPartitionOffset}'.&quot;);
-            }
-            catch (ConsumeException e)
-            {
-                Console.WriteLine($&quot;Error occured: {e.Error.Reason}&quot;);
-            }
+	&quot;github.com/golang-jwt/jwt/v4&quot;
+)
 
-            Thread.Sleep(1000); // 一秒消費一次
+func main() {
+	privateKey, err := os.ReadFile(&quot;cert/test&quot;)
+	if err != nil {
+		fmt.Printf(&quot;Error reading private key file: %v\n&quot;, err)
+		return
+	}
+
+	publicKey, err := os.ReadFile(&quot;cert/test.pub&quot;)
+	if err != nil {
+		fmt.Printf(&quot;Error reading public key file: %v\n&quot;, err)
+		return
+	}
+	claims := jwt.MapClaims{
+		&quot;name&quot;: &quot;John Doe&quot;,
+		&quot;role&quot;: &quot;admin&quot;,
+		&quot;exp&quot;:  time.Now().Add(time.Hour * 24).Unix(),
+	}
+
+	jwtToken := token.NewJWT(privateKey, publicKey)
+
+	token, err := jwtToken.Generate(claims)
+	if err != nil {
+		fmt.Printf(&quot;Error generating JWT: %v\n&quot;, err)
+		return
+	}
+	fmt.Println(&quot;Token: &quot;, token)
+
+	claims, err = jwtToken.Validate(token)
+	if err != nil {
+		fmt.Printf(&quot;Error validating JWT: %v\n&quot;, err)
+		return
+	}
+
+	fmt.Printf(&quot;Verified JWT claims: %v\n&quot;, claims)
+}
+</code></pre>
+<p>jwt.go</p>
+<pre><code class="language-go=">package token
+
+import (
+	&quot;fmt&quot;
+
+	&quot;github.com/golang-jwt/jwt/v4&quot;
+)
+
+type JWT struct {
+	privateKey []byte
+	publicKey  []byte
+}
+
+func NewJWT(privateKey []byte, publicKey []byte) JWT {
+	return JWT{
+		privateKey: privateKey,
+		publicKey:  publicKey,
+	}
+}
+
+func (j JWT) Generate(claims jwt.MapClaims) (string, error) {
+	key, err := jwt.ParseRSAPrivateKeyFromPEM(j.privateKey)
+	if err != nil {
+		return &quot;&quot;, fmt.Errorf(&quot;error parsing private key: %v&quot;, err)
+	}
+
+	token, err := jwt.NewWithClaims(jwt.SigningMethodRS256, claims).SignedString(key)
+	if err != nil {
+		return &quot;&quot;, fmt.Errorf(&quot;error signing token: %v&quot;, err)
+	}
+
+	return token, nil
+}
+
+func (j JWT) Validate(tokenString string) (jwt.MapClaims, error) {
+	key, err := jwt.ParseRSAPublicKeyFromPEM(j.publicKey)
+	if err != nil {
+		return nil, fmt.Errorf(&quot;error parsing public key: %v&quot;, err)
+	}
+
+    token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+        if _, ok := token.Method.(*jwt.SigningMethodRSA); !ok {
+            return nil, fmt.Errorf(&quot;unexpected signing method: %v&quot;, token.Header[&quot;alg&quot;])
         }
-    }
-    catch (OperationCanceledException)
-    {
-        c.Close();
-    }
+        return key, nil
+    })
+	if err != nil {
+		return nil, fmt.Errorf(&quot;error parsing token: %v&quot;, err)
+	}
+
+	if claims, ok := token.Claims.(jwt.MapClaims); ok &amp;&amp; token.Valid {
+		return claims, nil
+	} else {
+		return nil, fmt.Errorf(&quot;invalid token&quot;)
+	}
 }
 </code></pre>
-<h2><span id="參考">參考：</span></h2>
-<p><a href="https://zh.wikipedia.org/zh-tw/Kafka" target="_blank" rel="noopener">Kafka 維基百科</a></p>
-<p><a href="https://morosedog.gitlab.io/kafka-20201117-kafka-1/" target="_blank" rel="noopener">Apache Kafka 概述</a></p>
-<p><a href="https://github.com/confluentinc/confluent-kafka-dotnet" target="_blank" rel="noopener">confluentinc/confluent-kafka-dotnet</a></p>
-<p><a href="https://medium.com/@chihsuan/introduction-to-apache-kafka-1cae693aa85e" target="_blank" rel="noopener">Apache Kafka 介紹</a></p>
+<p>Repo：<a href="https://github.com/maxlin0523/jwt-demo" target="_blank" rel="noopener">https://github.com/maxlin0523/jwt-demo</a></p>
+<h1><span id="reference">Reference</span></h1>
+<p><a href="https://www.explainthis.io/zh-hant/swe/jwt" target="_blank" rel="noopener">https://www.explainthis.io/zh-hant/swe/jwt</a><br>
+<a href="https://jwt.io/introduction" target="_blank" rel="noopener">https://jwt.io/introduction</a><br>
+<a href="https://www.inanzzz.com/index.php/post/kdl9/creating-and-validating-a-jwt-rsa-token-in-golang" target="_blank" rel="noopener">https://www.inanzzz.com/index.php/post/kdl9/creating-and-validating-a-jwt-rsa-token-in-golang</a></p>
 
                 
 
@@ -319,13 +362,9 @@ using (var c = new ConsumerBuilder&lt;Ignore, string&gt;(conf).Build())
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2022/05/22/csharp-mongodb-drive/" data-toggle="tooltip" data-placement="top" title="C# 串接 MongoDB">&larr; 上篇 </a>
+                            <a href="/2024/01/05/tuple-and-value-tuple/" data-toggle="tooltip" data-placement="top" title="C# Tuple & ValueTuple">&larr; 上篇 </a>
                         </li>
                     
-                    
-                        <li class="next">
-                            <a href="/2022/06/08/mongodb-aggregation-pipeline/" data-toggle="tooltip" data-placement="top" title="MongoDB Aggregation Pipeline"> 下篇 &rarr;</a>
-                        </li>
                     
                 </ul>
 
@@ -350,7 +389,7 @@ using (var c = new ConsumerBuilder&lt;Ignore, string&gt;(conf).Build())
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">簡介</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">何謂消息代理？</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">利用 Docker 建置</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.0.1.</span> <span class="toc-nav-text">Docker-Compose</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">C#</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.1.1.</span> <span class="toc-nav-text">Producer</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">3.1.2.</span> <span class="toc-nav-text">Consumer</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">參考：</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">JWT</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.1.</span> <span class="toc-nav-text">結構</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.1.1.</span> <span class="toc-nav-text">Header</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.1.2.</span> <span class="toc-nav-text">Payload</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.1.3.</span> <span class="toc-nav-text">Signature</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">1.0.2.</span> <span class="toc-nav-text">實作</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#null"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Reference</span></a></li></ol>
         
         </div>
       </aside>
@@ -371,7 +410,7 @@ using (var c = new ConsumerBuilder&lt;Ignore, string&gt;(conf).Build())
                     <h5><a href="/tags/">tags</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Message Queue" title="Message Queue">Message Queue</a>
+                          <a class="tag" href="/tags/#General" title="General">General</a>
                         
                     </div>
                 </section>

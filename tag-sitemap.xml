@@ -86,13 +86,6 @@
     </url>
 
     <url>
-        <loc>https://maxlin0523.github.io/tags/General/</loc>
-        <lastmod>2024-01-04T16:30:47.839Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://maxlin0523.github.io/tags/AspNetCore/</loc>
         <lastmod>2024-01-04T16:33:30.423Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -116,6 +109,13 @@
     <url>
         <loc>https://maxlin0523.github.io/tags/C/</loc>
         <lastmod>2024-01-04T16:37:24.310Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://maxlin0523.github.io/tags/General/</loc>
+        <lastmod>2025-03-23T15:05:58.926Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
