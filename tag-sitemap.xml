@@ -2,14 +2,14 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>https://maxlin0523.github.io/tags/Hexo/</loc>
+        <loc>https://maxlin0523.github.io/tags/UnitTest/</loc>
         <lastmod>2023-02-11T14:43:48.188Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>https://maxlin0523.github.io/tags/UnitTest/</loc>
+        <loc>https://maxlin0523.github.io/tags/Hexo/</loc>
         <lastmod>2023-02-11T14:43:48.188Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -115,7 +115,7 @@
 
     <url>
         <loc>https://maxlin0523.github.io/tags/General/</loc>
-        <lastmod>2025-03-23T15:05:58.926Z</lastmod>
+        <lastmod>2025-03-23T15:09:18.784Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
