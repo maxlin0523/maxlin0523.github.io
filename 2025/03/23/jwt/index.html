@@ -139,7 +139,7 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -153,7 +153,7 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -209,7 +209,7 @@
                 ">
                 <!-- class: post-container拔除 -->
                 <h1><span id="jwt">JWT</span></h1>
-<p>全名為 JSON Web Token (JWT)，是一種基於 JSON 的開放標準(<a href="https://www.rfc-editor.org/rfc/rfc7519.html" target="_blank" rel="noopener">RFC 7519</a>)，主要用於服務間傳遞信息，並可透過 HMAC、RSA、ECDS 等演算法進行加密驗證。</p>
+<p>全名為 JSON Web Token (JWT)，是一種基於 JSON 的開放標準(<a href="https://www.rfc-editor.org/rfc/rfc7519.html" target="_blank" rel="noopener">RFC 7519</a>)，主要用於服務間傳遞信息，並可透過 HMAC、RSA、ECDS 等演算法進行加密驗證，以確保信息完整性與來源的可信度。</p>
 <h3><span id="結構">結構</span></h3>
 <p>主要由這三個部分組成：</p>
 <ol>
@@ -351,9 +351,9 @@ func (j JWT) Validate(tokenString string) (jwt.MapClaims, error) {
 </code></pre>
 <p>Repo：<a href="https://github.com/maxlin0523/jwt-demo" target="_blank" rel="noopener">https://github.com/maxlin0523/jwt-demo</a></p>
 <h1><span id="reference">Reference</span></h1>
-<p><a href="https://www.explainthis.io/zh-hant/swe/jwt" target="_blank" rel="noopener">https://www.explainthis.io/zh-hant/swe/jwt</a><br>
-<a href="https://jwt.io/introduction" target="_blank" rel="noopener">https://jwt.io/introduction</a><br>
-<a href="https://www.inanzzz.com/index.php/post/kdl9/creating-and-validating-a-jwt-rsa-token-in-golang" target="_blank" rel="noopener">https://www.inanzzz.com/index.php/post/kdl9/creating-and-validating-a-jwt-rsa-token-in-golang</a></p>
+<p><a href="https://www.explainthis.io/zh-hant/swe/jwt" target="_blank" rel="noopener">JWT 的運作原理是什麼？</a></p>
+<p><a href="https://jwt.io/introduction" target="_blank" rel="noopener">Introduction to JSON Web Tokens</a></p>
+<p><a href="https://www.inanzzz.com/index.php/post/kdl9/creating-and-validating-a-jwt-rsa-token-in-golang" target="_blank" rel="noopener">Creating and validating a JWT RSA token in Golang</a></p>
 
                 
 
